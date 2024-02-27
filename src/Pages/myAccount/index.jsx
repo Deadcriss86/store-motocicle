@@ -1,8 +1,10 @@
+import Layout from "../../components/Layout"
+
 function MyAccount() {
     return (
-        <div>
-            
-        </div>
+        <Layout>
+            MyAccount
+        </Layout>
     )
 }
 export default MyAccount

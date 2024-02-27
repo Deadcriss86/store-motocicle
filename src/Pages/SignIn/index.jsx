@@ -1,8 +1,10 @@
+import Layout from "../../components/Layout"
+
 function SingIn() {
     return (
-        <div>
-            
-        </div>
+        <Layout>
+            SingIn
+        </Layout>
     )
 }
 export default SingIn

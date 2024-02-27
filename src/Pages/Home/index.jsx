@@ -1,8 +1,11 @@
+import Layout from "../../components/Layout"
+import Card from "../../components/card"
+
 function Home() {
     return (
-        <div>
-            home
-        </div>
+       <Layout>
+            <Card/>
+       </Layout>
     )
 }
 export default Home

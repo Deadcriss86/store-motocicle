@@ -1,8 +1,10 @@
+import Layout from "../../components/Layout"
+
 function Myorders() {
     return (
-        <div>
-            
-        </div>
+       <Layout>
+            Myorders
+       </Layout>
     )
 }
 export default Myorders
