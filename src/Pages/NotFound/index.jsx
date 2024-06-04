@@ -1,10 +1,5 @@
-import Layout from "../../components/Layout"
-
 function NotFound() {
-    return (
-       <Layout>
-        NotFound
-       </Layout>
-    )
+  return <h1>NotFound</h1>;
 }
-export default NotFound
+
+export default NotFound;
