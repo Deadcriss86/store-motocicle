@@ -4,6 +4,7 @@ import Home from "../Home";
 import NotFound from "../NotFound";
 import Login from "../LoginUser";
 import Singup from "../Register";
+import ProductPage from "../Details";
 import "./App.css";
 
 const AppRoutes = () => {
@@ -12,6 +13,7 @@ const AppRoutes = () => {
     { path: "*", element: <NotFound /> },
     { path: "/login", element: <Login /> },
     { path: "/Singup", element: <Singup /> },
+    { path: "/Detail", element: <ProductPage /> },
   ]);
   return routes;
 };
