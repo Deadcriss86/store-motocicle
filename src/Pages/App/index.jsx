@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { BrowserRouter, useRoutes } from "react-router-dom";
 import Home from "../Home";
 import NotFound from "../NotFound";
@@ -7,6 +7,7 @@ import Singup from "../Register";
 import ProductPage from "../Details";
 import "./App.css";
 import Shopping_cart from "../Shopping_cart";
+import OrderPages from '../Home/OrderPages/OrderPages';
 
 const AppRoutes = () => {
   const routes = useRoutes([
@@ -16,6 +17,7 @@ const AppRoutes = () => {
     { path: "/login", element: <Login /> },
     { path: "/Singup", element: <Singup /> },
     { path: "/Detail", element: <ProductPage /> },
+    { path: "/Order", element: <OrderPages/>}
 
   ]);
   return routes;
