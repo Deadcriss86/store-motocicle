@@ -7,6 +7,15 @@ module.exports = {
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
   ],
+  settings: {
+    react: {
+      version: 'detect'
+    }
+  },
+  rules:{
+    'react/react-in-jsx-scope': 'off',
+    'no-used-vars': ['error', {'varsIgnorePatter': '^React$' }]
+  },
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   settings: { react: { version: '18.2' } },
