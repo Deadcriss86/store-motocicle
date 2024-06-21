@@ -98,12 +98,15 @@
 .mainContent {
     grid-area: mainContent;
     background-color: #1E1E1E;
+    border: 2px solid #0FFF07;
     width: 90%;
     height: 65vh;
     font-size: 20px;
     color: white;
     border-radius: 8px;
     display:flex;
+    flex-direction: column;
+    align-items: center;
 }
 .footer {
     grid-area: footer;
@@ -115,10 +118,100 @@
     border-radius: 8px;
     display:flex;
     font-size: 30px;
+    display: flex;
 }
 .buttonProduct {
     border: 2px solid #0FFF07;
     border-radius: 10px;
     padding: 20px;
+    margin-top: auto;
+    margin-left: 30px;
+    margin-bottom: auto;
+    margin-right: auto;
 }
-
+.cardContainer {
+    background-color: #3F3F3F;
+    width: 90%;
+    height: 100px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    display: grid;
+    align-items: center;
+    grid-template-areas:
+    "cardContainer"
+    "noPedido"
+    "clientName"
+    "mountTotal"
+    "guideNumber"
+    "saveButton"
+    "editButton";
+}
+    .noPedido{
+        grid-area: noPedido;
+    }
+    .clientName{
+        grid-area: clientName;
+    }
+    .mountTotal{
+        grid-area: mountTotal;
+    }
+    .guideNumber{
+        grid-area: guideNumber;
+    }
+    .numberGuide{
+        grid-area: numberGuide;
+    }
+    .saveButton{
+        grid-area: saveButton;
+    }
+    .editButton{
+        grid-area: editButton;
+    }
+    @media (min-width: 768px) {
+        .cardContainer {
+            grid-template-areas:
+            "noPedido clientName mountTotal guideNumber saveButton"
+            "noPedido clientName mountTotal numberGuide editButton";
+            height: 150px;
+        }
+    }
+    @media (min-width: 992px) {
+        .cardContainer {
+            grid-template-areas:
+            "noPedido clientName mountTotal guideNumber saveButton"
+            "noPedido clientName mountTotal numberGuide editButton"
+        }
+    }
+    @media (min-width: 1200px) {
+        .cardContainer {
+            grid-template-areas:
+            "noPedido clientName mountTotal guideNumber saveButton"
+            "noPedido clientName mountTotal numberGuide editButton"
+        }
+    }
+.saveButton{
+    margin-top: auto;
+    margin-bottom:auto;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #0FFF07;
+    border-radius: 10px;
+    padding: 5px;
+}
+.editButton{
+    margin-top: auto;
+    margin-bottom:auto;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #0FFF07;
+    border-radius: 10px;
+    padding: 5px;
+    color: #0FFF07;
+}
+.numberGuide{
+    height: 35px;
+    border: 1px solid #0FFF07;
+    border-radius: 10px;
+    padding: 5px;
+    color: #0FFF07;
+}
