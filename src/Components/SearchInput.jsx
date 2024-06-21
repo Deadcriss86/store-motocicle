@@ -1,5 +1,4 @@
-import React from 'react';
-import '/Users/dxnte/Desktop/Kodeawards/store-motocicle/src/Pages/Home/OrderPages/styleOrder.css'
+import '../Pages/Home/OrderPages/styleOrder.css'
 import { IoSearch } from "react-icons/io5";
 
 const SearchBar = ({ onSearch })=> {
