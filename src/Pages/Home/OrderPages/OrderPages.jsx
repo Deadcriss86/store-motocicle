@@ -1,8 +1,7 @@
-import React, {useState} from 'react'
-import ReactDOM from 'react-dom'
+import { useState } from 'react';
 import SearchBar from '../../../Components/SearchInput'
 import CardDelivery from '../../../Components/CardModuleDelivery'
-import '/Users/dxnte/Desktop/Kodeawards/store-motocicle/src/Pages/Home/OrderPages/styleOrder.css'
+import '../OrderPages/styleOrder.css'
 
 function OrderPages() {
   const [searchQuery, setSearchQuery] = useState ('');
