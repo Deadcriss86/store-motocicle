@@ -4,6 +4,7 @@ import logo from "../Assets/logo_ars.png";
 export const Navlink = () => {
   return (
     <div className="w-full bg-[#0eff06]">
+      .
       <nav class="bg-white border-gray-200 dark:bg-black">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">

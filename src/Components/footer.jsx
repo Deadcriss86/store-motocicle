@@ -1,7 +1,7 @@
 export const Footer = () => {
   return (
     <footer className="footer p-10 bg-base-300 text-base-content dark:bg-black">
-      <div className=" [font-family:'Playfair_Display-Regular',Helvetica] font-normal text-white text-6xl tracking-[0] leading-[normal] whitespace-nowra border-r-2 border-[#0eff06] p-4 h-full flex justify-center items-center text-white">
+      <div className=" [font-family:'Playfair_Display-Regular',Helvetica] font-normal text-white text-6xl tracking-[0] leading-[normal] whitespace-nowra border-r-2 border-[#0eff06] p-4 h-full flex justify-center items-center">
         <h1 className="">ARS</h1>
       </div>
       <div className="text-white">
