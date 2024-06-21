@@ -1,6 +1,5 @@
-import React from "react";
 import { CiEdit } from "react-icons/ci";
-import '/Users/dxnte/Desktop/Kodeawards/store-motocicle/src/Pages/Home/OrderPages/styleOrder.css'
+import '../Pages/Home/OrderPages/styleOrder.css'
 
 const CardDelivery = ({ deliveryDescription, nameClient, priceDelivery, descriptionGuide }) => {
     return(
