@@ -18,9 +18,12 @@ const AppRoutes = () => {
     { path: "/login", element: <Login /> },
     { path: "/Singup", element: <Singup /> },
     { path: "/Detail", element: <ProductPage /> },
+<<<<<<< HEAD
     { path: "/Order", element: <OrderPages/>},
     { path: "/serviceAtention", element:<CostumerSer/>} 
 
+=======
+>>>>>>> origin/Hicks
   ]);
   return routes;
 };
