@@ -8,6 +8,7 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
 cris
+npm install tw-elements-react
 npm i @material-tailwind/react
 
 puse la fuente de todo en tailwind.config.js
