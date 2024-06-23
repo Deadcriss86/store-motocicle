@@ -12,7 +12,7 @@ function Home() {
   return (
     <>
       <div>
-        <div>
+        <div className="">
           <Navlink />
         </div>
         <div className="w-screen h-screen relative">
@@ -180,7 +180,7 @@ function Home() {
             </card>
           </div>
         </div>
-        <div className="bg-black flex justify-center w-full py-2 gap-2 text-[#0eff06]">
+        <div className="bg-black flex justify-center w-full py-6 gap-2 text-[#0eff06]">
           <a href="#item1" className="btn btn-xs hover:bg-white">
             1
           </a>
@@ -196,9 +196,218 @@ function Home() {
         </div>
         <div>
           <div className="border-r-2 bg-[#0eff06">
-            <h2 className="text-[#0eff06] text-xl text-blod bg-black flex justify-center py-4">
+            <h2 className="text-[#0eff06] text-4xl font-bold mb-4 pb-8 bg-black flex justify-center py-4 border-[#0eff06] border-t-2 p-2">
               Productos
             </h2>
+          </div>
+        </div>
+        <div>
+          {/*sliderbar*/}{" "}
+          <div className="pl-4 py-2">
+            <div className="bg-black text-white rounded-lg p-4 w-64 border-2 border-green-500">
+              <div className="text-center text-lg font-bold mb-4">
+                Categorias
+              </div>
+              <div className="border-b border-green-500">
+                <ul className="menu bg-base-200 w-56 rounded-box">
+                  <li>
+                    <details open>
+                      <summary>Slider superior</summary>
+                      <ul>
+                        <li className="text-green-500">
+                          <a>Vento</a>
+                        </li>
+                        <li className="text-green-500">
+                          <a>150CV</a>
+                        </li>
+                      </ul>
+                    </details>
+                  </li>
+                </ul>
+              </div>
+              <div className="border-b border-green-500">
+                <ul className="menu bg-base-200 w-56 rounded-box">
+                  <li>
+                    <details open>
+                      <summary>Slider inferior</summary>
+                      <ul>
+                        <li className="text-green-500">
+                          <a>Vento</a>
+                        </li>
+                        <li className="text-green-500">
+                          <a>150CV</a>
+                        </li>
+                      </ul>
+                    </details>
+                  </li>
+                </ul>
+              </div>
+              <div className="border-b border-green-500">
+                <ul className="menu bg-base-200 w-56 rounded-box">
+                  <li>
+                    <details open>
+                      <summary>Slider trasero</summary>
+                      <ul>
+                        <li className="text-green-500">
+                          <a>Vento</a>
+                        </li>
+                        <li className="text-green-500">
+                          <a>150CV</a>
+                        </li>
+                      </ul>
+                    </details>
+                  </li>
+                </ul>
+              </div>
+              <div className="border-b border-green-500">
+                <ul className="menu bg-base-200 w-56 rounded-box">
+                  <li>
+                    <details open>
+                      <summary>Parrilla deportiva</summary>
+                      <ul>
+                        <li className="text-green-500">
+                          <a>Vento</a>
+                        </li>
+                        <li className="text-green-500">
+                          <a>150CV</a>
+                        </li>
+                      </ul>
+                    </details>
+                  </li>
+                </ul>
+              </div>
+              <div className="border-b border-green-500">
+                <ul className="menu bg-base-200 w-56 rounded-box">
+                  <li>
+                    <details open>
+                      <summary>Parrilla de carga</summary>
+                      <ul>
+                        <li className="text-green-500">
+                          <a>Vento</a>
+                        </li>
+                        <li className="text-green-500">
+                          <a>150CV</a>
+                        </li>
+                      </ul>
+                    </details>
+                  </li>
+                </ul>
+              </div>
+              <div className="border-b border-green-500">
+                <ul className="menu bg-base-200 w-56 rounded-box">
+                  <li>
+                    <details open>
+                      <summary>Parrilla con respaldo</summary>
+                      <ul>
+                        <li className="text-green-500">
+                          <a>Vento</a>
+                        </li>
+                        <li className="text-green-500">
+                          <a>150CV</a>
+                        </li>
+                      </ul>
+                    </details>
+                  </li>
+                </ul>
+              </div>
+              <div className="border-b border-green-500">
+                <ul className="menu bg-base-200 w-56 rounded-box">
+                  <li>
+                    <details open>
+                      <summary>Porta alforjas</summary>
+                      <ul>
+                        <li className="text-green-500">
+                          <a>Vento</a>
+                        </li>
+                        <li className="text-green-500">
+                          <a>150CV</a>
+                        </li>
+                      </ul>
+                    </details>
+                  </li>
+                </ul>
+              </div>
+              <div className="border-b border-green-500">
+                <ul className="menu bg-base-200 w-56 rounded-box">
+                  <li>
+                    <details open>
+                      <summary>Protector de faro</summary>
+                      <ul>
+                        <li className="text-green-500">
+                          <a>Vento</a>
+                        </li>
+                        <li className="text-green-500">
+                          <a>150CV</a>
+                        </li>
+                      </ul>
+                    </details>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>{" "}
+          <div className="bg-white rounded-lg border border-green-500 shadow-md p-4 max-w-sm mx-auto">
+            <div className="relative">
+              <img
+                src="https://via.placeholder.com/150" // Replace with your image source
+                alt="Product"
+                className="w-full h-48 object-cover rounded-t-lg"
+              />
+              <button className="absolute top-2 right-2 text-gray-400 hover:text-red-500">
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <div className="p-4">
+              <h2 className="text-lg font-bold">Precio: $1,200.00 MXN</h2>
+              <p className="text-gray-600">
+                Slider reforzado para moto scorpion dinamo 200, 250
+              </p>
+              <p className="text-red-500">(3 Disponibles)</p>
+              <button className="mt-4 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-700">
+                Ver mas
+              </button>
+            </div>
+          </div>
+          <div className="flex justify-center py-4">
+            {" "}
+            <div className="bg-black flex justify-center w-full py-6 gap-2 text-[#0eff06]">
+              <a href="#item1" className="btn btn-xs hover:bg-white">
+                1
+              </a>
+              <a href="#item2" className="btn btn-xs hover:bg-white">
+                2
+              </a>
+              <a href="#item3" className="btn btn-xs hover:bg-white">
+                3
+              </a>
+              <a href="#item4" className="btn btn-xs hover:bg-white">
+                4
+              </a>
+            </div>
+          </div>{" "}
+          <div className="  flex justify-center py-4">
+            <div className="flex justify-between text-lg pt-10">
+              <IoLogoWhatsapp
+                href="#"
+                size="2rem"
+                className="text-[#0eff06] hover:text-[#0eff06]"
+              />
+              Contactanos para pedidos personalizados
+            </div>
           </div>
         </div>
       </div>
