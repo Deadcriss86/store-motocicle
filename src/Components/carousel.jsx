@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const Carousel = () => {
@@ -30,7 +30,24 @@ const Carousel = () => {
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const itemsToShow = 3;
+  const [itemsToShow, setItemsToShow] = useState(3);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setItemsToShow(3);
+      } else if (window.innerWidth >= 768) {
+        setItemsToShow(2);
+      } else {
+        setItemsToShow(1);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Ejecuta la función al montar el componente para establecer el número correcto de elementos
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
@@ -64,7 +81,8 @@ const Carousel = () => {
             {items.map((item, index) => (
               <div
                 key={index}
-                className="w-1/3 flex-shrink-0 flex flex-col items-center p-2 box-border"
+                className="flex-shrink-0 flex flex-col items-center p-2 box-border"
+                style={{ width: `${100 / itemsToShow}%` }}
               >
                 <img
                   src={item.image}
