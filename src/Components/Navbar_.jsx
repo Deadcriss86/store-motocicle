@@ -1,5 +1,5 @@
 import { IoCartOutline } from "react-icons/io5";
-import logo from "../assets/logo_ars.png";
+import logo from "../Assets/logo_ars.png";
 
 export const Navlink = () => {
   return (
