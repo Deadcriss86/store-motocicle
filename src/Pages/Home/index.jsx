@@ -1,19 +1,11 @@
+import React from "react";
 import { Navlink } from "../../Components/Navbar_";
 import { Footer } from "../../Components/footer";
 import imgfondo from "../../Assets/img_fondo.png";
-import { IoLogoWhatsapp } from "react-icons/io5";
-import { IoArrowForwardCircle } from "react-icons/io5";
+import { IoLogoWhatsapp, IoArrowForwardCircle } from "react-icons/io5";
 import { SlBadge } from "react-icons/sl";
-import { ProductCard } from "../../Components/Product_card";
-
-const product = {
-  images: "https://via.placeholder.com/150",
-  productName: "Slider reforzado para moto scorpion dinamo 200,250",
-  price: "2,100.00",
-  stock: "3",
-  description: "Slider reforzado, ideal para motos de alta cilindrada.",
-  shippingInformation: "Envío gratis a todo el país.",
-};
+import { ProductsPage } from "../../Components/Products";
+import Carousel from "../../Components/carousel";
 
 function Home() {
   return (
@@ -35,7 +27,7 @@ function Home() {
             <div className="text-lg flex justify-between">
               Conoce nuestros productos
               <IoArrowForwardCircle size="2rem" className="text-[#0eff06]" />
-            </div>{" "}
+            </div>
             <div className="flex justify-start items-start">
               <div className="flex justify-center text-lg pt-10">
                 <IoLogoWhatsapp
@@ -65,75 +57,19 @@ function Home() {
           </div>
         </div>
         <div className="flex justify-center text-xl text-white w-full font-bold py-2 bg-[#000000]">
-          Lo mas nuevo
+          Lo más nuevo
         </div>
-        <div className="bg-black rounded-lg shadow-sm carousel w-full flex justify-center py-6">
-          <a
-            href="#slide4"
-            className="btn btn-circle bg-[#0eff06] hover:text-[#0eff06] "
-          >
-            ❮
-          </a>
-          <card
-            itemID={1}
-            className="w-full max-w-sm mx-auto overflow-hidden rounded-lg shadow-md bg-white"
-          >
-            <img
-              src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(15).jpg"
-              className="object-cover w-full h-64"
-              alt="First slide"
-            />
-            <div className="p-4">
-              <h5 className="text-xl text-center font-semibold mb-2" href="#">
-                Porta equipaje lateral
-              </h5>
-            </div>
-          </card>
-          <card
-            itemID={2}
-            className="w-full max-w-sm mx-auto overflow-hidden rounded-lg shadow-md bg-white"
-          >
-            <img
-              src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(22).jpg"
-              className="object-cover w-full h-64"
-              alt="Second slide"
-            />
-            <div className="p-4">
-              <h5 className="text-xl text-center font-semibold mb-2">
-                Parrilla con respaldo
-              </h5>
-            </div>
-          </card>
-          <card
-            itemID={3}
-            className="w-full max-w-sm mx-auto overflow-hidden rounded-lg shadow-md bg-white"
-          >
-            <img
-              src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(23).jpg"
-              className="object-cover w-full h-64"
-              alt="Product3"
-            />
-            <div className="p-4">
-              <h5 href="#" className="text-xl text-center font-semibold mb-2">
-                Slider tipo jaula
-              </h5>
-            </div>
-          </card>
-          <a
-            href="#slide2"
-            className="btn btn-circle bg-[#0eff06] hover:text-[#0eff06]"
-          >
-            ❯
-          </a>{" "}
-        </div>
+
+        <Carousel />
+
         <div className="bg-black w-full text-xl text-wrap flex justify-center font-bold text-[#0eff06] py-4">
           Comentarios de nuestros clientes
         </div>
         <div className="bg-black w-full carousel-center py-6 flex justify-center items-center">
           <div className="card card-side bg-base-100 shadow-xl w-1/3">
-            <card className="bg-white flex justify-center items-center px-3 rounded-lg">
+            <div className="bg-white flex justify-center items-center px-3 rounded-lg">
               <img
-                className=" rounded-lg"
+                className="rounded-lg"
                 src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.jpg"
                 alt="imgprod"
               />
@@ -184,7 +120,7 @@ function Home() {
                   </button>
                 </div>
               </div>
-            </card>
+            </div>
           </div>
         </div>
         <div className="bg-black flex justify-center w-full py-6 gap-2 text-[#0eff06]">
@@ -202,188 +138,7 @@ function Home() {
           </a>
         </div>
         <div>
-          <div className="border-r-2 bg-[#0eff06">
-            <h2 className="text-[#0eff06] text-4xl font-bold mb-4 pb-8 bg-black flex justify-center py-4 border-[#0eff06] border-t-2 p-2">
-              Productos
-            </h2>
-          </div>
-        </div>
-        <div>
-          {" "}
-          {/*sliderbar*/}{" "}
-          <div className="pl-4 py-2">
-            <div className="bg-black text-white rounded-lg p-4 w-64 border-2 border-green-500">
-              <div className="text-center text-lg font-bold mb-4">
-                Categorias
-              </div>
-              <div className="border-b border-green-500">
-                <ul className="menu bg-base-200 w-56 rounded-box">
-                  <li>
-                    <details open>
-                      <summary>Slider superior</summary>
-                      <ul>
-                        <li className="text-green-500">
-                          <a>Vento</a>
-                        </li>
-                        <li className="text-green-500">
-                          <a>150CV</a>
-                        </li>
-                      </ul>
-                    </details>
-                  </li>
-                </ul>
-              </div>
-              <div className="border-b border-green-500">
-                <ul className="menu bg-base-200 w-56 rounded-box">
-                  <li>
-                    <details open>
-                      <summary>Slider inferior</summary>
-                      <ul>
-                        <li className="text-green-500">
-                          <a>Vento</a>
-                        </li>
-                        <li className="text-green-500">
-                          <a>150CV</a>
-                        </li>
-                      </ul>
-                    </details>
-                  </li>
-                </ul>
-              </div>
-              <div className="border-b border-green-500">
-                <ul className="menu bg-base-200 w-56 rounded-box">
-                  <li>
-                    <details open>
-                      <summary>Slider trasero</summary>
-                      <ul>
-                        <li className="text-green-500">
-                          <a>Vento</a>
-                        </li>
-                        <li className="text-green-500">
-                          <a>150CV</a>
-                        </li>
-                      </ul>
-                    </details>
-                  </li>
-                </ul>
-              </div>
-              <div className="border-b border-green-500">
-                <ul className="menu bg-base-200 w-56 rounded-box">
-                  <li>
-                    <details open>
-                      <summary>Parrilla deportiva</summary>
-                      <ul>
-                        <li className="text-green-500">
-                          <a>Vento</a>
-                        </li>
-                        <li className="text-green-500">
-                          <a>150CV</a>
-                        </li>
-                      </ul>
-                    </details>
-                  </li>
-                </ul>
-              </div>
-              <div className="border-b border-green-500">
-                <ul className="menu bg-base-200 w-56 rounded-box">
-                  <li>
-                    <details open>
-                      <summary>Parrilla de carga</summary>
-                      <ul>
-                        <li className="text-green-500">
-                          <a>Vento</a>
-                        </li>
-                        <li className="text-green-500">
-                          <a>150CV</a>
-                        </li>
-                      </ul>
-                    </details>
-                  </li>
-                </ul>
-              </div>
-              <div className="border-b border-green-500">
-                <ul className="menu bg-base-200 w-56 rounded-box">
-                  <li>
-                    <details open>
-                      <summary>Parrilla con respaldo</summary>
-                      <ul>
-                        <li className="text-green-500">
-                          <a>Vento</a>
-                        </li>
-                        <li className="text-green-500">
-                          <a>150CV</a>
-                        </li>
-                      </ul>
-                    </details>
-                  </li>
-                </ul>
-              </div>
-              <div className="border-b border-green-500">
-                <ul className="menu bg-base-200 w-56 rounded-box">
-                  <li>
-                    <details open>
-                      <summary>Porta alforjas</summary>
-                      <ul>
-                        <li className="text-green-500">
-                          <a>Vento</a>
-                        </li>
-                        <li className="text-green-500">
-                          <a>150CV</a>
-                        </li>
-                      </ul>
-                    </details>
-                  </li>
-                </ul>
-              </div>
-              <div className="border-b border-green-500">
-                <ul className="menu bg-base-200 w-56 rounded-box">
-                  <li>
-                    <details open>
-                      <summary>Protector de faro</summary>
-                      <ul>
-                        <li className="text-green-500">
-                          <a>Vento</a>
-                        </li>
-                        <li className="text-green-500">
-                          <a>150CV</a>
-                        </li>
-                      </ul>
-                    </details>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="flex grid-row-1">
-              <ProductCard product={product} />
-            </div>
-          </div>{" "}
-          <div className="flex justify-center py-4">
-            {" "}
-            <div className="bg-black flex justify-center w-full py-6 gap-2 text-[#0eff06]">
-              <a href="#item1" className="btn btn-xs hover:bg-white">
-                1
-              </a>
-              <a href="#item2" className="btn btn-xs hover:bg-white">
-                2
-              </a>
-              <a href="#item3" className="btn btn-xs hover:bg-white">
-                3
-              </a>
-              <a href="#item4" className="btn btn-xs hover:bg-white">
-                4
-              </a>
-            </div>
-          </div>{" "}
-          <div className="  flex justify-center py-4">
-            <div className="flex justify-between text-lg pt-10">
-              <IoLogoWhatsapp
-                href="#"
-                size="2rem"
-                className="text-[#0eff06] hover:text-[#0eff06]"
-              />
-              Contactanos para pedidos personalizados
-            </div>
-          </div>
+          <ProductsPage />
         </div>
       </div>
       <Footer />
