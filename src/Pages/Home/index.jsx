@@ -1,7 +1,7 @@
 import React from "react";
 import { Navlink } from "../../Components/Navbar_";
 import { Footer } from "../../Components/footer";
-import imgfondo from "../../Assets/img_fondo.png";
+import imgfondo from "../../assets/img_fondo.png";
 import { IoLogoWhatsapp, IoArrowForwardCircle } from "react-icons/io5";
 import { SlBadge } from "react-icons/sl";
 import { ProductsPage } from "../../Components/Products";

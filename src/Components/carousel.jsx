@@ -4,30 +4,43 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 const Carousel = () => {
   const items = [
     {
-      images: "https://via.placeholder.com/150",
+      image: "https://via.placeholder.com/150",
       label: "Porta equipaje lateral",
     },
     {
-      images: "https://via.placeholder.com/150",
+      image: "https://via.placeholder.com/150",
       label: "Parrilla con respaldo",
     },
     {
-      images: "https://via.placeholder.com/150",
+      image: "https://via.placeholder.com/150",
+      label: "Slider tipo jaula",
+    },
+    {
+      image: "https://via.placeholder.com/150",
+      label: "Porta equipaje lateral",
+    },
+    {
+      image: "https://via.placeholder.com/150",
+      label: "Parrilla con respaldo",
+    },
+    {
+      image: "https://via.placeholder.com/150",
       label: "Slider tipo jaula",
     },
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const itemsToShow = 3;
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? items.length - 1 : prevIndex - 1
+      prevIndex === 0 ? Math.max(items.length - itemsToShow, 0) : prevIndex - 1
     );
   };
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === items.length - 1 ? 0 : prevIndex + 1
+      prevIndex === Math.max(items.length - itemsToShow, 0) ? 0 : prevIndex + 1
     );
   };
 
@@ -36,24 +49,25 @@ const Carousel = () => {
       <div className="flex items-center justify-between">
         <button
           onClick={handlePrev}
+          aria-label="Previous"
           className="p-2 bg-gray-200 rounded-full hover:bg-gray-400"
         >
           <FaChevronLeft />
         </button>
         <div className="flex-1 flex justify-center items-center overflow-hidden">
           <div
-            className="flex space-x-4 transform transition-transform duration-500"
-            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+            className="flex transition-transform duration-500"
+            style={{
+              transform: `translateX(-${(currentIndex / itemsToShow) * 100}%)`,
+            }}
           >
             {items.map((item, index) => (
               <div
                 key={index}
-                className={`w-full flex-shrink-0 transition-opacity duration-500 ${
-                  index === currentIndex ? "opacity-100" : "opacity-0"
-                }`}
+                className="w-1/3 flex-shrink-0 flex flex-col items-center p-2 box-border"
               >
                 <img
-                  src={item.images}
+                  src={item.image}
                   alt={item.label}
                   className="h-48 object-contain w-full"
                 />
@@ -64,6 +78,7 @@ const Carousel = () => {
         </div>
         <button
           onClick={handleNext}
+          aria-label="Next"
           className="p-2 bg-gray-200 rounded-full hover:bg-gray-400"
         >
           <FaChevronRight />
