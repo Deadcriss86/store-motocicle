@@ -1,12 +1,19 @@
 import { Navlink } from "../../Components/Navbar_";
 import { Footer } from "../../Components/footer";
 import imgfondo from "../../Assets/img_fondo.png";
-//import { HiChevronDoubleRight } from "react-icons/hi";
 import { IoLogoWhatsapp } from "react-icons/io5";
 import { IoArrowForwardCircle } from "react-icons/io5";
 import { SlBadge } from "react-icons/sl";
-import { TECarousel, TECarouselItem } from "tw-elements-react";
-import { Card } from "@material-tailwind/react";
+import { ProductCard } from "../../Components/Product_card";
+
+const product = {
+  images: "https://via.placeholder.com/150",
+  productName: "Slider reforzado para moto scorpion dinamo 200,250",
+  price: "2,100.00",
+  stock: "3",
+  description: "Slider reforzado, ideal para motos de alta cilindrada.",
+  shippingInformation: "Envío gratis a todo el país.",
+};
 
 function Home() {
   return (
@@ -202,6 +209,7 @@ function Home() {
           </div>
         </div>
         <div>
+          {" "}
           {/*sliderbar*/}{" "}
           <div className="pl-4 py-2">
             <div className="bg-black text-white rounded-lg p-4 w-64 border-2 border-green-500">
@@ -345,43 +353,10 @@ function Home() {
                 </ul>
               </div>
             </div>
+            <div className="flex grid-row-1">
+              <ProductCard product={product} />
+            </div>
           </div>{" "}
-          <div className="bg-white rounded-lg border border-green-500 shadow-md p-4 max-w-sm mx-auto">
-            <div className="relative">
-              <img
-                src="https://via.placeholder.com/150" // Replace with your image source
-                alt="Product"
-                className="w-full h-48 object-cover rounded-t-lg"
-              />
-              <button className="absolute top-2 right-2 text-gray-400 hover:text-red-500">
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-              </button>
-            </div>
-
-            <div className="p-4">
-              <h2 className="text-lg font-bold">Precio: $1,200.00 MXN</h2>
-              <p className="text-gray-600">
-                Slider reforzado para moto scorpion dinamo 200, 250
-              </p>
-              <p className="text-red-500">(3 Disponibles)</p>
-              <button className="mt-4 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-700">
-                Ver mas
-              </button>
-            </div>
-          </div>
           <div className="flex justify-center py-4">
             {" "}
             <div className="bg-black flex justify-center w-full py-6 gap-2 text-[#0eff06]">
