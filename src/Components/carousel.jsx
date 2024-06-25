@@ -62,7 +62,7 @@ const Carousel = () => {
   };
 
   return (
-    <div className="relative w-full max-w-4xl mx-auto my-8">
+    <div className="relative w-full max-w-4xl mx-auto my-10 bg-white rounded-xl p-4">
       <div className="flex items-center justify-between">
         <button
           onClick={handlePrev}
@@ -87,9 +87,9 @@ const Carousel = () => {
                 <img
                   src={item.image}
                   alt={item.label}
-                  className="h-48 object-contain w-full"
+                  className="h-48 object-contain w-full rounded-sm"
                 />
-                <p className="text-center mt-2">{item.label}</p>
+                <p className="text-center mt-2 text-">{item.label}</p>
               </div>
             ))}
           </div>

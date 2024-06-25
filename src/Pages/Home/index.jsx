@@ -10,7 +10,7 @@ import Carousel from "../../Components/carousel";
 function Home() {
   return (
     <>
-      <div>
+      <div className=" bg-black">
         <div className="">
           <Navlink />
         </div>
@@ -39,7 +39,7 @@ function Home() {
               </div>
             </div>
           </div>
-          <div className="absolute top-0 left-0 w-3/4 h-full flex justify-center items-end m-b-4 pb-9">
+          <div className="absolute top-0 left-0 w-3/4 h-full flex flew-row justify-center items-end m-b-4 pb-9">
             <p className="text-4xl font-bold mb-4 text-[#0eff06] border-r-1 border-[#0eff06] border-t-2 p-2">
               Quienes somos
             </p>
@@ -62,14 +62,18 @@ function Home() {
 
         <Carousel />
 
-        <div className="bg-black w-full text-xl text-wrap flex justify-center font-bold text-[#0eff06] py-4">
-          Comentarios de nuestros clientes
+        <div className="flex flex-col-reverse bg-black">
+          <h2 className="text-center text-2xl font-bold mb-4 text-[#0eff06] py-4">
+            Comentario de nuestros clientes
+          </h2>
+          <div className="w-3/4 h-1 bg-[#0eff06]"></div>
         </div>
+
         <div className="bg-black w-full py-6 flex justify-center items-center">
           <div className="bg-white w-full md:w-2/3 lg:w-1/2 xl:w-1/3 rounded-lg shadow-xl">
-            <div className="px-3 py-4 md:p-6">
+            <div className="px-3 py-4 md:p-6 flex flex-col justify-center items-center">
               <img
-                className="rounded-lg mb-4"
+                className="rounded-lg mb-4 w-1/2 h-1/2"
                 src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.jpg"
                 alt="imgprod"
               />
