@@ -7,6 +7,7 @@ import Singup from "../Register";
 import ProductPage from "../Details";
 import "./App.css";
 import Shopping_cart from "../Shopping_cart";
+import Editor_user from "../UserEditor";
 import Productos from "../Productos";
 
 const AppRoutes = () => {
@@ -17,6 +18,7 @@ const AppRoutes = () => {
     { path: "/login", element: <Login /> },
     { path: "/Singup", element: <Singup /> },
     { path: "/Detail", element: <ProductPage /> },
+    { path: "/Editoruser", element: <Editor_user /> },
     { path: "/Productos", element: <Productos /> },
   ]);
   return routes;
