@@ -1,6 +1,6 @@
 import { Navlink } from "../../Components/Navbar_";
 import { Footer } from "../../Components/footer";
-import imgfondo from "../../Assets/img_fondo.png";
+// import imgfondo from "../../assets/Images/img_fondo.jpg";
 //import { HiChevronDoubleRight } from "react-icons/hi";
 //import { iconWhats } from "../../Components/icon_whats.jsx";
 
@@ -14,7 +14,7 @@ function Home() {
         <img
           className="w-1320px h-full object-cover opacity-95"
           alt="Imagen de fondo"
-          src={imgfondo}
+          src=""
         />
         <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center flex-col text-center text-white">
           <h1 className="text-4xl font-bold mb-4">

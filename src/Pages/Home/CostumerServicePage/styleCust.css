@@ -6,14 +6,5 @@
     background-repeat: no-repeat;
     height: 100vh;
     width: 100vw;
-    display: grid;
-    justify-items: center;
-}
-.containerNavbar {
-    display: flex;
-    flex-direction: row;
-}
-.logo{
-    height: 110;
-    width: 290;
+    display: flex;  
 }

@@ -23,7 +23,7 @@ function OrderPages() {
           <CardDelivery/>
           <CardDelivery/>
           <CardDelivery/>
-          <CardDelivery/>
+          
         </main>
         <footer className='footer'>
           <button className='buttonProduct'>Productos</button>
