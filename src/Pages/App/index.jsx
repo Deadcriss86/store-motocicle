@@ -8,6 +8,8 @@ import "./App.css";
 import Shopping_cart from "../Shopping_cart";
 import OrderPages from '../Home/OrderPages/OrderPages';
 import CostumerSer from '../Home/CostumerServicePage/CostumerSer';
+import Editor_user from "../UserEditor";
+import Productos from "../Productos";
 
 const AppRoutes = () => {
   const routes = useRoutes([
@@ -18,9 +20,9 @@ const AppRoutes = () => {
     { path: "/Singup", element: <Singup /> },
     { path: "/Detail", element: <ProductPage /> },
     { path: "/Order", element: <OrderPages/>},
-    { path: "/serviceAtention", element:<CostumerSer/>} 
-    
-
+    { path: "/serviceAtention", element:<CostumerSer/>}, 
+    { path: "/Editoruser", element: <Editor_user /> },
+    { path: "/Productos", element: <Productos /> },
   ]);
   return routes;
 };
