@@ -55,8 +55,8 @@ const CartItem = ({
         <div className="price_container flex justify-center items-center min-h-full ml-6">
           <h2 className="price">${getTotalPrice()}</h2>
         </div>
-        <div className="delete_container ml-6 flex justify-center items-center min-h-full">
-          <button onClick={() => onDelete(id)}>Delete</button>
+        <div className="delete_container ml-6 flex justify-center items-center min-h-full font-thin">
+          <button onClick={() => onDelete(id)}>Eliminar</button>
         </div>
       </div>
     </div>
