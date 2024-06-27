@@ -1,10 +1,7 @@
-import React from "react";
+
 import { Navlink } from "../../Components/Navbar_";
 import { Footer } from "../../Components/footer";
-// import imgfondo from "../../assets/Images/img_fondo.jpg";
-//import { HiChevronDoubleRight } from "react-icons/hi";
-//import { iconWhats } from "../../Components/icon_whats.jsx";
-import imgfondo from "../../Assets/img_fondo.png";
+import imgfondo from "../../../dist/assets/img_fondo.png";
 import { IoLogoWhatsapp, IoArrowForwardCircle } from "react-icons/io5";
 import { SlBadge } from "react-icons/sl";
 import { ProductsPage } from "../../Components/Products";
@@ -164,6 +161,8 @@ function Home() {
         </div>
       </div>
       <Footer />
+      </div>
+      </div>
     </>
   );
 }
