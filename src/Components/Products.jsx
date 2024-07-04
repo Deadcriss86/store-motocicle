@@ -11,7 +11,7 @@ const categories = {
     "Veloci",
     "Vento",
     "Yamaha",
-    "Universal",
+    "Universal",  
   ],
   Slider_inferior: [
     "Dinamo",
@@ -85,6 +85,7 @@ export const ProductsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("Sliders");
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const productsPerPage = 6;
 
   const filteredProducts = productsData.filter(
@@ -109,6 +110,10 @@ export const ProductsPage = () => {
     setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
   };
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
     <div className="min-h-screen bg-black text-white">
       <div className="flex flex-col-reverse">
@@ -121,14 +126,26 @@ export const ProductsPage = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex">
+      <div className="flex flex-col lg:flex-row">
+        {/* Sidebar Toggle Button for Small Screens */}
+        <button
+          className="lg:hidden bg-[#0eff06] text-black p-2 rounded mb-4 mx-4"
+          onClick={toggleSidebar}
+        >
+          {isSidebarOpen ? "Cerrar Categorías" : "Abrir Categorías"}
+        </button>
+
         {/* Sidebar */}
-        <div className="bg-black text-white rounded-lg p-4 w-64 border-2 border-[#0eff06]">
+        <div
+          className={`bg-black text-white rounded-lg p-4 w-full lg:w-64 border-2 border-[#0eff06] mb-4 lg:mb-0 lg:block ${
+            isSidebarOpen ? "block" : "hidden"
+          }`}
+        >
           <h2 className="text-2xl font-bold mb-4 text-[#0eff06] text-center">
             Categorías
           </h2>
           <div className="border-b border-[#0eff06]">
-            <ul className="menu bg-base-200 w-56 rounded-box">
+            <ul className="menu bg-base-200 w-full lg:w-56 rounded-box">
               {Object.keys(categories).map((category) => (
                 <li key={category}>
                   <div
@@ -141,6 +158,7 @@ export const ProductsPage = () => {
                       setSelectedCategory(category);
                       setSelectedSubcategory("");
                       setCurrentPage(1);
+                      setIsSidebarOpen(false); // Close the sidebar on selection in small screens
                     }}
                   >
                     {category}
@@ -160,6 +178,7 @@ export const ProductsPage = () => {
                             onClick={() => {
                               setSelectedSubcategory(subcategory);
                               setCurrentPage(1);
+                              setIsSidebarOpen(false); // Close the sidebar on selection in small screens
                             }}
                           >
                             {subcategory}
@@ -174,7 +193,7 @@ export const ProductsPage = () => {
         </div>
 
         {/* Products */}
-        <div className="w-full px-10">
+        <div className="w-full px-10 lg:px-10">
           <h2 className="text-2xl font-bold mb-4 text-[#0eff06] text-center">
             {selectedCategory}
           </h2>

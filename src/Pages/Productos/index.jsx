@@ -1,5 +1,7 @@
 import Admin_products from "../../Components/Admin_products";
 import { useForm } from "react-hook-form";
+import { Navlink } from "../../Components/Navbar_";
+import { Footer } from "../../Components/footer";
 
 const ProductForm = () => {
   const { register, handleSubmit } = useForm();
@@ -127,6 +129,7 @@ const products = [
 const Productos = () => {
   return (
     <div>
+      <Navlink/>
       <div className="main min-h-screen min-w-screen bg-black justify-center items-center flex flex-col">
         <div className="container bg-[#202020] space-x-4 text-2xl p-2 mb-4 rounded-lg text-white">
           <button className="border-2 border-[#0EFF06] rounded-lg p-2">
@@ -162,6 +165,7 @@ const Productos = () => {
           ))}
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };
