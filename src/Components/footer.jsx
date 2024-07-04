@@ -4,7 +4,7 @@ import { FiPhone } from "react-icons/fi";
 
 export const Footer = () => {
   return (
-    <footer className="w-full bg-black text-sm text-white flex flex-col md:flex-row justify-between items-center p-6">
+    <footer className="w-full bg-transparent text-sm text-white flex flex-col md:flex-row justify-between items-center p-6">
       <div className="w-full flex flex-col md:flex-row justify-between md:gap-20 p-3 border-t-2 border-[#0eff06]">
         <div className="flex items-center border-b-2 md:border-b-0 md:border-r-2 border-[#0eff06] p-3 md:p-9 h-full">
           <h1 className="font-playfair text-4xl md:text-7xl text-white">ARS</h1>
