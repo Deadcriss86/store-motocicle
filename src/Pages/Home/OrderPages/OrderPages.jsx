@@ -20,13 +20,24 @@ function OrderPages() {
           <div className='containerText'>
             <p className='textMain'>Resultado de la busqueda: {searchQuery}</p>
           </div>
-          <CardDelivery/>
-          <CardDelivery/>
-          <CardDelivery/>
-          
+            <CardDelivery 
+              deliveryDescription="Descripción del pedido 1" 
+              nameClient="Cliente 1" 
+              priceDelivery="5000" 
+              descriptionGuide="GU123456"/>
+            <CardDelivery 
+              deliveryDescription="Descripción del pedido 2" 
+              nameClient="Cliente 2" 
+              priceDelivery="3000" 
+              descriptionGuide="GU654321"/>
+            <CardDelivery 
+              deliveryDescription="Descripción del pedido 3" 
+              nameClient="Cliente 3" 
+              priceDelivery="7000" 
+              descriptionGuide="GU111111"/>
         </main>
         <footer className='footer'>
-          <button className='buttonProduct'>Productos</button>
+          <button className='buttonProduct border-2 border-color-[#0FFF07] bg-transparent hover:bg-[#0FFF07] hover:text-black transition-colors duration-300'>Productos</button>
         </footer>        
     </div>
   )
