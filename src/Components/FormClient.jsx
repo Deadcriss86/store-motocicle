@@ -24,7 +24,7 @@ const FormService = () => {
 
   return (
     <form onSubmit={handleSubmit} className="text-center max-w-md mx-auto p-4 bg-transparent rounded-md">
-        <p className="text-white">Contactanos</p>
+        <p className="text-[#0eff06] text-xl">Contactanos</p>
       <div className="mb-4">
         <label htmlFor="input1" className="block text-white font-bold mb-2">
           {/* Input 1 */}
