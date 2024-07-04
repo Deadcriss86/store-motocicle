@@ -11,7 +11,7 @@ function Home() {
   return (
     <>
       <div className=" bg-black">
-        <div>
+        <div className="">
           <Navlink />
         </div>
         <div className="w-screen h-screen relative">
