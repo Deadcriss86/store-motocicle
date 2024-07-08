@@ -9,6 +9,7 @@ import "./App.css";
 import Shopping_cart from "../Shopping_cart";
 import Editor_user from "../UserEditor";
 import Productos from "../Productos";
+import { AuthProvider } from "../../context/AuthContext";
 
 const AppRoutes = () => {
   const routes = useRoutes([
@@ -26,9 +27,11 @@ const AppRoutes = () => {
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <AppRoutes />
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    </AuthProvider>
   );
 };
 
