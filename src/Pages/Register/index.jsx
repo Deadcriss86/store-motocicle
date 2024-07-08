@@ -1,20 +1,36 @@
+import { useForm } from "react-hook-form";
+
 const SingUp = () => {
+  const { register, handleSubmit } = useForm();
+
   return (
     <>
       <div className="min-h-screen flex items-center justify-center bg-gray-900">
         <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-sm">
           <h2 className="text-2xl text-white mb-6 text-center">Registrate</h2>
-          <form>
+          <form
+            onSubmit={handleSubmit((values) => {
+              console.log(values);
+            })}
+          >
             <div className="mb-4">
               <label
                 className="block text-gray-300 text-sm font-bold mb-2"
                 htmlFor="email"
               ></label>
               <input
+                className="w-full px-3 py-2 text-gray-900 rounded-lg focus:outline-none focus:shadow-outline mb-4"
+                id="user"
+                type="text"
+                placeholder="username"
+                {...register("username", { required: true })}
+              />
+              <input
                 className="w-full px-3 py-2 text-gray-900 rounded-lg focus:outline-none focus:shadow-outline"
                 id="email"
                 type="email"
                 placeholder="Correo"
+                {...register("email", { required: true })}
               />
             </div>
             <div className="mb-4">
@@ -27,23 +43,8 @@ const SingUp = () => {
                 id="password"
                 type="password"
                 placeholder="Contraseña"
+                {...register("password", { required: true })}
               />
-              <input
-                className="w-full px-3 py-2 text-gray-900 rounded-lg focus:outline-none focus:shadow-outline"
-                id="password"
-                type="password"
-                placeholder="Confirmar Contraseña"
-              />
-            </div>
-            <div className="mb-4">
-              <input
-                type="checkbox"
-                id="rememberMe"
-                className="mr-2 leading-tight"
-              />
-              <label htmlFor="rememberMe" className="text-gray-300 text-sm">
-                Recordarme
-              </label>
             </div>
             <div className="flex items-center justify-center mb-4">
               <button className="bg-black text-white font-bold py-2 px-4 rounded-full w-full flex items-center justify-center gap-2">
@@ -55,7 +56,10 @@ const SingUp = () => {
               <span className="text-gray-300 mx-2">o</span>
             </div>
             <div className="flex items-center justify-center mt-4">
-              <button className="bg-green-500 text-white font-bold py-2 px-4 rounded-full w-full">
+              <button
+                type="submit"
+                className="bg-green-500 text-white font-bold py-2 px-4 rounded-full w-full"
+              >
                 Registro
               </button>
             </div>
