@@ -75,7 +75,7 @@ const Carousel = () => {
           <div
             className="flex transition-transform duration-500"
             style={{
-              transform: `translateX(-${(currentIndex / itemsToShow) * 100}%)`,
+              transform: `translateX(-${(currentIndex * 100) / itemsToShow}%)`,
             }}
           >
             {items.map((item, index) => (
@@ -89,7 +89,7 @@ const Carousel = () => {
                   alt={item.label}
                   className="h-48 object-contain w-full rounded-sm"
                 />
-                <p className="text-center mt-2 text-">{item.label}</p>
+                <p className="text-center mt-2">{item.label}</p>
               </div>
             ))}
           </div>

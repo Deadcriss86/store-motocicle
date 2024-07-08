@@ -26,17 +26,16 @@ const MisCompras = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-black to-[#0eff06d3]">
       <div className="bg-gray-900 bg-opacity-50 rounded-lg p-8 w-auto ">
-        {" "}
         <h1 className="text-center text-3xl text-[#0eff06] mb-8">
           Mis compras
         </h1>
-        <div className="w-full max-w-3xl ">
+        <div className="w-full max-w-3xl">
           {compras.map((compra, index) => (
             <div
               key={index}
               className="bg-gray-800 mb-4 p-4 rounded-lg flex justify-between items-center"
             >
-              <div className="flex items-center ">
+              <div className="flex items-center">
                 <div className="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center">
                   <img
                     src={`/path/to/image/${compra.name}.png`}
@@ -44,12 +43,12 @@ const MisCompras = () => {
                     className="w-12 h-12"
                   />
                 </div>
-              </div>{" "}
+              </div>
               <div className="ml-4">
-                <h2 className="text-xl text-white text-ellipsis">
+                <h2 className="text-xl text-white text-ellipsis overflow-hidden whitespace-nowrap max-w-xs">
                   {compra.name}
                 </h2>
-                <p className="text-gray-400 text-sm">id:{compra.id}</p>
+                <p className="text-gray-400 text-sm">id: {compra.id}</p>
               </div>
               <div className="px-6 flex-initial">
                 <p className="text-xl text-white px-2">
