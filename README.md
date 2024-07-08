@@ -22,7 +22,7 @@ c = Slider trasero
 d = Parrilla deportiva
 e = Parrilla de carga
 f = Parrilla con respaldo
-g =Porta alforjas
+g = Porta alforjas
 h = Protector de faro
 _/
 

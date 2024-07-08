@@ -8,7 +8,7 @@ const MisCompras = () => {
     { id: "89634", name: "Parrilla crossmax", price: 799 },
     {
       id: "89634",
-      name: "Parrilla crossmax pero no se si se va a justar",
+      name: "Parrilla crossmax",
       price: 8959,
     },
   ];
