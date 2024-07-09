@@ -17,7 +17,7 @@ const AppRoutes = () => {
     { path: "*", element: <NotFound /> },
     { path: "/carrito", element: <Shopping_cart /> },
     { path: "/login", element: <Login /> },
-    { path: "/Singup", element: <Singup /> },
+    { path: "/Signup", element: <Singup /> },
     { path: "/Detail", element: <ProductPage /> },
     { path: "/Editoruser", element: <Editor_user /> },
     { path: "/Productos", element: <Productos /> },

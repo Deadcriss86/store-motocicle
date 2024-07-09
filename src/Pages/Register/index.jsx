@@ -1,11 +1,20 @@
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/AuthContext";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-  const { register, handleSubmit } = useForm();
-  const { signup, user } = useAuth();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const { signup, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
-  console.log(user);
+  useEffect(() => {
+    if (isAuthenticated) navigate("/");
+  }, [isAuthenticated]);
 
   const onSubmit = handleSubmit(async (values) => {
     signup(values);
@@ -30,6 +39,9 @@ const SignUp = () => {
               placeholder="Username"
               {...register("username", { required: true })}
             />
+            {errors.username && (
+              <p className="text-red-500">Username is required</p>
+            )}
           </div>
           <div className="mb-4">
             <label
@@ -45,6 +57,7 @@ const SignUp = () => {
               placeholder="Correo"
               {...register("email", { required: true })}
             />
+            {errors.email && <p className="text-red-500">Email is required</p>}
           </div>
           <div className="mb-4">
             <label
@@ -60,6 +73,9 @@ const SignUp = () => {
               placeholder="Contraseña"
               {...register("password", { required: true })}
             />
+            {errors.password && (
+              <p className="text-red-500">Password is required</p>
+            )}
           </div>
           <div className="flex items-center justify-center mb-4">
             <button className="bg-black text-white font-bold py-2 px-4 rounded-full w-full flex items-center justify-center gap-2">
