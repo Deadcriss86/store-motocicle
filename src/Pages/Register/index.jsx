@@ -1,8 +1,11 @@
+import logo from '../../../dist/assets/logo_ars.png'
+
 const SingUp = () => {
   return (
     <>
-      <div className="min-h-screen flex items-center justify-center bg-gray-900">
-        <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-sm">
+      <div className="min-h-screen flex items-center justify-center bg-black">
+        <div className="bg-gradient-to-r-transparent border-2 border-[#0eff06] p-8 rounded-xl shadow-lg w-full max-w-sm">
+          <img className='p-5' src={logo} alt="logo" />
           <h2 className="text-2xl text-white mb-6 text-center">Registrate</h2>
           <form>
             <div className="mb-4">
@@ -46,7 +49,7 @@ const SingUp = () => {
               </label>
             </div>
             <div className="flex items-center justify-center mb-4">
-              <button className="bg-black text-white font-bold py-2 px-4 rounded-full w-full flex items-center justify-center gap-2">
+              <button className="bg-transparent hover:bg-[#0FFF07] hover:text-black transition-colors duration-300 text-white border-2 border-white font-bold py-2 px-4 rounded-full w-full flex items-center justify-center gap-2">
                 <img src="" alt="Google" className="w-6 h-6" />
                 Registrarme con Google
               </button>
@@ -55,7 +58,7 @@ const SingUp = () => {
               <span className="text-gray-300 mx-2">o</span>
             </div>
             <div className="flex items-center justify-center mt-4">
-              <button className="bg-green-500 text-white font-bold py-2 px-4 rounded-full w-full">
+              <button className="bg-transparent hover:bg-[#0FFF07] hover:text-black transition-colors duration-300 text-white border-2 border-white font-bold py-2 px-4 rounded-full w-full flex items-center justify-center gap-2">
                 Registro
               </button>
             </div>
