@@ -9,21 +9,27 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { signup, isAuthenticated } = useAuth();
+  const { signup, isAuthenticated, errors: registerErrors = [] } = useAuth(); // Inicializar como array vacío
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuthenticated) navigate("/");
+    if (isAuthenticated) navigate("/login");
   }, [isAuthenticated]);
 
   const onSubmit = handleSubmit(async (values) => {
-    signup(values);
+    await signup(values);
   });
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900">
       <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-sm">
         <h2 className="text-2xl text-white mb-6 text-center">Registrate</h2>
+        {registerErrors.length > 0 &&
+          registerErrors.map((error, i) => (
+            <div className="bg-red-500 p-2 text-white" key={i}>
+              {error}
+            </div>
+          ))}
         <form onSubmit={onSubmit}>
           <div className="mb-4">
             <label
