@@ -10,6 +10,7 @@ import OrderPages from '../Home/OrderPages/OrderPages';
 import CostumerSer from '../Home/CostumerServicePage/CostumerSer';
 import Editor_user from "../UserEditor";
 import Productos from "../Productos";
+import Shopping from "../Myshopping";
 
 const AppRoutes = () => {
   const routes = useRoutes([
@@ -23,6 +24,7 @@ const AppRoutes = () => {
     { path: "/serviceAtention", element:<CostumerSer/>}, 
     { path: "/Editoruser", element: <Editor_user /> },
     { path: "/Productos", element: <Productos /> },
+    { path: "/Shopping", element: <Shopping /> },
   ]);
   return routes;
 };

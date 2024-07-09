@@ -1,4 +1,4 @@
-import { Navlink } from "../../Components/Navbar_";
+import { NavLink } from "../../Components/Navbar_";
 import { Footer } from "../../Components/footer";
 import imgfondo from "../../../dist/assets/img_fondo.png";
 import { IoLogoWhatsapp, IoArrowForwardCircle } from "react-icons/io5";
@@ -10,9 +10,8 @@ function Home() {
   return (
     <>
       <div className="bg-black min-h-screen">
-        <Navlink />
-        
-        <div className="relative w-full h-[calc(100vh-56px)]"> 
+        <NavLink />
+        <div className="relative w-full h-[calc(100vh-56px)]">
           <img
             className="w-full h-full object-cover opacity-90"
             alt="Imagen de fondo"
@@ -139,9 +138,10 @@ function Home() {
           <ProductsPage />
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 }
 
 export default Home;
+
