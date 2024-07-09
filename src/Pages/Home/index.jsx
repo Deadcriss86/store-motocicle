@@ -1,16 +1,16 @@
-import { NavLink } from "../../Components/Navbar_";
 import { Footer } from "../../Components/footer";
 import imgfondo from "../../../dist/assets/img_fondo.png";
 import { IoLogoWhatsapp, IoArrowForwardCircle } from "react-icons/io5";
 import { SlBadge } from "react-icons/sl";
 import { ProductsPage } from "../../Components/Products";
 import Carousel from "../../Components/carousel";
+import { Navlink } from "../../Components/Navbar_";
 
 function Home() {
   return (
     <>
       <div className="bg-black min-h-screen">
-        <NavLink />
+        <Navlink />
         <div className="relative w-full h-[calc(100vh-56px)]">
           <img
             className="w-full h-full object-cover opacity-90"
