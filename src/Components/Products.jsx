@@ -111,15 +111,11 @@ export const ProductsPage = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <div className="flex flex-col-reverse">
-        <h2 className="text-center text-2xl font-bold mb-4 text-[#0eff06] py-4">
+      <div className="border-r-2 bg-[#0eff06">
+        <h2 className="text-[#0eff06] text-4xl font-bold mb-4 pb-8 bg-black flex justify-center py-4 border-[#0eff06] border-t-2 p-2">
           Productos
         </h2>
-        <div className="flex flex-row-reverse">
-          <div className="w-3/4 h-1 bg-[#0eff06]"></div>
-        </div>
       </div>
-
       {/* Main Content */}
       <div className="flex">
         {/* Sidebar */}
