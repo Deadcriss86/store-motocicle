@@ -88,6 +88,8 @@ function Home() {
                 tornillos que trae de origen no son lo suficientemente largos
                 para agarrar las tres piezas: portacelular, reja y plásticos.
               </p>
+              <br className="bg-black" />
+
               <div className="rating flex justify-center">
                 <input
                   type="radio"

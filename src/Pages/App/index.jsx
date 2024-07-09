@@ -9,6 +9,7 @@ import "./App.css";
 import Shopping_cart from "../Shopping_cart";
 import Editor_user from "../UserEditor";
 import Productos from "../Productos";
+import Shopping from "../Myshopping";
 
 const AppRoutes = () => {
   const routes = useRoutes([
@@ -20,6 +21,7 @@ const AppRoutes = () => {
     { path: "/Detail", element: <ProductPage /> },
     { path: "/Editoruser", element: <Editor_user /> },
     { path: "/Productos", element: <Productos /> },
+    { path: "/Shopping", element: <Shopping /> },
   ]);
   return routes;
 };

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import productsData from "./products.json";
-import { AccordionHeader } from "@material-tailwind/react";
 
 const categories = {
   Slider_superior: [
@@ -85,6 +84,8 @@ const categories = {
 export const ProductsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("Sliders");
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 6;
 
   const filteredProducts = productsData.filter(
     (product) =>
@@ -93,17 +94,28 @@ export const ProductsPage = () => {
         product.subcategory === selectedSubcategory)
   );
 
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+  const startIndex = (currentPage - 1) * productsPerPage;
+  const currentProducts = filteredProducts.slice(
+    startIndex,
+    startIndex + productsPerPage
+  );
+
+  const handlePreviousPage = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
+  };
+
   return (
-    <div className="min-h-screen bg-black text-white ">
-      <div className="flex flex-col-reverse">
-        <h2 className="text-center text-2xl font-bold mb-4 text-[#0eff06] py-4">
+    <div className="min-h-screen bg-black text-white">
+      <div className="border-r-2 bg-[#0eff06">
+        <h2 className="text-[#0eff06] text-4xl font-bold mb-4 pb-8 bg-black flex justify-center py-4 border-[#0eff06] border-t-2 p-2">
           Productos
         </h2>
-        <div className="flex flex-row-reverse">
-          <div className="w-3/4 h-1 bg-[#0eff06]"></div>
-        </div>
       </div>
-
       {/* Main Content */}
       <div className="flex">
         {/* Sidebar */}
@@ -124,6 +136,7 @@ export const ProductsPage = () => {
                     onClick={() => {
                       setSelectedCategory(category);
                       setSelectedSubcategory("");
+                      setCurrentPage(1);
                     }}
                   >
                     {category}
@@ -140,7 +153,10 @@ export const ProductsPage = () => {
                                 ? "bg-[#0eff06] text-black"
                                 : ""
                             }`}
-                            onClick={() => setSelectedSubcategory(subcategory)}
+                            onClick={() => {
+                              setSelectedSubcategory(subcategory);
+                              setCurrentPage(1);
+                            }}
                           >
                             {subcategory}
                           </li>
@@ -155,11 +171,11 @@ export const ProductsPage = () => {
 
         {/* Products */}
         <div className="w-full px-10">
-          <h2 className="text-2xl font-bold mb-4 text-[#0eff06] text-center ">
+          <h2 className="text-2xl font-bold mb-4 text-[#0eff06] text-center">
             {selectedCategory}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 items-center lg:grid-cols-3 gap-4">
-            {filteredProducts.map((product) => (
+            {currentProducts.map((product) => (
               <div
                 key={product.productid}
                 className="bg-white text-black rounded-lg shadow-lg p-4"
@@ -168,7 +184,7 @@ export const ProductsPage = () => {
                   src={product.images}
                   alt={product.productName}
                   className="w-full h-48 object-cover rounded-t-lg mb-4"
-                />{" "}
+                />
                 <p className="text-green-500 font-bold">
                   Precio: ${product.price} MXN
                 </p>
@@ -181,6 +197,24 @@ export const ProductsPage = () => {
                 </button>
               </div>
             ))}
+          </div>
+
+          {/* Pagination */}
+          <div className="flex justify-center mt-8">
+            <button
+              className="bg-gray-900 hover:bg-[#0eff06] text-white hover:text-black py-2 px-4 rounded-lg mr-2"
+              onClick={handlePreviousPage}
+              disabled={currentPage === 1}
+            >
+              Anterior
+            </button>
+            <button
+              className="bg-gray-900 hover:bg-[#0eff06] text-white hover:text-black py-2 px-4 rounded-lg"
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages}
+            >
+              Siguiente
+            </button>
           </div>
         </div>
       </div>
