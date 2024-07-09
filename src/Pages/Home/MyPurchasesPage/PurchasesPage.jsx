@@ -3,7 +3,8 @@ import '/Users/dxnte/Desktop/Kodeawards/store-motocicle/src/Pages/Home/MyPurchas
 function PurchasesPage() {
   return (
     <div>
-      
+
+      <h1>hola mundo</h1>
     </div>
   )
 }
