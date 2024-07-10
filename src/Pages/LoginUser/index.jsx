@@ -1,4 +1,18 @@
+import { useForm } from "react-hook-form";
+import { useAuth } from "../../context/AuthContext";
+
 const Login = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const { signin, errors: loginErrors, isAuthenticated } = useAuth();
+
+  const onSubmit = handleSubmit((data) => {
+    console.log(data);
+  });
   return (
     <>
       <div className="min-h-screen flex items-center justify-center bg-gray-900">
@@ -6,7 +20,10 @@ const Login = () => {
           <h2 className="text-2xl text-white mb-6 text-center">
             Inicia sesión
           </h2>
-          <form>
+          {loginErrors.map((error, i) => (
+            <Message message={error} key={i} />
+          ))}
+          <form onSubmit={onSubmit}>
             <div className="mb-4">
               <label
                 className="block text-gray-300 text-sm font-bold mb-2"
@@ -17,6 +34,7 @@ const Login = () => {
                 id="email"
                 type="email"
                 placeholder="Correo"
+                {...register("email", { required: true })}
               />
             </div>
             <div className="mb-4">
@@ -29,6 +47,7 @@ const Login = () => {
                 id="password"
                 type="password"
                 placeholder="Contraseña"
+                {...register("password", { required: true, minLength: 6 })}
               />
             </div>
             <div className="mb-4">

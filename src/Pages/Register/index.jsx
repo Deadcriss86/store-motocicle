@@ -9,6 +9,7 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const { signup, isAuthenticated, errors: registerErrors = [] } = useAuth(); // Inicializar como array vacío
   const navigate = useNavigate();
 
