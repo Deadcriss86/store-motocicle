@@ -1,8 +1,5 @@
 import { ProductForm } from "../../Components/ProductForm";
 import Admin_products from "../../Components/Admin_products";
-import { useForm } from "react-hook-form";
-import { Navlink } from "../../Components/Navbar_";
-import { Footer } from "../../Components/footer";
 import { useState } from "react";
 
 const products = [
@@ -34,7 +31,6 @@ const Productos = () => {
 
   return (
     <div>
-      <Navlink />
       <div className="main min-h-screen min-w-screen bg-black justify-center items-center flex flex-col p-6">
         {responseMessage === "ok" ? (
           <div role="alert" className="alert alert-success bg-[#0EFF06] mb-4">
@@ -68,89 +64,7 @@ const Productos = () => {
           </button>
           <dialog id="my_modal_4" className="modal bg-[#000000c7]">
             <div className="modal-action">
-              <div className="border-2 border-[#0EFF06] rounded-lg p-3 bg-black text-lg">
-                <h2 className="text-xl">Nuevo Producto</h2>
-                <form
-                  className="mt-2"
-                  onSubmit={handleSubmit(onSubmit)}
-                  encType="multipart/form-data"
-                >
-                  <div>
-                    <label htmlFor="name"></label>
-                    <input
-                      placeholder="Nombre del producto"
-                      className="input input-bordered w-full max-w-xs"
-                      type="text"
-                      id="name"
-                      {...register("name")}
-                    />
-                  </div>
-                  <br />
-                  <div>
-                    <label htmlFor="price"></label>
-                    <input
-                      placeholder="Precio"
-                      className="input input-bordered w-full max-w-xs"
-                      type="number"
-                      id="price"
-                      {...register("price")}
-                      step="0.01"
-                    />
-                  </div>
-                  <br />
-                  <div>
-                    <label htmlFor="stock"></label>
-                    <input
-                      placeholder="Stock"
-                      className="input input-bordered w-full max-w-xs"
-                      type="number"
-                      id="stock"
-                      {...register("stock")}
-                    />
-                  </div>
-                  <br />
-                  <div className="text-white">
-                    <label htmlFor="description"></label>
-                    <textarea
-                      className="textarea textarea-bordered ml-2"
-                      placeholder="Descripción del producto"
-                      id="description"
-                      {...register("description")}
-                      rows="4"
-                      cols="50"
-                    />
-                  </div>
-                  <br />
-                  <div>
-                    <label htmlFor="image">Fotos del producto:</label>
-                    <input
-                      className="file-input file-input-bordered w-full max-w-xs ml-2"
-                      type="file"
-                      id="image"
-                      {...register("image")}
-                      accept="image/jpeg"
-                    />
-                  </div>
-                  <br />
-                  <div>
-                    <label htmlFor="manual">Instructivo:</label>
-                    <input
-                      className="file-input file-input-bordered w-full max-w-xs ml-2"
-                      type="file"
-                      id="manual"
-                      {...register("manual")}
-                      accept="application/pdf"
-                    />
-                  </div>
-                  <br />
-                  <button
-                    className="bg-[#0EFF06] rounded-lg p-2 text-black font-bold text-xl hover:bg-white"
-                    type="submit"
-                  >
-                    Agregar Producto
-                  </button>
-                </form>
-              </div>
+              <ProductForm setResponseMessage={setResponseMessage} />
               <form method="dialog">
                 <button className="btn border-2 border-[#0EFF06] rounded-lg p-3">
                   Cancelar
@@ -172,7 +86,6 @@ const Productos = () => {
           ))}
         </div>
       </div>
-      <Footer />
     </div>
   );
 };
