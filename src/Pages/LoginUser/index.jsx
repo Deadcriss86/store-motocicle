@@ -1,5 +1,8 @@
-import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const Login = () => {
   const {
@@ -9,10 +12,14 @@ const Login = () => {
   } = useForm();
 
   const { signin, errors: loginErrors, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+  const onSubmit = (data) => signin(data);
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
-  });
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/tasks");
+    }
+  }, [isAuthenticated]);
   return (
     <>
       <div className="min-h-screen flex items-center justify-center bg-gray-900">
@@ -70,7 +77,10 @@ const Login = () => {
               <span className="text-gray-300 mx-2">o</span>
             </div>
             <div className="flex items-center justify-center mt-4">
-              <button className="bg-green-500 text-white font-bold py-2 px-4 rounded-full w-full">
+              <button
+                type="submit"
+                className="bg-green-500 text-white font-bold py-2 px-4 rounded-full w-full"
+              >
                 Iniciar sesión
               </button>
             </div>
