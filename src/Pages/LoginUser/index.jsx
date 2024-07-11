@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../../schemas/auth";
+import { Message } from "../../Components/ui/Message";
 
 const Login = () => {
   const {
@@ -33,9 +34,7 @@ const Login = () => {
             Inicia sesión
           </h2>
           {loginErrors.map((error, i) => (
-            <div className="bg-red-500 p-2 text-white" key={i}>
-              {error}
-            </div>
+            <Message message={error} key={i} />
           ))}
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
@@ -50,6 +49,7 @@ const Login = () => {
                 placeholder="Correo"
                 {...register("email", { required: true })}
               />
+              <p>{errors.email?.message}</p>
             </div>
             <div className="mb-4">
               <label
@@ -63,6 +63,7 @@ const Login = () => {
                 placeholder="Contraseña"
                 {...register("password", { required: true, minLength: 6 })}
               />
+              <p>{errors.password?.message}</p>
             </div>
             <div className="mb-4">
               <input

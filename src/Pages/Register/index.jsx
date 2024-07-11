@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/AuthContext";
+import { useNavigate, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { registerSchema } from "../../schemas/auth";
-import { useNavigate, Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Message } from "../../Components/ui/Message";
 
 const SignUp = () => {
   const { signup, errors: registerErrors, isAuthenticated } = useAuth();
@@ -16,24 +17,22 @@ const SignUp = () => {
   });
   const navigate = useNavigate();
 
+  const onSubmit = async (value) => {
+    await signup(value);
+  };
+
   useEffect(() => {
     if (isAuthenticated) navigate("/login");
   }, [isAuthenticated]);
-
-  const onSubmit = handleSubmit(async (values) => {
-    await signup(values);
-  });
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900">
       <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-sm">
         <h2 className="text-2xl text-white mb-6 text-center">Registrate</h2>
         {registerErrors.map((error, i) => (
-          <div className="bg-red-500 p-2 text-white" key={i}>
-            {error}
-          </div>
+          <Message message={error} key={i} />
         ))}
-        <form onSubmit={onSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <label
               className="block text-gray-300 text-sm font-bold mb-2"
@@ -46,10 +45,10 @@ const SignUp = () => {
               id="user"
               type="text"
               placeholder="Username"
-              {...register("username", { required: true })}
+              {...register("username")}
             />
-            {errors.username && (
-              <p className="text-red-500">Username is required</p>
+            {errors.username?.message && (
+              <p className="text-red-500">{errors.username?.message}</p>
             )}
           </div>
           <div className="mb-4">
@@ -64,9 +63,11 @@ const SignUp = () => {
               id="email"
               type="email"
               placeholder="Correo"
-              {...register("email", { required: true })}
+              {...register("email")}
             />
-            {errors.email && <p className="text-red-500">Email is required</p>}
+            {errors.email?.message && (
+              <p className="text-red-500">{errors.email?.message}</p>
+            )}
           </div>
           <div className="mb-4">
             <label
@@ -80,10 +81,10 @@ const SignUp = () => {
               id="password"
               type="password"
               placeholder="Contraseña"
-              {...register("password", { required: true })}
+              {...register("password")}
             />
-            {errors.password && (
-              <p className="text-red-500">Password is required</p>
+            {errors.password?.message && (
+              <p className="text-red-500">{errors.password?.message}</p>
             )}
           </div>
           <div className="flex items-center justify-center mb-4">
