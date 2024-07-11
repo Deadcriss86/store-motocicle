@@ -22,7 +22,7 @@ const SignUp = () => {
   };
 
   useEffect(() => {
-    if (isAuthenticated) navigate("/login");
+    if (isAuthenticated) navigate("/");
   }, [isAuthenticated]);
 
   return (
@@ -42,7 +42,6 @@ const SignUp = () => {
             </label>
             <input
               className="w-full px-3 py-2 text-gray-900 rounded-lg focus:outline-none focus:shadow-outline mb-4"
-              id="user"
               type="text"
               placeholder="Username"
               {...register("username")}
@@ -60,7 +59,6 @@ const SignUp = () => {
             </label>
             <input
               className="w-full px-3 py-2 text-gray-900 rounded-lg focus:outline-none focus:shadow-outline mb-4"
-              id="email"
               type="email"
               placeholder="Correo"
               {...register("email")}
@@ -78,13 +76,29 @@ const SignUp = () => {
             </label>
             <input
               className="w-full px-3 py-2 text-gray-900 rounded-lg focus:outline-none focus:shadow-outline mb-4"
-              id="password"
               type="password"
               placeholder="Contraseña"
               {...register("password")}
             />
             {errors.password?.message && (
               <p className="text-red-500">{errors.password?.message}</p>
+            )}
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-300 text-sm font-bold mb-2"
+              htmlFor="password"
+            >
+              confirmar password
+            </label>
+            <input
+              className="w-full px-3 py-2 text-gray-900 rounded-lg focus:outline-none focus:shadow-outline mb-4"
+              type="password"
+              placeholder="Contraseña"
+              {...register("confirmPassword")}
+            />
+            {errors.confirmPassword?.message && (
+              <p className="text-red-500">{errors.confirmPassword?.message}</p>
             )}
           </div>
           <div className="flex items-center justify-center mb-4">
