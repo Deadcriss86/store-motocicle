@@ -1,7 +1,12 @@
+import { Link } from "react-router-dom";
 import { IoCartOutline } from "react-icons/io5";
+import { useAuth } from "../context/AuthContext";
 import logo from "../Assets/logo_ars.png";
 
 export const Navlink = () => {
+  const { isAuthenticated, logout, user } = useAuth();
+  console.log(isAuthenticated, user);
+
   return (
     <div className="">
       <nav className=" bg-white border-gray-200 dark:bg-black">
@@ -23,38 +28,52 @@ export const Navlink = () => {
             id="navbar"
           >
             <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-100 md:dark:bg-transparent dark:border-gray-700">
-              <li>
-                <a
-                  href="#"
-                  className="block py-3 px-4 md:p-0 md:hover:bg-transparent md:hover:text-[#0eff06] md:dark:hover:text-[#0eff06] dark:text-white dark:hover:bg-gray-100 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-100"
-                >
-                  Productos
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block py-3 px-4 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#0eff06] md:dark:hover:text-[#0eff06] dark:text-white dark:hover:bg-gray-100 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-100"
-                >
-                  Atencion al cliente
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 px-3 md:p-0 text-gray-100 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#0eff06] md:dark:hover:text-[#0eff06] dark:text-white dark:hover:bg-gray-100 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-100"
-                >
-                  Mis compras
-                </a>
-              </li>
-              <li>
-                <button>
-                  <IoCartOutline
-                    size="2rem"
-                    className="text-white hover:text-[#0eff06]"
-                  />
-                </button>
-              </li>
+              {isAuthenticated ? (
+                <>
+                  <li>Welcome {user.username}</li>
+                  <li>
+                    <Link
+                      to="/productos"
+                      className="block py-3 px-4 md:p-0 md:hover:bg-transparent md:hover:text-[#0eff06] md:dark:hover:text-[#0eff06] dark:text-white dark:hover:bg-gray-100 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-100"
+                    >
+                      Productos
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/atencion-al-cliente"
+                      className="block py-3 px-4 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#0eff06] md:dark:hover:text-[#0eff06] dark:text-white dark:hover:bg-gray-100 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-100"
+                    >
+                      Atención al cliente
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/mis-compras"
+                      className="block py-2 px-3 md:p-0 text-gray-100 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#0eff06] md:dark:hover:text-[#0eff06] dark:text-white dark:hover:bg-gray-100 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-100"
+                    >
+                      Mis compras
+                    </Link>
+                  </li>
+                  <li>
+                    <button>
+                      <IoCartOutline
+                        size="2rem"
+                        className="text-white hover:text-[#0eff06]"
+                      />
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <li>
+                  <Link
+                    to="/login"
+                    className="block py-3 px-4 md:p-0 md:hover:bg-transparent md:hover:text-[#0eff06] md:dark:hover:text-[#0eff06] dark:text-white dark:hover:bg-gray-100 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-100"
+                  >
+                    Iniciar sesión
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
         </div>
