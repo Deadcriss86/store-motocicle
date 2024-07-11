@@ -63,6 +63,11 @@ export const Navlink = () => {
                       />
                     </button>
                   </li>
+                  <li>
+                    <Link to="/" onClick={() => logout()}>
+                      Logout
+                    </Link>
+                  </li>
                 </>
               ) : (
                 <li>
