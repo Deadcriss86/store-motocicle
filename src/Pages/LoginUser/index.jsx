@@ -3,16 +3,20 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { loginSchema } from "../../schemas/auth";
 
 const Login = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: zodResolver(loginSchema),
+  });
 
   const { signin, errors: loginErrors, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+
   const onSubmit = (data) => signin(data);
 
   useEffect(() => {
@@ -20,6 +24,7 @@ const Login = () => {
       navigate("/tasks");
     }
   }, [isAuthenticated]);
+
   return (
     <>
       <div className="min-h-screen flex items-center justify-center bg-gray-900">
@@ -30,7 +35,7 @@ const Login = () => {
           {loginErrors.map((error, i) => (
             <Message message={error} key={i} />
           ))}
-          <form onSubmit={onSubmit}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
               <label
                 className="block text-gray-300 text-sm font-bold mb-2"
@@ -88,9 +93,9 @@ const Login = () => {
           <div className="text-center mt-4">
             <p className="text-gray-300">
               ¿Aún no tienes cuenta?{" "}
-              <a href="#" className="text-green-500">
+              <Link to="/signup" className="text-green-500">
                 Regístrate
-              </a>
+              </Link>
             </p>
             <p className="text-gray-300 mt-2">
               <a href="#" className="text-green-500">
