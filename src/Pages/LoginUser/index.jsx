@@ -33,7 +33,9 @@ const Login = () => {
             Inicia sesión
           </h2>
           {loginErrors.map((error, i) => (
-            <Message message={error} key={i} />
+            <div className="bg-red-500 p-2 text-white" key={i}>
+              {error}
+            </div>
           ))}
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">

@@ -1,16 +1,19 @@
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/AuthContext";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { registerSchema } from "../../schemas/auth";
+import { useNavigate, Link } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const SignUp = () => {
+  const { signup, errors: registerErrors, isAuthenticated } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-
-  const { signup, isAuthenticated, errors: registerErrors = [] } = useAuth(); // Inicializar como array vacío
+  } = useForm({
+    resolver: zodResolver(registerSchema),
+  });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,12 +28,11 @@ const SignUp = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-900">
       <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-sm">
         <h2 className="text-2xl text-white mb-6 text-center">Registrate</h2>
-        {registerErrors.length > 0 &&
-          registerErrors.map((error, i) => (
-            <div className="bg-red-500 p-2 text-white" key={i}>
-              {error}
-            </div>
-          ))}
+        {registerErrors.map((error, i) => (
+          <div className="bg-red-500 p-2 text-white" key={i}>
+            {error}
+          </div>
+        ))}
         <form onSubmit={onSubmit}>
           <div className="mb-4">
             <label
@@ -108,10 +110,10 @@ const SignUp = () => {
         </form>
         <div className="text-center mt-4">
           <p className="text-gray-300">
-            ¿Aún no tienes cuenta?{" "}
-            <a href="#" className="text-green-500">
-              Regístrate
-            </a>
+            ¿Ya tienes una cuenta?{" "}
+            <Link to="/login" className="text-green-500">
+              Inicia sesion
+            </Link>
           </p>
           <p className="text-gray-300 mt-2">
             <a href="#" className="text-green-500">
