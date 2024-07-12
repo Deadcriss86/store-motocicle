@@ -24,7 +24,7 @@ const AppRoutes = () => {
       element: <ProtectedRoute />,
       children: [
         { path: "/editoruser", element: <Editor_user /> }, // Corregido de /Editoruser a /editoruser
-        { path: "/carrito/:id", element: <Shopping_cart /> },
+        { path: "/carrito", element: <Shopping_cart /> },
       ],
     },
   ]);
