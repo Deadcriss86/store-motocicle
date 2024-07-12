@@ -49,7 +49,7 @@ export const Navlink = () => {
                   </li>
                   <li>
                     <Link
-                      to="/mis-compras"
+                      to="/carrito"
                       className="block py-2 px-3 md:p-0 text-gray-100 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#0eff06] md:dark:hover:text-[#0eff06] dark:text-white dark:hover:bg-gray-100 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-100"
                     >
                       Mis compras
@@ -60,6 +60,7 @@ export const Navlink = () => {
                       <IoCartOutline
                         size="2rem"
                         className="text-white hover:text-[#0eff06]"
+                        to="/carrito"
                       />
                     </button>
                   </li>
