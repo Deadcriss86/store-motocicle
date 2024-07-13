@@ -11,7 +11,7 @@ const categories = {
     "Veloci",
     "Vento",
     "Yamaha",
-    "Universal",  
+    "Universal",
   ],
   Slider_inferior: [
     "Dinamo",
@@ -115,9 +115,9 @@ export const ProductsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <div className="border-r-2 bg-[#0eff06">
-        <h2 className="text-[#0eff06] text-4xl font-bold mb-4 pb-8 bg-black flex justify-center py-4 border-[#0eff06] border-t-2 p-2">
+    <div className="min-h-screen text-white">
+      <div className="">
+        <h2 className="text-[#0eff06] text-4xl font-bold mb-4 flex justify-center py-4">
           Productos
         </h2>
       </div>

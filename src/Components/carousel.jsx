@@ -1,36 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import axios from "axios";
 
 const Carousel = () => {
-  const items = [
-    {
-      image: "https://via.placeholder.com/150",
-      label: "Porta equipaje lateral",
-    },
-    {
-      image: "https://via.placeholder.com/150",
-      label: "Parrilla con respaldo",
-    },
-    {
-      image: "https://via.placeholder.com/150",
-      label: "Slider tipo jaula",
-    },
-    {
-      image: "https://via.placeholder.com/150",
-      label: "Porta equipaje lateral",
-    },
-    {
-      image: "https://via.placeholder.com/150",
-      label: "Parrilla con respaldo",
-    },
-    {
-      image: "https://via.placeholder.com/150",
-      label: "Slider tipo jaula",
-    },
-  ];
-
+  const [items, setItems] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsToShow, setItemsToShow] = useState(3);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/api/getproducts"
+        );
+        setItems(response.data);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    console.log("Items have been set: ", items);
+  }, [items]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -85,11 +79,11 @@ const Carousel = () => {
                 style={{ width: `${100 / itemsToShow}%` }}
               >
                 <img
-                  src={item.image}
-                  alt={item.label}
-                  className="h-48 object-contain w-full rounded-sm"
+                  src={item.images}
+                  alt={item.productName}
+                  className=" relative h-48 object-contain w-50 overflow-hidden bg-white border-0 border-gray-200 rounded-badge"
                 />
-                <p className="text-center mt-2">{item.label}</p>
+                <p className="text-center mt-2">{item.productName}</p>
               </div>
             ))}
           </div>
