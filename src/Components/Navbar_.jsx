@@ -44,7 +44,7 @@ export const Navlink = () => {
       </button>
       <Link
         to="/"
-        className="text-gray-100 hover:text-[#0eff06] dark:text-white flex gap-3 items-start"
+        className="text-gray-900 bg-[#0eff06] hover:bg-[#0eff06b4] focus:ring-1 focus:outline-none focus:ring-[#0eff06] font-medium rounded-xl text-sm px-4 py-2 dark:bg-[#0eff06] dark:hover:bg-[#0eff069d] dark:focus:ring-[#0eff06]"
         onClick={() => logout()}
       >
         Logout
@@ -60,7 +60,10 @@ export const Navlink = () => {
       >
         Mis compras
       </Link>
-      <Link to="/login" className="px-2 text-white ">
+      <Link
+        to="/login"
+        className="text-gray-900 bg-[#0eff06] hover:bg-[#0eff06b4] focus:ring-1 focus:outline-none focus:ring-[#0eff06] font-medium rounded-xl text-sm px-4 py-2 mx-2 dark:bg-[#0eff06] dark:hover:bg-[#0eff069d] dark:focus:ring-[#0eff06] "
+      >
         login
       </Link>
     </>
