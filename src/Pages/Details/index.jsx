@@ -1,8 +1,14 @@
-import React from "react";
+import { Navlink } from "../../Components/Navbar_";
+import { Footer } from "../../Components/footer";
 
 const ProductPage = () => {
   return (
     <div className="min-h-screen bg-black text-white">
+      <Navlink/>
+      <br />
+      <br />
+      <br />
+      <br />
       <main className="p-4">
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col lg:flex-row lg:space-x-8 bg-gray-800 p-4 rounded-lg">
@@ -13,13 +19,15 @@ const ProductPage = () => {
                 className="w-full rounded-lg"
               />
             </div>
+            <br />
             <div className="lg:w-1/2">
-              <h1 className="text-3xl font-bold mb-2">
+              <h1 className="text-3xl font-bold mb-2 text-[#0eff06]">
                 Slider reforzado para moto yamaha ybr125
               </h1>
-              <p className="text-2xl text-green-500 mb-4">$1,200.00 MXN</p>
+              <p className="text-[#0eff06]">Precio</p>
+              <p className="text-2xl text-[#0eff06] mb-4">$1,200.00 MXN</p>
               <p className="text-red-500 mb-4">(3 Disponibles)</p>
-              <button className="bg-green-500 text-white font-bold py-2 px-4 rounded-full mb-4">
+              <button className="bg-[#0eff06] text-black font-bold py-2 px-4 rounded-full mb-4">
                 Agregar al carrito
               </button>
               <div className="flex items-center mb-4">
@@ -66,16 +74,17 @@ const ProductPage = () => {
                 type="text"
                 placeholder="Hacer una pregunta..."
               />
-              <button className="bg-green-500 text-white px-4 py-2 rounded-lg">
+              <button className="bg-[#0eff06] text-white px-4 py-2 rounded-lg">
                 Enviar Pregunta
               </button>
             </div>
-            <a href="#" className="text-green-500 mt-4 block">
+            <a href="#" className="text-[#0eff06] mt-4 block">
               Ver todas las preguntas
             </a>
           </div>
         </div>
       </main>
+      <Footer/>
     </div>
   );
 };

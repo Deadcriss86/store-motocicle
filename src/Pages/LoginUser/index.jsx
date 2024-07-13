@@ -1,3 +1,4 @@
+
 import { useAuth } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -26,10 +27,15 @@ const Login = () => {
     }
   }, [isAuthenticated]);
 
+import logo from '../../../dist/assets/logo_ars.png'
+
+const Login = () => {
+  
   return (
     <>
-      <div className="min-h-screen flex items-center justify-center bg-gray-900">
-        <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-sm">
+      <div className="min-h-screen flex items-center justify-center bg-black">
+        <div className="bg-gradient-to-r-transparent border-2 border-[#0eff06] p-8 rounded-xl shadow-lg w-full max-w-sm">
+        <img className='p-5' src={logo} alt="logo" />
           <h2 className="text-2xl text-white mb-6 text-center">
             Inicia sesión
           </h2>
@@ -76,7 +82,7 @@ const Login = () => {
               </label>
             </div>
             <div className="flex items-center justify-center mb-4">
-              <button className="bg-black text-white font-bold py-2 px-4 rounded-full w-full flex items-center justify-center gap-2">
+              <button className="bg-transparent hover:bg-[#0FFF07] hover:text-black transition-colors duration-300 text-white border-2 border-white font-bold py-2 px-4 rounded-full w-full flex items-center justify-center gap-2">
                 <img src="" alt="Google" className="w-6 h-6" />
                 inicia sesion con Google
               </button>
@@ -89,6 +95,7 @@ const Login = () => {
                 type="submit"
                 className="bg-green-500 text-white font-bold py-2 px-4 rounded-full w-full"
               >
+              <button className="bg-transparent hover:bg-[#0FFF07] hover:text-black transition-colors duration-300 border-2 border-white text-white font-bold py-2 px-4 rounded-full w-full">
                 Iniciar sesión
               </button>
             </div>

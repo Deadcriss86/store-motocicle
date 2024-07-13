@@ -1,5 +1,6 @@
 import { ProductForm } from "../../Components/ProductForm";
 import Admin_products from "../../Components/Admin_products";
+import { useState } from "react";
 
 const products = [
   {
@@ -26,9 +27,31 @@ const products = [
 ];
 
 const Productos = () => {
+  const [responseMessage, setResponseMessage] = useState(null);
+
   return (
     <div>
-      <div className="main min-h-screen min-w-screen bg-black justify-center items-center flex flex-col">
+      <div className="main min-h-screen min-w-screen bg-black justify-center items-center flex flex-col p-6">
+        {responseMessage === "ok" ? (
+          <div role="alert" className="alert alert-success bg-[#0EFF06] mb-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 shrink-0 stroke-current"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span>Archivo agregado correctamente!</span>
+          </div>
+        ) : responseMessage ? (
+          <div>Algo salió mal.</div>
+        ) : null}
         <div className="container bg-[#202020] space-x-4 text-2xl p-2 mb-4 rounded-lg text-white">
           <button className="border-2 border-[#0EFF06] rounded-lg p-2">
             Pedidos
@@ -41,7 +64,7 @@ const Productos = () => {
           </button>
           <dialog id="my_modal_4" className="modal bg-[#000000c7]">
             <div className="modal-action">
-              <ProductForm />
+              <ProductForm setResponseMessage={setResponseMessage} />
               <form method="dialog">
                 <button className="btn border-2 border-[#0EFF06] rounded-lg p-3">
                   Cancelar
