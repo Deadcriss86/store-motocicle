@@ -1,3 +1,32 @@
+
+import { useAuth } from "../../context/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginSchema } from "../../schemas/auth";
+import { Message } from "../../Components/ui/Message";
+
+const Login = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const { signin, errors: loginErrors, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  const onSubmit = (data) => signin(data);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated]);
+
 import logo from '../../../dist/assets/logo_ars.png'
 
 const Login = () => {
@@ -10,7 +39,10 @@ const Login = () => {
           <h2 className="text-2xl text-white mb-6 text-center">
             Inicia sesión
           </h2>
-          <form>
+          {loginErrors.map((error, i) => (
+            <Message message={error} key={i} />
+          ))}
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
               <label
                 className="block text-gray-300 text-sm font-bold mb-2"
@@ -21,7 +53,9 @@ const Login = () => {
                 id="email"
                 type="email"
                 placeholder="Correo"
+                {...register("email", { required: true })}
               />
+              <p>{errors.email?.message}</p>
             </div>
             <div className="mb-4">
               <label
@@ -33,7 +67,9 @@ const Login = () => {
                 id="password"
                 type="password"
                 placeholder="Contraseña"
+                {...register("password", { required: true, minLength: 6 })}
               />
+              <p>{errors.password?.message}</p>
             </div>
             <div className="mb-4">
               <input
@@ -55,6 +91,10 @@ const Login = () => {
               <span className="text-gray-300 mx-2">o</span>
             </div>
             <div className="flex items-center justify-center mt-4">
+              <button
+                type="submit"
+                className="bg-green-500 text-white font-bold py-2 px-4 rounded-full w-full"
+              >
               <button className="bg-transparent hover:bg-[#0FFF07] hover:text-black transition-colors duration-300 border-2 border-white text-white font-bold py-2 px-4 rounded-full w-full">
                 Iniciar sesión
               </button>
@@ -63,9 +103,9 @@ const Login = () => {
           <div className="text-center mt-4">
             <p className="text-gray-300">
               ¿Aún no tienes cuenta?{" "}
-              <a href="#" className="text-green-500">
+              <Link to="/signup" className="text-green-500">
                 Regístrate
-              </a>
+              </Link>
             </p>
             <p className="text-gray-300 mt-2">
               <a href="#" className="text-green-500">
