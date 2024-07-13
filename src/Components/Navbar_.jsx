@@ -1,21 +1,17 @@
-
 import { Link } from "react-router-dom";
-import { IoCartOutline } from "react-icons/io5";
 import { useAuth } from "../context/AuthContext";
-import logo from "../Assets/logo_ars.png";
+import { useState } from "react";
+import { IoCartOutline, IoMenu, IoClose } from "react-icons/io5";
+import { FaRegUser } from "react-icons/fa";
+import logo from "../../dist/assets/logo2.png";
+
 export const Navlink = () => {
   const { isAuthenticated, logout, user } = useAuth();
-  console.log(isAuthenticated, user);
-import { useState } from 'react';
-import { IoCartOutline } from "react-icons/io5";
-import { FaRegUser } from "react-icons/fa";
-import { IoMenu, IoClose } from "react-icons/io5";
-import logo from "../../dist/assets/logo2.png";
-export const Navlink = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
   return (
     <nav className="w-full fixed top-0 left-0 z-50 bg-gradient-to-b from-[#076404] via-[#076404cc] to-[#07640400]">
       <div className="max-w-7xl mx-auto flex items-center justify-between p-4">
@@ -55,7 +51,7 @@ export const Navlink = () => {
               href="#"
               className="text-gray-100 hover:text-[#0eff06] md:hover:bg-transparent dark:text-white flex gap-3 items-start"
             >
-              Mi perfil <FaRegUser className='mt-1' />
+              Mi perfil <FaRegUser className="mt-1" />
             </a>
             <button>
               <IoCartOutline
@@ -124,11 +120,14 @@ export const Navlink = () => {
                 </li>
               )}
             </ul>
-          </div>
           </button>
         </div>
         {/* Mobile Menu */}
-        <div className={`w-full md:hidden ${isOpen ? 'block' : 'hidden'} absolute top-16 left-0 bg-[#076404] py-4`}>
+        <div
+          className={`w-full md:hidden ${
+            isOpen ? "block" : "hidden"
+          } absolute top-16 left-0 bg-[#076404] py-4`}
+        >
           <ul className="flex flex-col items-center space-y-4">
             <li>
               <a

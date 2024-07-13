@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { registerSchema } from "../../schemas/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Message } from "../../Components/ui/Message";
+import logo from "../../../dist/assets/logo_ars.png";
 
 const SignUp = () => {
   const { signup, errors: registerErrors, isAuthenticated } = useAuth();
@@ -23,20 +24,20 @@ const SignUp = () => {
 
   useEffect(() => {
     if (isAuthenticated) navigate("/");
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigate]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900">
-      <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-sm">
+    <div className="min-h-screen flex items-center justify-center bg-black">
+      <div className="bg-gradient-to-r-transparent border-2 border-[#0eff06] p-8 rounded-xl shadow-lg w-full max-w-sm">
+        <img className="p-5" src={logo} alt="logo" />
         <h2 className="text-2xl text-white mb-6 text-center">Registrate</h2>
-        {registerErrors.map((error, i) => (
-          <Message message={error} key={i} />
-        ))}
+        {registerErrors &&
+          registerErrors.map((error, i) => <Message message={error} key={i} />)}
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <label
               className="block text-gray-300 text-sm font-bold mb-2"
-              htmlFor="user"
+              htmlFor="username"
             >
               Usuario
             </label>
@@ -87,14 +88,14 @@ const SignUp = () => {
           <div className="mb-4">
             <label
               className="block text-gray-300 text-sm font-bold mb-2"
-              htmlFor="password"
+              htmlFor="confirmPassword"
             >
-              confirmar password
+              Confirmar Contraseña
             </label>
             <input
               className="w-full px-3 py-2 text-gray-900 rounded-lg focus:outline-none focus:shadow-outline mb-4"
               type="password"
-              placeholder="Contraseña"
+              placeholder="Confirmar Contraseña"
               {...register("confirmPassword")}
             />
             {errors.confirmPassword?.message && (
@@ -102,7 +103,7 @@ const SignUp = () => {
             )}
           </div>
           <div className="flex items-center justify-center mb-4">
-            <button className="bg-black text-white font-bold py-2 px-4 rounded-full w-full flex items-center justify-center gap-2">
+            <button className="bg-transparent hover:bg-[#0FFF07] hover:text-black transition-colors duration-300 text-white border-2 border-white font-bold py-2 px-4 rounded-full w-full flex items-center justify-center gap-2">
               <img
                 src="ruta/a/tu/imagen/google.png"
                 alt="Google"
@@ -121,96 +122,27 @@ const SignUp = () => {
             >
               Registro
             </button>
-import logo from '../../../dist/assets/logo_ars.png'
-
-const SingUp = () => {
-  return (
-    <>
-      <div className="min-h-screen flex items-center justify-center bg-black">
-        <div className="bg-gradient-to-r-transparent border-2 border-[#0eff06] p-8 rounded-xl shadow-lg w-full max-w-sm">
-          <img className='p-5' src={logo} alt="logo" />
-          <h2 className="text-2xl text-white mb-6 text-center">Registrate</h2>
-          <form>
-            <div className="mb-4">
-              <label
-                className="block text-gray-300 text-sm font-bold mb-2"
-                htmlFor="email"
-              ></label>
-              <input
-                className="w-full px-3 py-2 text-gray-900 rounded-lg focus:outline-none focus:shadow-outline"
-                id="email"
-                type="email"
-                placeholder="Correo"
-              />
-            </div>
-            <div className="mb-4">
-              <label
-                className="block text-gray-300 text-sm font-bold"
-                htmlFor="password"
-              ></label>
-              <input
-                className="w-full px-3 py-2 mb-4 text-gray-900 rounded-lg focus:outline-none focus:shadow-outline"
-                id="password"
-                type="password"
-                placeholder="Contraseña"
-              />
-              <input
-                className="w-full px-3 py-2 text-gray-900 rounded-lg focus:outline-none focus:shadow-outline"
-                id="password"
-                type="password"
-                placeholder="Confirmar Contraseña"
-              />
-            </div>
-            <div className="mb-4">
-              <input
-                type="checkbox"
-                id="rememberMe"
-                className="mr-2 leading-tight"
-              />
-              <label htmlFor="rememberMe" className="text-gray-300 text-sm">
-                Recordarme
-              </label>
-            </div>
-            <div className="flex items-center justify-center mb-4">
-              <button className="bg-transparent hover:bg-[#0FFF07] hover:text-black transition-colors duration-300 text-white border-2 border-white font-bold py-2 px-4 rounded-full w-full flex items-center justify-center gap-2">
-                <img src="" alt="Google" className="w-6 h-6" />
-                Registrarme con Google
-              </button>
-            </div>
-            <div className="flex items-center justify-center">
-              <span className="text-gray-300 mx-2">o</span>
-            </div>
-            <div className="flex items-center justify-center mt-4">
-              <button className="bg-transparent hover:bg-[#0FFF07] hover:text-black transition-colors duration-300 text-white border-2 border-white font-bold py-2 px-4 rounded-full w-full flex items-center justify-center gap-2">
-                Registro
-              </button>
-            </div>
-          </form>
-          <div className="text-center mt-4">
-            <p className="text-gray-300">
-              ¿Aún no tienes cuenta?{" "}
-              <a href="#" className="text-green-500">
-                Regístrate
-              </a>
-            </p>
-            <p className="text-gray-300 mt-2">
-              <a href="#" className="text-green-500">
-                Olvidé mi contraseña
-              </a>
-            </p>
           </div>
         </form>
         <div className="text-center mt-4">
           <p className="text-gray-300">
-            ¿Ya tienes una cuenta?{" "}
-            <Link to="/login" className="text-green-500">
-              Inicia sesion
+            ¿Aún no tienes cuenta?{" "}
+            <Link to="/signup" className="text-green-500">
+              Regístrate
             </Link>
           </p>
           <p className="text-gray-300 mt-2">
             <a href="#" className="text-green-500">
               Olvidé mi contraseña
             </a>
+          </p>
+        </div>
+        <div className="text-center mt-4">
+          <p className="text-gray-300">
+            ¿Ya tienes una cuenta?{" "}
+            <Link to="/login" className="text-green-500">
+              Inicia sesión
+            </Link>
           </p>
         </div>
       </div>
