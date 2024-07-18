@@ -2,7 +2,6 @@ import { Footer } from "../../Components/footer";
 import imgfondo from "../../../dist/assets/img_fondo.png";
 import { IoLogoWhatsapp, IoArrowForwardCircle } from "react-icons/io5";
 import { SlBadge } from "react-icons/sl";
-import { ProductsPage } from "../../Components/Products";
 import Carousel from "../../Components/carousel";
 import { Navlink } from "../../Components/Navbar_";
 import { Card_coment } from "../../Components/card_coment";
@@ -62,15 +61,11 @@ function Home() {
           <Carousel />
         </div>
 
-        <div className="sticky animated-background top-0 h-screen flex flex-col items-center justify-center bg-gradient-to-b from-black to-[#0d4d0b] text-white ">
+        <div className="sticky top-0 h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#0d4d0b] to-black text-white ">
           <h2 className="text-[#0eff06] text-3xl font-bold flex justify-center py-10">
             Comentarios de nuestros clientes
           </h2>
           <Card_coment />
-        </div>
-
-        <div className="sticky top-full h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#0d4d0b] to-black text-black">
-          <ProductsPage />
         </div>
       </div>
       <Footer />
