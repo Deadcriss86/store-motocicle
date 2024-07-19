@@ -25,7 +25,7 @@ export const Navlink = () => {
         Productos
       </Link>
       <Link
-        to="/atencion-al-cliente"
+        to="/serviceAtention"
         className="text-gray-100 hover:text-[#0eff06] dark:text-white"
       >
         Atención al cliente
