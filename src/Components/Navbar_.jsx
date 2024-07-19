@@ -1,7 +1,3 @@
-
-import { useState } from "react";
-import { IoCartOutline } from "react-icons/io5";
-
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
@@ -148,7 +144,6 @@ export const Navlink = () => {
           </button>
         </div>
         <div className="hidden md:flex justify-center flex-1">
-
           <div className="flex items-center space-x-8">
             <a
               href="#"
@@ -260,7 +255,6 @@ export const Navlink = () => {
           </ul>
 
           {isAuthenticated ? <AuthenticatedLinks /> : <GuestLinks />}
-
         </div>
         <MobileMenu />
       </div>
