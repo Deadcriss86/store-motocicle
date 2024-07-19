@@ -1,8 +1,8 @@
 import React from "react";
 
-export const ProductCard = ({ product }) => {
+export const ProductCard = (product) => {
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 max-w-sm mx-auto border border-gray-300">
+    <div className="bg-white rounded-lg shadow-md p-4 max-w-sm mx-5 border border-gray-300">
       {/* Imagen del producto */}
       <div className="relative">
         <img

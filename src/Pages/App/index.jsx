@@ -13,6 +13,7 @@ import Productos from "../Productos";
 import { AuthProvider } from "../../context/AuthContext";
 import { ProtectedRoute } from "../../routes";
 import Shopping from "../Myshopping";
+import MenuProducto from "../Menu_productos";
 
 const AppRoutes = () => {
   const routes = useRoutes([
@@ -35,6 +36,7 @@ const AppRoutes = () => {
     { path: "/Editoruser", element: <Editor_user /> },
     { path: "/Productos", element: <Productos /> },
     { path: "/Shopping", element: <Shopping /> },
+    { path: "/Menu", element: <MenuProducto /> },
   ]);
   return routes;
 };

@@ -4,7 +4,7 @@ import { FiPhone } from "react-icons/fi";
 
 export const Footer = () => {
   return (
-    <footer className="w-full bg-transparent text-sm text-white flex flex-col md:flex-row justify-between items-center p-6">
+    <footer className="w-full bg-black text-sm text-white flex flex-col md:flex-row justify-between items-center p-6">
       <div className="w-full flex flex-col md:flex-row justify-between md:gap-20 p-3 border-t-2 border-[#0eff06]">
         <div className="flex items-center border-b-2 md:border-b-0 md:border-r-2 border-[#0eff06] p-3 md:p-9 h-full">
           <h1 className="font-playfair text-4xl md:text-7xl text-white">ARS</h1>
@@ -13,19 +13,21 @@ export const Footer = () => {
           <h6 className="footer-title text-base">CONTACTO</h6>
           <div className="flex flex-col gap-1">
             <a className="link link-hover flex items-start gap-2">
-              <SlLocationPin className="text-[#0eff06] mt-1" />DIRECCIÓN
+              <SlLocationPin className="text-[#0eff06] mt-1" />
+              DIRECCIÓN
               <br />
               Calle cerrada camino canteras No.9
               <br />
               Santiago Tecalpatlalpan, Xochimilco CDMX
             </a>
             <a className="link link-hover flex items-start gap-2">
-              <CiMail className="text-[#0eff06] mt-1" />CORREO
+              <CiMail className="text-[#0eff06] mt-1" />
+              CORREO
               <br />
               contacto@gmail.com
             </a>
             <a className="link link-hover flex items-start gap-2">
-              <FiPhone className="text-[#0eff06] mt-1" /> Móvil 
+              <FiPhone className="text-[#0eff06] mt-1" /> Móvil
               <br />
               +52 4575965487
             </a>
