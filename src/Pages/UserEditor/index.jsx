@@ -1,8 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
 import { Navlink } from "../../Components/Navbar_";
 import { Footer } from "../../Components/footer";
 
 const EditProfileForm = () => {
+  const [formData, setFormData] = useState({
+    nombre: "",
+    apellidos: "",
+    telefono: "",
+    movil: "",
+    cp: "",
+    calle: "",
+    delegacion: "",
+    referencias: "",
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const token = Cookies.get("token");
+    const userId = Cookies.get("user_id");
+    if (!token || !userId) {
+      console.error("No token or user ID fund in cookies");
+      return;
+    }
+    try {
+      const response = await axios.put(
+        "http://localhost:3000/api/editUser",
+        fromData,
+        {
+          headers: {
+            Authorization: "Bearer ${token}",
+          },
+        }
+      );
+      console.log("Profile updated successfully:", response.data);
+    } catch (error) {
+      console.error("Error updating profile:", error);
+    }
+  };
+
   return (
     <div>
       <div>

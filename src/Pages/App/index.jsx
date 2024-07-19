@@ -6,11 +6,12 @@ import Singup from "../Register";
 import ProductPage from "../Details";
 import "./App.css";
 import Shopping_cart from "../Shopping_cart";
-import OrderPages from '../Home/OrderPages/OrderPages';
-import CostumerSer from '../Home/CostumerServicePage/CostumerSer';
+import OrderPages from "../Home/OrderPages/OrderPages";
+import CostumerSer from "../Home/CostumerServicePage/CostumerSer";
 import Editor_user from "../UserEditor";
 import Productos from "../Productos";
 import Shopping from "../Myshopping";
+import MenuProducto from "../Menu_productos";
 
 const AppRoutes = () => {
   const routes = useRoutes([
@@ -20,11 +21,12 @@ const AppRoutes = () => {
     { path: "/login", element: <Login /> },
     { path: "/Singup", element: <Singup /> },
     { path: "/Detail", element: <ProductPage /> },
-    { path: "/Order", element: <OrderPages/>},
-    { path: "/serviceAtention", element:<CostumerSer/>}, 
+    { path: "/Order", element: <OrderPages /> },
+    { path: "/serviceAtention", element: <CostumerSer /> },
     { path: "/Editoruser", element: <Editor_user /> },
     { path: "/Productos", element: <Productos /> },
     { path: "/Shopping", element: <Shopping /> },
+    { path: "/Menu", element: <MenuProducto /> },
   ]);
   return routes;
 };
