@@ -4,6 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import { IoCartOutline, IoMenu, IoClose } from "react-icons/io5";
 import { FaRegUser } from "react-icons/fa";
 import logo from "../../dist/assets/logo2.png";
+import { LinkIcon } from "@heroicons/react/20/solid";
 
 export const Navlink = () => {
   const { isAuthenticated, logout, user } = useAuth();
@@ -15,36 +16,44 @@ export const Navlink = () => {
 
   const AuthenticatedLinks = () => (
     <div className="flex items-center space-x-8">
-      <li className="text-gray-100 hover:text-[#0eff06] dark:text-white flex gap-3 items-start">
+      <li className="text-[#c2ff35] hover:text-white text-lg flex gap-3 items-start text-bold">
         Welcome {user.username}
       </li>
       <Link
         to="/Menu"
-        className="text-gray-100 hover:text-[#0eff06] dark:text-white"
+        className="text-gray-100 hover:text-[#0eff06] dark:text-white link link-hover"
       >
         Productos
       </Link>
       <Link
         to="/serviceAtention"
-        className="text-gray-100 hover:text-[#0eff06] dark:text-white"
+        className="text-gray-100 hover:text-[#0eff06] dark:text-white link link-hover"
       >
         Atención al cliente
       </Link>
       <Link
         to="/Shopping"
-        className="text-gray-100 hover:text-[#0eff06] dark:text-white flex gap-3 items-start"
+        className="text-gray-100 hover:text-[#0eff06] dark:text-white link link-hover"
+      >
+        Mis compras
+      </Link>
+      <Link
+        to="/editoruser"
+        className="text-gray-100 hover:text-[#0eff06] dark:text-white flex gap-3 items-start link link-hover"
       >
         Mi perfil <FaRegUser className="mt-1" />
       </Link>
-      <button onClick={logout}>
+      <Link onClick={logout}>
         <IoCartOutline
+          to="/carrito"
           size={24}
-          className="text-gray-100 hover:text-[#0eff06] dark:text-white"
+          className="text-gray-100 hover:text-[#0eff06] dark:text-white link link-hover"
         />
-      </button>
-      <button
+      </Link>
+      <Link
+        to="/"
         onClick={logout}
-        className="nav-button hover:drop-shadow-lg flex w-auto items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-7 py-2.5 font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
+        className="nav-button hover:bg-[#0eff0601] hover:text-white flex w-auto items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-7 py-2.5 font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
       >
         <span>Logout</span>
         <svg
@@ -57,7 +66,7 @@ export const Navlink = () => {
           width="1em"
           xmlns="http://www.w3.org/2000/svg"
         ></svg>
-      </button>
+      </Link>
     </div>
   );
 
@@ -65,19 +74,20 @@ export const Navlink = () => {
     <div className="flex items-center space-x-8">
       <Link
         to="/Menu"
-        className="text-gray-100 hover:text-[#0eff06] dark:text-white"
+        className="text-gray-100 hover:text-[#0eff06] dark:text-white link link-hover"
       >
         Productos
       </Link>
-      <button>
+      <Link>
         <IoCartOutline
-          size={24}
-          className="text-gray-100 hover:text-[#0eff06] dark:text-white"
+          to="/carrito"
+          size={26}
+          className="text-gray-100 hover:text-[#0eff06] dark:text-white "
         />
-      </button>
+      </Link>
       <Link
         to="/login"
-        className="nav-button hover:drop-shadow-lg flex w-auto items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-7 py-2.5 font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
+        className="nav-button hover:bg-[#0eff0601] hover:text-white flex w-auto items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-7 py-2.5 font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
       >
         <span>Login</span>
         <svg
@@ -109,7 +119,7 @@ export const Navlink = () => {
         <li>
           <Link
             to="/Menu"
-            className="text-gray-100 hover:text-[#0eff06] dark:text-white"
+            className="text-gray-100 hover:text-[#0eff06] dark:text-white link link-hover"
           >
             Productos
           </Link>
@@ -119,7 +129,7 @@ export const Navlink = () => {
             <li>
               <Link
                 to="/serviceAtention"
-                className="text-gray-100 hover:text-[#0eff06] dark:text-white"
+                className="text-gray-100 hover:text-[#0eff06] dark:text-white link link-hover"
               >
                 Atención al cliente
               </Link>
@@ -127,7 +137,7 @@ export const Navlink = () => {
             <li>
               <Link
                 to="/Shopping"
-                className="text-gray-100 hover:text-[#0eff06] dark:text-white"
+                className="text-gray-100 hover:text-[#0eff06] dark:text-white link link-hover"
               >
                 Mis compras
               </Link>
@@ -135,7 +145,7 @@ export const Navlink = () => {
             <li>
               <Link
                 to="/editoruser"
-                className="text-gray-100 hover:text-[#0eff06] dark:text-white flex items-center"
+                className="text-gray-100 hover:text-[#0eff06] dark:text-white flex items-center link link-hover"
               >
                 Mi perfil <FaRegUser className="ml-1" />
               </Link>
@@ -143,19 +153,19 @@ export const Navlink = () => {
           </>
         )}
         <li>
-          <button>
+          <Link>
             <IoCartOutline
-              TO="/carrito"
+              to="/carrito"
               size={24}
               className="text-gray-100 hover:text-[#0eff06] dark:text-white"
             />
-          </button>
+          </Link>
         </li>
         {isAuthenticated ? (
           <li>
             <button
               onClick={logout}
-              className="nav-button hover:drop-shadow-lg flex w-full items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-7 py-2.5 text-base font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
+              className="nav-button hover:bg-[#0eff0601] hover:text-white flex w-auto items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-7 py-2.5 font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
             >
               <span>Logout</span>
               <svg
@@ -179,7 +189,7 @@ export const Navlink = () => {
           <li>
             <Link
               to="/login"
-              className="nav-button hover:drop-shadow-lg flex w-full items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-7 py-2.5 text-base font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
+              className="nav-button hover:bg-[#0eff0601] hover:text-white flex w-auto items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-7 py-2.5 font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
             >
               <span>Login</span>
               <svg

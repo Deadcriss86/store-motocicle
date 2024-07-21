@@ -39,7 +39,7 @@ function Shopping_cart() {
 
   return (
     <div className="main flex flex-col bg-black min-h-screen">
-      <Navlink/>
+      <Navlink />
       <br />
       <br />
       <br />
@@ -73,9 +73,13 @@ function Shopping_cart() {
               </div>
               <div className="price_container w-full sm:w-2/5 p-4">
                 <div className="price border-4 rounded-lg p-4 mt-2 border-[#0EFF06]">
-                  <h2 className="text-white mb-4 text-2xl sm:text-3xl">Envío</h2>
+                  <h2 className="text-white mb-4 text-2xl sm:text-3xl">
+                    Envío
+                  </h2>
                   <div className="adrees_container mb-4 text-lg sm:text-xl font-thin italic">
-                    <h2 className="text-white mb-2">Calle: Ignacio Allende 5739 1202</h2>
+                    <h2 className="text-white mb-2">
+                      Calle: Ignacio Allende 5739 1202
+                    </h2>
                     <h2 className="text-white mb-2">San Manuel</h2>
                     <h2 className="text-white mb-2">72560</h2>
                     <h2 className="text-white">Puebla, Pue.</h2>
@@ -86,7 +90,9 @@ function Shopping_cart() {
                   <div className="total_container text-xl sm:text-2xl flex flex-col">
                     <p className="text-white mb-2">
                       Productos{" "}
-                      <span className="total_productos">${totalPriceProducts}</span>
+                      <span className="total_productos">
+                        ${totalPriceProducts}
+                      </span>
                     </p>
                     <p className="text-white mb-2">
                       Envío{" "}
@@ -111,6 +117,5 @@ function Shopping_cart() {
     </div>
   );
 }
-
 
 export default Shopping_cart;
