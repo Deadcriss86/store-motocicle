@@ -30,11 +30,8 @@ const AppRoutes = () => {
         { path: "/carrito", element: <Shopping_cart /> },
       ],
     },
-    { path: "/Detail", element: <ProductPage /> },
     { path: "/Order", element: <OrderPages /> },
     { path: "/serviceAtention", element: <CostumerSer /> },
-    { path: "/Editoruser", element: <Editor_user /> },
-    { path: "/Productos", element: <Productos /> },
     { path: "/Shopping", element: <Shopping /> },
     { path: "/Menu", element: <MenuProducto /> },
   ]);

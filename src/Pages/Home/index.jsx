@@ -5,6 +5,7 @@ import { SlBadge } from "react-icons/sl";
 import Carousel from "../../Components/carousel";
 import { Navlink } from "../../Components/Navbar_";
 import { Card_coment } from "../../Components/card_coment";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -23,7 +24,9 @@ function Home() {
             </h1>
             <div className="text-base sm:text-lg flex items-center space-x-2">
               <span>Conoce nuestros productos</span>
-              <IoArrowForwardCircle size="2rem" className="text-[#0eff06]" />
+              <Link to="/Menu">
+                <IoArrowForwardCircle size="2rem" className="text-[#0eff06]" />
+              </Link>
             </div>
             <a
               className="flex items-center space-x-2 text-base sm:text-lg pt-10"
