@@ -19,7 +19,7 @@ export const Navlink = () => {
         Welcome {user.username}
       </li>
       <Link
-        to="/productos"
+        to="/Menu"
         className="text-gray-100 hover:text-[#0eff06] dark:text-white"
       >
         Productos
@@ -31,7 +31,7 @@ export const Navlink = () => {
         Atención al cliente
       </Link>
       <Link
-        to="/mi-perfil"
+        to="/Shopping"
         className="text-gray-100 hover:text-[#0eff06] dark:text-white flex gap-3 items-start"
       >
         Mi perfil <FaRegUser className="mt-1" />
@@ -55,30 +55,30 @@ export const Navlink = () => {
   const GuestLinks = () => (
     <>
       <Link
-        to="/mis-compras"
+        to="/Shopping"
         className="text-gray-100 hover:text-[#0eff06] dark:text-white"
       >
-        Mis compras
+        Mis
       </Link>
       <Link
         to="/login"
         className="text-gray-900 bg-[#0eff06] hover:bg-[#0eff06b4] focus:ring-1 focus:outline-none focus:ring-[#0eff06] font-medium rounded-xl text-sm px-4 py-2 mx-2 dark:bg-[#0eff06] dark:hover:bg-[#0eff069d] dark:focus:ring-[#0eff06]"
       >
-        login
+        l
       </Link>
     </>
   );
 
   const MobileMenu = () => (
     <div
-      className={`w-full md:hidden ${
+      className={`w-1/2 md:hidden rounded-xl  ${
         isOpen ? "block" : "hidden"
-      } absolute top-16 left-0 bg-[#076404] py-4`}
+      } absolute top-16 left-0 bg-[#272927e7] py-4`}
     >
       <ul className="flex flex-col items-center space-y-4">
         <li>
           <Link
-            to="/productos"
+            to="/Menu"
             className="text-gray-100 hover:text-[#0eff06] dark:text-white"
           >
             Productos
@@ -86,7 +86,7 @@ export const Navlink = () => {
         </li>
         <li>
           <Link
-            to="/atencion-al-cliente"
+            to="/serviceAtention"
             className="text-gray-100 hover:text-[#0eff06] dark:text-white"
           >
             Atención al cliente
@@ -94,7 +94,7 @@ export const Navlink = () => {
         </li>
         <li>
           <Link
-            to="/mis-compras"
+            to="/Shopping"
             className="text-gray-100 hover:text-[#0eff06] dark:text-white"
           >
             Mis compras
@@ -102,27 +102,45 @@ export const Navlink = () => {
         </li>
         <li>
           <Link
-            to="/mi-perfil"
+            to="/editoruser"
             className="text-gray-100 hover:text-[#0eff06] dark:text-white flex items-center"
           >
             Mi perfil <FaRegUser className="ml-1" />
           </Link>
         </li>
         <li>
-          <button>
-            <IoCartOutline
-              size={24}
-              className="text-gray-100 hover:text-[#0eff06] dark:text-white"
-            />
-          </button>
+          <Link>
+            <button>
+              <IoCartOutline
+                TO="/carrito"
+                size={24}
+                className="text-gray-100 hover:text-[#0eff06] dark:text-white"
+              />
+            </button>
+          </Link>
         </li>
         <li>
-          <button
-            type="button"
-            className="text-gray-900 bg-[#0eff06] hover:bg-[#0eff06b4] focus:ring-1 focus:outline-none focus:ring-[#0eff06] font-medium rounded-xl text-sm px-4 py-2 dark:bg-[#0eff06] dark:hover:bg-[#0eff069d] dark:focus:ring-[#0eff06]"
+          <Link
+            to="/login"
+            className="nav-button hover:drop-shadow-lg flex w-full items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-7 py-2.5 text-base font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
           >
-            Login
-          </button>
+            <span>Login</span>
+            <svg
+              stroke="currentColor"
+              fill="currentColor"
+              stroke-width="0"
+              viewBox="0 0 16 16"
+              className="ml-2"
+              height="1em"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+              ></path>
+            </svg>
+          </Link>
         </li>
       </ul>
       {isAuthenticated ? <AuthenticatedLinks /> : <GuestLinks />}
@@ -145,30 +163,30 @@ export const Navlink = () => {
         </div>
         <div className="hidden md:flex justify-center flex-1">
           <div className="flex items-center space-x-8">
-            <a
-              href="#"
+            <Link
+              to="/Menu"
               className="text-gray-100 hover:text-[#0eff06] md:hover:bg-transparent dark:text-white"
             >
               Productos
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="/serviceAtention"
               className="text-gray-100 hover:text-[#0eff06] md:hover:bg-transparent dark:text-white"
             >
               Atención al cliente
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="/Shopping"
               className="text-gray-100 hover:text-[#0eff06] md:hover:bg-transparent dark:text-white"
             >
               Mis compras
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="/Editoruser"
               className="text-gray-100 hover:text-[#0eff06] md:hover:bg-transparent dark:text-white flex gap-3 items-start"
             >
               Mi perfil <FaRegUser className="mt-1" />
-            </a>
+            </Link>
             <button>
               <IoCartOutline
                 size={24}
@@ -178,7 +196,10 @@ export const Navlink = () => {
           </div>
         </div>
         <div className="hidden md:flex">
-          <button className="nav-button hover:drop-shadow-lg flex w-full items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-7 py-2.5 text-base font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1">
+          <Link
+            to="/login"
+            className="nav-button hover:drop-shadow-lg flex w-full items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-7 py-2.5 text-base font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
+          >
             <span>Login</span>
             <svg
               stroke="currentColor"
@@ -195,7 +216,7 @@ export const Navlink = () => {
                 d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
               ></path>
             </svg>
-          </button>
+          </Link>
         </div>
         <MobileMenu />
       </div>

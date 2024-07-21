@@ -88,14 +88,14 @@ const ProductsPage = () => {
         </div>
         <div
           className={`border-2 border-[#0eff06] rounded-xl w-full lg:w-1/5 p-3 m-4 flex flex-col ${
-            dropdownVisible ? "block mb-4" : "hidden lg:block"
+            dropdownVisible ? "block" : "hidden lg:block"
           }`}
         >
           <h2 className="text-2xl font-bold mb-4 text-[#0eff06] text-center">
             Categorías
           </h2>
           {categories.map((category, index) => (
-            <div key={index} className="dropdown text-white w-full lg:h-auto l">
+            <div key={index} className="dropdown text-white w-full lg:h-auto">
               <button
                 className="m-1 hover:bg-[#0eff06] hover:text-black mx-2 px-4 rounded-lg w-full text-left"
                 onClick={() => toggleCategory(category.name)}
@@ -103,14 +103,14 @@ const ProductsPage = () => {
                 {category.name}
               </button>
               <ul
-                className={`menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow transition-all duration-300 ease-in-out overflow-hidden ${
+                className={`menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow transition-max-height duration-300 ease-in-out overflow-hidden ${
                   openCategories[category.name] ? "max-h-screen" : "max-h-0"
                 }`}
               >
                 {category.subcategories.map((subcategory, subIndex) => (
                   <li
                     key={subIndex}
-                    className="cursor-pointer mb-full py-2 px-4 rounded hover:bg-[#c1ff06] hover:text-black"
+                    className="cursor-pointer py-2 px-4 rounded hover:bg-[#c1ff06] hover:text-black"
                   >
                     <button
                       onClick={() =>
