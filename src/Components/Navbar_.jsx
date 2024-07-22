@@ -43,12 +43,11 @@ export const Navlink = () => {
       >
         Mi perfil <FaRegUser className="mt-1" />
       </Link>
-      <Link onClick={logout}>
-        <IoCartOutline
-          to="/carrito"
-          size={24}
-          className="text-gray-100 hover:text-[#0eff06] dark:text-white link link-hover"
-        />
+      <Link
+        to="/carrito"
+        className="text-gray-100 hover:text-[#0eff06] dark:text-white link link-hover"
+      >
+        <IoCartOutline size={24} />
       </Link>
       <Link
         to="/"
@@ -78,12 +77,11 @@ export const Navlink = () => {
       >
         Productos
       </Link>
-      <Link>
-        <IoCartOutline
-          to="/carrito"
-          size={26}
-          className="text-gray-100 hover:text-[#0eff06] dark:text-white "
-        />
+      <Link
+        to="/carrito"
+        className="text-gray-100 hover:text-[#0eff06] dark:text-white link link-hover"
+      >
+        <IoCartOutline size={24} />
       </Link>
       <Link
         to="/login"
@@ -153,12 +151,11 @@ export const Navlink = () => {
           </>
         )}
         <li>
-          <Link>
-            <IoCartOutline
-              to="/carrito"
-              size={24}
-              className="text-gray-100 hover:text-[#0eff06] dark:text-white"
-            />
+          <Link
+            to="/carrito"
+            className="text-gray-100 hover:text-[#0eff06] dark:text-white link link-hover"
+          >
+            <IoCartOutline size={24} />
           </Link>
         </li>
         {isAuthenticated ? (

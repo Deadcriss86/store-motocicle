@@ -43,8 +43,8 @@ function Shopping_cart() {
       <br />
       <br />
       <br />
-      <div className="flex-grow bg-gradient-to-t from-black via-[#0EFF06] to-black p-4 sm:p-12 flex flex-col items-center">
-        <h1 className="text-white text-center text-2xl sm:text-3xl mb-8">
+      <div className="flex-grow bg-gradient-to-t from-black via-[#0faf09] p-4 sm:p-12 flex flex-col items-center">
+        <h1 className="text-center text-3xl text-[#0eff06] mb-8">
           Carrito de compras
         </h1>
         <div className="bg-[#00000060] rounded-xl p-4 sm:p-12 w-full sm:w-11/12">
