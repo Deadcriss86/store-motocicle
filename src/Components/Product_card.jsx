@@ -40,7 +40,10 @@ export const ProductCard = (product) => {
         </p>
 
         {/* Botón Ver más */}
-        <button className="mt-4 w-full bg-gray-900 hover:bg-[#0eff06] text-white hover:text-black py-2 rounded-lg">
+        <button
+          to="/detail"
+          className="mt-4 w-full bg-gray-900 hover:bg-[#0eff06] text-white hover:text-black py-2 rounded-lg"
+        >
           Ver más
         </button>
       </div>

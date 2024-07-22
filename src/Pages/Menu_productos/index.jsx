@@ -72,73 +72,78 @@ const ProductsPage = () => {
   }
 
   return (
-    <div className="bg-gradient-to-b from-[#0f4c0d] to-black min-h-screen">
+    <>
       <Navlink />
-      <div className="text-[#0eff06] text-4xl font-bold mb-4 flex justify-center py-4">
-        Productos
-      </div>
-      <div className="flex flex-auto flex-col lg:flex-row">
-        <div className="lg:hidden mb-4 px-4">
-          <button
-            onClick={toggleDropdown}
-            className="bg-[#0eff06] text-black py-2 px-4 rounded-lg"
+      <div className="bg-gradient-to-b from-[#0f4c0d] to-black min-h-screen py-20">
+        <div className="text-[#0eff06] text-4xl font-bold mb-4 flex justify-center py-4">
+          Productos
+        </div>
+        <div className="flex flex-auto flex-col lg:flex-row">
+          <div className="lg:hidden mb-4 px-4">
+            <button
+              onClick={toggleDropdown}
+              className="bg-[#0eff06] text-black py-2 px-4 rounded-lg w-full"
+            >
+              {dropdownVisible ? "Cerrar Categorías" : "Abrir Categorías"}
+            </button>
+          </div>
+          <div
+            className={`menu border-2 border-[#0eff06] rounded-xl w-auto lg:w-1/5 p-3 m-4 flex flex-col ${
+              dropdownVisible ? "block" : "hidden lg:block"
+            }`}
           >
-            {dropdownVisible ? "Cerrar Categorías" : "Abrir Categorías"}
-          </button>
-        </div>
-        <div
-          className={`border-2 border-[#0eff06] rounded-xl w-full lg:w-1/5 p-3 m-4 flex flex-col ${
-            dropdownVisible ? "block" : "hidden lg:block"
-          }`}
-        >
-          <h2 className="text-2xl font-bold mb-4 text-[#0eff06] text-center">
-            Categorías
-          </h2>
-          {categories.map((category, index) => (
-            <div key={index} className="dropdown text-white w-full lg:h-auto">
-              <button
-                className="m-1 hover:bg-[#0eff06] hover:text-black mx-2 px-4 rounded-lg w-full text-left"
-                onClick={() => toggleCategory(category.name)}
+            <h2 className="text-2xl font-bold mb-4 text-[#0eff06] text-center">
+              Categorías
+            </h2>
+            {categories.map((category, index) => (
+              <details
+                key={index}
+                className="dropdown text-white w-full lg:h-auto"
               >
-                {category.name}
-              </button>
-              <ul
-                className={`menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow transition-max-height duration-300 ease-in-out overflow-hidden ${
-                  openCategories[category.name] ? "max-h-screen" : "max-h-0"
-                }`}
-              >
-                {category.subcategories.map((subcategory, subIndex) => (
-                  <li
-                    key={subIndex}
-                    className="cursor-pointer py-2 px-4 rounded hover:bg-[#c1ff06] hover:text-black"
-                  >
-                    <button
-                      onClick={() =>
-                        handleSubcategoryClick(category.name, subcategory)
-                      }
+                <summary
+                  className="m-1 hover:bg-[#0eff06] hover:text-black mx-2 px-4 rounded-lg w-full text-left"
+                  onClick={() => toggleCategory(category.name)}
+                >
+                  {category.name}
+                </summary>
+                <ul
+                  className={`bg-base-100 rounded-box z-[1] w-52 p-2 shadow transition-max-height duration-300 ease-in-out overflow-hidden ${
+                    openCategories[category.name] ? "max-h-screen" : "max-h-0"
+                  }`}
+                >
+                  {category.subcategories.map((subcategory, subIndex) => (
+                    <li
+                      key={subIndex}
+                      className="cursor-pointer rounded hover:bg-[#c1ff06] hover:text-black"
                     >
-                      {subcategory}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+                      <li
+                        onClick={() =>
+                          handleSubcategoryClick(category.name, subcategory)
+                        }
+                      >
+                        {subcategory}
+                      </li>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            ))}
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-stretch w-full px-4 md:px-10 lg:px-10">
+            {filteredProducts.map((product) => (
+              <ProductCard
+                key={product._id}
+                images={product.images}
+                productName={product.productName}
+                stock={product.stock}
+                price={product.price}
+              />
+            ))}
+          </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-stretch w-full px-4 md:px-10 lg:px-10">
-          {filteredProducts.map((product) => (
-            <ProductCard
-              key={product._id}
-              images={product.images}
-              productName={product.productName}
-              stock={product.stock}
-              price={product.price}
-            />
-          ))}
-        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </>
   );
 };
 

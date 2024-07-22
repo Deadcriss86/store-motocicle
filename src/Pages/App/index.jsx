@@ -27,12 +27,12 @@ const AppRoutes = () => {
       element: <ProtectedRoute />,
       children: [
         { path: "/editoruser", element: <Editor_user /> }, // Corregido de /Editoruser a /editoruser
-        { path: "/carrito", element: <Shopping_cart /> },
+        { path: "/serviceAtention", element: <CostumerSer /> },
+        { path: "/Shopping", element: <Shopping /> },
       ],
     },
+    { path: "/carrito", element: <Shopping_cart /> },
     { path: "/Order", element: <OrderPages /> },
-    { path: "/serviceAtention", element: <CostumerSer /> },
-    { path: "/Shopping", element: <Shopping /> },
     { path: "/Menu", element: <MenuProducto /> },
   ]);
   return routes;
