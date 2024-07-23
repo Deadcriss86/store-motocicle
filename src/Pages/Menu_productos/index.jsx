@@ -137,6 +137,7 @@ const ProductsPage = () => {
                 productName={product.productName}
                 stock={product.stock}
                 price={product.price}
+                id_product={product._id}
               />
             ))}
           </div>

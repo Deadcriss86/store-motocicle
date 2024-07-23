@@ -1,10 +1,45 @@
 import { Navlink } from "../../Components/Navbar_";
 import { Footer } from "../../Components/footer";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const ProductPage = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const value = queryParams.get("id");
+
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (value) {
+      axios
+        .get(`http://localhost:3000/api/getproduct`, { params: { id: value } })
+        .then((response) => {
+          setProduct(response.data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          setError("Error al obtener el producto");
+          setLoading(false);
+          console.error("Error al obtener el producto:", error);
+        });
+    }
+  }, [value]);
+
+  if (loading) {
+    return <div>Cargando...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
   return (
     <div className="min-h-screen bg-black text-white">
-      <Navlink/>
+      <Navlink />
       <br />
       <br />
       <br />
@@ -14,7 +49,7 @@ const ProductPage = () => {
           <div className="flex flex-col lg:flex-row lg:space-x-8 bg-gray-800 p-4 rounded-lg">
             <div className="lg:w-1/2">
               <img
-                src="https://via.placeholder.com/400"
+                src={product?.images || "https://via.placeholder.com/400"}
                 alt="Producto"
                 className="w-full rounded-lg"
               />
@@ -22,11 +57,19 @@ const ProductPage = () => {
             <br />
             <div className="lg:w-1/2">
               <h1 className="text-3xl font-bold mb-2 text-[#0eff06]">
-                Slider reforzado para moto yamaha ybr125
+                {product?.productName || "Nombre del producto"}
               </h1>
               <p className="text-[#0eff06]">Precio</p>
-              <p className="text-2xl text-[#0eff06] mb-4">$1,200.00 MXN</p>
-              <p className="text-red-500 mb-4">(3 Disponibles)</p>
+              <p className="text-2xl text-[#0eff06] mb-4">
+                ${product?.price?.toFixed(2)} MXN
+              </p>
+              <p className="text-red-500 mb-4">
+                (
+                {product?.stock
+                  ? `${product.stock} Disponibles`
+                  : "Stock no disponible"}
+                )
+              </p>
               <button className="bg-[#0eff06] text-black font-bold py-2 px-4 rounded-full mb-4">
                 Agregar al carrito
               </button>
@@ -59,9 +102,8 @@ const ProductPage = () => {
             </div>
             <div className="tab-content text-gray-300">
               <p>
-                Slider tipo jaula. Hecho de acero industrial y con pintura
-                electrostática para mayor duración, incluso en climas
-                costeros...
+                {product?.description ||
+                  "Descripción no disponible. Slider tipo jaula. Hecho de acero industrial y con pintura electrostática para mayor duración, incluso en climas costeros..."}
               </p>
             </div>
           </div>
@@ -84,7 +126,7 @@ const ProductPage = () => {
           </div>
         </div>
       </main>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
