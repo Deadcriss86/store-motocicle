@@ -13,7 +13,7 @@ export const Footer = () => {
           <h6 className="footer-title text-base">CONTACTO</h6>
           <div className="flex flex-col gap-1">
             <a className="link link-hover flex items-start gap-2">
-              <SlLocationPin className="text-[#0eff06] mt-1" />
+              <SlLocationPin size="1.5rem" className="text-[#0eff06] mt-1" />
               DIRECCIÓN
               <br />
               Calle cerrada camino canteras No.9
@@ -21,13 +21,13 @@ export const Footer = () => {
               Santiago Tecalpatlalpan, Xochimilco CDMX
             </a>
             <a className="link link-hover flex items-start gap-2">
-              <CiMail className="text-[#0eff06] mt-1" />
+              <CiMail size="1.5rem" className="text-[#0eff06] mt-1" />
               CORREO
               <br />
               contacto@gmail.com
             </a>
             <a className="link link-hover flex items-start gap-2">
-              <FiPhone className="text-[#0eff06] mt-1" /> Móvil
+              <FiPhone size="1.5rem" className="text-[#0eff06] mt-1" /> Móvil
               <br />
               +52 4575965487
             </a>
