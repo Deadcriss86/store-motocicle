@@ -3,6 +3,7 @@ import { Footer } from "../../Components/footer";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const ProductPage = () => {
   const location = useLocation();
@@ -110,6 +111,14 @@ const ProductPage = () => {
               </summary>
               <ul className=" text-gray-300 text-justify m-4">Hola otra vez</ul>
             </details>
+          </div>
+          <div className="flex justify-center m-8 ">
+            <Link
+              to="/Menu"
+              className="border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06]"
+            >
+              Regresar al menu
+            </Link>
           </div>
 
           <div className="bg-gray-800 p-4 mt-8 rounded-lg">
