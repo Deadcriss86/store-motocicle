@@ -17,14 +17,13 @@ export const Resenasforms = ({ id }) => {
         }
       );
       console.log(response.data);
-      closePanel();
     } catch (error) {
       console.error("Error al agregar la reseña:", error);
     }
   };
 
   return (
-    <div className="border-2 border-[#0EFF06] rounded-lg p-3 bg-black text-lg">
+    <div className="border-2 border-[#0EFF06] rounded-lg p-3 bg-gray-800 text-lg">
       <h2 className="text-xl">Nueva Reseña</h2>
       <form className="mt-2" onSubmit={handleSubmit(onSubmit)}>
         <div>
