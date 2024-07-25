@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Carousel = () => {
+  const navigate = useNavigate();
+
+  const handleViewMore = (id_product) => {
+    navigate(`/detail?id=${id_product}`);
+  };
+
   const [items, setItems] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsToShow, setItemsToShow] = useState(3);
@@ -21,10 +28,6 @@ const Carousel = () => {
 
     fetchData();
   }, []);
-
-  useEffect(() => {
-    console.log("Items have been set: ", items);
-  }, [items]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -56,7 +59,7 @@ const Carousel = () => {
   };
 
   return (
-    <div className="relative w-full max-w-4xl mx-auto my-10 bg-white rounded-xl p-4">
+    <div className="relative w-full max-w-4xl mx-auto my-10 bg-transparent border- rounded-xl p-4 shadow-lg shadow-[#0eff06]">
       <div className="flex items-center justify-between">
         <button
           onClick={handlePrev}
@@ -81,9 +84,14 @@ const Carousel = () => {
                 <img
                   src={item.images}
                   alt={item.productName}
-                  className=" relative h-48 object-contain w-50 overflow-hidden bg-white border-0 border-gray-200 rounded-badge"
+                  className="relative h-48 object-contain w-50 overflow-hidden bg-white border-0 border-gray-200 rounded-badge"
                 />
-                <p className="text-center mt-2">{item.productName}</p>
+                <button
+                  onClick={() => handleViewMore(item.id_product)}
+                  className="text-center mt-2 text-[#0eff06] font-bold"
+                >
+                  {item.productName}
+                </button>
               </div>
             ))}
           </div>
