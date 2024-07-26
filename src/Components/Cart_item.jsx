@@ -7,6 +7,7 @@ const CartItem = ({
   price,
   onDelete,
   onQuantityChange,
+  image,
 }) => {
   const [itemQuantity, setItemQuantity] = useState(quantity);
 
@@ -30,18 +31,18 @@ const CartItem = ({
 
   return (
     <div className="p-4 flex flex-col lg:flex-row lg:justify-between lg:items-center bg-[#1f1f1f] text-lg mb-3 rounded-lg max-w-4xl mx-auto lg:space-x-4">
-      <p className="">Contactanos</p>
       <div className="flex flex-col lg:flex-row items-center w-full lg:w-auto mb-4 lg:mb-0">
         <div className="avatar w-full lg:w-24 h-24 lg:h-auto mb-4 lg:mb-0 flex justify-center items-center">
           <img
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+            src={image}
             alt="Product"
             className="w-full h-full rounded object-cover"
           />
         </div>
         <div className="info ml-4 lg:ml-6 flex flex-col justify-center items-center lg:items-start w-full lg:w-auto">
-          <h2 className="text-base lg:text-lg text-center lg:text-left">{name}</h2>
-          <p className="text-sm font-thin text-center lg:text-left">ID: {id}</p>
+          <h2 className="text-base lg:text-lg text-center lg:text-left">
+            {name}
+          </h2>
         </div>
       </div>
 
@@ -63,7 +64,7 @@ const CartItem = ({
         </div>
 
         <div className="price_container flex justify-center items-center w-full lg:w-auto mb-4 lg:mb-0">
-          <h2 className="price text-white">${getTotalPrice()}</h2>
+          <h2 className="price text-white">${getTotalPrice()} MXN</h2>
         </div>
 
         <div className="delete_container mt-4 lg:mt-0 flex justify-center lg:justify-end items-center w-full lg:w-auto">
@@ -78,6 +79,5 @@ const CartItem = ({
     </div>
   );
 };
-
 
 export default CartItem;

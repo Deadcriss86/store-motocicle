@@ -1,24 +1,50 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CartItem from "../../Components/Cart_item";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "./styles_cart.css";
 import { Navlink } from "../../Components/Navbar_";
 import { Footer } from "../../Components/footer";
+import axios from "axios";
 
 function Shopping_cart() {
-  const initialCartItems = [
-    { id: 1, name: "Producto 1", quantity: 1, price: 600 },
-    { id: 2, name: "Producto 2", quantity: 1, price: 800 },
-    { id: 4, name: "Producto 3", quantity: 1, price: 700 },
-    { id: 5, name: "Producto 4", quantity: 1, price: 600 },
-    { id: 2, name: "Producto 2", quantity: 1, price: 800 },
-    { id: 3, name: "Producto 3", quantity: 1, price: 700 },
-  ];
+  const [cartItems, setCartItems] = useState([]);
 
-  const [cartItems, setCartItems] = useState(initialCartItems);
+  const initialCartItems = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/api/pedido", {
+        withCredentials: true,
+      });
+      const pedidos = response.data;
+      const items = pedidos.flatMap((pedido) =>
+        pedido.productos.map((producto) => ({
+          id: producto._id,
+          name: producto.product_name,
+          quantity: producto.cantidad,
+          price: producto.precio,
+          image: producto.image,
+          pedido_delete: pedido._id,
+        }))
+      );
+      setCartItems(items);
+      console.log(pedidos);
+    } catch (error) {
+      console.error("Error al obtener los pedidos:", error);
+    }
+  };
 
-  const handleDelete = (id) => {
-    setCartItems(cartItems.filter((item) => item.id !== id));
+  useEffect(() => {
+    initialCartItems();
+  }, []);
+
+  const handleDelete = async (productoId, pedidoId) => {
+    try {
+      await axios.delete(`http://localhost:3000/api/pedido/${pedidoId}`, {
+        withCredentials: true,
+      });
+      setCartItems(cartItems.filter((item) => item.id !== productoId));
+    } catch (error) {
+      console.error("Error al eliminar el pedido:", error);
+    }
   };
 
   const handleQuantityChange = (id, newQuantity) => {
@@ -64,13 +90,17 @@ function Shopping_cart() {
                         name={item.name}
                         quantity={item.quantity}
                         price={item.price}
-                        onDelete={handleDelete}
+                        onDelete={() =>
+                          handleDelete(item.id, item.pedido_delete)
+                        }
                         onQuantityChange={handleQuantityChange}
+                        image={item.image}
                       />
                     </CSSTransition>
                   ))}
                 </TransitionGroup>
               </div>
+
               <div className="price_container w-full sm:w-2/5 p-4">
                 <div className="price border-4 rounded-lg p-4 mt-2 border-[#0EFF06]">
                   <h2 className="text-white mb-4 text-2xl sm:text-3xl">
