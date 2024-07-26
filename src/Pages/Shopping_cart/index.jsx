@@ -1,24 +1,50 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CartItem from "../../Components/Cart_item";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "./styles_cart.css";
 import { Navlink } from "../../Components/Navbar_";
 import { Footer } from "../../Components/footer";
+import axios from "axios";
 
 function Shopping_cart() {
-  const initialCartItems = [
-    { id: 1, name: "Producto 1", quantity: 1, price: 600 },
-    { id: 2, name: "Producto 2", quantity: 1, price: 800 },
-    { id: 4, name: "Producto 3", quantity: 1, price: 700 },
-    { id: 5, name: "Producto 4", quantity: 1, price: 600 },
-    { id: 2, name: "Producto 2", quantity: 1, price: 800 },
-    { id: 3, name: "Producto 3", quantity: 1, price: 700 },
-  ];
+  const [cartItems, setCartItems] = useState([]);
 
-  const [cartItems, setCartItems] = useState(initialCartItems);
+  const initialCartItems = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/api/pedido", {
+        withCredentials: true,
+      });
+      const pedidos = response.data;
+      const items = pedidos.flatMap((pedido) =>
+        pedido.productos.map((producto) => ({
+          id: producto._id,
+          name: producto.product_name,
+          quantity: producto.cantidad,
+          price: producto.precio,
+          image: producto.image,
+          pedido_delete: pedido._id,
+        }))
+      );
+      setCartItems(items);
+      console.log(pedidos);
+    } catch (error) {
+      console.error("Error al obtener los pedidos:", error);
+    }
+  };
 
-  const handleDelete = (id) => {
-    setCartItems(cartItems.filter((item) => item.id !== id));
+  useEffect(() => {
+    initialCartItems();
+  }, []);
+
+  const handleDelete = async (productoId, pedidoId) => {
+    try {
+      await axios.delete(`http://localhost:3000/api/pedido/${pedidoId}`, {
+        withCredentials: true,
+      });
+      setCartItems(cartItems.filter((item) => item.id !== productoId));
+    } catch (error) {
+      console.error("Error al eliminar el pedido:", error);
+    }
   };
 
   const handleQuantityChange = (id, newQuantity) => {
@@ -39,12 +65,12 @@ function Shopping_cart() {
 
   return (
     <div className="main flex flex-col bg-black min-h-screen">
-      <Navlink/>
+      <Navlink />
       <br />
       <br />
       <br />
-      <div className="flex-grow bg-gradient-to-t from-black via-[#0EFF06] to-black p-4 sm:p-12 flex flex-col items-center">
-        <h1 className="text-white text-center text-2xl sm:text-3xl mb-8">
+      <div className="flex-grow bg-gradient-to-t from-black via-[#0faf09] p-4 sm:p-12 flex flex-col items-center">
+        <h1 className="text-center text-3xl text-[#0eff06] mb-8">
           Carrito de compras
         </h1>
         <div className="bg-[#00000060] rounded-xl p-4 sm:p-12 w-full sm:w-11/12">
@@ -64,18 +90,26 @@ function Shopping_cart() {
                         name={item.name}
                         quantity={item.quantity}
                         price={item.price}
-                        onDelete={handleDelete}
+                        onDelete={() =>
+                          handleDelete(item.id, item.pedido_delete)
+                        }
                         onQuantityChange={handleQuantityChange}
+                        image={item.image}
                       />
                     </CSSTransition>
                   ))}
                 </TransitionGroup>
               </div>
+
               <div className="price_container w-full sm:w-2/5 p-4">
                 <div className="price border-4 rounded-lg p-4 mt-2 border-[#0EFF06]">
-                  <h2 className="text-white mb-4 text-2xl sm:text-3xl">Envío</h2>
+                  <h2 className="text-white mb-4 text-2xl sm:text-3xl">
+                    Envío
+                  </h2>
                   <div className="adrees_container mb-4 text-lg sm:text-xl font-thin italic">
-                    <h2 className="text-white mb-2">Calle: Ignacio Allende 5739 1202</h2>
+                    <h2 className="text-white mb-2">
+                      Calle: Ignacio Allende 5739 1202
+                    </h2>
                     <h2 className="text-white mb-2">San Manuel</h2>
                     <h2 className="text-white mb-2">72560</h2>
                     <h2 className="text-white">Puebla, Pue.</h2>
@@ -86,7 +120,9 @@ function Shopping_cart() {
                   <div className="total_container text-xl sm:text-2xl flex flex-col">
                     <p className="text-white mb-2">
                       Productos{" "}
-                      <span className="total_productos">${totalPriceProducts}</span>
+                      <span className="total_productos">
+                        ${totalPriceProducts}
+                      </span>
                     </p>
                     <p className="text-white mb-2">
                       Envío{" "}
@@ -111,6 +147,5 @@ function Shopping_cart() {
     </div>
   );
 }
-
 
 export default Shopping_cart;

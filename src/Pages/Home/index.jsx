@@ -18,24 +18,27 @@ function Home() {
             alt="Imagen de fondo"
             src={imgfondo}
           />
-          <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white px-4">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+          <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4">
+            <h1 className="text-6xl font-bold py-10 text-transparent bg-clip-text bg-gradient-to-b from-[#0eff06] to-white">
               Venta de accesorios para tu motocicleta
             </h1>
-            <div className="text-base sm:text-lg flex items-center space-x-2">
+            <div className="text-base sm:text-lg flex items-center space-x-2 text-white">
               <span>Conoce nuestros productos</span>
               <Link to="/Menu">
-                <IoArrowForwardCircle size="2rem" className="text-[#0eff06]" />
+                <IoArrowForwardCircle
+                  size="2.5rem"
+                  className="text-[#0eff06] hover:text-white"
+                />
               </Link>
             </div>
             <a
-              className="flex items-center space-x-2 text-base sm:text-lg pt-10"
+              className="flex items-center space-x-2 text-base sm:text-lg pt-10 text-white"
               href="#"
             >
               <span>Contactanos para pedidos personalizados</span>
               <IoLogoWhatsapp
-                size="2rem"
-                className="text-[#0eff06] hover:text-[#0eff06]"
+                size="2.5rem"
+                className="text-[#0eff06] hover:text-white"
               />
             </a>
           </div>

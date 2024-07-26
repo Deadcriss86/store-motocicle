@@ -1,6 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
+//manda un valor a traves de paginas (query params)
 export const ProductCard = (product) => {
+  const prueba = "holamundo";
+  const navigate = useNavigate();
+  const handleViewMore = () => {
+    navigate(`/detail?id=${product.id_product}`);
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-md p-4 max-w-sm mx-5 border border-gray-300">
       {/* Imagen del producto */}
@@ -40,7 +48,10 @@ export const ProductCard = (product) => {
         </p>
 
         {/* Botón Ver más */}
-        <button className="mt-4 w-full bg-gray-900 hover:bg-[#0eff06] text-white hover:text-black py-2 rounded-lg">
+        <button
+          onClick={handleViewMore}
+          className="mt-4 w-full bg-gray-900 hover:bg-[#0eff06] text-white hover:text-black py-2 rounded-lg"
+        >
           Ver más
         </button>
       </div>

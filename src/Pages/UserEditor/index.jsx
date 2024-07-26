@@ -45,7 +45,7 @@ const EditProfileForm = () => {
       <div>
         <Navlink />
       </div>
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-black to-green-900">
+      <div className="min-h-screen flex items-end justify-center pb-8 bg-gradient-to-t from-black to-[#085405cc]">
         <div className="bg-gray-500 bg-opacity-20 rounded-lg p-8">
           <div className="bg-black bg-opacity-75 rounded-lg p-6 w-full max-w-md">
             <h2 className="text-center text-[#0eff06] text-xl font-bold mb-4">

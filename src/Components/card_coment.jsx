@@ -39,7 +39,8 @@ export const Card_coment = () => {
   };
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center">
+      {" "}
       <button
         onClick={handlePrev}
         aria-label="Previous"
