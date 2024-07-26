@@ -210,13 +210,13 @@ const ProductPage = () => {
                 Enviar Pregunta
               </button>
             </div>
-            <a
+            <button
               href="#"
               className="text-[#0eff06] mt-4 block"
-              onClick={() => document.getElementById("my_modal_4").showModal()}
+              onClick={() => document.getElementById("my_modal_5").showModal()}
             >
               Ver todas las preguntas
-            </a>
+            </button>
           </div>
           <dialog id="my_modal_5" className="modal bg-[#2b2929d5]">
             <div className="modal-action">
