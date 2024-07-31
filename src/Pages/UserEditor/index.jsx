@@ -8,7 +8,7 @@ const EditProfileForm = () => {
   const [formData, setFormData] = useState({
     nombre: "",
     apellidos: "",
-    telefono: "",
+    nacionalidad: "",
     movil: "",
     cp: "",
     calle: "",
@@ -16,21 +16,28 @@ const EditProfileForm = () => {
     referencias: "",
   });
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = Cookies.get("token");
-    const userId = Cookies.get("user_id");
-    if (!token || !userId) {
-      console.error("No token or user ID fund in cookies");
+    if (!token) {
+      console.error("No token found in cookies");
       return;
     }
     try {
       const response = await axios.put(
-        "http://localhost:3000/api/editUser",
-        fromData,
+        "http://localhost:3000/api/auth/update",
+        formData,
         {
           headers: {
-            Authorization: "Bearer ${token}",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -62,15 +69,21 @@ const EditProfileForm = () => {
                 </svg>
               </div>
             </div>
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="mb-4 flex">
                 <input
                   type="text"
+                  name="nombre"
+                  value={formData.nombre}
+                  onChange={handleChange}
                   placeholder="Nombre"
                   className="bg-gray-800 text-white p-2 rounded-l w-1/2 mr-1 focus:outline-none"
                 />
                 <input
                   type="text"
+                  name="apellidos"
+                  value={formData.apellidos}
+                  onChange={handleChange}
                   placeholder="Apellidos"
                   className="bg-gray-800 text-white p-2 rounded-r w-1/2 ml-1 focus:outline-none"
                 />
@@ -78,23 +91,36 @@ const EditProfileForm = () => {
               <div className="mb-4 flex">
                 <input
                   type="text"
-                  placeholder="+52"
-                  className="bg-gray-800 text-white p-2 rounded-l w-1/3 mr-1 focus:outline-none"
+                  name="nacionalidad"
+                  value={formData.nacionalidad}
+                  onChange={handleChange}
+                  placeholder="Nacionalidad"
+                  className="bg-gray-800 text-white p-2 rounded w-1/2 focus:outline-none"
                 />
                 <input
                   type="text"
+                  name="movil"
+                  value={formData.movil}
+                  onChange={handleChange}
                   placeholder="Móvil"
-                  className="bg-gray-800 text-white p-2 rounded-r w-2/3 ml-1 focus:outline-none"
+                  className="bg-gray-800 text-white p-2 rounded-r w-full ml-1 focus:outline-none"
                 />
               </div>
+
               <div className="mb-4 flex">
                 <input
                   type="text"
+                  name="cp"
+                  value={formData.cp}
+                  onChange={handleChange}
                   placeholder="CP"
                   className="bg-gray-800 text-white p-2 rounded-l w-1/3 mr-1 focus:outline-none"
                 />
                 <input
                   type="text"
+                  name="calle"
+                  value={formData.calle}
+                  onChange={handleChange}
                   placeholder="Calle"
                   className="bg-gray-800 text-white p-2 rounded-r w-2/3 ml-1 focus:outline-none"
                 />
@@ -102,6 +128,9 @@ const EditProfileForm = () => {
               <div className="mb-4">
                 <input
                   type="text"
+                  name="delegacion"
+                  value={formData.delegacion}
+                  onChange={handleChange}
                   placeholder="Delegación"
                   className="bg-gray-800 text-white p-2 rounded w-full focus:outline-none"
                 />
@@ -109,6 +138,9 @@ const EditProfileForm = () => {
               <div className="mb-4">
                 <input
                   type="text"
+                  name="referencias"
+                  value={formData.referencias}
+                  onChange={handleChange}
                   placeholder="Referencias"
                   className="bg-gray-800 text-white p-2 rounded w-full focus:outline-none"
                 />
