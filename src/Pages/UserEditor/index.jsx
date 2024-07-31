@@ -29,6 +29,8 @@ const EditProfileForm = () => {
     const token = Cookies.get("token");
     if (!token) {
       console.error("No token found in cookies");
+      console.log("Token:", token);
+
       return;
     }
     try {
