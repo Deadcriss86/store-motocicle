@@ -3,7 +3,6 @@ import imgfondo from "../../../dist/assets/img_fondo.png";
 import { IoLogoWhatsapp, IoArrowForwardCircle } from "react-icons/io5";
 import { SlBadge } from "react-icons/sl";
 import Carousel from "../../Components/carousel";
-import { Navlink } from "../../Components/Navbar_";
 import { Card_coment } from "../../Components/card_coment";
 import { Link } from "react-router-dom";
 
@@ -11,7 +10,6 @@ function Home() {
   return (
     <>
       <div className="bg-black min-h-screen">
-        <Navlink />
         <div className="relative w-full h-[calc(100vh-56px)]">
           <img
             className="w-full h-full object-cover opacity-90"
