@@ -1,9 +1,7 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 
 //manda un valor a traves de paginas (query params)
 export const ProductCard = (product) => {
-  const prueba = "holamundo";
   const navigate = useNavigate();
   const handleViewMore = () => {
     navigate(`/detail?id=${product.id_product}`);
