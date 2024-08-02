@@ -1,12 +1,12 @@
 import { Navlink } from "../../Components/Navbar_";
 import { Resenasforms } from "../../Components/resenas_forms";
-import { users_question } from "../../Components/Ask_Users";
 import { Footer } from "../../Components/footer";
 import { useLocation, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import Notification from "../../Components/notification";
+import StarRating from "../../Components/Stars_rating";
 
 const ProductPage = () => {
   const location = useLocation();
@@ -156,21 +156,24 @@ const ProductPage = () => {
               <summary className="px-4 py-2 bg-[#0eff06] text-gray-900 font-bold rounded-xl">
                 Comentarios
               </summary>
-              <div className="text-gray-300 text-justify m-4 border-b-2 border-green-500">
-                <h2 className="text-green-500">NOMBRE DEL USUARIO</h2>
-                <p>
-                  "Comentario realizado por el usuario numero 1 que dice muchas
-                  cosas pero aun no se dane q"
-                </p>
-              </div>
-              <div className="text-gray-300 text-justify m-4 border-b-2 border-green-500">
-                <h2 className="text-green-500">NOMBRE DEL USUARIO</h2>
-                <p>"Comentario realizado por el usuario numero 2"</p>
-              </div>
-              <div className="text-gray-300 text-justify m-4 border-b-2 border-green-500">
-                <h2 className="text-green-500">NOMBRE DEL USUARIO</h2>
-                <p>"Comentario realizado por el usuario numero 3"</p>
-              </div>
+              {product.reviews.length > 0 ? (
+                product.reviews.map((review, index) => (
+                  <div
+                    key={index}
+                    className="text-gray-300 text-justify m-4 border-b-2 border-green-500 text-lg"
+                  >
+                    <div className="flex">
+                      <h2 className="text-green-500 mr-4">{review.username}</h2>
+                      <StarRating rating={review.rating}></StarRating>
+                    </div>
+                    <p>{review.opinion}</p>
+                  </div>
+                ))
+              ) : (
+                <div className="text-gray-300 text-justify m-4">
+                  Todavía no hay reseñas sobre este producto :(
+                </div>
+              )}
             </details>
             <details className="tabs mb-4">
               <summary className="px-4 py-2 bg-[#0eff06] text-gray-900 font-bold rounded-xl">
@@ -245,24 +248,28 @@ const ProductPage = () => {
                 Enviar Pregunta
               </button>
             </form>
-            <button
-              href="#"
-              className="text-[#0eff06] mt-4 block"
-              onClick={() => document.getElementById("my_modal_5").showModal()}
-            >
-              Ver todas las preguntas
-            </button>
+            <details className="tabs mb-4 mt-4">
+              <summary className="px-4 py-2 bg-[#0eff06] text-gray-900 font-bold rounded-xl">
+                Preguntas
+              </summary>
+              {product.questions.length > 0 ? (
+                product.questions.map((questions, index) => (
+                  <div
+                    key={index}
+                    className="text-gray-300 text-justify m-4 border-b-2 border-green-500 text-lg flex"
+                  >
+                    <h2 className="text-green-500 mr-4">{questions.author}:</h2>
+
+                    <p>{questions.body}</p>
+                  </div>
+                ))
+              ) : (
+                <div className="text-gray-300 text-justify m-4">
+                  Todavía no hay preguntas sobre este producto :(
+                </div>
+              )}
+            </details>
           </div>
-          <dialog id="my_modal_5" className="modal bg-[#2b2929d5]">
-            <div className="modal-action">
-              <users_question />
-              <form method="dialog">
-                <button className="btn border-2 border-[#0EFF06] rounded-lg p-3">
-                  Cerrar
-                </button>
-              </form>
-            </div>
-          </dialog>
         </div>
       </main>
       <Footer />
