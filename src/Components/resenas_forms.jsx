@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
-export const Resenasforms = ({ id }) => {
-  const { register, handleSubmit } = useForm();
+export const Resenasforms = ({ id, closeModal, setResponseMessage }) => {
+  const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = async (data) => {
     try {
@@ -17,6 +17,9 @@ export const Resenasforms = ({ id }) => {
         }
       );
       console.log(response.data);
+      reset();
+      setResponseMessage("Reseña agregada!");
+      closeModal();
     } catch (error) {
       console.error("Error al agregar la reseña:", error);
     }

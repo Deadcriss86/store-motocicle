@@ -2,12 +2,11 @@ import { Navlink } from "../../Components/Navbar_";
 import { Resenasforms } from "../../Components/resenas_forms";
 import { users_question } from "../../Components/Ask_Users";
 import { Footer } from "../../Components/footer";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Button } from "@material-tailwind/react";
-
 import axios from "axios";
+import { useForm } from "react-hook-form";
+import Notification from "../../Components/notification";
 
 const ProductPage = () => {
   const location = useLocation();
@@ -16,6 +15,7 @@ const ProductPage = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [responseMessage, setResponseMessage] = useState(null);
 
   useEffect(() => {
     if (value) {
@@ -54,10 +54,30 @@ const ProductPage = () => {
           withCredentials: true,
         }
       );
-      alert("Producto agregado al carrito!");
+      setResponseMessage("Producto agregado al carrito!");
     } catch (error) {
-      setCartError("Error al agregar el producto al carrito");
       console.error("Error al agregar el producto al carrito:", error);
+      setResponseMessage("Error al agregar el producto al carrito.");
+    }
+  };
+
+  const { register, handleSubmit, reset } = useForm();
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:3000/api/products/${value}/questions`,
+        data,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log("Pregunta enviada:", response.data);
+      setResponseMessage("Pregunta enviada con éxito!");
+      reset();
+    } catch (error) {
+      console.error("Error al enviar la pregunta:", error);
+      setResponseMessage("Error al enviar la pregunta.");
     }
   };
 
@@ -86,7 +106,6 @@ const ProductPage = () => {
                 className="w-full rounded-lg"
               />
             </div>
-            <br />
             <div className="lg:w-1/2">
               <h1 className="text-3xl font-bold mb-2 text-[#0eff06]">
                 {product?.productName || "Nombre del producto"}
@@ -104,7 +123,7 @@ const ProductPage = () => {
               </p>
               <button
                 onClick={onclickcarrito}
-                className="bg-[#0eff06] text-black font-bold py-2 px-4 rounded-full mb-4 hover:text-white hover:bg-gradient-to-r from-orange-300 to-[#0eff06] "
+                className="bg-[#0eff06] text-black font-bold py-2 px-4 rounded-full mb-4 hover:text-white hover:bg-gradient-to-r from-orange-300 to-[#0eff06]"
               >
                 Agregar al carrito
               </button>
@@ -128,7 +147,7 @@ const ProductPage = () => {
               <summary className="px-4 py-2 bg-[#0eff06] text-gray-900 font-bold rounded-xl">
                 Descripción
               </summary>
-              <ul className=" text-gray-300 text-justify m-4">
+              <ul className="text-gray-300 text-justify m-4">
                 {product?.description ||
                   "Descripción no disponible. Slider tipo jaula. Hecho de acero industrial y con pintura electrostática para mayor duración, incluso en climas costeros..."}
               </ul>
@@ -137,18 +156,18 @@ const ProductPage = () => {
               <summary className="px-4 py-2 bg-[#0eff06] text-gray-900 font-bold rounded-xl">
                 Comentarios
               </summary>
-              <div className=" text-gray-300 text-justify m-4 border-b-2 border-green-500">
+              <div className="text-gray-300 text-justify m-4 border-b-2 border-green-500">
                 <h2 className="text-green-500">NOMBRE DEL USUARIO</h2>
                 <p>
                   "Comentario realizado por el usuario numero 1 que dice muchas
-                  cosas pero aun no se dane qe da´daksjaksjasjdsjf"
+                  cosas pero aun no se dane q"
                 </p>
               </div>
-              <div className=" text-gray-300 text-justify m-4 border-b-2 border-green-500">
+              <div className="text-gray-300 text-justify m-4 border-b-2 border-green-500">
                 <h2 className="text-green-500">NOMBRE DEL USUARIO</h2>
                 <p>"Comentario realizado por el usuario numero 2"</p>
               </div>
-              <div className=" text-gray-300 text-justify m-4 border-b-2 border-green-500">
+              <div className="text-gray-300 text-justify m-4 border-b-2 border-green-500">
                 <h2 className="text-green-500">NOMBRE DEL USUARIO</h2>
                 <p>"Comentario realizado por el usuario numero 3"</p>
               </div>
@@ -157,7 +176,7 @@ const ProductPage = () => {
               <summary className="px-4 py-2 bg-[#0eff06] text-gray-900 font-bold rounded-xl">
                 Información del envío
               </summary>
-              <ul className=" text-gray-300 text-justify m-4">
+              <ul className="text-gray-300 text-justify m-4">
                 - OPCIONES DE ENVIO:
                 <br />
                 La tarifa dentro de la CDMX es de $210.00, la tarifa al exterior
@@ -172,6 +191,14 @@ const ProductPage = () => {
             </details>
           </div>
 
+          {responseMessage && (
+            <Notification
+              message={responseMessage}
+              type={responseMessage.includes("Error") ? "error" : "success"}
+              onClose={() => setResponseMessage(null)}
+            />
+          )}
+
           <div className="flex justify-center m-8 ">
             <Link
               to="/Menu"
@@ -181,15 +208,19 @@ const ProductPage = () => {
             </Link>{" "}
             <button
               className="border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06]"
-              onClick={() => document.getElementById("my_modal_4").showModal()}
+              onClick={() => document.getElementById("my_modal_5").showModal()}
             >
               Agregar Reseña
             </button>
           </div>
 
-          <dialog id="my_modal_4" className="modal bg-[#000000c7]">
+          <dialog id="my_modal_5" className="modal bg-[#000000c7]">
             <div className="modal-action">
-              <Resenasforms id={value}></Resenasforms>
+              <Resenasforms
+                setResponseMessage={setResponseMessage}
+                id={value}
+                closeModal={() => document.getElementById("my_modal_5").close()}
+              />
               <form method="dialog">
                 <button className="btn border-2 border-[#0EFF06] rounded-lg p-3">
                   Cancelar
@@ -200,16 +231,20 @@ const ProductPage = () => {
 
           <div className="bg-gray-800 p-4 mt-8 rounded-lg">
             <h2 className="text-xl mb-4">Hacer una pregunta</h2>
-            <div className="flex space-x-2">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex space-x-2">
               <input
+                {...register("body", { required: true })}
                 className="w-full px-3 py-2 text-gray-900 rounded-lg"
                 type="text"
                 placeholder="Hacer una pregunta..."
               />
-              <button className="border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06]">
+              <button
+                type="submit"
+                className="border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06]"
+              >
                 Enviar Pregunta
               </button>
-            </div>
+            </form>
             <button
               href="#"
               className="text-[#0eff06] mt-4 block"
@@ -220,7 +255,7 @@ const ProductPage = () => {
           </div>
           <dialog id="my_modal_5" className="modal bg-[#2b2929d5]">
             <div className="modal-action">
-              <users_question></users_question>
+              <users_question />
               <form method="dialog">
                 <button className="btn border-2 border-[#0EFF06] rounded-lg p-3">
                   Cerrar
