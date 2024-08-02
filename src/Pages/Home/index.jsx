@@ -60,14 +60,14 @@ function Home() {
           </div>
         </div>
 
-        <div className="sticky top-0 h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#0d4d0b] to-black">
+        <div className="sticky top-0 h-auto flex flex-col items-center justify-center bg-gradient-to-b from-[#0d4d0b] to-black">
           <div className="text-white text-3xl font-bold flex justify-center py-10 ">
             Algunos de nuestros productos
           </div>
           <Carousel />
         </div>
 
-        <div className="sticky top-0 h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#0d4d0b] to-black text-white ">
+        <div className="sticky top-0 h-auto flex flex-col items-center justify-center bg-gradient-to-b from-black to-[#082707] text-white ">
           <h2 className="text-[#0eff06] text-3xl font-bold flex justify-center py-10">
             Comentarios de nuestros clientes
           </h2>

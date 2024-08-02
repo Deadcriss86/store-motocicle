@@ -69,6 +69,16 @@ const ProductPage = () => {
     return <div>{error}</div>;
   }
 
+  function downloadPDF() {
+    const pdfUrl = "../../Assets/Alta_Contrato.pdf";
+    const a = document.createElement("a");
+    a.href = pdfUrl;
+    a.download = "Manual_Instalacion.pdf"; // Nombre del archivo para la descarga
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
   return (
     <div className="min-h-screen bg-black text-white">
       <Navlink />
@@ -104,7 +114,7 @@ const ProductPage = () => {
               </p>
               <button
                 onClick={onclickcarrito}
-                className="bg-[#0eff06] text-black font-bold py-2 px-4 rounded-full mb-4 hover:text-white hover:bg-gradient-to-r from-orange-300 to-[#0eff06] "
+                className="bg-[#0eff06] text-black font-bold py-2 px-4 rounded-full mb-4 hover:text-white hover:bg-gradient-to-r from-orange-300 to-[#0eff06]"
               >
                 Agregar al carrito
               </button>
@@ -117,7 +127,10 @@ const ProductPage = () => {
               <p className="mb-4">
                 ¡Envío de 3 a 5 días hábiles!* Hasta 12MSI con mercado crédito
               </p>
-              <button className="border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06]">
+              <button
+                onClick={() => downloadPDF()}
+                className="border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06]"
+              >
                 Manual Instalación
               </button>
             </div>
