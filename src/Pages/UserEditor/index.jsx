@@ -1,22 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Navlink } from "../../Components/Navbar_";
 import { Footer } from "../../Components/footer";
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom"; // Usar para redirección
 
 const EditProfileForm = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
+  const { isAuthenticated, loading } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (!token) {
+      navigate("/login"); // Redirigir a la página de inicio de sesión si no hay token
+    }
+  }, [navigate]);
 
   const onSubmit = async (data) => {
     const token = Cookies.get("token");
     if (!token) {
       console.error("No token found in cookies");
-      console.log("token:", token);
       return;
     }
     try {
@@ -35,11 +41,17 @@ const EditProfileForm = () => {
     }
   };
 
+  if (loading) {
+    return <div>Loading...</div>; // Mostrar un mensaje de carga mientras se verifica la autenticación
+  }
+
+  if (!isAuthenticated) {
+    return <div>Please log in to edit your profile.</div>; // Mostrar mensaje si no está autenticado
+  }
+
   return (
     <div>
-      <div>
-        <Navlink />
-      </div>
+      <Navlink />
       <div className="min-h-screen flex items-end justify-center pb-8 bg-gradient-to-t from-black to-[#085405cc]">
         <div className="bg-gray-500 bg-opacity-20 rounded-lg p-8">
           <div className="bg-black bg-opacity-75 rounded-lg p-6 w-full max-w-md">
