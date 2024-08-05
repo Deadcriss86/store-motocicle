@@ -214,9 +214,9 @@ export const Navlink = () => {
   return (
     <nav className="w-full fixed top-0 left-0 z-50 bg-gradient-to-b from-[#076404] via-[#076404cc] to-[#07640400]">
       <div className="max-w-7xl mx-auto flex items-center justify-between p-4">
-        <a href="/" className="flex items-center space-x-3">
+        <Link to="/" className="flex items-center space-x-3">
           <img src={logo} className="h-16" alt="logo" />
-        </a>
+        </Link>
         <div className="flex md:hidden">
           <button
             onClick={toggleMenu}
