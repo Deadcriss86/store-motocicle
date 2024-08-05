@@ -6,8 +6,20 @@ import Carousel from "../../Components/carousel";
 import { Navlink } from "../../Components/Navbar_";
 import { Card_coment } from "../../Components/card_coment";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom/dist";
 
 function Home() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const isAdmin = Cookies.get("isadmin");
+    if (isAdmin === "true") {
+      navigate("/productos");
+    }
+  }, [navigate]);
+
   return (
     <>
       <div className="bg-black min-h-screen">

@@ -1,6 +1,8 @@
 import { ProductForm } from "../../Components/ProductForm";
 import Admin_products from "../../Components/Admin_products";
 import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom/dist";
 
 const products = [
   {
@@ -28,6 +30,26 @@ const products = [
 
 const Productos = () => {
   const [responseMessage, setResponseMessage] = useState(null);
+  const navigate = useNavigate();
+  const logout = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/logout",
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(response.data);
+      navigate("/");
+      window.location.reload(true);
+    } catch (error) {
+      console.error("Error during logout:", error);
+      if (error.response) {
+        console.error("Server response:", error.response.data);
+      }
+    }
+  };
 
   return (
     <div>
@@ -72,6 +94,12 @@ const Productos = () => {
               </form>
             </div>
           </dialog>
+          <button
+            className="bg-red-400 text-white p-2 rounded-lg"
+            onClick={logout}
+          >
+            Logout
+          </button>
         </div>
         <div className="container bg-[#202020] p-4 rounded-lg border-2 border-[#0EFF06]">
           {products.map((product) => (

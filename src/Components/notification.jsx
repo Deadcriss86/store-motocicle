@@ -20,7 +20,7 @@ const Notification = ({ message, type, duration = 10000, onClose }) => {
     <div
       className={`fixed top-4 left-1/2 transform -translate-x-1/2 p-4 rounded-md shadow-lg z-50 ${
         type === "success"
-          ? "bg-[#0eff06] text-black font-bold"
+          ? "bg-[#f0ff19] text-black font-bold"
           : "bg-red-500 text-white"
       }`}
     >
