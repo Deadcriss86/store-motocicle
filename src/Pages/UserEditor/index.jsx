@@ -12,27 +12,13 @@ const EditProfileForm = () => {
   const { isAuthenticated, loading } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = Cookies.get("token");
-    if (!token) {
-      navigate("/login"); // Redirigir a la página de inicio de sesión si no hay token
-    }
-  }, [navigate]);
-
   const onSubmit = async (data) => {
-    const token = Cookies.get("token");
-    if (!token) {
-      console.error("No token found in cookies");
-      return;
-    }
     try {
       const response = await axios.put(
         "http://localhost:3000/api/auth/update",
         data,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          withCredentials: true,
         }
       );
       console.log("Profile updated successfully:", response.data);
