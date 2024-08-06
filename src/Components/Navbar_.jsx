@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { IoCartOutline, IoMenu, IoClose } from "react-icons/io5";
 import { FaRegUser } from "react-icons/fa";
 import logo from "../../dist/assets/logo2.png";
-import { LinkIcon } from "@heroicons/react/20/solid";
+import axios from "axios";
 
 export const Navlink = () => {
-  const { isAuthenticated, logout, user } = useAuth();
+  const { isAuthenticated, user, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -49,8 +50,7 @@ export const Navlink = () => {
       >
         <IoCartOutline size={24} />
       </Link>
-      <Link
-        to="/"
+      <button
         onClick={logout}
         className="nav-button hover:bg-[#0eff0601] hover:text-white flex w-auto items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-7 py-2.5 font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
       >
@@ -65,7 +65,7 @@ export const Navlink = () => {
           width="1em"
           xmlns="http://www.w3.org/2000/svg"
         ></svg>
-      </Link>
+      </button>
     </div>
   );
 
@@ -147,7 +147,7 @@ export const Navlink = () => {
               >
                 Mi perfil <FaRegUser className="ml-1" />
               </Link>
-            </li>{" "}
+            </li>
           </>
         )}
         <li>
@@ -214,9 +214,9 @@ export const Navlink = () => {
   return (
     <nav className="w-full fixed top-0 left-0 z-50 bg-gradient-to-b from-[#076404] via-[#076404cc] to-[#07640400]">
       <div className="max-w-7xl mx-auto flex items-center justify-between p-4">
-        <a href="/" className="flex items-center space-x-3">
+        <Link to="/" className="flex items-center space-x-3">
           <img src={logo} className="h-16" alt="logo" />
-        </a>
+        </Link>
         <div className="flex md:hidden">
           <button
             onClick={toggleMenu}

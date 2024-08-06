@@ -77,15 +77,6 @@ const Login = () => {
               Recordarme
             </label>
           </div>
-          <div className="flex items-center justify-center mb-4">
-            <button className="bg-transparent hover:bg-[#0FFF07] hover:text-black transition-colors duration-300 text-white border-2 border-white font-bold py-2 px-4 rounded-full w-full flex items-center justify-center gap-2">
-              <img src="" alt="Google" className="w-6 h-6" />
-              Inicia sesión con Google
-            </button>
-          </div>
-          <div className="flex items-center justify-center">
-            <span className="text-gray-300 mx-2">o</span>
-          </div>
           <div className="flex items-center justify-center mt-4">
             <button
               type="submit"

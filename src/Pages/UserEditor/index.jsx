@@ -1,46 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { Navlink } from "../../Components/Navbar_";
 import { Footer } from "../../Components/footer";
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom"; // Usar para redirección
 
 const EditProfileForm = () => {
-  const [formData, setFormData] = useState({
-    nombre: "",
-    apellidos: "",
-    nacionalidad: "",
-    movil: "",
-    cp: "",
-    calle: "",
-    delegacion: "",
-    referencias: "",
-  });
+  const { register, handleSubmit } = useForm();
+  const { isAuthenticated, loading } = useAuth();
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const token = Cookies.get("token");
-    if (!token) {
-      console.error("No token found in cookies");
-      console.log("Token:", token);
-
-      return;
-    }
+  const onSubmit = async (data) => {
     try {
       const response = await axios.put(
         "http://localhost:3000/api/auth/update",
-        formData,
+        data,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          withCredentials: true,
         }
       );
       console.log("Profile updated successfully:", response.data);
@@ -49,11 +27,17 @@ const EditProfileForm = () => {
     }
   };
 
+  if (loading) {
+    return <div>Loading...</div>; // Mostrar un mensaje de carga mientras se verifica la autenticación
+  }
+
+  if (!isAuthenticated) {
+    return <div>Please log in to edit your profile.</div>; // Mostrar mensaje si no está autenticado
+  }
+
   return (
     <div>
-      <div>
-        <Navlink />
-      </div>
+      <Navlink />
       <div className="min-h-screen flex items-end justify-center pb-8 bg-gradient-to-t from-black to-[#085405cc]">
         <div className="bg-gray-500 bg-opacity-20 rounded-lg p-8">
           <div className="bg-black bg-opacity-75 rounded-lg p-6 w-full max-w-md">
@@ -71,21 +55,17 @@ const EditProfileForm = () => {
                 </svg>
               </div>
             </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-4 flex">
                 <input
                   type="text"
-                  name="nombre"
-                  value={formData.nombre}
-                  onChange={handleChange}
+                  {...register("nombre")}
                   placeholder="Nombre"
                   className="bg-gray-800 text-white p-2 rounded-l w-1/2 mr-1 focus:outline-none"
                 />
                 <input
                   type="text"
-                  name="apellidos"
-                  value={formData.apellidos}
-                  onChange={handleChange}
+                  {...register("apellidos")}
                   placeholder="Apellidos"
                   className="bg-gray-800 text-white p-2 rounded-r w-1/2 ml-1 focus:outline-none"
                 />
@@ -93,36 +73,27 @@ const EditProfileForm = () => {
               <div className="mb-4 flex">
                 <input
                   type="text"
-                  name="nacionalidad"
-                  value={formData.nacionalidad}
-                  onChange={handleChange}
+                  {...register("nacionalidad")}
                   placeholder="Nacionalidad"
                   className="bg-gray-800 text-white p-2 rounded w-1/2 focus:outline-none"
                 />
                 <input
                   type="text"
-                  name="movil"
-                  value={formData.movil}
-                  onChange={handleChange}
+                  {...register("movil")}
                   placeholder="Móvil"
                   className="bg-gray-800 text-white p-2 rounded-r w-full ml-1 focus:outline-none"
                 />
               </div>
-
               <div className="mb-4 flex">
                 <input
                   type="text"
-                  name="cp"
-                  value={formData.cp}
-                  onChange={handleChange}
+                  {...register("cp")}
                   placeholder="CP"
                   className="bg-gray-800 text-white p-2 rounded-l w-1/3 mr-1 focus:outline-none"
                 />
                 <input
                   type="text"
-                  name="calle"
-                  value={formData.calle}
-                  onChange={handleChange}
+                  {...register("calle")}
                   placeholder="Calle"
                   className="bg-gray-800 text-white p-2 rounded-r w-2/3 ml-1 focus:outline-none"
                 />
@@ -130,9 +101,7 @@ const EditProfileForm = () => {
               <div className="mb-4">
                 <input
                   type="text"
-                  name="delegacion"
-                  value={formData.delegacion}
-                  onChange={handleChange}
+                  {...register("delegacion")}
                   placeholder="Delegación"
                   className="bg-gray-800 text-white p-2 rounded w-full focus:outline-none"
                 />
@@ -140,9 +109,7 @@ const EditProfileForm = () => {
               <div className="mb-4">
                 <input
                   type="text"
-                  name="referencias"
-                  value={formData.referencias}
-                  onChange={handleChange}
+                  {...register("referencias")}
                   placeholder="Referencias"
                   className="bg-gray-800 text-white p-2 rounded w-full focus:outline-none"
                 />

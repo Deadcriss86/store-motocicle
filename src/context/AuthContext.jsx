@@ -47,11 +47,11 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(true);
     } catch (error) {
       console.log(error);
-      setErrors(error.response.data.message);
+      // setErrors(error.response.data.message);
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
     Cookies.remove("token");
     setUser(null);
     setIsAuthenticated(false);
@@ -59,22 +59,14 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const checkLogin = async () => {
-      const cookies = Cookies.get();
-      if (!cookies.token) {
-        setIsAuthenticated(false);
-        setLoading(false);
-        return;
-      }
-
       try {
-        const res = await verifyTokenRequest(cookies.token);
-        console.log(res);
+        const res = await verifyTokenRequest();
         if (!res.data) return setIsAuthenticated(false);
         setIsAuthenticated(true);
         setUser(res.data);
-        setLoading(false);
       } catch (error) {
         setIsAuthenticated(false);
+      } finally {
         setLoading(false);
       }
     };
