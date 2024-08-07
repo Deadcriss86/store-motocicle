@@ -14,7 +14,6 @@ import { AuthProvider } from "../../context/AuthContext";
 import { ProtectedRoute } from "../../routes";
 import Shopping from "../Myshopping";
 import MenuProducto from "../Menu_productos";
-import { Navlink } from "../../Components/Navbar_";
 
 const AppRoutes = () => {
   const routes = useRoutes([
@@ -43,7 +42,6 @@ const App = () => {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <Navlink />
         <AppRoutes />
       </BrowserRouter>
     </AuthProvider>

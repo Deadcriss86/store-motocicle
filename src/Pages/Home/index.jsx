@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom/dist";
+import { Navlink } from "../../Components/Navbar_";
 
 function Home() {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ function Home() {
 
   return (
     <>
+      <Navlink />
       <div className="bg-black min-h-screen">
         <div className="relative w-full h-[calc(100vh-56px)]">
           <img
