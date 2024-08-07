@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom/dist";
 const Productos = () => {
   const [responseMessage, setResponseMessage] = useState(null);
   const [products, setProducts] = useState([]);
+  const [editingProduct, setEditingProduct] = useState(null);
+  const [deletingProductId, setDeletingProductId] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,14 +26,51 @@ const Productos = () => {
     fetchProducts();
   }, []);
 
+  const handleEdit = (product) => {
+    setEditingProduct(product);
+  };
+
+  const handleDelete = (productId) => {
+    setDeletingProductId(productId);
+  };
+
+  const confirmDelete = async () => {
+    try {
+      await axios.delete(
+        `http://localhost:3000/api/products/${deletingProductId}`
+      );
+      setProducts(
+        products.filter((product) => product._id !== deletingProductId)
+      );
+      setDeletingProductId(null);
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
+  };
+
+  const handleEditSubmit = async (updatedProduct) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:3000/api/products/${updatedProduct._id}`,
+        updatedProduct
+      );
+      setProducts(
+        products.map((product) =>
+          product._id === updatedProduct._id ? response.data : product
+        )
+      );
+      setEditingProduct(null);
+    } catch (error) {
+      console.error("Error updating product:", error);
+    }
+  };
+
   const logout = async () => {
     try {
       const response = await axios.post(
         "http://localhost:3000/api/auth/logout",
         {},
-        {
-          withCredentials: true,
-        }
+        { withCredentials: true }
       );
       console.log(response.data);
       navigate("/");
@@ -97,17 +136,59 @@ const Productos = () => {
         <div className="container bg-[#202020] p-4 rounded-lg border-2 border-[#0EFF06]">
           {products.map((product) => (
             <Admin_products
-              key={product.id}
-              id={product.id}
-              name={product.name}
+              key={product._id}
+              id={product._id}
+              name={product.productName}
               price={product.price}
               stock={product.stock}
               description={product.description}
               images={product.images}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
             />
           ))}
         </div>
       </div>
+
+      {editingProduct && (
+        <dialog id="edit_modal" className="modal bg-[#000000c7]" open>
+          <div className="modal-action">
+            <ProductForm
+              product={editingProduct}
+              onSubmit={handleEditSubmit}
+              setResponseMessage={setResponseMessage}
+            />
+            <form method="dialog">
+              <button
+                className="btn border-2 border-[#0EFF06] rounded-lg p-3"
+                onClick={() => setEditingProduct(null)}
+              >
+                Cancelar
+              </button>
+            </form>
+          </div>
+        </dialog>
+      )}
+
+      {deletingProductId && (
+        <dialog id="delete_modal" className="modal bg-[#000000c7]" open>
+          <div className="modal-action">
+            <p>¿Estás seguro de que deseas eliminar este producto?</p>
+            <button
+              className="btn bg-red-500 text-white p-3 rounded-lg"
+              onClick={confirmDelete}
+            >
+              Confirmar
+            </button>
+            <button
+              className="btn border-2 border-[#0EFF06] rounded-lg p-3"
+              onClick={() => setDeletingProductId(null)}
+            >
+              Cancelar
+            </button>
+          </div>
+        </dialog>
+      )}
     </div>
   );
 };
