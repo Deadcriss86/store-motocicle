@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
-export const ProductForm = () => {
+export const ProductForm = (setResponseMessage) => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {

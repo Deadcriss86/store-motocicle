@@ -3,15 +3,27 @@ import imgfondo from "../../../dist/assets/img_fondo.png";
 import { IoLogoWhatsapp, IoArrowForwardCircle } from "react-icons/io5";
 import { SlBadge } from "react-icons/sl";
 import Carousel from "../../Components/carousel";
-import { Navlink } from "../../Components/Navbar_";
 import { Card_coment } from "../../Components/card_coment";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom/dist";
+import { Navlink } from "../../Components/Navbar_";
 
 function Home() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const isAdmin = Cookies.get("isadmin");
+    if (isAdmin === "true") {
+      navigate("/productos");
+    }
+  }, [navigate]);
+
   return (
     <>
+      <Navlink />
       <div className="bg-black min-h-screen">
-        <Navlink />
         <div className="relative w-full h-[calc(100vh-56px)]">
           <img
             className="w-full h-full object-cover opacity-90"

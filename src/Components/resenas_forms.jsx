@@ -1,10 +1,14 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
-export const Resenasforms = ({ id }) => {
-  const { register, handleSubmit } = useForm();
+export const Resenasforms = ({ id, closeModal, setResponseMessage }) => {
+  const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = async (data) => {
+    if (!data.rating) {
+      data.rating = 5;
+    }
+
     try {
       const response = await axios.post(
         `http://localhost:3000/api/products/${id}/reviews`,
@@ -17,6 +21,9 @@ export const Resenasforms = ({ id }) => {
         }
       );
       console.log(response.data);
+      reset();
+      setResponseMessage("Reseña agregada!");
+      closeModal();
     } catch (error) {
       console.error("Error al agregar la reseña:", error);
     }
@@ -44,15 +51,15 @@ export const Resenasforms = ({ id }) => {
           <div className="rating gap-1">
             <input
               type="radio"
-              id="rating-5"
-              value="5"
+              id="rating-1"
+              value="1"
               {...register("rating")}
               className="mask mask-heart bg-green-400"
             />
             <input
               type="radio"
-              id="rating-4"
-              value="4"
+              id="rating-2"
+              value="2"
               {...register("rating")}
               className="mask mask-heart bg-lime-400"
             />
@@ -65,17 +72,18 @@ export const Resenasforms = ({ id }) => {
             />
             <input
               type="radio"
-              id="rating-2"
-              value="2"
+              id="rating-4"
+              value="4"
               {...register("rating")}
               className="mask mask-heart bg-orange-400"
             />
             <input
               type="radio"
-              id="rating-1"
-              value="1"
+              id="rating-5"
+              value="5"
               {...register("rating")}
               className="mask mask-heart bg-red-400"
+              defaultChecked
             />
           </div>
         </div>
