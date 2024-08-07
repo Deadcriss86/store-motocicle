@@ -48,20 +48,44 @@ const Productos = () => {
     }
   };
 
-  const handleEditSubmit = async (updatedProduct) => {
+  const handleEditSubmit = async (formData) => {
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/products/${updatedProduct._id}`,
-        updatedProduct
+        `http://localhost:3000/api/products/${editingProduct._id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
       setProducts(
         products.map((product) =>
-          product._id === updatedProduct._id ? response.data : product
+          product._id === editingProduct._id ? response.data : product
         )
       );
       setEditingProduct(null);
     } catch (error) {
       console.error("Error updating product:", error);
+    }
+  };
+
+  const handleAddSubmit = async (formData) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/newproduct",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      setProducts([...products, response.data]);
+      setResponseMessage("ok");
+    } catch (error) {
+      console.error("Error adding product:", error);
+      setResponseMessage("error");
     }
   };
 
@@ -118,7 +142,10 @@ const Productos = () => {
           </button>
           <dialog id="my_modal_4" className="modal bg-[#000000c7]">
             <div className="modal-action">
-              <ProductForm setResponseMessage={setResponseMessage} />
+              <ProductForm
+                onSubmit={handleAddSubmit}
+                setResponseMessage={setResponseMessage}
+              />
               <form method="dialog">
                 <button className="btn border-2 border-[#0EFF06] rounded-lg p-3">
                   Cancelar
