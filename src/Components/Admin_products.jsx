@@ -3,10 +3,7 @@ const Admin_products = (props) => {
     <div className="p-2 flex mb-3 rounded-lg bg-[#3F3F3F] lg:text-lg text-white text-base">
       <div className="avatar">
         <div className="w-24 rounded">
-          <img
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-            alt="Product"
-          />
+          <img src={props.images} alt="Product" />
         </div>
       </div>
       <div className="card_info flex flex-row justify-between w-full">

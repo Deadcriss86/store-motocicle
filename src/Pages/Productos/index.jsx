@@ -1,36 +1,29 @@
 import { ProductForm } from "../../Components/ProductForm";
 import Admin_products from "../../Components/Admin_products";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom/dist";
 
-const products = [
-  {
-    id: 1,
-    name: "Producto 1",
-    price: 100,
-    stock: 4,
-    description: "Esta es una descripción corta",
-  },
-  {
-    id: 2,
-    name: "Producto 2",
-    price: 200,
-    stock: 6,
-    description: "Esta es una descripción corta",
-  },
-  {
-    id: 3,
-    name: "Producto 3",
-    price: 300,
-    stock: 9,
-    description: "Esta es una descripción corta",
-  },
-];
-
 const Productos = () => {
   const [responseMessage, setResponseMessage] = useState(null);
+  const [products, setProducts] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/api/getproducts"
+        );
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
   const logout = async () => {
     try {
       const response = await axios.post(
@@ -110,6 +103,7 @@ const Productos = () => {
               price={product.price}
               stock={product.stock}
               description={product.description}
+              images={product.images}
             />
           ))}
         </div>
