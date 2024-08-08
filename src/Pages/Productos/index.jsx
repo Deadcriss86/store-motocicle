@@ -48,10 +48,15 @@ const Productos = () => {
     }
   };
 
-  const handleEditSubmit = async (formData) => {
+  const handleEditSubmit = async (formData, productId) => {
+    if (!productId) {
+      console.error("El ID del producto es requerido");
+      return;
+    }
+
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/products/${editingProduct._id}`,
+        `http://localhost:3000/api/products/${productId}`,
         formData,
         {
           headers: {
@@ -61,7 +66,7 @@ const Productos = () => {
       );
       setProducts(
         products.map((product) =>
-          product._id === editingProduct._id ? response.data : product
+          product._id === productId ? response.data : product
         )
       );
       setEditingProduct(null);
@@ -179,7 +184,7 @@ const Productos = () => {
 
       {editingProduct && (
         <dialog id="edit_modal" className="modal bg-[#000000c7]" open>
-          <div className="modal-action">
+          <div className="modal-action text-white">
             <ProductForm
               product={editingProduct}
               onSubmit={handleEditSubmit}

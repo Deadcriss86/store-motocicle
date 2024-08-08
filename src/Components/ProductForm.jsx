@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { useEffect } from "react";
 
 export const ProductForm = ({ product, onSubmit, setResponseMessage }) => {
@@ -29,7 +28,10 @@ export const ProductForm = ({ product, onSubmit, setResponseMessage }) => {
     }
 
     try {
-      const response = await onSubmit(formData);
+      const response = await onSubmit(
+        formData,
+        product ? product._id : undefined
+      );
       console.log(response.data);
       setResponseMessage("ok");
     } catch (error) {
@@ -48,6 +50,7 @@ export const ProductForm = ({ product, onSubmit, setResponseMessage }) => {
         onSubmit={handleSubmit(handleFormSubmit)}
         encType="multipart/form-data"
       >
+        {/* Los campos del formulario */}
         <div>
           <label htmlFor="name">Nombre del producto:</label>
           <input
