@@ -48,8 +48,8 @@ const Productos = () => {
     }
   };
 
-  const handleEditSubmit = async (formData, productId) => {
-    if (!productId) {
+  const handleEditSubmit = async (formData, product) => {
+    if (!product) {
       console.error("El ID del producto es requerido");
       return;
     }
