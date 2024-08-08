@@ -48,8 +48,8 @@ const Productos = () => {
     }
   };
 
-  const handleEditSubmit = async (formData, product) => {
-    if (!product) {
+  const handleEditSubmit = async (formData, productId) => {
+    if (!productId) {
       console.error("El ID del producto es requerido");
       return;
     }
@@ -64,10 +64,9 @@ const Productos = () => {
           },
         }
       );
+      console.log("Respuesta del servidor:", response);
       setProducts(
-        products.map((product) =>
-          product._id === productId ? response.data : product
-        )
+        products.map((p) => (p._id === productId ? response.data : p))
       );
       setEditingProduct(null);
     } catch (error) {

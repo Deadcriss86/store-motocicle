@@ -32,8 +32,18 @@ export const ProductForm = ({ product, onSubmit, setResponseMessage }) => {
         formData,
         product ? product._id : undefined
       );
-      console.log(response.data);
-      setResponseMessage("ok");
+
+      // Verificar la estructura completa de la respuesta
+      console.log("Respuesta completa del servidor:", response);
+
+      // Intentar acceder a la propiedad `data`
+      if (response && response.data) {
+        console.log("Datos del producto:", response.data);
+        setResponseMessage("ok");
+      } else {
+        console.error("Respuesta del servidor no contiene `data`:", response);
+        setResponseMessage("error");
+      }
     } catch (error) {
       console.error("Error al procesar el producto:", error);
       setResponseMessage("error");
@@ -50,7 +60,6 @@ export const ProductForm = ({ product, onSubmit, setResponseMessage }) => {
         onSubmit={handleSubmit(handleFormSubmit)}
         encType="multipart/form-data"
       >
-        {/* Los campos del formulario */}
         <div>
           <label htmlFor="name">Nombre del producto:</label>
           <input
@@ -61,7 +70,6 @@ export const ProductForm = ({ product, onSubmit, setResponseMessage }) => {
           />
         </div>
         <br />
-
         <div>
           <label htmlFor="price">Precio:</label>
           <input
@@ -73,7 +81,6 @@ export const ProductForm = ({ product, onSubmit, setResponseMessage }) => {
           />
         </div>
         <br />
-
         <div>
           <label htmlFor="stock">Stock:</label>
           <input
@@ -84,7 +91,6 @@ export const ProductForm = ({ product, onSubmit, setResponseMessage }) => {
           />
         </div>
         <br />
-
         <div>
           <label htmlFor="description">Descripción del producto:</label>
           <textarea
@@ -97,7 +103,6 @@ export const ProductForm = ({ product, onSubmit, setResponseMessage }) => {
           />
         </div>
         <br />
-
         <div>
           <label htmlFor="category">Categoría:</label>
           <input
@@ -108,7 +113,6 @@ export const ProductForm = ({ product, onSubmit, setResponseMessage }) => {
           />
         </div>
         <br />
-
         <div>
           <label htmlFor="subcategory">Subcategoría:</label>
           <input
@@ -119,7 +123,6 @@ export const ProductForm = ({ product, onSubmit, setResponseMessage }) => {
           />
         </div>
         <br />
-
         <div>
           <label htmlFor="image">Fotos del producto:</label>
           <input
@@ -131,7 +134,6 @@ export const ProductForm = ({ product, onSubmit, setResponseMessage }) => {
           />
         </div>
         <br />
-
         <button
           className="bg-[#0EFF06] rounded-lg p-2 text-black font-bold text-xl hover:bg-white"
           type="submit"

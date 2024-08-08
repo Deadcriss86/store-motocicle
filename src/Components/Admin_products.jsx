@@ -1,5 +1,4 @@
 const Admin_products = ({
-  key,
   id,
   name,
   price,
@@ -35,7 +34,16 @@ const Admin_products = ({
         </div>
         <div className="crud_container flex justify-center items-center min-h-full ml-6 space-x-3">
           <button
-            onClick={() => onEdit({ id, name, price, stock, description })}
+            onClick={() =>
+              onEdit({
+                _id: id,
+                productName: name,
+                price,
+                stock,
+                description,
+                images,
+              })
+            }
           >
             Editar
           </button>
