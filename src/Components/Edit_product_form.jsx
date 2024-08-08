@@ -75,16 +75,7 @@ const EditProductForm = ({ product, closeModal }) => {
           />
         </div>
         <br />
-        <div>
-          <label htmlFor="image">Fotos del producto:</label>
-          <input
-            className="file-input file-input-bordered w-full max-w-xs ml-2"
-            type="file"
-            id="image"
-            {...register("image")}
-            accept="image/jpeg"
-          />
-        </div>
+
         <br />
         <button
           className="bg-[#0EFF06] rounded-lg p-2 text-black font-bold text-xl hover:bg-white"
