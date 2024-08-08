@@ -1,14 +1,27 @@
+import { useState } from "react";
+import EditProductForm from "./Edit_product_form";
+
 const Admin_products = ({
-  key,
   id,
   name,
   price,
   stock,
   description,
   images,
-  onEdit,
   onDelete,
 }) => {
+  const [editingProduct, setEditingProduct] = useState(null);
+
+  const handleEdit = () => {
+    setEditingProduct({
+      id,
+      name,
+      price,
+      stock,
+      description,
+    });
+  };
+
   return (
     <div className="p-2 flex mb-3 rounded-lg bg-[#3F3F3F] lg:text-lg text-white text-base">
       <div className="avatar">
@@ -34,14 +47,27 @@ const Admin_products = ({
           <h2 className="description font-thin">{description}</h2>
         </div>
         <div className="crud_container flex justify-center items-center min-h-full ml-6 space-x-3">
-          <button
-            onClick={() => onEdit({ id, name, price, stock, description })}
-          >
-            Editar
-          </button>
+          <button onClick={handleEdit}>Editar</button>
           <button onClick={() => onDelete(id)}>Eliminar</button>
         </div>
       </div>
+
+      {editingProduct && (
+        <dialog open className="modal bg-[#000000c7]">
+          <div className="modal-action">
+            <EditProductForm
+              product={editingProduct}
+              closeModal={() => setEditingProduct(null)}
+            />
+            <button
+              className="btn border-2 border-[#0EFF06] rounded-lg p-3"
+              onClick={() => setEditingProduct(null)}
+            >
+              Cancelar
+            </button>
+          </div>
+        </dialog>
+      )}
     </div>
   );
 };
