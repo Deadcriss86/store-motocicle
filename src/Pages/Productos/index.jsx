@@ -48,7 +48,7 @@ const Productos = () => {
     }
   };
 
-  const handleEditSubmit = async (formData, productId) => {
+  const handleEditSubmit = async (data, productId) => {
     if (!productId) {
       console.error("El ID del producto es requerido");
       return;
@@ -57,10 +57,10 @@ const Productos = () => {
     try {
       const response = await axios.put(
         `http://localhost:3000/api/products/${productId}`,
-        formData,
+        data,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
         }
       );
@@ -74,14 +74,14 @@ const Productos = () => {
     }
   };
 
-  const handleAddSubmit = async (formData) => {
+  const handleAddSubmit = async (data) => {
     try {
       const response = await axios.post(
         "http://localhost:3000/api/newproduct",
-        formData,
+        data,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
         }
       );
