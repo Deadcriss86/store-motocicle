@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom/dist";
 const Productos = () => {
   const [responseMessage, setResponseMessage] = useState(null);
   const [products, setProducts] = useState([]);
-  const [editingProduct, setEditingProduct] = useState(null);
   const [deletingProductId, setDeletingProductId] = useState(null);
   const navigate = useNavigate();
 
@@ -25,10 +24,6 @@ const Productos = () => {
 
     fetchProducts();
   }, []);
-
-  const handleEdit = (product) => {
-    setEditingProduct(product);
-  };
 
   const handleDelete = (productId) => {
     setDeletingProductId(productId);
@@ -48,20 +43,22 @@ const Productos = () => {
     }
   };
 
-  const handleEditSubmit = async (updatedProduct) => {
+  const handleAddSubmit = async (formData) => {
     try {
-      const response = await axios.put(
-        `http://localhost:3000/api/products/${updatedProduct._id}`,
-        updatedProduct
+      const response = await axios.post(
+        "http://localhost:3000/api/newproduct",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
-      setProducts(
-        products.map((product) =>
-          product._id === updatedProduct._id ? response.data : product
-        )
-      );
-      setEditingProduct(null);
+      setProducts([...products, response.data]);
+      setResponseMessage("ok");
     } catch (error) {
-      console.error("Error updating product:", error);
+      console.error("Error adding product:", error);
+      setResponseMessage("error");
     }
   };
 
@@ -118,7 +115,10 @@ const Productos = () => {
           </button>
           <dialog id="my_modal_4" className="modal bg-[#000000c7]">
             <div className="modal-action">
-              <ProductForm setResponseMessage={setResponseMessage} />
+              <ProductForm
+                onSubmit={handleAddSubmit}
+                setResponseMessage={setResponseMessage}
+              />
               <form method="dialog">
                 <button className="btn border-2 border-[#0EFF06] rounded-lg p-3">
                   Cancelar
@@ -143,32 +143,11 @@ const Productos = () => {
               stock={product.stock}
               description={product.description}
               images={product.images}
-              onEdit={handleEdit}
               onDelete={handleDelete}
             />
           ))}
         </div>
       </div>
-
-      {editingProduct && (
-        <dialog id="edit_modal" className="modal bg-[#000000c7]" open>
-          <div className="modal-action">
-            <ProductForm
-              product={editingProduct}
-              onSubmit={handleEditSubmit}
-              setResponseMessage={setResponseMessage}
-            />
-            <form method="dialog">
-              <button
-                className="btn border-2 border-[#0EFF06] rounded-lg p-3"
-                onClick={() => setEditingProduct(null)}
-              >
-                Cancelar
-              </button>
-            </form>
-          </div>
-        </dialog>
-      )}
 
       {deletingProductId && (
         <dialog id="delete_modal" className="modal bg-[#000000c7]" open>
