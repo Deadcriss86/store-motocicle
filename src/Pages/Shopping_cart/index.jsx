@@ -54,6 +54,10 @@ function Shopping_cart() {
     setCartItems(updatedCartItems);
   };
 
+  const handleCheckout = () => {
+    console.log(cartItems);
+  };
+
   const totalPriceProducts = cartItems.reduce(
     (total, item) => total + item.quantity * item.price,
     0
@@ -132,7 +136,10 @@ function Shopping_cart() {
                       Total <span className="total_final">${totalFinal}</span>
                     </p>
                     <div className="button_container">
-                      <button className="p-2 bg-[#0EFF06] rounded-lg w-full text-black mt-6">
+                      <button
+                        className="p-2 bg-[#0EFF06] rounded-lg w-full text-black mt-6"
+                        onClick={handleCheckout}
+                      >
                         Continuar con la compra
                       </button>
                     </div>
