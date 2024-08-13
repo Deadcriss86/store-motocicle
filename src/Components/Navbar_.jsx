@@ -18,7 +18,7 @@ export const Navlink = () => {
   const AuthenticatedLinks = () => (
     <div className="flex items-center space-x-8">
       <li className="text-[#c2ff35] hover:text-white text-lg flex gap-3 items-start text-bold">
-        Welcome {user.username}
+        Bienvenido {user.username}
       </li>
       <Link
         to="/Menu"
@@ -54,17 +54,7 @@ export const Navlink = () => {
         onClick={logout}
         className="nav-button hover:bg-[#0eff0601] hover:text-white flex w-auto items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-7 py-2.5 font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
       >
-        <span>Logout</span>
-        <svg
-          stroke="currentColor"
-          fill="currentColor"
-          stroke-width="0"
-          viewBox="0 0 16 16"
-          className="ml-2"
-          height="1em"
-          width="1em"
-          xmlns="http://www.w3.org/2000/svg"
-        ></svg>
+        <span>Cerrar Sesión</span>
       </button>
     </div>
   );
@@ -87,7 +77,7 @@ export const Navlink = () => {
         to="/login"
         className="nav-button hover:bg-[#0eff0601] hover:text-white flex w-auto items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-7 py-2.5 font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
       >
-        <span>Login</span>
+        <span>Iniciar Sesión</span>
         <svg
           stroke="currentColor"
           fill="currentColor"
@@ -164,7 +154,7 @@ export const Navlink = () => {
               onClick={logout}
               className="nav-button hover:bg-[#0eff0601] hover:text-white flex w-auto items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-7 py-2.5 font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
             >
-              <span>Logout</span>
+              <span>Cerrar Sesión</span>
               <svg
                 stroke="currentColor"
                 fill="currentColor"
@@ -188,7 +178,7 @@ export const Navlink = () => {
               to="/login"
               className="nav-button hover:bg-[#0eff0601] hover:text-white flex w-auto items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-7 py-2.5 font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
             >
-              <span>Login</span>
+              <span>Iniciar Sesión</span>
               <svg
                 stroke="currentColor"
                 fill="currentColor"
