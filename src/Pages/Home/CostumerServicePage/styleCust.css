@@ -1,11 +1,5 @@
 .containerFather {
-  background-color: black;
-  background-image: radial-gradient(
-    circle,
-    rgb(14, 255, 6) 1%,
-    transparent 40%,
-    black 100%
-  );
+  background-image: (circle, rgb(14, 255, 6) 1%, transparent 40%, black 100%);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

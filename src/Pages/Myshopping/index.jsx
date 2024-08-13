@@ -30,7 +30,7 @@ const MisCompras = () => {
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-t from-black to-[#148710]">
         <Navlink />
         <div className="bg-gray-900 bg-opacity-50 rounded-lg p-8 w-full max-w-6xl mx-4 sm:mx-8 lg:mx-auto my-10">
-          <h1 className="text-center text-3xl text-[#0eff06] mb-8">
+          <h1 className="text-[#0eff06] text-4xl font-bold mb-4 flex justify-center py-4">
             Mis compras
           </h1>
           <div className="w-full">

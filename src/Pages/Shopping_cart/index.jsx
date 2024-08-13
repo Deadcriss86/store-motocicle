@@ -64,16 +64,16 @@ function Shopping_cart() {
   const totalFinal = totalPriceProducts + shippingCost;
 
   return (
-    <div className="main flex flex-col bg-black min-h-screen">
+    <div className="main flex flex-col bg-black min-h-screen bg-gradient-to-t from-black to-[#148710]">
       <Navlink />
       <br />
       <br />
       <br />
-      <div className="flex-grow bg-gradient-to-t from-black via-[#0faf09] p-4 sm:p-12 flex flex-col items-center">
-        <h1 className="text-center text-3xl text-[#0eff06] mb-8">
-          Carrito de compras
-        </h1>
+      <div className="flex-grow p-4 sm:p-12 flex flex-col items-center">
         <div className="bg-[#00000060] rounded-xl p-4 sm:p-12 w-full sm:w-11/12">
+          <h1 className="text-[#0eff06] text-4xl font-bold mb-2 flex justify-center py-2">
+            Carrito de compras
+          </h1>
           <div className="bg-black rounded-xl p-4 sm:p-12">
             <div className="flex flex-col sm:flex-row text-white">
               <div className="cards_container w-full sm:w-3/5 flex flex-col py-6 px-3">

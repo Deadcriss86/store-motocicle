@@ -21,7 +21,6 @@ const ProductsPage = () => {
         setProductsData(productsData);
         setLoading(false);
 
-        // Extract unique categories and subcategories
         const categoryMap = {};
         productsData.forEach((product) => {
           if (!categoryMap[product.category]) {
