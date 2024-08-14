@@ -137,6 +137,13 @@ const Productos = () => {
               price={product.price}
               stock={product.stock}
               description={product.description}
+              questions={
+                <ul>
+                  {product.questions.map((q, index) => (
+                    <li key={index}>{q.body}</li>
+                  ))}
+                </ul>
+              }
               images={product.images}
               onDelete={handleDelete}
             />
