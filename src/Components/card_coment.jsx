@@ -52,9 +52,9 @@ export const Card_coment = () => {
             className="bg-transparent text-[#0eff06]"
           />
         </button>
-        <div className="card card-body bg-base-100 w-96 h-96 flex justify-center">
+        <div className="card card-body bg-base-100 w-50 h-50">
           <img
-            className="relative w-60 h-60 rounded-xl"
+            className="relative w-60 h-60 rounded-xl flex justify-center"
             src="https://motoapiprueba2.s3.amazonaws.com/IMG_5388.JPEG"
             alt="Product"
           />
