@@ -8,6 +8,8 @@ const Productos = () => {
   const [responseMessage, setResponseMessage] = useState(null);
   const [products, setProducts] = useState([]);
   const [deletingProductId, setDeletingProductId] = useState(null);
+  const [selectedQuestion, setSelectedQuestion] = useState(null);
+  const [isResponseModalOpen, setIsResponseModalOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,6 +56,16 @@ const Productos = () => {
     } catch (error) {
       console.error("Error adding product:", error);
       setResponseMessage("error");
+    }
+  };
+
+  const handleResponseSubmit = async (responseData) => {
+    try {
+      // Aquí se maneja la lógica para enviar la respuesta
+      console.log("Enviando respuesta:", responseData);
+      setIsResponseModalOpen(false);
+    } catch (error) {
+      console.error("Error submitting response:", error);
     }
   };
 
@@ -138,9 +150,20 @@ const Productos = () => {
               stock={product.stock}
               description={product.description}
               questions={
-                <ul>
+                <ul className="flex flex-col justify-center items-center">
                   {product.questions.map((q, index) => (
-                    <li key={index}>{q.body}</li>
+                    <li key={index}>
+                      {q.body}
+                      <button
+                        className="bg-yellow-300 text-black p-2 rounded-lg m-1"
+                        onClick={() => {
+                          setSelectedQuestion(q);
+                          setIsResponseModalOpen(true);
+                        }}
+                      >
+                        Responder
+                      </button>
+                    </li>
                   ))}
                 </ul>
               }
@@ -167,6 +190,51 @@ const Productos = () => {
             >
               Cancelar
             </button>
+          </div>
+        </dialog>
+      )}
+
+      {isResponseModalOpen && (
+        <dialog id="response_modal" className="modal bg-[#000000c7]" open>
+          <div className="modal-action text-white p-4 bg-[#202020] rounded-lg">
+            <h2 className="text-lg font-bold mb-4">Responder Pregunta</h2>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                handleResponseSubmit({
+                  questionId: selectedQuestion._id,
+                  response: formData.get("response"),
+                });
+              }}
+            >
+              <div className="mb-4">
+                <label className="block text-sm font-medium mb-1">
+                  Respuesta
+                </label>
+                <input
+                  name="response"
+                  type="text"
+                  className="border border-gray-300 rounded-lg p-2 w-full"
+                  required
+                />
+              </div>
+              <div className="flex justify-end">
+                <button
+                  type="button"
+                  className="btn border-2 border-[#0EFF06] rounded-lg p-3 mr-2"
+                  onClick={() => setIsResponseModalOpen(false)}
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  className="btn bg-blue-500 text-white p-3 rounded-lg"
+                >
+                  Enviar
+                </button>
+              </div>
+            </form>
           </div>
         </dialog>
       )}
