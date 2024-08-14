@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -8,9 +8,11 @@ import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom"; // Usar para redirección
 
 const EditProfileForm = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const { isAuthenticated, loading } = useAuth();
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   const onSubmit = async (data) => {
     try {
@@ -21,9 +23,12 @@ const EditProfileForm = () => {
           withCredentials: true,
         }
       );
-      console.log("Profile updated successfully:", response.data);
+      setModalMessage("Perfil actualizado con éxito!");
+      setShowModal(true);
+      reset(); // Limpiar los campos del formulario
     } catch (error) {
-      console.error("Error updating profile:", error);
+      setModalMessage("Error al actualizar el perfil: " + error.message);
+      setShowModal(true);
     }
   };
 
@@ -36,7 +41,7 @@ const EditProfileForm = () => {
   }
 
   return (
-    <div className="">
+    <div>
       <Navlink />
       <div className="min-h-screen flex items-center justify-center pb-8 bg-gradient-to-t from-black to-[#085405cc]">
         <div className="bg-gray-500 bg-opacity-20 rounded-lg p-8">
@@ -124,6 +129,22 @@ const EditProfileForm = () => {
           </div>
         </div>
       </div>
+
+      {/* Modal para mostrar mensajes */}
+      {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-black bg-opacity-80 p-4 rounded-lg">
+            <p className="text-white text-center">{modalMessage}</p>
+            <button
+              className="mt-4 bg-[#0eff06] text-black p-2 rounded hover:bg-green-600 focus:outline-none"
+              onClick={() => setShowModal(false)}
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
+
       <Footer />
     </div>
   );
