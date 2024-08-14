@@ -22,7 +22,7 @@ const Carousel = () => {
         );
         setItems(response.data);
       } catch (error) {
-        console.error("Error fetching data: ", error);
+        console.error("Error al obtener datos: ", error);
       }
     };
 

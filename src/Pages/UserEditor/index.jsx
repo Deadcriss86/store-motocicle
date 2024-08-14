@@ -1,29 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import Cookies from "js-cookie";
 import { Navlink } from "../../Components/Navbar_";
 import { Footer } from "../../Components/footer";
 import { useAuth } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom"; // Usar para redirección
+import { useNavigate } from "react-router-dom";
+import { ModalMessage } from "../../Components/pop-up"; // Asegúrate de importar el componente
 
 const EditProfileForm = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const { isAuthenticated, loading } = useAuth();
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.put(
-        "http://localhost:3000/api/auth/update",
-        data,
-        {
-          withCredentials: true,
-        }
-      );
-      console.log("Profile updated successfully:", response.data);
+      await axios.put("http://localhost:3000/api/auth/update", data, {
+        withCredentials: true,
+      });
+      setModalMessage("Perfil actualizado con éxito!");
+      setShowModal(true);
+      reset(); // Limpiar los campos del formulario
     } catch (error) {
-      console.error("Error updating profile:", error);
+      setModalMessage("Error al actualizar el perfil: " + error.message);
+      setShowModal(true);
     }
   };
 
@@ -36,7 +37,7 @@ const EditProfileForm = () => {
   }
 
   return (
-    <div className="">
+    <div>
       <Navlink />
       <div className="min-h-screen flex items-center justify-center pb-8 bg-gradient-to-t from-black to-[#085405cc]">
         <div className="bg-gray-500 bg-opacity-20 rounded-lg p-8">
@@ -124,6 +125,14 @@ const EditProfileForm = () => {
           </div>
         </div>
       </div>
+
+      {/* Modal para mostrar mensajes */}
+      {showModal && (
+        <ModalMessage
+          message={modalMessage}
+          onClose={() => setShowModal(false)}
+        />
+      )}
       <Footer />
     </div>
   );

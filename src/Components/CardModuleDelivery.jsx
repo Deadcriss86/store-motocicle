@@ -7,7 +7,7 @@ const CardDelivery = ({ deliveryDescription, nameClient, priceDelivery, descript
             <div className="noPedido">Pedido No. {deliveryDescription}</div>
             <div className="clientName">Nombre : {nameClient}</div>
             <div className="mountTotal">Monto total: {priceDelivery}</div>
-            <div className="guideNumber">No.guia:
+            <div className="guideNumber">No. de guia:
                 <div className="numberGuide">{descriptionGuide}</div>
             </div>
             <div className="saveButton bg-transparent hover:bg-[#0FFF07] hover:text-black transition-colors duration-300">

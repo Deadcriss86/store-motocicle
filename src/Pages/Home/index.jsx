@@ -25,6 +25,7 @@ function Home() {
       <Navlink />
       <div className="bg-black min-h-screen">
         <div className="relative w-full h-[calc(100vh-56px)]">
+          
           <img
             className="w-full h-full object-cover opacity-90"
             alt="Imagen de fondo"
@@ -45,9 +46,10 @@ function Home() {
             </div>
             <a
               className="flex items-center space-x-2 text-base sm:text-lg pt-10 text-white"
-              href="#"
+              href="https://api.whatsapp.com/send?phone=5610544410&text=Hola%2C%20me%20gustaría%20saber%20cúales%20accesorios%20personalizados%20recomiendan%20para%20mejorar%20el%20estilo%20y%20la%20funcionalidad%20de%20mi%20motocicleta."
+              target="_blank"
             >
-              <span>Contactanos para pedidos personalizados</span>
+              <button>Contactanos para pedidos personalizados</button>
               <IoLogoWhatsapp
                 size="2.5rem"
                 className="text-[#0eff06] hover:text-white"
@@ -58,6 +60,7 @@ function Home() {
 
         <div className="sticky top-0 h-auto py-10 flex flex-col items-center justify-center bg-gradient-to-b from-black to-[#0d4d0b] text-white">
           <div className=" text-center text-white max-w-4xl space-y-4">
+            <br />
             <p className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-[#0eff06] border-[#0eff06] p-2">
               Quienes somos
             </p>

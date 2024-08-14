@@ -9,6 +9,7 @@ const Admin_products = ({
   description,
   images,
   onDelete,
+  questions,
 }) => {
   const [editingProduct, setEditingProduct] = useState(null);
 
@@ -19,7 +20,14 @@ const Admin_products = ({
       price,
       stock,
       description,
+      questions,
     });
+  };
+  const truncateText = (text, maxLength) => {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + "..."; // Agrega '...' si el texto es más largo que maxLength
+    }
+    return text;
   };
 
   return (
@@ -31,7 +39,7 @@ const Admin_products = ({
       </div>
       <div className="card_info flex flex-row justify-between w-full">
         <div className="info ml-6 flex flex-col justify-center content-center min-h-full">
-          <h2>{name}</h2>
+          <h2>{truncateText(name, 20)}</h2>
           <h2 className="font-thin">Id:{id}</h2>
         </div>
         <div className="price_container flex flex-col justify-center items-center min-h-full ml-6">
@@ -43,8 +51,8 @@ const Admin_products = ({
           <h2 className="stock">{stock}</h2>
         </div>
         <div className="description_container flex flex-col justify-center items-center min-h-full ml-6">
-          <p>Descripción:</p>
-          <h2 className="description font-thin">{description}</h2>
+          <p>Preguntas:</p>
+          <h2 className="description font-thin">{questions}</h2>
         </div>
         <div className="crud_container flex justify-center items-center min-h-full ml-6 space-x-3">
           <button onClick={handleEdit}>Editar</button>

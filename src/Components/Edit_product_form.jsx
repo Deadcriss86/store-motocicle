@@ -1,23 +1,33 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { ModalMessage } from "../Components/pop-up";
 
 const EditProductForm = ({ product, closeModal }) => {
   const { register, handleSubmit } = useForm();
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   const handleFormSubmit = async (data) => {
     console.log(data);
     try {
-      const response = await axios.put(
+      await axios.put(
         `http://localhost:3000/api/products/${product.id}`,
         data,
         {
           headers: { "Content-Type": "application/json" },
         }
       );
-      console.log("Product updated:", response.data);
-      closeModal();
+      setModalMessage("Product updated!");
+      setShowModal(true);
+
+      // Recarga la página después de un breve retraso para que el usuario vea el mensaje
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000); // Puedes ajustar el tiempo según lo que necesites
     } catch (error) {
-      console.error("Error updating product:", error);
+      setModalMessage("Error updating product");
+      setShowModal(true);
     }
   };
 
@@ -83,6 +93,12 @@ const EditProductForm = ({ product, closeModal }) => {
         >
           Guardar Cambios
         </button>
+        {showModal && (
+          <ModalMessage
+            message={modalMessage}
+            onClose={() => setShowModal(false)}
+          />
+        )}
       </form>
     </div>
   );
