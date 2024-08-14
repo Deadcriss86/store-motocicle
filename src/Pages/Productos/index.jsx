@@ -47,14 +47,9 @@ const Productos = () => {
     try {
       const response = await axios.post(
         "http://localhost:3000/api/newproduct",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        formData
       );
-      setProducts([...products, response.data]);
+      setProducts([...products, response.data.product]);
       setResponseMessage("ok");
     } catch (error) {
       console.error("Error adding product:", error);
@@ -151,7 +146,7 @@ const Productos = () => {
 
       {deletingProductId && (
         <dialog id="delete_modal" className="modal bg-[#000000c7]" open>
-          <div className="modal-action">
+          <div className="modal-action text-white">
             <p>¿Estás seguro de que deseas eliminar este producto?</p>
             <button
               className="btn bg-red-500 text-white p-3 rounded-lg"

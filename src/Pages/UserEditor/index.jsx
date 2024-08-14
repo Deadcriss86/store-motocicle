@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import Cookies from "js-cookie";
 import { Navlink } from "../../Components/Navbar_";
 import { Footer } from "../../Components/footer";
 import { useAuth } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom"; // Usar para redirección
+import { useNavigate } from "react-router-dom";
+import { ModalMessage } from "../../Components/pop-up"; // Asegúrate de importar el componente
 
 const EditProfileForm = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -16,13 +16,9 @@ const EditProfileForm = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.put(
-        "http://localhost:3000/api/auth/update",
-        data,
-        {
-          withCredentials: true,
-        }
-      );
+      await axios.put("http://localhost:3000/api/auth/update", data, {
+        withCredentials: true,
+      });
       setModalMessage("Perfil actualizado con éxito!");
       setShowModal(true);
       reset(); // Limpiar los campos del formulario
@@ -132,19 +128,11 @@ const EditProfileForm = () => {
 
       {/* Modal para mostrar mensajes */}
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="bg-black bg-opacity-80 p-4 rounded-lg">
-            <p className="text-white text-center">{modalMessage}</p>
-            <button
-              className="mt-4 bg-[#0eff06] text-black p-2 rounded hover:bg-green-600 focus:outline-none"
-              onClick={() => setShowModal(false)}
-            >
-              Cerrar
-            </button>
-          </div>
-        </div>
+        <ModalMessage
+          message={modalMessage}
+          onClose={() => setShowModal(false)}
+        />
       )}
-
       <Footer />
     </div>
   );

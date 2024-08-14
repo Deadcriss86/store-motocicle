@@ -1,8 +1,11 @@
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { ModalMessage } from "../Components/pop-up";
 
-export const ProductForm = ({ product, onSubmit, setResponseMessage }) => {
+export const ProductForm = ({ product, onSubmit }) => {
   const { register, handleSubmit, setValue } = useForm();
+  const [modalMessage, setModalMessage] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (product) {
@@ -28,15 +31,12 @@ export const ProductForm = ({ product, onSubmit, setResponseMessage }) => {
     }
 
     try {
-      const response = await onSubmit(
-        formData,
-        product ? product._id : undefined
-      );
-      console.log(response.data);
-      setResponseMessage("ok");
+      await onSubmit(formData, product ? product._id : undefined);
+      setModalMessage("Subido con éxito!");
+      setShowModal(true);
     } catch (error) {
-      console.error("Error al procesar el producto:", error);
-      setResponseMessage("error");
+      setModalMessage("Error al subir");
+      setShowModal(true);
     }
   };
 
@@ -138,6 +138,12 @@ export const ProductForm = ({ product, onSubmit, setResponseMessage }) => {
         >
           {product ? "Guardar Cambios" : "Agregar Producto"}
         </button>
+        {showModal && (
+          <ModalMessage
+            message={modalMessage}
+            onClose={() => setShowModal(false)}
+          />
+        )}
       </form>
     </div>
   );
