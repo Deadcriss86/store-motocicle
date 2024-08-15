@@ -2,12 +2,14 @@ import { ProductForm } from "../../Components/ProductForm";
 import Admin_products from "../../Components/Admin_products";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom/dist";
+import { useNavigate } from "react-router-dom";
 
 const Productos = () => {
   const [responseMessage, setResponseMessage] = useState(null);
   const [products, setProducts] = useState([]);
   const [deletingProductId, setDeletingProductId] = useState(null);
+  const [selectedQuestion, setSelectedQuestion] = useState(null);
+  const [isResponseModalOpen, setIsResponseModalOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,6 +56,49 @@ const Productos = () => {
     } catch (error) {
       console.error("Error adding product:", error);
       setResponseMessage("error");
+    }
+  };
+
+  const handleResponseSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const responseText = formData.get("response");
+
+    if (!selectedQuestion) {
+      console.error("No se ha seleccionado ninguna pregunta.");
+      return;
+    }
+
+    const { productId, _id: questionId } = selectedQuestion;
+
+    if (!productId || !questionId) {
+      console.error("ID del producto o de la pregunta no están definidos.");
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await axios.post(
+        `http://localhost:3000/api/products/${productId}/questions/${questionId}/response`,
+        { response: responseText },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        }
+      );
+
+      if (res.status === 200) {
+        console.log("Respuesta añadida con éxito:", res.data);
+        setIsResponseModalOpen(false);
+      } else {
+        console.error("Error al agregar la respuesta:", res.data.message);
+      }
+    } catch (error) {
+      console.error("Error en la solicitud:", error);
     }
   };
 
@@ -138,9 +183,23 @@ const Productos = () => {
               stock={product.stock}
               description={product.description}
               questions={
-                <ul>
-                  {product.questions.map((q, index) => (
-                    <li key={index}>{q.body}</li>
+                <ul className="flex flex-col justify-center items-center">
+                  {product.questions.map((q) => (
+                    <li key={q._id}>
+                      {q.body}
+                      <button
+                        className="bg-yellow-300 text-black p-2 rounded-lg m-1"
+                        onClick={() => {
+                          setSelectedQuestion({
+                            productId: product._id, // Asegúrate de que el productId se defina aquí
+                            _id: q._id,
+                          });
+                          setIsResponseModalOpen(true);
+                        }}
+                      >
+                        Responder
+                      </button>
+                    </li>
                   ))}
                 </ul>
               }
@@ -167,6 +226,42 @@ const Productos = () => {
             >
               Cancelar
             </button>
+          </div>
+        </dialog>
+      )}
+
+      {isResponseModalOpen && (
+        <dialog id="response_modal" className="modal bg-[#000000c7]" open>
+          <div className="modal-action text-white p-4 bg-[#202020] rounded-lg">
+            <h2 className="text-lg font-bold mb-4">Responder Pregunta</h2>
+            <form onSubmit={handleResponseSubmit}>
+              <div className="mb-4">
+                <label className="block text-sm font-medium mb-1">
+                  Respuesta
+                </label>
+                <input
+                  name="response"
+                  type="text"
+                  className="border border-gray-300 rounded-lg p-2 w-full text-black"
+                  required
+                />
+              </div>
+              <div className="flex justify-end">
+                <button
+                  type="button"
+                  className="btn border-2 border-[#0EFF06] rounded-lg p-3 mr-2"
+                  onClick={() => setIsResponseModalOpen(false)}
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  className="btn bg-blue-500 text-white p-3 rounded-lg"
+                >
+                  Enviar
+                </button>
+              </div>
+            </form>
           </div>
         </dialog>
       )}

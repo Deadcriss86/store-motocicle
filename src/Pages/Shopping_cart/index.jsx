@@ -4,10 +4,23 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "./styles_cart.css";
 import { Navlink } from "../../Components/Navbar_";
 import { Footer } from "../../Components/footer";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
-function Shopping_cart() {
+const ShoppingCart = () => {
   const [cartItems, setCartItems] = useState([]);
+  const [profileData, setProfileData] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/api/auth/profile", { withCredentials: true })
+      .then((response) => {
+        setProfileData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error al obtener los datos del perfil", error);
+      });
+  }, []);
 
   const initialCartItems = async () => {
     try {
@@ -26,7 +39,6 @@ function Shopping_cart() {
         }))
       );
       setCartItems(items);
-      console.log(pedidos);
     } catch (error) {
       console.error("Error al obtener los pedidos:", error);
     }
@@ -64,7 +76,6 @@ function Shopping_cart() {
   );
 
   const shippingCost = 300;
-
   const totalFinal = totalPriceProducts + shippingCost;
 
   return (
@@ -111,15 +122,28 @@ function Shopping_cart() {
                     Envío
                   </h2>
                   <div className="adrees_container mb-4 text-lg sm:text-xl font-thin italic">
-                    <h2 className="text-white mb-2">
-                      Calle: Ignacio Allende 5739 1202
-                    </h2>
-                    <h2 className="text-white mb-2">San Manuel</h2>
-                    <h2 className="text-white mb-2">72560</h2>
-                    <h2 className="text-white">Puebla, Pue.</h2>
-                    <button className="text-blue-500 mt-4 text-base sm:text-lg">
+                    {profileData && (
+                      <>
+                        <h2 className="text-white mb-2">
+                          Calle: {profileData.calle}
+                        </h2>
+                        <h2 className="text-white mb-2">
+                          Estado: {profileData.delegacion}
+                        </h2>
+                        <h2 className="text-white mb-2">
+                          Codigo postal: {profileData.cp}
+                        </h2>
+                        <h2 className="text-white mb-2">
+                          Referecia: {profileData.referencias}
+                        </h2>
+                      </>
+                    )}
+                    <Link
+                      to="/editoruser"
+                      className="text-blue-500 mt-4 text-base sm:text-lg"
+                    >
                       Agregar otra dirección
-                    </button>
+                    </Link>
                   </div>
                   <div className="total_container text-xl sm:text-2xl flex flex-col">
                     <p className="text-white mb-2">
@@ -153,6 +177,6 @@ function Shopping_cart() {
       <Footer />
     </div>
   );
-}
+};
 
-export default Shopping_cart;
+export default ShoppingCart;
