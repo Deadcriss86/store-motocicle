@@ -53,7 +53,7 @@ function Home() {
               Somos una empresa dedicada a la fabricación de accesorios y
               defensas para cualquier tipo de motocicleta. Nuestro principal
               objetivo es que nuestros clientes se sientan satisfechos con la
-              estética personalizada de su moto.
+              estética personalizada de su moto
               <br />
               <SlBadge size="2rem" className="text-[#0eff06] inline-block" />
             </p>
