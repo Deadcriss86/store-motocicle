@@ -31,6 +31,7 @@ const EditProfileForm = () => {
         setValue("nacionalidad", response.data.nacionalidad);
         setValue("movil", response.data.movil);
         setValue("cp", response.data.cp);
+        setValue("ciudad", response.data.ciudad);
         setValue("calle", response.data.calle);
         setValue("delegacion", response.data.delegacion);
         setValue("referencias", response.data.referencias);
@@ -156,18 +157,26 @@ const EditProfileForm = () => {
                 <p className="text-red-500">{errors.calle.message}</p>
               )}
 
-              <div className="mb-4">
+              <div className="mb-4 flex flex-row">
                 <input
                   type="text"
                   {...register("delegacion", {
                     required: "La delegación es obligatoria",
                   })}
                   placeholder={profileData?.delegacion || "Delegación"}
-                  className="bg-gray-800 text-white p-2 rounded w-full focus:outline-none"
+                  className="bg-gray-800 text-white p-2 rounded w-full focus:outline-none mx-1"
+                />
+                <input
+                  type="text"
+                  {...register("ciudad", {
+                    required: "La ciudad es obligatoria",
+                  })}
+                  placeholder={profileData?.ciudad || "ciudad"}
+                  className="bg-gray-800 text-white p-2 rounded w-full focus:outline-none mx-1"
                 />
               </div>
-              {errors.delegacion && (
-                <p className="text-red-500">{errors.delegacion.message}</p>
+              {errors.ciudad && (
+                <p className="text-red-500">{errors.ciudad.message}</p>
               )}
 
               <div className="mb-4">
