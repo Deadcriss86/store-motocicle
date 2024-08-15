@@ -125,6 +125,9 @@ const ShoppingCart = () => {
                     {profileData && (
                       <>
                         <h2 className="text-white mb-2">
+                          Ciudad: {profileData.ciudad}
+                        </h2>
+                        <h2 className="text-white mb-2">
                           Calle: {profileData.calle}
                         </h2>
                         <h2 className="text-white mb-2">
