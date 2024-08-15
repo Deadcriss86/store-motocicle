@@ -4,6 +4,7 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "./styles_cart.css";
 import { Navlink } from "../../Components/Navbar_";
 import { Footer } from "../../Components/footer";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const ShoppingCart = () => {
@@ -132,11 +133,17 @@ const ShoppingCart = () => {
                         <h2 className="text-white mb-2">
                           Codigo postal: {profileData.cp}
                         </h2>
+                        <h2 className="text-white mb-2">
+                          Referecia: {profileData.referencias}
+                        </h2>
                       </>
                     )}
-                    <button className="text-blue-500 mt-4 text-base sm:text-lg">
+                    <Link
+                      to="/editoruser"
+                      className="text-blue-500 mt-4 text-base sm:text-lg"
+                    >
                       Agregar otra dirección
-                    </button>
+                    </Link>
                   </div>
                   <div className="total_container text-xl sm:text-2xl flex flex-col">
                     <p className="text-white mb-2">
