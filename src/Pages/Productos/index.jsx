@@ -77,7 +77,7 @@ const Productos = () => {
 
   return (
     <div>
-      <div className="main min-h-screen min-w-screen bg-black justify-center items-center flex flex-col p-6">
+      <div className="main min-h-screen min-w-screen bg-black justify-center items-center flex flex-col p-8">
         {responseMessage === "ok" ? (
           <div role="alert" className="alert alert-success bg-[#0EFF06] mb-4">
             <svg
@@ -98,16 +98,31 @@ const Productos = () => {
         ) : responseMessage ? (
           <div>Algo salió mal.</div>
         ) : null}
-        <div className="container bg-[#202020] space-x-4 text-2xl p-2 mb-4 rounded-lg text-white">
-          <button className="border-2 border-[#0EFF06] rounded-lg p-2">
+        <div className="container flex justify-end py-2">
+          <h2 className=" text-white font-bold p-4 text-2xl">
+            Administrador ARS
+          </h2>{" "}
+          <button
+            className="border-2 border-[#0eff06] px-4 py-2 rounded-xl font-bold text-white mx-6 hover:bg-[#0eff06]"
+            onClick={logout}
+          >
+            Cerrar sesion
+          </button>
+        </div>
+        <div className="container bg-[#202020] space-x-6 text-2xl p-4 mb-4 rounded-lg text-white flex justify-center">
+          <button
+            to="/Order"
+            className="border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06] mx-8"
+          >
             Pedidos
           </button>
           <button
-            className="border-2 border-[#0EFF06] rounded-lg p-2"
+            className="border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06] mx-8"
             onClick={() => document.getElementById("my_modal_4").showModal()}
           >
             Agregar Producto
           </button>
+
           <dialog id="my_modal_4" className="modal bg-[#000000c7]">
             <div className="modal-action">
               <ProductForm
@@ -121,12 +136,6 @@ const Productos = () => {
               </form>
             </div>
           </dialog>
-          <button
-            className="bg-red-400 text-white p-2 rounded-lg"
-            onClick={logout}
-          >
-            Logout
-          </button>
         </div>
         <div className="container bg-[#202020] p-4 rounded-lg border-2 border-[#0EFF06]">
           {products.map((product) => (

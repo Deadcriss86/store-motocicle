@@ -42,19 +42,19 @@ export const ProductForm = ({ product, onSubmit }) => {
 
   return (
     <div className="border-2 border-[#0EFF06] rounded-lg p-3 bg-black text-lg">
-      <h2 className="text-xl">
-        {product ? "Editar Producto" : "Nuevo Producto"}
+      <h2 className="text-center text-[#0eff06] text-xl font-bold mb-4">
+        Nuevo Producto
       </h2>
       <form
-        className="mt-2"
+        className="mt-2 px-4"
         onSubmit={handleSubmit(handleFormSubmit)}
         encType="multipart/form-data"
       >
         {/* Los campos del formulario */}
         <div>
-          <label htmlFor="name">Nombre del producto:</label>
           <input
-            className="input input-bordered w-full max-w-xs"
+            placeholder="Nombre del producto"
+            className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none"
             type="text"
             id="name"
             {...register("name")}
@@ -63,9 +63,9 @@ export const ProductForm = ({ product, onSubmit }) => {
         <br />
 
         <div>
-          <label htmlFor="price">Precio:</label>
           <input
-            className="input input-bordered w-full max-w-xs"
+            placeholder="Precio"
+            className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none"
             type="number"
             id="price"
             {...register("price")}
@@ -75,9 +75,9 @@ export const ProductForm = ({ product, onSubmit }) => {
         <br />
 
         <div>
-          <label htmlFor="stock">Stock:</label>
           <input
-            className="input input-bordered w-full max-w-xs"
+            placeholder="Stock"
+            className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none"
             type="number"
             id="stock"
             {...register("stock")}
@@ -86,9 +86,8 @@ export const ProductForm = ({ product, onSubmit }) => {
         <br />
 
         <div>
-          <label htmlFor="description">Descripción del producto:</label>
           <textarea
-            className="textarea textarea-bordered ml-2"
+            className="textarea ml-1 w-full bg-gray-800 text-white p-2 focus:outline-none rounded-lg"
             placeholder="Descripción del producto"
             id="description"
             {...register("description")}
@@ -99,31 +98,40 @@ export const ProductForm = ({ product, onSubmit }) => {
         <br />
 
         <div>
-          <label htmlFor="category">Categoría:</label>
-          <input
-            className="input input-bordered w-full max-w-xs"
-            type="text"
-            id="category"
-            {...register("category")}
-          />
+          <select className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none">
+            <option disabled selected>
+              Categoria
+            </option>
+            <option>Protector de faro</option>
+            <option>Slider superior</option>
+            <option>Slider trasero</option>
+            <option>Porta alforja</option>
+            <option>Parrilla de carga</option>
+          </select>
         </div>
         <br />
 
         <div>
-          <label htmlFor="subcategory">Subcategoría:</label>
-          <input
-            className="input input-bordered w-full max-w-xs"
-            type="text"
-            id="subcategory"
-            {...register("subcategory")}
-          />
+          <select className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none">
+            <option disabled selected>
+              Subcategoria
+            </option>
+            <option>Vento</option>
+            <option>Dinamo</option>
+            <option>Hero motos</option>
+            <option>Veloci</option>
+            <option>Italika</option>
+            <option>Yamaha</option>
+            <option>MB motor</option>
+            <option>Universal</option>
+          </select>
         </div>
         <br />
 
         <div>
-          <label htmlFor="image">Fotos del producto:</label>
+          <label htmlFor="image">Cargar fotos:</label>
           <input
-            className="file-input file-input-bordered w-full max-w-xs ml-2"
+            className="file-input-primary w-full max-w-xs ml-2 bg-gray-800 text-white"
             type="file"
             id="image"
             {...register("image")}
@@ -133,10 +141,10 @@ export const ProductForm = ({ product, onSubmit }) => {
         <br />
 
         <button
-          className="bg-[#0EFF06] rounded-lg p-2 text-black font-bold text-xl hover:bg-white"
+          className="bg-[#0EFF06] rounded-lg p-2 text-black font-bold text-xl hover:bg-white w-full"
           type="submit"
         >
-          {product ? "Guardar Cambios" : "Agregar Producto"}
+          Agregar Producto
         </button>
         {showModal && (
           <ModalMessage
