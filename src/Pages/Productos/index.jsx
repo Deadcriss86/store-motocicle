@@ -2,12 +2,8 @@ import { ProductForm } from "../../Components/ProductForm";
 import Admin_products from "../../Components/Admin_products";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
-import { useNavigate } from "react-router-dom/dist";
-import { Link } from "react-router-dom/dist";
-
 import { useNavigate } from "react-router-dom";
-
+import { Link } from "react-router-dom/dist";
 
 const Productos = () => {
   const [responseMessage, setResponseMessage] = useState(null);
