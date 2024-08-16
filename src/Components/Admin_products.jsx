@@ -23,52 +23,74 @@ const Admin_products = ({
       questions,
     });
   };
+
   const truncateText = (text, maxLength) => {
     if (text.length > maxLength) {
-      return text.substring(0, maxLength) + "..."; // Agrega '...' si el texto es más largo que maxLength
+      return text.substring(0, maxLength) + "...";
     }
     return text;
   };
 
   return (
-    <div className="p-2 flex mb-3 rounded-lg bg-[#3F3F3F] lg:text-lg text-white text-base">
-      <div className="avatar">
-        <div className="w-24 rounded">
-          <img src={images} alt="Product" />
+    <div className="p-4 flex flex-col lg:flex-row lg:justify-between mb-3 rounded-lg bg-[#3F3F3F] text-white text-base lg:text-lg">
+      <div className="avatar mb-4 lg:mb-0 flex justify-center lg:justify-start">
+        <div className="w-32 h-32 rounded-lg overflow-hidden">
+          <img
+            src={images}
+            alt="Product"
+            className="w-full h-full object-cover"
+          />
         </div>
       </div>
-      <div className="card_info flex flex-row justify-between w-full">
-        <div className="info ml-6 flex flex-col justify-center content-center min-h-full">
-          <h2>{truncateText(name, 20)}</h2>
-          <h2 className="font-thin">Id:{id}</h2>
+      <div className="card_info flex flex-col lg:flex-row justify-between w-full">
+        <div className="info flex flex-col justify-center mb-4 lg:mb-0 lg:ml-6">
+          <h2 className="text-center lg:text-left">{truncateText(name, 20)}</h2>
+          <h2 className="font-thin text-center lg:text-left">Id: {id}</h2>
         </div>
-        <div className="price_container flex flex-col justify-center items-center min-h-full ml-6">
+        <div className="price_container flex flex-col justify-center items-center mb-4 lg:mb-0 lg:ml-6">
           <p>Precio:</p>
           <h2 className="price">${price}</h2>
         </div>
-        <div className="stock_container flex flex-col justify-center items-center min-h-full ml-6">
+        <div className="stock_container flex flex-col justify-center items-center mb-4 lg:mb-0 lg:ml-6">
           <p>Stock:</p>
           <h2 className="stock">{stock}</h2>
         </div>
-        <div className="description_container flex flex-col justify-center items-center min-h-full ml-6">
+        <div className="description_container flex flex-col justify-center items-center mb-4 lg:mb-0 lg:ml-6">
           <p>Preguntas:</p>
-          <h2 className="description font-thin">{questions}</h2>
+          <div className="container text-black text-justify font-bold bg-gray-300 rounded-lg p-2 max-w-xs lg:max-w-full">
+            <h2 className="description font-thin">
+              {truncateText(questions, 100)}
+            </h2>
+          </div>
         </div>
-        <div className="crud_container flex justify-center items-center min-h-full ml-6 space-x-3">
-          <button onClick={handleEdit}>Editar</button>
-          <button onClick={() => onDelete(id)}>Eliminar</button>
+        <div className="crud_container flex justify-center items-center lg:ml-6 space-x-3">
+          <button
+            className="btn text-white hover:bg-[#0EFF06] hover:text-black px-4 py-2 rounded-lg"
+            onClick={handleEdit}
+          >
+            Editar
+          </button>
+          <button
+            className="btn text-white hover:bg-[#0EFF06] hover:text-black px-4 py-2 rounded-lg"
+            onClick={() => onDelete(id)}
+          >
+            Eliminar
+          </button>
         </div>
       </div>
 
       {editingProduct && (
-        <dialog open className="modal bg-[#000000c7]">
-          <div className="modal-action">
+        <dialog
+          open
+          className="modal bg-[#000000c7] fixed inset-0 flex justify-center items-center z-50"
+        >
+          <div className="modal-action p-4 bg-white rounded-lg shadow-lg">
             <EditProductForm
               product={editingProduct}
               closeModal={() => setEditingProduct(null)}
             />
             <button
-              className="btn border-2 border-[#0EFF06] rounded-lg p-3"
+              className="btn border-2 border-[#0EFF06] rounded-lg p-3 mt-4"
               onClick={() => setEditingProduct(null)}
             >
               Cancelar

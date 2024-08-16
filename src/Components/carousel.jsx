@@ -64,9 +64,13 @@ const Carousel = () => {
         <button
           onClick={handlePrev}
           aria-label="Previous"
-          className="p-2 bg-gray-200 rounded-full hover:bg-gray-400"
+          className="p-2 bg-transparent text-[#0eff06]
+     rounded-full hover:bg-gray-400 mx-10"
         >
-          <FaChevronLeft />
+          <FaChevronLeft
+            size="1.5rem"
+            className="bg-transparent text-[#0eff06]"
+          />
         </button>
         <div className="flex-1 flex justify-center items-center overflow-hidden">
           <div
@@ -99,9 +103,13 @@ const Carousel = () => {
         <button
           onClick={handleNext}
           aria-label="Next"
-          className="p-2 bg-gray-200 rounded-full hover:bg-gray-400"
+          className="p-2 bg-transparent text-[#0eff06]
+     rounded-full hover:bg-gray-400 mx-10"
         >
-          <FaChevronRight />
+          <FaChevronRight
+            size="1.5rem"
+            className="bg-transparent text-[#0eff06]"
+          />
         </button>
       </div>
     </div>

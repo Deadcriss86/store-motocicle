@@ -101,7 +101,7 @@ const ProductsPage = () => {
                 className="dropdown text-white w-full lg:h-auto"
               >
                 <summary
-                  className="m-1 hover:bg-[#0eff06] hover:text-black mx-2 px-4 rounded-lg w-full text-left"
+                  className="m-1 hover:bg-[#0eff06] hover:text-black mx-1 px-4 rounded-lg w-full text-left"
                   onClick={() => toggleCategory(category.name)}
                 >
                   {category.name}

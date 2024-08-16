@@ -128,7 +128,7 @@ export const ProductForm = ({ product, onSubmit }) => {
         </div>
         <br />
 
-        <div>
+        <div className="text-white">
           <label htmlFor="image">Cargar fotos:</label>
           <input
             className="file-input-primary w-full max-w-xs ml-2 bg-gray-800 text-white"

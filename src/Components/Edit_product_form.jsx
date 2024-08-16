@@ -44,7 +44,7 @@ const EditProductForm = ({ product, closeModal }) => {
         <div>
           <label htmlFor="name">Nombre del producto:</label>
           <input
-            className="bg-gray-800 text-white p-2 rounded-r w-full ml-1 focus:outline-none"
+            className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none"
             type="text"
             id="name"
             {...register("name", { required: true })}
@@ -55,7 +55,7 @@ const EditProductForm = ({ product, closeModal }) => {
         <div>
           <label htmlFor="price">Precio:</label>
           <input
-            className="bg-gray-800 text-white p-2 rounded-r w-full ml-1 focus:outline-none"
+            className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none"
             type="number"
             id="price"
             {...register("price", { required: true })}
@@ -67,7 +67,7 @@ const EditProductForm = ({ product, closeModal }) => {
         <div>
           <label htmlFor="stock">Stock:</label>
           <input
-            className="bg-gray-800 text-white p-2 rounded-r w-full ml-1 focus:outline-none"
+            className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none"
             type="number"
             id="stock"
             {...register("stock", { required: true })}
@@ -78,7 +78,7 @@ const EditProductForm = ({ product, closeModal }) => {
         <div>
           <label htmlFor="description">Descripción del producto:</label>
           <textarea
-            className="textarea ml-1 w-full bg-gray-800 text-white p-2 rounded-r focus:outline-none"
+            className="textarea ml-1 w-full bg-gray-800 text-white p-2 rounded-lg focus:outline-none"
             id="description"
             {...register("description", { required: true })}
             placeholder={product.description}

@@ -8,7 +8,7 @@ export const ProductCard = (product) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 max-w-sm mx-5 border border-gray-300">
+    <div className="bg-white rounded-lg shadow-md p-4 w-sm h-max mx-5 mb-6 border-gray-300">
       {/* Imagen del producto */}
       <div className="relative">
         <img
