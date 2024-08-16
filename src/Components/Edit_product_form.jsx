@@ -32,17 +32,19 @@ const EditProductForm = ({ product, closeModal }) => {
   };
 
   return (
-    <div className="border-2 border-[#0EFF06] rounded-lg p-3 bg-black text-lg">
-      <h2 className="text-xl">Editar Producto</h2>
+    <div className="border-2 border-[#0EFF06] rounded-lg p-3 bg-black text-lg ">
+      <h2 className="text-center text-[#0eff06] text-xl font-bold mb-4">
+        Editar Producto
+      </h2>
       <form
-        className="mt-2"
+        className="mt-2 px-4"
         onSubmit={handleSubmit(handleFormSubmit)}
         encType="multipart/form-data"
       >
         <div>
           <label htmlFor="name">Nombre del producto:</label>
           <input
-            className="input input-bordered w-full max-w-xs"
+            className="bg-gray-800 text-white p-2 rounded-r w-full ml-1 focus:outline-none"
             type="text"
             id="name"
             {...register("name", { required: true })}
@@ -53,7 +55,7 @@ const EditProductForm = ({ product, closeModal }) => {
         <div>
           <label htmlFor="price">Precio:</label>
           <input
-            className="input input-bordered w-full max-w-xs"
+            className="bg-gray-800 text-white p-2 rounded-r w-full ml-1 focus:outline-none"
             type="number"
             id="price"
             {...register("price", { required: true })}
@@ -65,7 +67,7 @@ const EditProductForm = ({ product, closeModal }) => {
         <div>
           <label htmlFor="stock">Stock:</label>
           <input
-            className="input input-bordered w-full max-w-xs"
+            className="bg-gray-800 text-white p-2 rounded-r w-full ml-1 focus:outline-none"
             type="number"
             id="stock"
             {...register("stock", { required: true })}
@@ -76,7 +78,7 @@ const EditProductForm = ({ product, closeModal }) => {
         <div>
           <label htmlFor="description">Descripción del producto:</label>
           <textarea
-            className="textarea textarea-bordered ml-2"
+            className="textarea ml-1 w-full bg-gray-800 text-white p-2 rounded-r focus:outline-none"
             id="description"
             {...register("description", { required: true })}
             placeholder={product.description}
@@ -88,10 +90,10 @@ const EditProductForm = ({ product, closeModal }) => {
 
         <br />
         <button
-          className="bg-[#0EFF06] rounded-lg p-2 text-black font-bold text-xl hover:bg-white"
+          className="bg-[#0EFF06] rounded-lg p-2 text-black font-bold text-xl hover:bg-white w-full"
           type="submit"
         >
-          Guardar Cambios
+          Guardar cambios
         </button>
         {showModal && (
           <ModalMessage
