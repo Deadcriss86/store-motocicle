@@ -13,22 +13,37 @@ export default function CheckoutForm({ items }) {
   const [isLoading, setIsLoading] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
 
-  // Obtiene el clientSecret desde tu servidor cuando el componente se monta
   useEffect(() => {
-    if (!stripe) return; // Asegúrate de que stripe esté disponible
+    if (!stripe) return;
 
-    fetch("http://localhost:3000/api/create-payment-intent", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items }),
-    })
-      .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret))
-      .catch((error) => setMessage("Error al crear el PaymentIntent"));
+    const createPaymentIntent = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3000/api/create-payment-intent",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ items }),
+          }
+        );
+
+        const data = await response.json();
+
+        if (data.clientSecret) {
+          setClientSecret(data.clientSecret);
+        } else {
+          throw new Error("Failed to retrieve clientSecret from the server.");
+        }
+      } catch (error) {
+        setMessage("Error al crear el PaymentIntent: " + error.message);
+      }
+    };
+
+    createPaymentIntent();
   }, [items, stripe]);
 
   useEffect(() => {
-    if (!stripe || !clientSecret) return; // Verifica que stripe y clientSecret estén disponibles
+    if (!stripe || !clientSecret) return;
 
     const clientSecretFromURL = new URLSearchParams(window.location.search).get(
       "payment_intent_client_secret"
@@ -60,22 +75,36 @@ export default function CheckoutForm({ items }) {
     e.preventDefault();
 
     if (!stripe || !elements || !clientSecret) {
-      return; // Asegúrate de que stripe, elements y clientSecret estén disponibles
+      setMessage("Stripe, elements, or clientSecret is missing.");
+      return;
     }
 
     setIsLoading(true);
 
+    // Primero, se llama a elements.submit() para validar el formulario
+    const { error: submitError } = await elements.submit();
+
+    if (submitError) {
+      setMessage(submitError.message);
+      setIsLoading(false);
+      return;
+    }
+
+    // Después de que elements.submit() se complete con éxito, confirmamos el pago
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: "http://localhost:3000", // Cambia esto a tu URL de éxito
+        return_url: "http://localhost:3000",
       },
+      clientSecret, // Asegúrate de pasar el clientSecret aquí
     });
 
-    if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error.message);
-    } else {
-      setMessage("An unexpected error occurred.");
+    if (error) {
+      if (error.type === "card_error" || error.type === "validation_error") {
+        setMessage(error.message);
+      } else {
+        setMessage("An unexpected error occurred.");
+      }
     }
 
     setIsLoading(false);
