@@ -17,7 +17,7 @@ export default function CheckoutForm({ items }) {
   useEffect(() => {
     if (!stripe) return; // Asegúrate de que stripe esté disponible
 
-    fetch("http://localhost:3000/api/compra/create-payment-intent", {
+    fetch("http://localhost:3000/api/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ items }),
