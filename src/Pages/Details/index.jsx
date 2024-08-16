@@ -256,11 +256,18 @@ const ProductPage = () => {
                 product.questions.map((questions, index) => (
                   <div
                     key={index}
-                    className="text-gray-300 text-justify m-4 border-b-2 border-green-500 text-lg flex"
+                    className="text-gray-300 text-justify m-4 border-b-2 border-green-500 text-lg flex flex-col"
                   >
                     <h2 className="text-green-500 mr-4">{questions.author}:</h2>
-
                     <p>{questions.body}</p>
+                    <div>
+                      {questions.response && (
+                        <p>
+                          <span class="text-yellow-500">Respuesta: </span>
+                          <span class="text-white">{questions.response}</span>
+                        </p>
+                      )}
+                    </div>
                   </div>
                 ))
               ) : (
