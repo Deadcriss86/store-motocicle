@@ -3,11 +3,13 @@ import Admin_products from "../../Components/Admin_products";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom/dist";
+import { Link } from "react-router-dom/dist";
 
 const Productos = () => {
   const [responseMessage, setResponseMessage] = useState(null);
   const [products, setProducts] = useState([]);
   const [deletingProductId, setDeletingProductId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState(""); // Estado para la búsqueda
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -75,6 +77,10 @@ const Productos = () => {
     }
   };
 
+  const filteredProducts = products.filter((product) =>
+    product.productName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div>
       <div className="main min-h-screen min-w-screen bg-black justify-center items-center flex flex-col p-8">
@@ -103,26 +109,36 @@ const Productos = () => {
             Administrador ARS
           </h2>{" "}
           <button
-            className="border-2 border-[#0eff06] px-4 py-2 rounded-xl font-bold text-white mx-6 hover:bg-[#0eff06]"
+            className=" btn border-2 border-[#0eff06] px-4 py-2 rounded-xl font-bold text-white mx-6 hover:bg-[#0eff06]"
             onClick={logout}
           >
             Cerrar sesion
           </button>
         </div>
-        <div className="container bg-[#202020] space-x-6 text-2xl p-4 mb-4 rounded-lg text-white flex justify-center">
-          <button
+
+        <div className="container bg-[#202020] space-x-10 text-1xl p-2 mb-2 rounded-lg flex justify-center">
+          <Link
             to="/Order"
-            className="border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06] mx-8"
+            className="btn border-2 border-[#0eff06] text-[#0eff06] rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06]"
           >
-            Pedidos
-          </button>
+            Ir a pedidos
+          </Link>
           <button
-            className="border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06] mx-8"
+            className=" btn border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06]"
             onClick={() => document.getElementById("my_modal_4").showModal()}
           >
             Agregar Producto
           </button>
-
+          {/* Buscador */}
+          <div className="container bg-[#202020] p-2 mb-2 rounded-lg w-1/3">
+            <input
+              type="text"
+              placeholder="Buscar productos..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full px-2 py-2 rounded-lg text-black"
+            />
+          </div>
           <dialog id="my_modal_4" className="modal bg-[#000000c7]">
             <div className="modal-action">
               <ProductForm
@@ -137,8 +153,10 @@ const Productos = () => {
             </div>
           </dialog>
         </div>
+
+        {/* Mostrar productos filtrados */}
         <div className="container bg-[#202020] p-4 rounded-lg border-2 border-[#0EFF06]">
-          {products.map((product) => (
+          {filteredProducts.map((product) => (
             <Admin_products
               key={product._id}
               id={product._id}
@@ -161,17 +179,21 @@ const Productos = () => {
       </div>
 
       {deletingProductId && (
-        <dialog id="delete_modal" className="modal bg-[#000000c7]" open>
-          <div className="modal-action text-white">
+        <dialog
+          id="delete_modal"
+          className=" border-2 border-[#0EFF06] modal bg-[#282626c7] w-1/2 h-1/3"
+          open
+        >
+          <div className="flex justify-items-center modal-action text-white ">
             <p>¿Estás seguro de que deseas eliminar este producto?</p>
             <button
-              className="btn bg-red-500 text-white p-3 rounded-lg"
+              className="btn border-2 border-[#0EFF06] rounded-lg p-3 hover:bg-white hover:text-black"
               onClick={confirmDelete}
             >
               Confirmar
             </button>
             <button
-              className="btn border-2 border-[#0EFF06] rounded-lg p-3"
+              className="btn border-2 border-[#0EFF06] rounded-lg p-3 hover:bg-white hover:text-black"
               onClick={() => setDeletingProductId(null)}
             >
               Cancelar
