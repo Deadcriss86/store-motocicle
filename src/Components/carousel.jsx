@@ -59,7 +59,7 @@ const Carousel = () => {
   };
 
   return (
-    <div className="relative w-full max-w-4xl mx-auto my-10 bg-transparent border- rounded-xl p-4 shadow-lg shadow-[#0eff06]">
+    <div className="relative w-full max-w-4xl mx-auto my-10 bg-transparent rounded-xl p-4 shadow-lg shadow-[#0eff06]">
       <div className="flex items-center justify-between">
         <button
           onClick={handlePrev}
@@ -92,7 +92,7 @@ const Carousel = () => {
                 />
                 <button
                   onClick={() => handleViewMore(item.id_product)}
-                  className="text-center mt-2 text-[#0eff06] font-bold"
+                  className="text-center w-60 mt-2 text-[#0eff06] font-bold"
                 >
                   {item.productName}
                 </button>
