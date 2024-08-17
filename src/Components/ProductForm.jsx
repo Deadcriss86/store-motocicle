@@ -6,6 +6,8 @@ export const ProductForm = ({ product, onSubmit }) => {
   const { register, handleSubmit, setValue } = useForm();
   const [modalMessage, setModalMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [category, setCategory] = useState("");
+  const [subcategory, setSubcategory] = useState("");
 
   useEffect(() => {
     if (product) {
@@ -15,6 +17,8 @@ export const ProductForm = ({ product, onSubmit }) => {
       setValue("description", product.description);
       setValue("category", product.category);
       setValue("subcategory", product.subcategory);
+      setCategory(product.category);
+      setSubcategory(product.subcategory);
     }
   }, [product, setValue]);
 
@@ -50,7 +54,6 @@ export const ProductForm = ({ product, onSubmit }) => {
         onSubmit={handleSubmit(handleFormSubmit)}
         encType="multipart/form-data"
       >
-        {/* Los campos del formulario */}
         <div>
           <input
             placeholder="Nombre del producto"
@@ -98,32 +101,48 @@ export const ProductForm = ({ product, onSubmit }) => {
         <br />
 
         <div>
-          <select className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none">
-            <option disabled selected>
+          <select
+            className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none"
+            value={category}
+            onChange={(e) => {
+              setCategory(e.target.value);
+              setValue("category", e.target.value);
+            }}
+            {...register("category")}
+          >
+            <option value="" disabled>
               Categoria
             </option>
-            <option>Protector de faro</option>
-            <option>Slider superior</option>
-            <option>Slider trasero</option>
-            <option>Porta alforja</option>
-            <option>Parrilla de carga</option>
+            <option value="Protector de faro">Protector de faro</option>
+            <option value="Slider superior">Slider superior</option>
+            <option value="Slider trasero">Slider trasero</option>
+            <option value="Porta alforja">Porta alforja</option>
+            <option value="Parrilla de carga">Parrilla de carga</option>
           </select>
         </div>
         <br />
 
         <div>
-          <select className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none">
-            <option disabled selected>
+          <select
+            className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none"
+            value={subcategory}
+            onChange={(e) => {
+              setSubcategory(e.target.value);
+              setValue("subcategory", e.target.value);
+            }}
+            {...register("subcategory")}
+          >
+            <option value="" disabled>
               Subcategoria
             </option>
-            <option>Vento</option>
-            <option>Dinamo</option>
-            <option>Hero motos</option>
-            <option>Veloci</option>
-            <option>Italika</option>
-            <option>Yamaha</option>
-            <option>MB motor</option>
-            <option>Universal</option>
+            <option value="Vento">Vento</option>
+            <option value="Dinamo">Dinamo</option>
+            <option value="Hero motos">Hero motos</option>
+            <option value="Veloci">Veloci</option>
+            <option value="Italika">Italika</option>
+            <option value="Yamaha">Yamaha</option>
+            <option value="MB motor">MB motor</option>
+            <option value="Universal">Universal</option>
           </select>
         </div>
         <br />

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import SearchBar from "../../../Components/SearchInput";
 import CardDelivery from "../../../Components/CardModuleDelivery";
 import "../OrderPages/styleOrder.css";
@@ -6,9 +7,56 @@ import { Link } from "react-router-dom";
 
 function OrderPages() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [orders, setOrders] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/orders");
+        console.log(response.data); // Verifica lo que devuelve la API
+        setOrders(response.data || []); // Ajusta según el formato de tu respuesta
+      } catch (error) {
+        console.error("Error al obtener las órdenes", error);
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
   const handleSearch = (query) => {
     setSearchQuery(query);
-    console.log("buscando", query);
+  };
+
+  const handleEditOrder = (order) => {
+    setSelectedOrder(order);
+    setShowPopup(true);
+  };
+
+  const handleConfirmEdit = async () => {
+    if (selectedOrder) {
+      try {
+        await axios.put(
+          `http://localhost:3000/api/orders/${selectedOrder._id}`,
+          {
+            items: selectedOrder.items,
+            numero_guia: selectedOrder.numero_guia,
+            total: selectedOrder.total,
+          }
+        );
+        setShowPopup(false);
+        // Vuelve a cargar las órdenes después de la edición, si es necesario
+        const response = await axios.get("/api/orders");
+        setOrders(response.data || []);
+      } catch (error) {
+        console.error("Error al actualizar la orden", error);
+      }
+    }
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
   };
 
   return (
@@ -19,26 +67,27 @@ function OrderPages() {
       </nav>
       <main className="mainContent">
         <div className="containerText">
-          <p className="textMain">Resultado de la busqueda: {searchQuery}</p>
+          <p className="textMain">Resultado de la búsqueda: {searchQuery}</p>
         </div>
-        <CardDelivery
-          deliveryDescription="Descripción del pedido 1"
-          nameClient="Cliente 1"
-          priceDelivery="5000"
-          descriptionGuide="GU123456"
-        />
-        <CardDelivery
-          deliveryDescription="Descripción del pedido 2"
-          nameClient="Cliente 2"
-          priceDelivery="3000"
-          descriptionGuide="GU654321"
-        />
-        <CardDelivery
-          deliveryDescription="Descripción del pedido 3"
-          nameClient="Cliente 3"
-          priceDelivery="7000"
-          descriptionGuide="GU111111"
-        />
+        {Array.isArray(orders) &&
+          orders
+            .filter(
+              (order) =>
+                order.orderId.includes(searchQuery) ||
+                order.username_author
+                  .toLowerCase()
+                  .includes(searchQuery.toLowerCase())
+            )
+            .map((order) => (
+              <CardDelivery
+                key={order._id}
+                deliveryDescription={`Order ID: ${order.orderId}`}
+                nameClient={order.username_author}
+                priceDelivery={order.total}
+                descriptionGuide={order.numero_guia}
+                onEdit={() => handleEditOrder(order)}
+              />
+            ))}
       </main>
       <footer className="footer">
         <Link
@@ -48,6 +97,30 @@ function OrderPages() {
           Ir a productos
         </Link>
       </footer>
+
+      {showPopup && (
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <p className="text-lg font-semibold">
+              ¿Deseas confirmar la edición de esta orden?
+            </p>
+            <div className="mt-4 flex justify-end space-x-3">
+              <button
+                onClick={handleConfirmEdit}
+                className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
+              >
+                Confirmar
+              </button>
+              <button
+                onClick={handleClosePopup}
+                className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
