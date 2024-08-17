@@ -16,10 +16,13 @@ const calculateOrderAmount = (itemsArray) => {
 };
 
 const items = {
+  orderId: 100,
   items: [
-    { id: "xl-tshirt", amount: 10.99 },
-    { id: "sm-tshirt", amount: 5.99 },
+    { product_name: "Coca de 2 litros", amount: 10.99, cantidad: 1 },
+    { product_name: "Doritos Nacho", amount: 5.99, cantidad: 2 },
   ],
+  total: 16.98,
+  username_author: "Valentin",
 };
 
 export const Pasarela = () => {
