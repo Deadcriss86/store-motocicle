@@ -262,21 +262,22 @@ const Productos = () => {
 
       {isResponseModalOpen && (
         <dialog id="response_modal" className="modal bg-[#000000c7]" open>
-          <div className="modal-action text-white p-4 bg-[#202020] rounded-lg w-3/4 sm:w-1/2">
-            <h2 className="text-lg font-bold mb-4">Responder Pregunta</h2>
+          <div className="modal-action flex flex-col text-white p-4 bg-[#202020] rounded-lg w-3/4 sm:w-1/2">
+            <h2 className="text-lg font-bold text-center mb-4">
+              Responder Pregunta
+            </h2>
             <form onSubmit={handleResponseSubmit}>
               <div className="mb-4">
-                <label className="block text-sm font-medium mb-1">
-                  Respuesta
-                </label>
+                <label className="block text-sm font-medium mb-1"></label>
                 <input
+                  placeholder="Escribe la respuesta..."
                   name="response"
                   type="text"
-                  className="border border-gray-300 rounded-lg p-2 w-full text-black"
+                  className="border border-gray-800 rounded-lg p-2 w-full text-black"
                   required
                 />
               </div>
-              <div className="flex justify-end">
+              <div className="flex justify-center my-2 mx-8">
                 <button
                   type="button"
                   className="btn border-2 border-[#0EFF06] rounded-lg p-3 mr-2"
@@ -286,7 +287,7 @@ const Productos = () => {
                 </button>
                 <button
                   type="submit"
-                  className="btn bg-blue-500 text-white p-3 rounded-lg"
+                  className="btn border-2 border-[#0EFF06] rounded-lg p-3 mr-2"
                 >
                   Enviar
                 </button>
