@@ -147,7 +147,7 @@ const ProductPage = () => {
               <summary className="px-4 py-2 bg-[#0eff06] text-gray-900 font-bold rounded-xl">
                 Descripción
               </summary>
-              <ul className="text-gray-300 text-justify m-4">
+              <ul className="text-gray-300 text-justify m-6">
                 {product?.description ||
                   "Descripción no disponible. Slider tipo jaula. Hecho de acero industrial y con pintura electrostática para mayor duración, incluso en climas costeros..."}
               </ul>
@@ -170,8 +170,26 @@ const ProductPage = () => {
                   </div>
                 ))
               ) : (
-                <div className="text-gray-300 text-justify m-4">
-                  Todavía no hay reseñas sobre este producto :(
+                <div className="text-gray-300 text-justify m-6">
+                  Todavía no hay comentarios sobre este producto{" "}
+                  <svg
+                    class="h-8 w-8 text-red-500"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    {" "}
+                    <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                    <circle cx="12" cy="12" r="9" />{" "}
+                    <line x1="9" y1="10" x2="9.01" y2="10" />{" "}
+                    <line x1="15" y1="10" x2="15.01" y2="10" />{" "}
+                    <path d="M9.5 16a10 10 0 0 1 6 -1.5" />
+                  </svg>
                 </div>
               )}
             </details>
@@ -179,11 +197,12 @@ const ProductPage = () => {
               <summary className="px-4 py-2 bg-[#0eff06] text-gray-900 font-bold rounded-xl">
                 Información del envío
               </summary>
-              <ul className="text-gray-300 text-justify m-4">
+              <ul className="text-gray-300 text-justify m-6">
                 - OPCIONES DE ENVIO:
                 <br />
                 La tarifa dentro de la CDMX es de $210.00, la tarifa al exterior
-                de la republica $510.00 <br />
+                de la republica $510.00.
+                <br />
                 - TIEMPOS DE ENTREGA ESTIMADOS: <br />
                 Dentro de la CDMX tenemos un tiempo de entrega de 2 a 3 dias
                 habiles, al exterior de 4 a 5 dias habiles.
@@ -213,7 +232,7 @@ const ProductPage = () => {
               className="border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06]"
               onClick={() => document.getElementById("my_modal_5").showModal()}
             >
-              Agregar Reseña
+              Agregar comentario
             </button>
           </div>
 
@@ -272,7 +291,25 @@ const ProductPage = () => {
                 ))
               ) : (
                 <div className="text-gray-300 text-justify m-4">
-                  Todavía no hay preguntas sobre este producto :(
+                  Todavía no hay preguntas sobre este producto{" "}
+                  <svg
+                    class="h-8 w-8 text-red-500"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    {" "}
+                    <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                    <circle cx="12" cy="12" r="9" />{" "}
+                    <line x1="9" y1="10" x2="9.01" y2="10" />{" "}
+                    <line x1="15" y1="10" x2="15.01" y2="10" />{" "}
+                    <path d="M9.5 16a10 10 0 0 1 6 -1.5" />
+                  </svg>
                 </div>
               )}
             </details>

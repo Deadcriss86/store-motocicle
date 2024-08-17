@@ -97,7 +97,7 @@ export const Resenasforms = ({ id, closeModal, setResponseMessage }) => {
           className="w-full bg-[#0EFF06] rounded-lg p-2 text-black font-bold text-xl hover:bg-white transition duration-300"
           type="submit"
         >
-          Agregar Reseña
+          Agregar comentario
         </button>
       </form>
     </div>
