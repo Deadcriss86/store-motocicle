@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export const Card_coment = () => {
   const [items, setItems] = useState([]);
@@ -39,19 +40,23 @@ export const Card_coment = () => {
   };
 
   return (
-    <div className="flex items-center">
+    <div className="card card-compact bg-base-100 w-1/2 h-auto shadow-lg  shadow-[#0eff06] flex items-center">
       {" "}
-      <button
-        onClick={handlePrev}
-        aria-label="Previous"
-        className="p-2 bg-transparent text-[#0eff06]
+      <div className="flex items-center">
+        <button
+          onClick={handlePrev}
+          aria-label="Previous"
+          className="p-2 bg-transparent text-[#0eff06]
      rounded-full hover:bg-gray-400 mx-10"
-      >
-        <FaChevronLeft size="2rem" className="bg-transparent text-[#0eff06]" />
-      </button>
-      <div className="card card-compact bg-base-100 w-96 h-96 shadow-lg  shadow-[#0eff06]">
-        <figure className="rounded-full h-full p-4">
+        >
+          <FaChevronLeft
+            size="1.5rem"
+            className="bg-transparent text-[#0eff06]"
+          />
+        </button>
+        <figure className=" p-4">
           <img
+            className="rounded-full "
             size=""
             src="https://motoapiprueba2.s3.amazonaws.com/IMG_5388.JPEG"
             alt="Product"
@@ -93,15 +98,19 @@ export const Card_coment = () => {
             </button>
           </div>
         </div>
-      </div>
-      <button
-        onClick={handleNext}
-        aria-label="Next"
-        className="p-2 bg-transparent text-[#0eff06]
+
+        <button
+          onClick={handleNext}
+          aria-label="Next"
+          className="p-2 bg-transparent text-[#0eff06]
      rounded-full hover:bg-gray-400 mx-10"
-      >
-        <FaChevronRight size="2rem" className="bg-transparent text-[#0eff06]" />
-      </button>
+        >
+          <FaChevronRight
+            size="1.5rem"
+            className="bg-transparent text-[#0eff06]"
+          />
+        </button>
+      </div>
     </div>
   );
 };

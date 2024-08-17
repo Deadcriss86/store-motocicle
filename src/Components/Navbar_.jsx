@@ -18,7 +18,7 @@ export const Navlink = () => {
   const AuthenticatedLinks = () => (
     <div className="flex items-center space-x-8">
       <li className="text-[#c2ff35] hover:text-white text-lg flex gap-3 items-start text-bold">
-        Bienvenido {user.username}
+        Bienvenid@ {user.username}
       </li>
       <Link
         to="/Menu"

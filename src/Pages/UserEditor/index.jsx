@@ -66,7 +66,7 @@ const EditProfileForm = () => {
   return (
     <div>
       <Navlink />
-      <div className="min-h-screen flex items-center justify-center pb-8 bg-gradient-to-t from-black to-[#085405cc]">
+      <div className="min-h-screen flex items-center justify-center pb-8 bg-gradient-to-b from-[#0f4c0d] to-black">
         <div className="bg-gray-500 bg-opacity-20 rounded-lg p-8">
           <div className="bg-black bg-opacity-75 rounded-lg p-6 w-full max-w-md">
             <h2 className="text-center text-[#0eff06] text-xl font-bold mb-4">
@@ -91,7 +91,7 @@ const EditProfileForm = () => {
                     required: "El nombre es obligatorio",
                   })}
                   placeholder={profileData?.nombre || "Nombre"}
-                  className="bg-gray-800 text-white p-2 rounded-l w-1/2 mr-1 focus:outline-none"
+                  className="bg-gray-800 text-white p-2 rounded-sm w-1/2 mr-1 focus:outline-none"
                 />
                 <input
                   type="text"
@@ -99,7 +99,7 @@ const EditProfileForm = () => {
                     required: "Los apellidos son obligatorios",
                   })}
                   placeholder={profileData?.apellidos || "Apellidos"}
-                  className="bg-gray-800 text-white p-2 rounded-r w-1/2 ml-1 focus:outline-none"
+                  className="bg-gray-800 text-white p-2 rounded-sm w-1/2 ml-1 focus:outline-none"
                 />
               </div>
               {errors.nombre && (
@@ -116,7 +116,7 @@ const EditProfileForm = () => {
                     required: "La nacionalidad es obligatoria",
                   })}
                   placeholder={profileData?.nacionalidad || "Nacionalidad"}
-                  className="bg-gray-800 text-white p-2 rounded w-1/2 focus:outline-none"
+                  className="bg-gray-800 text-white p-2 rounded-sm w-1/2 focus:outline-none"
                 />
                 <input
                   type="text"
@@ -124,7 +124,7 @@ const EditProfileForm = () => {
                     required: "El móvil es obligatorio",
                   })}
                   placeholder={profileData?.movil || "Móvil"}
-                  className="bg-gray-800 text-white p-2 rounded-r w-full ml-1 focus:outline-none"
+                  className="bg-gray-800 text-white p-2 rounded-sm w-full ml-1 focus:outline-none"
                 />
               </div>
               {errors.nacionalidad && (
@@ -141,7 +141,7 @@ const EditProfileForm = () => {
                     required: "El código postal es obligatorio",
                   })}
                   placeholder={profileData?.cp || "CP"}
-                  className="bg-gray-800 text-white p-2 rounded-l w-1/3 mr-1 focus:outline-none"
+                  className="bg-gray-800 text-white p-2 rounded-sm w-1/3 mr-1 focus:outline-none"
                 />
                 <input
                   type="text"
@@ -149,7 +149,7 @@ const EditProfileForm = () => {
                     required: "La calle es obligatoria",
                   })}
                   placeholder={profileData?.calle || "Calle"}
-                  className="bg-gray-800 text-white p-2 rounded-r w-2/3 ml-1 focus:outline-none"
+                  className="bg-gray-800 text-white p-2 rounded-sm w-2/3 ml-1 focus:outline-none"
                 />
               </div>
               {errors.cp && <p className="text-red-500">{errors.cp.message}</p>}
@@ -164,7 +164,7 @@ const EditProfileForm = () => {
                     required: "La delegación es obligatoria",
                   })}
                   placeholder={profileData?.delegacion || "Delegación"}
-                  className="bg-gray-800 text-white p-2 rounded w-full focus:outline-none mx-1"
+                  className="bg-gray-800 text-white p-2 rounded-sm w-full focus:outline-none mx-1"
                 />
                 <input
                   type="text"
@@ -172,7 +172,7 @@ const EditProfileForm = () => {
                     required: "La ciudad es obligatoria",
                   })}
                   placeholder={profileData?.ciudad || "ciudad"}
-                  className="bg-gray-800 text-white p-2 rounded w-full focus:outline-none mx-1"
+                  className="bg-gray-800 text-white p-2 rounded-sm w-full focus:outline-none mx-1"
                 />
               </div>
               {errors.ciudad && (
@@ -186,7 +186,7 @@ const EditProfileForm = () => {
                     required: "Las referencias son obligatorias",
                   })}
                   placeholder={profileData?.referencias || "Referencias"}
-                  className="bg-gray-800 text-white p-2 rounded w-full focus:outline-none"
+                  className="bg-gray-800 text-white p-2 rounded-sm w-full focus:outline-none"
                 />
               </div>
               {errors.referencias && (
@@ -195,7 +195,7 @@ const EditProfileForm = () => {
 
               <button
                 type="submit"
-                className="w-full bg-[#0eff06] text-black p-2 rounded hover:bg-green-600 focus:outline-none"
+                className="w-full bg-[#0eff06] text-black p-2 rounded-sm hover:bg-green-600 focus:outline-none"
               >
                 Guardar
               </button>

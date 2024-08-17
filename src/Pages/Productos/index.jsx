@@ -128,7 +128,7 @@ const Productos = () => {
 
   return (
     <div>
-      <div className="main min-h-screen min-w-screen bg-black justify-center items-center flex flex-col p-8">
+      <div className="main min-h-screen min-w-screen bg-black justify-center items-center flex flex-col p-4 sm:p-6 md:p-8">
         {responseMessage === "ok" ? (
           <div role="alert" className="alert alert-success bg-[#0EFF06] mb-4">
             <svg
@@ -149,33 +149,32 @@ const Productos = () => {
         ) : responseMessage ? (
           <div>Algo salió mal.</div>
         ) : null}
-        <div className="container flex justify-end py-2">
-          <h2 className=" text-white font-bold p-4 text-2xl">
+        <div className="container flex flex-col sm:flex-row justify-between py-2 w-full">
+          <h2 className="text-white font-bold text-xl sm:text-2xl md:text-3xl p-2">
             Administrador ARS
-          </h2>{" "}
+          </h2>
           <button
-            className=" btn border-2 border-[#0eff06] px-4 py-2 rounded-xl font-bold text-white mx-6 hover:bg-[#0eff06]"
+            className="btn hover:bg-[#0eff0601] hover:text-white flex w-auto items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-4 sm:px-5 md:px-7 py-2.5 font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
             onClick={logout}
           >
-            Cerrar sesion
+            Cerrar sesión
           </button>
         </div>
 
-        <div className="container bg-[#202020] space-x-10 text-1xl p-2 mb-2 rounded-lg flex justify-center">
+        <div className="container bg-[#202020] space-x-0 sm:space-x-4 md:space-x-10 text-1xl p-2 mb-2 rounded-lg flex flex-col sm:flex-row justify-center w-full">
           <Link
             to="/Order"
-            className="btn border-2 border-[#0eff06] text-[#0eff06] rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06]"
+            className="btn border-2 border-[#0eff06] text-[#0eff06] rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06] mb-2 sm:mb-0 sm:mr-2 md:mr-4"
           >
             Ir a pedidos
           </Link>
           <button
-            className=" btn border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06]"
+            className="btn border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06] mb-2 sm:mb-0 sm:mr-2 md:mr-4"
             onClick={() => document.getElementById("my_modal_4").showModal()}
           >
             Agregar Producto
           </button>
-          {/* Buscador */}
-          <div className="container bg-[#202020] p-2 mb-2 rounded-lg w-1/3">
+          <div className="container bg-[#202020] p-2 mb-2 rounded-lg w-full sm:w-1/3">
             <input
               type="text"
               placeholder="Buscar productos..."
@@ -191,7 +190,7 @@ const Productos = () => {
                 setResponseMessage={setResponseMessage}
               />
               <form method="dialog">
-                <button className="btn border-2 border-[#0EFF06] rounded-lg p-3">
+                <button className="btn border-2 border-[#0EFF06] rounded-lg p-3 text-white">
                   Cancelar
                 </button>
               </form>
@@ -210,15 +209,15 @@ const Productos = () => {
               stock={product.stock}
               description={product.description}
               questions={
-                <ul className="flex flex-col justify-center items-center">
+                <ul className="flex flex-col justify-center items-end">
                   {product.questions.map((q) => (
                     <li key={q._id}>
                       {q.body}
                       <button
-                        className="bg-yellow-300 text-black p-2 rounded-lg m-1"
+                        className="btn bg-[#0EFF06] text-gray-800 p-1 rounded-lg m-2 hover:text-[#0EFF06]"
                         onClick={() => {
                           setSelectedQuestion({
-                            productId: product._id, // Asegúrate de que el productId se defina aquí
+                            productId: product._id,
                             _id: q._id,
                           });
                           setIsResponseModalOpen(true);
@@ -240,10 +239,10 @@ const Productos = () => {
       {deletingProductId && (
         <dialog
           id="delete_modal"
-          className=" border-2 border-[#0EFF06] modal bg-[#282626c7] w-1/2 h-1/3"
+          className="border-2 border-[#0EFF06] modal bg-[#282626c7] w-3/4 sm:w-1/2 h-1/3"
           open
         >
-          <div className="flex justify-items-center modal-action text-white ">
+          <div className="flex justify-center modal-action text-white">
             <p>¿Estás seguro de que deseas eliminar este producto?</p>
             <button
               className="btn border-2 border-[#0EFF06] rounded-lg p-3 hover:bg-white hover:text-black"
@@ -263,21 +262,22 @@ const Productos = () => {
 
       {isResponseModalOpen && (
         <dialog id="response_modal" className="modal bg-[#000000c7]" open>
-          <div className="modal-action text-white p-4 bg-[#202020] rounded-lg">
-            <h2 className="text-lg font-bold mb-4">Responder Pregunta</h2>
+          <div className="modal-action flex flex-col text-white p-4 bg-[#202020] rounded-lg w-3/4 sm:w-1/2">
+            <h2 className="text-lg font-bold text-center mb-4">
+              Responder Pregunta
+            </h2>
             <form onSubmit={handleResponseSubmit}>
               <div className="mb-4">
-                <label className="block text-sm font-medium mb-1">
-                  Respuesta
-                </label>
+                <label className="block text-sm font-medium mb-1"></label>
                 <input
+                  placeholder="Escribe la respuesta..."
                   name="response"
                   type="text"
-                  className="border border-gray-300 rounded-lg p-2 w-full text-black"
+                  className="border border-gray-800 rounded-lg p-2 w-full text-black"
                   required
                 />
               </div>
-              <div className="flex justify-end">
+              <div className="flex justify-center my-2 mx-8">
                 <button
                   type="button"
                   className="btn border-2 border-[#0EFF06] rounded-lg p-3 mr-2"
@@ -287,7 +287,7 @@ const Productos = () => {
                 </button>
                 <button
                   type="submit"
-                  className="btn bg-blue-500 text-white p-3 rounded-lg"
+                  className="btn border-2 border-[#0EFF06] rounded-lg p-3 mr-2"
                 >
                   Enviar
                 </button>
