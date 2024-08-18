@@ -51,7 +51,7 @@ function Home() {
               <button>Contactanos para pedidos personalizados</button>
               <IoLogoWhatsapp
                 size="2.5rem"
-                className="text-[#0eff06] hover:text-white"
+                className=" animate-bounce text-[#0eff06] hover:text-white"
               />
             </a>
           </div>

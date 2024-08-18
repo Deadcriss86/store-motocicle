@@ -5,7 +5,7 @@ import { Navlink } from "../../Components/Navbar_";
 import { Footer } from "../../Components/footer";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { ModalMessage } from "../../Components/pop-up";
+import Swal from "sweetalert2";
 
 const EditProfileForm = () => {
   const {
@@ -17,8 +17,6 @@ const EditProfileForm = () => {
   } = useForm();
   const { isAuthenticated, loading } = useAuth();
   const navigate = useNavigate();
-  const [showModal, setShowModal] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
   const [profileData, setProfileData] = useState(null);
 
   useEffect(() => {
@@ -46,12 +44,24 @@ const EditProfileForm = () => {
       await axios.put("http://localhost:3000/api/auth/update", data, {
         withCredentials: true,
       });
-      setModalMessage("Perfil actualizado con éxito!");
-      setShowModal(true);
+      Swal.fire({
+        title: "Perfil actualizado",
+        text: "¡Tu perfil ha sido actualizado con éxito!",
+        icon: "success",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#0eff06",
+      });
       reset();
     } catch (error) {
-      setModalMessage("Error al actualizar el perfil: " + error.message);
-      setShowModal(true);
+      Swal.fire({
+        title: "Perfil actualizado",
+        text: "¡Tu perfil ha sido actualizado con éxito!",
+        icon: "success",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#0eff06", // Cambia el color del botón
+        background: "#D2E5B7 !important", // Cambia el fondo de la alerta
+        color: "#fff !important", // Cambia el color del texto en la alerta
+      });
     }
   };
 
@@ -105,8 +115,8 @@ const EditProfileForm = () => {
               {errors.nombre && (
                 <p className="text-red-500">{errors.nombre.message}</p>
               )}
-              {errors.apellidos && (
-                <p className="text-red-500">{errors.apellidos.message}</p>
+              {errors.apellido && (
+                <p className="text-red-500">{errors.apellido.message}</p>
               )}
 
               <div className="mb-4 flex">
@@ -203,13 +213,6 @@ const EditProfileForm = () => {
           </div>
         </div>
       </div>
-
-      {showModal && (
-        <ModalMessage
-          message={modalMessage}
-          onClose={() => setShowModal(false)}
-        />
-      )}
       <Footer />
     </div>
   );
