@@ -7,6 +7,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import Notification from "../../Components/notification";
 import StarRating from "../../Components/Stars_rating";
+import swal from "sweetalert";
 
 const ProductPage = () => {
   const location = useLocation();
@@ -54,6 +55,7 @@ const ProductPage = () => {
           withCredentials: true,
         }
       );
+
       setResponseMessage("Producto agregado al carrito!");
     } catch (error) {
       console.error("Error al agregar el producto al carrito:", error);
