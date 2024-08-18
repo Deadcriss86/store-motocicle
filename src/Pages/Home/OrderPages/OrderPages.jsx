@@ -85,6 +85,8 @@ function OrderPages() {
                 nameClient={order.username_author}
                 priceDelivery={order.total}
                 descriptionGuide={order.numero_guia}
+                parcelService={order.paqueteria}
+                shippingDate={order.fecha_de_envio}
                 productName={order.items
                   .map((item) => item.product_name)
                   .join(", ")} // Aquí concatenamos los nombres de los productos

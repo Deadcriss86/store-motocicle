@@ -27,9 +27,9 @@ const EditProfileForm = () => {
       .then((response) => {
         setProfileData(response.data);
         setValue("nombre", response.data.nombre);
-        setValue("apellidos", response.data.apellido);
+        setValue("apellido", response.data.apellido);
         setValue("nacionalidad", response.data.nacionalidad);
-        setValue("movil", response.data.movil);
+        setValue("celular", response.data.celular);
         setValue("cp", response.data.cp);
         setValue("ciudad", response.data.ciudad);
         setValue("calle", response.data.calle);
@@ -95,18 +95,18 @@ const EditProfileForm = () => {
                 />
                 <input
                   type="text"
-                  {...register("apellidos", {
+                  {...register("apellido", {
                     required: "Los apellidos son obligatorios",
                   })}
-                  placeholder={profileData?.apellidos || "Apellidos"}
+                  placeholder={profileData?.apellido || "Apellido"}
                   className="bg-gray-800 text-white p-2 rounded-sm w-1/2 ml-1 focus:outline-none"
                 />
               </div>
               {errors.nombre && (
                 <p className="text-red-500">{errors.nombre.message}</p>
               )}
-              {errors.apellidos && (
-                <p className="text-red-500">{errors.apellidos.message}</p>
+              {errors.apellido && (
+                <p className="text-red-500">{errors.apellido.message}</p>
               )}
 
               <div className="mb-4 flex">
@@ -120,18 +120,18 @@ const EditProfileForm = () => {
                 />
                 <input
                   type="text"
-                  {...register("movil", {
+                  {...register("celular", {
                     required: "El móvil es obligatorio",
                   })}
-                  placeholder={profileData?.movil || "Móvil"}
+                  placeholder={profileData?.celular || "Móvil"}
                   className="bg-gray-800 text-white p-2 rounded-sm w-full ml-1 focus:outline-none"
                 />
               </div>
               {errors.nacionalidad && (
                 <p className="text-red-500">{errors.nacionalidad.message}</p>
               )}
-              {errors.movil && (
-                <p className="text-red-500">{errors.movil.message}</p>
+              {errors.celular && (
+                <p className="text-red-500">{errors.celular.message}</p>
               )}
 
               <div className="mb-4 flex">

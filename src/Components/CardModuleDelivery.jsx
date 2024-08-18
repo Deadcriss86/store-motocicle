@@ -4,17 +4,21 @@ import axios from "axios";
 import "../Pages/Home/OrderPages/styleOrder.css";
 
 const CardDelivery = ({
-  orderId, // Aquí recibes el orderId
+  orderId,
   deliveryDescription,
   nameClient,
   priceDelivery,
   descriptionGuide,
+  parcelService,
+  shippingDate,
   productName,
 }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [newDescriptionGuide, setNewDescriptionGuide] = useState(
     descriptionGuide || ""
   );
+  const [newParcelService, setNewParcelService] = useState(parcelService || "");
+  const [newShippingDate, setNewShippingDate] = useState(shippingDate || "");
 
   const handleEditClick = () => {
     setIsEditModalOpen(true);
@@ -25,7 +29,14 @@ const CardDelivery = ({
   };
 
   const handleInputChange = (e) => {
-    setNewDescriptionGuide(e.target.value);
+    const { name, value } = e.target;
+    if (name === "descriptionGuide") {
+      setNewDescriptionGuide(value);
+    } else if (name === "parcelService") {
+      setNewParcelService(value);
+    } else if (name === "shippingDate") {
+      setNewShippingDate(value);
+    }
   };
 
   const handleSaveChanges = async (e) => {
@@ -40,6 +51,8 @@ const CardDelivery = ({
         `http://localhost:3000/api/orders/${orderId}`,
         {
           numero_guia: newDescriptionGuide,
+          paqueteria: newParcelService,
+          fecha_envio: newShippingDate,
         }
       );
       window.location.reload();
@@ -65,9 +78,13 @@ const CardDelivery = ({
           Monto total: {priceDelivery}
         </div>
       </div>
-      <div className="guideNumber text-sm md:text-base lg:text-lg">
+      <div className="flex flex-row mx-1 guideNumber text-sm md:text-base lg:text-lg">
         No. de guía:
         <span className="numberGuide font-bold ml-2">{descriptionGuide}</span>
+        Paqueteria:
+        <span className="numberGuide font-bold ml-2">{parcelService}</span>
+        Fecha de envio:
+        <span className="numberGuide font-bold ml-2">{shippingDate}</span>
       </div>
       <div className="flex justify-between items-center w-full lg:w-auto space-x-4 mt-4 lg:mt-0">
         <button className="saveButton bg-transparent hover:bg-[#0FFF07] hover:text-black transition-colors duration-300 px-4 py-2 rounded-lg">
@@ -94,7 +111,32 @@ const CardDelivery = ({
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="text"
+                  name="descriptionGuide"
                   value={newDescriptionGuide}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                  Paqueteria:
+                </label>
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  type="text"
+                  name="parcelService"
+                  value={newParcelService}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                  Fecha de envio
+                </label>
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  type="text"
+                  name="shippingDate"
+                  value={newShippingDate}
                   onChange={handleInputChange}
                 />
               </div>
