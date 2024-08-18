@@ -15,8 +15,8 @@ function OrderPages() {
     const fetchOrders = async () => {
       try {
         const response = await axios.get("http://localhost:3000/api/orders");
-        console.log(response.data); // Verifica lo que devuelve la API
-        setOrders(response.data || []); // Ajusta según el formato de tu respuesta
+        console.log(response.data);
+        setOrders(response.data || []);
       } catch (error) {
         console.error("Error al obtener las órdenes", error);
       }
@@ -46,8 +46,7 @@ function OrderPages() {
           }
         );
         setShowPopup(false);
-        // Vuelve a cargar las órdenes después de la edición, si es necesario
-        const response = await axios.get("/api/orders");
+        const response = await axios.get("http://localhost:3000/api/orders");
         setOrders(response.data || []);
       } catch (error) {
         console.error("Error al actualizar la orden", error);
@@ -81,11 +80,15 @@ function OrderPages() {
             .map((order) => (
               <CardDelivery
                 key={order._id}
+                orderId={order._id}
                 deliveryDescription={`Order ID: ${order.orderId}`}
                 nameClient={order.username_author}
                 priceDelivery={order.total}
                 descriptionGuide={order.numero_guia}
-                onEdit={() => handleEditOrder(order)}
+                productName={order.items
+                  .map((item) => item.product_name)
+                  .join(", ")} // Aquí concatenamos los nombres de los productos
+                onEdit={() => handleEditOrder(order)} // Maneja el evento de edición
               />
             ))}
       </main>
