@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import {
   PaymentElement,
   useStripe,
@@ -18,16 +19,18 @@ export default function CheckoutForm({ items }) {
 
     const createPaymentIntent = async () => {
       try {
-        const response = await fetch(
+        const response = await axios.post(
           "http://localhost:3000/api/create-payment-intent",
+          { items },
           {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ items }),
+            withCredentials: true, // Envía cookies con la solicitud
+            headers: {
+              "Content-Type": "application/json", // Configura el tipo de contenido
+            },
           }
         );
 
-        const data = await response.json();
+        const data = response.data;
 
         if (data.clientSecret) {
           setClientSecret(data.clientSecret);
@@ -94,7 +97,7 @@ export default function CheckoutForm({ items }) {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: "http://localhost:5173",
+        return_url: "http://localhost:5173/Shopping",
       },
       clientSecret, // Asegúrate de pasar el clientSecret aquí
     });
@@ -122,12 +125,16 @@ export default function CheckoutForm({ items }) {
             id="payment-element"
             options={paymentElementOptions}
           />
-          <button disabled={isLoading || !stripe || !elements} id="submit">
+          <button
+            disabled={isLoading || !stripe || !elements}
+            className="mt-3 text-black bg-[#0EFF06] rounded-lg font-medium p-2"
+            id="submit"
+          >
             <span id="button-text">
               {isLoading ? (
                 <div className="spinner" id="spinner"></div>
               ) : (
-                "Pay now"
+                "Pagar ahora"
               )}
             </span>
           </button>

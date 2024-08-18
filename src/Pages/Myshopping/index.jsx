@@ -1,21 +1,33 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import DetalleModal from "./DetalleModal";
 import { Footer } from "../../Components/footer";
 import { Navlink } from "../../Components/Navbar_";
 
 const MisCompras = () => {
-  const compras = [
-    { id: "89634", name: "Parrilla thunderstar", price: 999 },
-    { id: "89634", name: "Parrilla trasera Vento", price: 599 },
-    { id: "89634", name: "Parrilla crossmax", price: 799 },
-    {
-      id: "89634",
-      name: "Parrilla crossmax",
-      price: 8959,
-    },
-  ];
-
+  const [compras, setCompras] = useState(null);
   const [selectedCompra, setSelectedCompra] = useState(null);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    const fetchCompras = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/api/order/find",
+          {
+            withCredentials: true,
+          }
+        );
+        setCompras(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching compras:", error);
+        setError(true);
+      }
+    };
+
+    fetchCompras();
+  }, []);
 
   const handleVerDetalle = (compra) => {
     setSelectedCompra(compra);
@@ -34,39 +46,45 @@ const MisCompras = () => {
             Mis compras
           </h1>
           <div className="w-full">
-            {compras.map((compra, index) => (
-              <div
-                key={index}
-                className="bg-gray-800 mb-4 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-center"
-              >
-                <div className="flex items-center mb-4 sm:mb-0">
-                  <div className="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center">
-                    <img
-                      src={`/path/to/image/${compra.name}.png`}
-                      alt={compra.name}
-                      className="w-12 h-12"
-                    />
+            {error ? (
+              <p className="text-center text-xl text-white">
+                Todavía no tienes compras :(
+              </p>
+            ) : (
+              compras &&
+              compras.map((compra, index) => (
+                <div
+                  key={index}
+                  className="bg-gray-800 mb-4 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-center"
+                >
+                  <div className="flex items-center mb-4 sm:mb-0">
+                    <div className="ml-4">
+                      {compra.items.map((item, index) => (
+                        <h2
+                          className="text-xl my-3 text-white text-ellipsis overflow-hidden whitespace-nowrap max-w-xs"
+                          key={index}
+                        >
+                          {item.product_name}{" "}
+                        </h2>
+                      ))}
+
+                      <p className="text-gray-400 text-sm">id: {compra._id}</p>
+                    </div>
                   </div>
-                  <div className="ml-4">
-                    <h2 className="text-xl text-white text-ellipsis overflow-hidden whitespace-nowrap max-w-xs">
-                      {compra.name}
-                    </h2>
-                    <p className="text-gray-400 text-sm">id: {compra.id}</p>
+                  <div className="flex flex-col sm:flex-row items-center">
+                    <p className="text-xl text-white px-2 mb-2 sm:mb-0">
+                      Importe total: ${compra.total}
+                    </p>
+                    <button
+                      onClick={() => handleVerDetalle(compra)}
+                      className="px-4 py-2 bg-[#0eff06] text-gray-900 rounded-lg hover:bg-green-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-green-600"
+                    >
+                      Ver detalle
+                    </button>
                   </div>
                 </div>
-                <div className="flex flex-col sm:flex-row items-center">
-                  <p className="text-xl text-white px-2 mb-2 sm:mb-0">
-                    Importe total: ${compra.price}
-                  </p>
-                  <button
-                    onClick={() => handleVerDetalle(compra)}
-                    className="px-4 py-2 bg-[#0eff06] text-gray-900 rounded-lg hover:bg-green-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-green-600"
-                  >
-                    Ver detalle
-                  </button>
-                </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
           <DetalleModal
             isOpen={!!selectedCompra}
