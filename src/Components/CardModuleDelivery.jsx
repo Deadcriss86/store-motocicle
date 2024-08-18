@@ -77,19 +77,16 @@ const CardDelivery = ({
         <div className="mountTotal text-sm md:text-base lg:text-lg">
           Monto total: {priceDelivery}
         </div>
+        <div className="flex flex-row mx-1 guideNumber text-sm md:text-base lg:text-lg">
+          No. de guía:
+          <span className="numberGuide font-bold ml-2">{descriptionGuide}</span>
+          Paqueteria:
+          <span className="numberGuide font-bold ml-2">{parcelService}</span>
+          Fecha de envio:
+          <span className="numberGuide font-bold ml-2">{shippingDate}</span>
+        </div>
       </div>
-      <div className="flex flex-row mx-1 guideNumber text-sm md:text-base lg:text-lg">
-        No. de guía:
-        <span className="numberGuide font-bold ml-2">{descriptionGuide}</span>
-        Paqueteria:
-        <span className="numberGuide font-bold ml-2">{parcelService}</span>
-        Fecha de envio:
-        <span className="numberGuide font-bold ml-2">{shippingDate}</span>
-      </div>
-      <div className="flex justify-between items-center w-full lg:w-auto space-x-4 mt-4 lg:mt-0">
-        <button className="saveButton bg-transparent hover:bg-[#0FFF07] hover:text-black transition-colors duration-300 px-4 py-2 rounded-lg">
-          Guardar
-        </button>
+      <div className="w-full lg:w-auto space-x-4 mt-4 lg:mt-0">
         <button
           className="editButton bg-transparent hover:bg-[#0FFF07] hover:text-black transition-colors duration-300 px-4 py-2 rounded-lg"
           onClick={handleEditClick}
@@ -97,7 +94,6 @@ const CardDelivery = ({
           <CiEdit />
         </button>
       </div>
-
       {/* Pop-up de edición */}
       {isEditModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
