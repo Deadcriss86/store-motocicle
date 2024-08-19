@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import swal from "sweetalert";
 
 export const Resenasforms = ({ id, closeModal, setResponseMessage }) => {
   const { register, handleSubmit, reset } = useForm();
@@ -22,10 +23,18 @@ export const Resenasforms = ({ id, closeModal, setResponseMessage }) => {
       );
       console.log(response.data);
       reset();
-      setResponseMessage("Reseña agregada!");
-      closeModal();
+
+      swal({
+        title: "Comentario Agregado",
+        icon: "success",
+        button: "OK",
+      });
     } catch (error) {
-      console.error("Error al agregar la reseña:", error);
+      swal({
+        title: "Error al agregar el comentario",
+        icon: "error",
+        button: "OK",
+      });
     }
   };
 

@@ -83,7 +83,7 @@ function Home() {
 
         <div className="sticky top-0 h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#0d4d0b] to-black text-white ">
           <h2 className="text-[#0eff06] text-3xl font-bold flex justify-center py-10">
-            Comentarios de nuestros clientes.
+            Comentarios de nuestros clientes
           </h2>
           <Card_coment />
         </div>

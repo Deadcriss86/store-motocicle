@@ -1,13 +1,33 @@
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { ModalMessage } from "../Components/pop-up";
+import swal from "sweetalert";
 
 export const ProductForm = ({ product, onSubmit }) => {
-  const { register, handleSubmit, setValue } = useForm();
+  const { register, handleSubmit, setValue, watch } = useForm();
   const [modalMessage, setModalMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [category, setCategory] = useState("");
-  const [subcategory, setSubcategory] = useState("");
+  const [categories, setCategories] = useState([
+    "Protector de faro",
+    "Slider superior",
+    "Slider trasero",
+    "Porta alforja",
+    "Parrilla de carga",
+  ]);
+  const [subcategories, setSubcategories] = useState([
+    "Vento",
+    "Dinamo",
+    "Hero motos",
+    "Veloci",
+    "Italika",
+    "Yamaha",
+    "MB motor",
+    "Universal",
+  ]);
+
+  // Watch the category and subcategory fields to handle any changes
+  const category = watch("category");
+  const subcategory = watch("subcategory");
 
   useEffect(() => {
     if (product) {
@@ -17,8 +37,6 @@ export const ProductForm = ({ product, onSubmit }) => {
       setValue("description", product.description);
       setValue("category", product.category);
       setValue("subcategory", product.subcategory);
-      setCategory(product.category);
-      setSubcategory(product.subcategory);
     }
   }, [product, setValue]);
 
@@ -36,11 +54,13 @@ export const ProductForm = ({ product, onSubmit }) => {
 
     try {
       await onSubmit(formData, product ? product._id : undefined);
-      setModalMessage("Subido con éxito!");
-      setShowModal(true);
+      Swal.fire("¡Éxito!", "El producto ha sido agregado", "success");
     } catch (error) {
-      setModalMessage("Error al subir");
-      setShowModal(true);
+      Swal.fire(
+        "Error",
+        "No se pudo agregar el producto. Intenta de nuevo.",
+        "error"
+      );
     }
   };
 
@@ -64,7 +84,6 @@ export const ProductForm = ({ product, onSubmit }) => {
           />
         </div>
         <br />
-
         <div>
           <input
             placeholder="Precio"
@@ -76,7 +95,6 @@ export const ProductForm = ({ product, onSubmit }) => {
           />
         </div>
         <br />
-
         <div>
           <input
             placeholder="Stock"
@@ -87,7 +105,6 @@ export const ProductForm = ({ product, onSubmit }) => {
           />
         </div>
         <br />
-
         <div>
           <textarea
             className="textarea ml-1 w-full bg-gray-800 text-white p-2 focus:outline-none rounded-lg"
@@ -99,54 +116,38 @@ export const ProductForm = ({ product, onSubmit }) => {
           />
         </div>
         <br />
-
         <div>
           <select
             className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none"
-            value={category}
-            onChange={(e) => {
-              setCategory(e.target.value);
-              setValue("category", e.target.value);
-            }}
             {...register("category")}
           >
             <option value="" disabled>
               Categoria
             </option>
-            <option value="Protector de faro">Protector de faro</option>
-            <option value="Slider superior">Slider superior</option>
-            <option value="Slider trasero">Slider trasero</option>
-            <option value="Porta alforja">Porta alforja</option>
-            <option value="Parrilla de carga">Parrilla de carga</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
           </select>
         </div>
         <br />
-
         <div>
           <select
             className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none"
-            value={subcategory}
-            onChange={(e) => {
-              setSubcategory(e.target.value);
-              setValue("subcategory", e.target.value);
-            }}
             {...register("subcategory")}
           >
             <option value="" disabled>
               Subcategoria
             </option>
-            <option value="Vento">Vento</option>
-            <option value="Dinamo">Dinamo</option>
-            <option value="Hero motos">Hero motos</option>
-            <option value="Veloci">Veloci</option>
-            <option value="Italika">Italika</option>
-            <option value="Yamaha">Yamaha</option>
-            <option value="MB motor">MB motor</option>
-            <option value="Universal">Universal</option>
+            {subcategories.map((subcat) => (
+              <option key={subcat} value={subcat}>
+                {subcat}
+              </option>
+            ))}
           </select>
         </div>
         <br />
-
         <div className="text-white">
           <label htmlFor="image">Cargar fotos:</label>
           <input
@@ -158,19 +159,13 @@ export const ProductForm = ({ product, onSubmit }) => {
           />
         </div>
         <br />
-
         <button
+          onClose={() => setShowModal(false)}
           className="bg-[#0EFF06] rounded-lg p-2 text-black font-bold text-xl hover:bg-white w-full"
           type="submit"
         >
           Agregar Producto
         </button>
-        {showModal && (
-          <ModalMessage
-            message={modalMessage}
-            onClose={() => setShowModal(false)}
-          />
-        )}
       </form>
     </div>
   );

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import EditProductForm from "./Edit_product_form";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 const Admin_products = ({
   id,
@@ -12,6 +14,7 @@ const Admin_products = ({
   questions,
 }) => {
   const [editingProduct, setEditingProduct] = useState(null);
+  const [setDeletingProductId] = useState(null);
 
   const handleEdit = () => {
     setEditingProduct({
@@ -21,6 +24,39 @@ const Admin_products = ({
       stock,
       description,
       questions,
+    });
+  };
+
+  const handleDelete = (productId) => {
+    setDeletingProductId(productId);
+
+    Swal.fire({
+      title: "¿Estás seguro de eliminar este producto?",
+      text: "Esta acción no se puede deshacer.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0EFF06",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axios.delete(`http://localhost:3000/api/products/${productId}`);
+          // Si tienes una función para actualizar la lista de productos, llámala aquí.
+          if (onDelete) {
+            onDelete(productId);
+          }
+          Swal.fire("Eliminado", "El producto ha sido eliminado.", "success");
+        } catch (error) {
+          console.error("Error al eliminar el producto:", error);
+          Swal.fire(
+            "Error",
+            "No se pudo eliminar el producto. Intenta de nuevo.",
+            "error"
+          );
+        }
+      }
     });
   };
 
@@ -44,7 +80,9 @@ const Admin_products = ({
       </div>
       <div className="card_info flex flex-col lg:flex-row justify-between w-full">
         <div className="info flex flex-col justify-center mb-4 lg:mb-0 lg:ml-6">
-          <h2 className="text-center lg:text-left">{truncateText(name, 20)}</h2>
+          <h2 className="text-center lg:text-left text-[#0EFF06]">
+            {truncateText(name, 20)}
+          </h2>
           <h2 className="font-thin text-center lg:text-left">Id: {id}</h2>
         </div>
         <div className="price_container flex flex-col justify-center items-center mb-4 lg:mb-0 lg:ml-6">
@@ -72,7 +110,7 @@ const Admin_products = ({
           </button>
           <button
             className="btn text-white hover:bg-[#0EFF06] hover:text-black px-4 py-2 rounded-lg"
-            onClick={() => onDelete(id)}
+            onClick={() => handleDelete(id)}
           >
             Eliminar
           </button>
@@ -84,7 +122,7 @@ const Admin_products = ({
           open
           className="modal bg-[#000000c7] fixed inset-0 flex justify-center items-center z-50"
         >
-          <div className="modal-action p-4 bg-white rounded-lg shadow-lg">
+          <div className="modal-action p-4 bg-transparent rounded-lg shadow-lg">
             <EditProductForm
               product={editingProduct}
               closeModal={() => setEditingProduct(null)}
