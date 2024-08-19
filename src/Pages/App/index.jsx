@@ -14,11 +14,13 @@ import { AuthProvider } from "../../context/AuthContext";
 import { ProtectedRoute } from "../../routes";
 import Shopping from "../Myshopping";
 import MenuProducto from "../Menu_productos";
+import { Pasarela } from "../Pasarela";
 
 const AppRoutes = () => {
   const routes = useRoutes([
     { path: "/", element: <Home /> },
     { path: "*", element: <NotFound /> },
+    { path: "/pasarela", element: <Pasarela /> },
     { path: "/login", element: <Login /> },
     { path: "/signup", element: <Signup /> }, // Corregido de /Singup a /signup
     { path: "/detail", element: <ProductPage /> }, // Corregido de /Detail a /detail

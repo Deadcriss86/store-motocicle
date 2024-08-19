@@ -25,7 +25,6 @@ function Home() {
       <Navlink />
       <div className="bg-black min-h-screen">
         <div className="relative w-full h-[calc(100vh-56px)]">
-          
           <img
             className="w-full h-full object-cover opacity-90"
             alt="Imagen de fondo"
@@ -52,7 +51,7 @@ function Home() {
               <button>Contactanos para pedidos personalizados</button>
               <IoLogoWhatsapp
                 size="2.5rem"
-                className="text-[#0eff06] hover:text-white"
+                className=" animate-bounce text-[#0eff06] hover:text-white"
               />
             </a>
           </div>
