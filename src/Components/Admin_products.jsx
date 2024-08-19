@@ -14,7 +14,7 @@ const Admin_products = ({
   questions,
 }) => {
   const [editingProduct, setEditingProduct] = useState(null);
-  const [setDeletingProductId] = useState(null);
+  const [deletingProductId, setDeletingProductId] = useState(null);
 
   const handleEdit = () => {
     setEditingProduct({
