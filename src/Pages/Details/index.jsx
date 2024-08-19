@@ -5,7 +5,6 @@ import { useLocation, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import Notification from "../../Components/notification";
 import StarRating from "../../Components/Stars_rating";
 import swal from "sweetalert";
 
@@ -16,13 +15,12 @@ const ProductPage = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [responseMessage, setResponseMessage] = useState(null);
 
   useEffect(() => {
     if (value) {
       console.log("Fetching product with id:", value);
       axios
-        .get(`http://localhost:3000/api/getproduct`, { params: { id: value } })
+        .get("http://localhost:3000/api/getproduct", { params: { id: value } })
         .then((response) => {
           console.log("API response:", response);
           setProduct(response.data);
@@ -56,10 +54,18 @@ const ProductPage = () => {
         }
       );
 
-      setResponseMessage("Producto agregado al carrito!");
+      swal({
+        title: "Agregado al carrito",
+        icon: "success",
+        button: "OK",
+      });
     } catch (error) {
       console.error("Error al agregar el producto al carrito:", error);
-      setResponseMessage("Error al agregar el producto al carrito.");
+      swal({
+        title: "Error al agregar al carrito",
+        icon: "error",
+        button: "OK",
+      });
     }
   };
 
@@ -75,11 +81,19 @@ const ProductPage = () => {
         }
       );
       console.log("Pregunta enviada:", response.data);
-      setResponseMessage("Pregunta enviada con éxito!");
+      swal({
+        title: "Pregunta enviada con éxito!",
+        icon: "success",
+        button: "OK",
+      });
       reset();
     } catch (error) {
       console.error("Error al enviar la pregunta:", error);
-      setResponseMessage("Error al enviar la pregunta.");
+      swal({
+        title: "Error al enviar la pregunta",
+        icon: "error",
+        button: "OK",
+      });
     }
   };
 
@@ -175,21 +189,20 @@ const ProductPage = () => {
                 <div className="text-gray-300 text-justify m-6">
                   Todavía no hay comentarios sobre este producto{" "}
                   <svg
-                    class="h-8 w-8 text-red-500"
+                    className="h-8 w-8 text-red-500"
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
-                    stroke-width="2"
+                    strokeWidth="2"
                     stroke="currentColor"
                     fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   >
-                    {" "}
-                    <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                    <circle cx="12" cy="12" r="9" />{" "}
-                    <line x1="9" y1="10" x2="9.01" y2="10" />{" "}
-                    <line x1="15" y1="10" x2="15.01" y2="10" />{" "}
+                    <path stroke="none" d="M0 0h24v24H0z" />
+                    <circle cx="12" cy="12" r="9" />
+                    <line x1="9" y1="10" x2="9.01" y2="10" />
+                    <line x1="15" y1="10" x2="15.01" y2="10" />
                     <path d="M9.5 16a10 10 0 0 1 6 -1.5" />
                   </svg>
                 </div>
@@ -215,14 +228,6 @@ const ProductPage = () => {
             </details>
           </div>
 
-          {responseMessage && (
-            <Notification
-              message={responseMessage}
-              type={responseMessage.includes("Error") ? "error" : "success"}
-              onClose={() => setResponseMessage(null)}
-            />
-          )}
-
           <div className="flex justify-center m-8 ">
             <Link
               to="/Menu"
@@ -241,7 +246,6 @@ const ProductPage = () => {
           <dialog id="my_modal_5" className="modal bg-[#000000c7]">
             <div className="modal-action">
               <Resenasforms
-                setResponseMessage={setResponseMessage}
                 id={value}
                 closeModal={() => document.getElementById("my_modal_5").close()}
               />
@@ -284,8 +288,10 @@ const ProductPage = () => {
                     <div>
                       {questions.response && (
                         <p>
-                          <span class="text-yellow-500">Respuesta: </span>
-                          <span class="text-white">{questions.response}</span>
+                          <span className="text-yellow-500">Respuesta: </span>
+                          <span className="text-white">
+                            {questions.response}
+                          </span>
                         </p>
                       )}
                     </div>
@@ -295,21 +301,20 @@ const ProductPage = () => {
                 <div className="text-gray-300 text-justify m-4">
                   Todavía no hay preguntas sobre este producto{" "}
                   <svg
-                    class="h-8 w-8 text-red-500"
+                    className="h-8 w-8 text-red-500"
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
-                    stroke-width="2"
+                    strokeWidth="2"
                     stroke="currentColor"
                     fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   >
-                    {" "}
-                    <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                    <circle cx="12" cy="12" r="9" />{" "}
-                    <line x1="9" y1="10" x2="9.01" y2="10" />{" "}
-                    <line x1="15" y1="10" x2="15.01" y2="10" />{" "}
+                    <path stroke="none" d="M0 0h24v24H0z" />
+                    <circle cx="12" cy="12" r="9" />
+                    <line x1="9" y1="10" x2="9.01" y2="10" />
+                    <line x1="15" y1="10" x2="15.01" y2="10" />
                     <path d="M9.5 16a10 10 0 0 1 6 -1.5" />
                   </svg>
                 </div>

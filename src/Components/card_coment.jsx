@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { BiSolidQuoteLeft } from "react-icons/bi";
+import { BiSolidQuoteRight } from "react-icons/bi";
 
 export const Card_coment = () => {
   const [reviews, setReviews] = useState([]);
@@ -97,14 +99,17 @@ export const Card_coment = () => {
                       alt={review.productName}
                       className="h-48 w-48 object-contain bg-white rounded-full mb-4"
                     />
-                    <h2 className="text-[#0eff06] text-xl font-semibold w-full text-center">
+                    <h2 className="text-[#0eff06] text-2xl font-semibold w-full text-center">
                       {review.reviews[0].username.charAt(0).toUpperCase() +
                         review.reviews[0].username.slice(1)}
                     </h2>
+
                     <div className="border-b-2 border-[#0eff06] w-full mb-4" />
+                    <BiSolidQuoteLeft />
                     <p className="text-white text-center mb-4">
                       {review.reviews[0].opinion}
                     </p>
+                    <BiSolidQuoteRight />
                     <div className="flex justify-center mb-4">
                       {[...Array(review.reviews[0].rating)].map((_, i) => (
                         <span
@@ -114,8 +119,7 @@ export const Card_coment = () => {
                       ))}
                     </div>
                     <div className="card-actions justify-end">
-                      <Link
-                        to="/detail"
+                      <button
                         onClick={handleViewMore}
                         className="nav-button hover:drop-shadow-lg flex w-full items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-7 py-2.5 text-base font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
                       >
@@ -135,7 +139,7 @@ export const Card_coment = () => {
                             d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
                           ></path>
                         </svg>
-                      </Link>
+                      </button>
                     </div>
                   </div>
                 ))

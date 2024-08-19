@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { ModalMessage } from "../Components/pop-up";
+import swal from "sweetalert2"; // Cambié ModalMessage por SweetAlert
 
 const EditProductForm = ({ product, closeModal }) => {
   const { register, handleSubmit } = useForm();
-  const [showModal, setShowModal] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleFormSubmit = async (data) => {
-    console.log(data);
+    setLoading(true);
     try {
+      // Enviar los datos actualizados
       await axios.put(
         `http://localhost:3000/api/products/${product.id}`,
         data,
@@ -18,16 +18,29 @@ const EditProductForm = ({ product, closeModal }) => {
           headers: { "Content-Type": "application/json" },
         }
       );
-      setModalMessage("Product updated!");
-      setShowModal(true);
 
-      // Recarga la página después de un breve retraso para que el usuario vea el mensaje
+      // Mostrar mensaje de éxito
+      swal.fire(
+        "Producto actualizado",
+        "El producto ha sido actualizado correctamente.",
+        "success"
+      );
+
+      // Recargar la página después de un breve retraso
       setTimeout(() => {
         window.location.reload();
-      }, 1000); // Puedes ajustar el tiempo según lo que necesites
+      }, 2000);
     } catch (error) {
-      setModalMessage("Error updating product");
-      setShowModal(true);
+      console.error("Error updating product:", error);
+
+      // Mostrar mensaje de error
+      swal.fire(
+        "Error",
+        "No se pudo actualizar el producto. Intenta de nuevo.",
+        "error"
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -48,7 +61,7 @@ const EditProductForm = ({ product, closeModal }) => {
             type="text"
             id="name"
             {...register("name", { required: true })}
-            placeholder={product.name}
+            defaultValue={product.name} // Usar defaultValue
           />
         </div>
         <br />
@@ -59,7 +72,7 @@ const EditProductForm = ({ product, closeModal }) => {
             type="number"
             id="price"
             {...register("price", { required: true })}
-            placeholder={product.price}
+            defaultValue={product.price} // Usar defaultValue
             step="0.01"
           />
         </div>
@@ -71,7 +84,7 @@ const EditProductForm = ({ product, closeModal }) => {
             type="number"
             id="stock"
             {...register("stock", { required: true })}
-            placeholder={product.stock}
+            defaultValue={product.stock} // Usar defaultValue
           />
         </div>
         <br />
@@ -81,7 +94,7 @@ const EditProductForm = ({ product, closeModal }) => {
             className="textarea ml-1 w-full bg-gray-800 text-white p-2 rounded-lg focus:outline-none"
             id="description"
             {...register("description", { required: true })}
-            placeholder={product.description}
+            defaultValue={product.description} // Usar defaultValue
             rows="4"
             cols="50"
           />
@@ -92,15 +105,10 @@ const EditProductForm = ({ product, closeModal }) => {
         <button
           className="bg-[#0EFF06] rounded-lg p-2 text-black font-bold text-xl hover:bg-white w-full"
           type="submit"
+          disabled={loading}
         >
-          Guardar cambios
+          {loading ? "Guardando..." : "Guardar cambios"}
         </button>
-        {showModal && (
-          <ModalMessage
-            message={modalMessage}
-            onClose={() => setShowModal(false)}
-          />
-        )}
       </form>
     </div>
   );
