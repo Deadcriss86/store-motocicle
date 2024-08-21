@@ -153,7 +153,13 @@ const ProductPage = () => {
                 ¡Envío de 3 a 5 días hábiles!* Hasta 12MSI con mercado crédito
               </p>
               <button className="border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06]">
-                Manual Instalación
+                <a
+                  href="../public/Manual_de_instalacion.pdf"
+                  download="Manual_de_instalacion.pdf"
+                  className="no-underline text-[#0eff06] hover:text-gray-800"
+                >
+                  Manual Instalación
+                </a>
               </button>
             </div>
           </div>
