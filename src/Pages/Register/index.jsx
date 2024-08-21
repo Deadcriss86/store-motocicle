@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { registerSchema } from "../../schemas/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Message } from "../../Components/ui/Message";
@@ -18,6 +18,9 @@ const SignUp = () => {
   });
   const navigate = useNavigate();
 
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [showTermsModal, setShowTermsModal] = useState(false);
+
   const onSubmit = async (value) => {
     await signup(value);
   };
@@ -30,7 +33,7 @@ const SignUp = () => {
     <div className="min-h-screen flex items-center justify-center bg-black">
       <div className="bg-gradient-to-r-transparent border-2 border-[#0eff06] p-8 rounded-xl shadow-lg w-full max-w-sm">
         <img className="p-5" src={logo} alt="logo" />
-        <h2 className="text-2xl text-white mb-6 text-center">Registrate</h2>
+        <h2 className="text-2xl text-white mb-6 text-center">Regístrate</h2>
         {registerErrors &&
           registerErrors.map((error, i) => <Message message={error} key={i} />)}
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -102,10 +105,29 @@ const SignUp = () => {
               <p className="text-red-500">{errors.confirmPassword?.message}</p>
             )}
           </div>
+          <div className="mb-4">
+            <input
+              type="checkbox"
+              id="terms"
+              className="mr-2 leading-tight"
+              onChange={(e) => setTermsAccepted(e.target.checked)}
+            />
+            <label htmlFor="terms" className="text-gray-300 text-sm">
+              Acepto los{" "}
+              <button
+                type="button"
+                className="text-green-500 underline"
+                onClick={() => setShowTermsModal(true)}
+              >
+                términos y condiciones
+              </button>
+            </label>
+          </div>
           <div className="flex items-center justify-center mt-4">
             <button
               type="submit"
               className="bg-green-500 text-white font-bold py-2 px-4 rounded-full w-full"
+              disabled={!termsAccepted}
             >
               Registro
             </button>
@@ -127,6 +149,24 @@ const SignUp = () => {
           </p>
         </div>
       </div>
+
+      {showTermsModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+            <h3 className="text-lg font-bold mb-4">Términos y Condiciones</h3>
+            <p className="text-gray-700 mb-4">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+            <button
+              className="bg-green-500 text-white px-4 py-2 rounded"
+              onClick={() => setShowTermsModal(false)}
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
