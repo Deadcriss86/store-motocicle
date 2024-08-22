@@ -115,7 +115,7 @@ const ProductPage = () => {
       <main className="p-4">
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col lg:flex-row lg:space-x-8 bg-gray-800 p-4 rounded-lg">
-            <div className="lg:w-1/2 bg-gray-400">
+            <div className="lg:w-1/3 bg-gray-400">
               <img
                 src={product?.images || "https://via.placeholder.com/400"}
                 alt="Producto"
