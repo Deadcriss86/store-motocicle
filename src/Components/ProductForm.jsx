@@ -1,11 +1,33 @@
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { ModalMessage } from "../Components/pop-up";
+import swal from "sweetalert";
 
 export const ProductForm = ({ product, onSubmit }) => {
-  const { register, handleSubmit, setValue } = useForm();
+  const { register, handleSubmit, setValue, watch } = useForm();
   const [modalMessage, setModalMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [categories, setCategories] = useState([
+    "Protector de faro",
+    "Slider superior",
+    "Slider trasero",
+    "Porta alforja",
+    "Parrilla de carga",
+  ]);
+  const [subcategories, setSubcategories] = useState([
+    "Vento",
+    "Dinamo",
+    "Hero motos",
+    "Veloci",
+    "Italika",
+    "Yamaha",
+    "MB motor",
+    "Universal",
+  ]);
+
+  // Watch the category and subcategory fields to handle any changes
+  const category = watch("category");
+  const subcategory = watch("subcategory");
 
   useEffect(() => {
     if (product) {
@@ -32,11 +54,13 @@ export const ProductForm = ({ product, onSubmit }) => {
 
     try {
       await onSubmit(formData, product ? product._id : undefined);
-      setModalMessage("Subido con éxito!");
-      setShowModal(true);
+      Swal.fire("¡Éxito!", "El producto ha sido agregado", "success");
     } catch (error) {
-      setModalMessage("Error al subir");
-      setShowModal(true);
+      Swal.fire(
+        "Error",
+        "No se pudo agregar el producto. Intenta de nuevo.",
+        "error"
+      );
     }
   };
 
@@ -50,7 +74,6 @@ export const ProductForm = ({ product, onSubmit }) => {
         onSubmit={handleSubmit(handleFormSubmit)}
         encType="multipart/form-data"
       >
-        {/* Los campos del formulario */}
         <div>
           <input
             placeholder="Nombre del producto"
@@ -61,7 +84,6 @@ export const ProductForm = ({ product, onSubmit }) => {
           />
         </div>
         <br />
-
         <div>
           <input
             placeholder="Precio"
@@ -73,7 +95,6 @@ export const ProductForm = ({ product, onSubmit }) => {
           />
         </div>
         <br />
-
         <div>
           <input
             placeholder="Stock"
@@ -84,7 +105,6 @@ export const ProductForm = ({ product, onSubmit }) => {
           />
         </div>
         <br />
-
         <div>
           <textarea
             className="textarea ml-1 w-full bg-gray-800 text-white p-2 focus:outline-none rounded-lg"
@@ -96,38 +116,38 @@ export const ProductForm = ({ product, onSubmit }) => {
           />
         </div>
         <br />
-
         <div>
-          <select className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none">
-            <option disabled selected>
+          <select
+            className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none"
+            {...register("category")}
+          >
+            <option value="" disabled>
               Categoria
             </option>
-            <option>Protector de faro</option>
-            <option>Slider superior</option>
-            <option>Slider trasero</option>
-            <option>Porta alforja</option>
-            <option>Parrilla de carga</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
           </select>
         </div>
         <br />
-
         <div>
-          <select className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none">
-            <option disabled selected>
+          <select
+            className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none"
+            {...register("subcategory")}
+          >
+            <option value="" disabled>
               Subcategoria
             </option>
-            <option>Vento</option>
-            <option>Dinamo</option>
-            <option>Hero motos</option>
-            <option>Veloci</option>
-            <option>Italika</option>
-            <option>Yamaha</option>
-            <option>MB motor</option>
-            <option>Universal</option>
+            {subcategories.map((subcat) => (
+              <option key={subcat} value={subcat}>
+                {subcat}
+              </option>
+            ))}
           </select>
         </div>
         <br />
-
         <div className="text-white">
           <label htmlFor="image">Cargar fotos:</label>
           <input
@@ -139,19 +159,13 @@ export const ProductForm = ({ product, onSubmit }) => {
           />
         </div>
         <br />
-
         <button
+          onClose={() => setShowModal(false)}
           className="bg-[#0EFF06] rounded-lg p-2 text-black font-bold text-xl hover:bg-white w-full"
           type="submit"
         >
           Agregar Producto
         </button>
-        {showModal && (
-          <ModalMessage
-            message={modalMessage}
-            onClose={() => setShowModal(false)}
-          />
-        )}
       </form>
     </div>
   );

@@ -35,8 +35,6 @@ const ProductsPage = () => {
           subcategories: Array.from(categoryMap[category]),
         }));
         setCategories(categories);
-
-        console.log("Response data:", productsData);
       })
       .catch((error) => {
         console.error("There was an error fetching the data!", error);
@@ -115,14 +113,11 @@ const ProductsPage = () => {
                     <li
                       key={subIndex}
                       className="cursor-pointer rounded hover:bg-[#c1ff06] hover:text-black"
+                      onClick={() =>
+                        handleSubcategoryClick(category.name, subcategory)
+                      }
                     >
-                      <li
-                        onClick={() =>
-                          handleSubcategoryClick(category.name, subcategory)
-                        }
-                      >
-                        {subcategory}
-                      </li>
+                      {subcategory}
                     </li>
                   ))}
                 </ul>

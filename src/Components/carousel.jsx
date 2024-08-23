@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Carousel = () => {
   const navigate = useNavigate();
@@ -32,9 +33,9 @@ const Carousel = () => {
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) {
-        setItemsToShow(3);
+        setItemsToShow(1);
       } else if (window.innerWidth >= 768) {
-        setItemsToShow(2);
+        setItemsToShow(1);
       } else {
         setItemsToShow(1);
       }
@@ -59,7 +60,7 @@ const Carousel = () => {
   };
 
   return (
-    <div className="relative w-full max-w-4xl mx-auto my-10 bg-transparent border- rounded-xl p-4 shadow-lg shadow-[#0eff06]">
+    <div className="relative w-full max-w-4xl mx-auto my-10 bg-transparent rounded-xl p-4 shadow-lg shadow-[#0eff06]">
       <div className="flex items-center justify-between">
         <button
           onClick={handlePrev}
@@ -92,7 +93,7 @@ const Carousel = () => {
                 />
                 <button
                   onClick={() => handleViewMore(item.id_product)}
-                  className="text-center mt-2 text-[#0eff06] font-bold"
+                  className="text-center w-60 mt-2 text-[#0eff06] font-bold"
                 >
                   {item.productName}
                 </button>

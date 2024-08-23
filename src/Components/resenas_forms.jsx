@@ -1,12 +1,13 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import swal from "sweetalert";
 
-export const Resenasforms = ({ id, closeModal, setResponseMessage }) => {
+export const Resenasforms = ({ id, closeModal }) => {
   const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = async (data) => {
     if (!data.rating) {
-      data.rating = 5;
+      data.rating = 5; // Asignar calificación por defecto si no se selecciona ninguna
     }
 
     try {
@@ -20,12 +21,21 @@ export const Resenasforms = ({ id, closeModal, setResponseMessage }) => {
           withCredentials: true,
         }
       );
-      console.log(response.data);
       reset();
-      setResponseMessage("Reseña agregada!");
-      closeModal();
+      swal({
+        title: "Comentario Agregado",
+        icon: "success",
+        button: "OK",
+      }).then(() => {
+        window.location.reload();
+        closeModal(); // Cerrar el modal después de mostrar la alerta
+      });
     } catch (error) {
-      console.error("Error al agregar la reseña:", error);
+      swal({
+        title: "Error al agregar el comentario",
+        icon: "error",
+        button: "OK",
+      });
     }
   };
 
@@ -97,7 +107,7 @@ export const Resenasforms = ({ id, closeModal, setResponseMessage }) => {
           className="w-full bg-[#0EFF06] rounded-lg p-2 text-black font-bold text-xl hover:bg-white transition duration-300"
           type="submit"
         >
-          Agregar Reseña
+          Agregar comentario
         </button>
       </form>
     </div>

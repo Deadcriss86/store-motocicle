@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom/dist";
+import Swal from "sweetalert2";
 
 const Productos = () => {
   const [responseMessage, setResponseMessage] = useState(null);
@@ -94,7 +95,6 @@ const Productos = () => {
       );
 
       if (res.status === 200) {
-        console.log("Respuesta añadida con éxito:", res.data);
         setIsResponseModalOpen(false);
       } else {
         console.error("Error al agregar la respuesta:", res.data.message);
@@ -111,7 +111,7 @@ const Productos = () => {
         {},
         { withCredentials: true }
       );
-      console.log(response.data);
+
       navigate("/");
       window.location.reload(true);
     } catch (error) {
@@ -180,7 +180,7 @@ const Productos = () => {
               placeholder="Buscar productos..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-2 py-2 rounded-lg text-black"
+              className="w-full px-2 py-2 rounded-lg text-white bg-transparent border-2 border-[#0fff07] p-5 w-300px"
             />
           </div>
           <dialog id="my_modal_4" className="modal bg-[#000000c7]">
@@ -235,30 +235,6 @@ const Productos = () => {
           ))}
         </div>
       </div>
-
-      {deletingProductId && (
-        <dialog
-          id="delete_modal"
-          className="border-2 border-[#0EFF06] modal bg-[#282626c7] w-3/4 sm:w-1/2 h-1/3"
-          open
-        >
-          <div className="flex justify-center modal-action text-white">
-            <p>¿Estás seguro de que deseas eliminar este producto?</p>
-            <button
-              className="btn border-2 border-[#0EFF06] rounded-lg p-3 hover:bg-white hover:text-black"
-              onClick={confirmDelete}
-            >
-              Confirmar
-            </button>
-            <button
-              className="btn border-2 border-[#0EFF06] rounded-lg p-3 hover:bg-white hover:text-black"
-              onClick={() => setDeletingProductId(null)}
-            >
-              Cancelar
-            </button>
-          </div>
-        </dialog>
-      )}
 
       {isResponseModalOpen && (
         <dialog id="response_modal" className="modal bg-[#000000c7]" open>

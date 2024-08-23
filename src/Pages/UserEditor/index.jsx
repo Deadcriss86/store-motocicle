@@ -5,7 +5,7 @@ import { Navlink } from "../../Components/Navbar_";
 import { Footer } from "../../Components/footer";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { ModalMessage } from "../../Components/pop-up";
+import Swal from "sweetalert2";
 
 const EditProfileForm = () => {
   const {
@@ -17,8 +17,6 @@ const EditProfileForm = () => {
   } = useForm();
   const { isAuthenticated, loading } = useAuth();
   const navigate = useNavigate();
-  const [showModal, setShowModal] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
   const [profileData, setProfileData] = useState(null);
   const [selectedAvatar, setSelectedAvatar] = useState("avatar1.jpg"); // Default avatar
 
@@ -30,7 +28,7 @@ const EditProfileForm = () => {
         setValue("nombre", response.data.nombre);
         setValue("apellido", response.data.apellido);
         setValue("nacionalidad", response.data.nacionalidad);
-        setValue("movil", response.data.movil);
+        setValue("celular", response.data.celular);
         setValue("cp", response.data.cp);
         setValue("ciudad", response.data.ciudad);
         setValue("calle", response.data.calle);
@@ -50,12 +48,24 @@ const EditProfileForm = () => {
         { ...data, avatar: selectedAvatar },
         { withCredentials: true }
       );
-      setModalMessage("Perfil actualizado con éxito!");
-      setShowModal(true);
+       Swal.fire({
+        title: "Perfil actualizado",
+        text: "¡Tu perfil ha sido actualizado con éxito!",
+        icon: "success",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#0eff06",
+      });
       reset();
     } catch (error) {
-      setModalMessage("Error al actualizar el perfil: " + error.message);
-      setShowModal(true);
+      Swal.fire({
+        title: "Perfil actualizado",
+        text: "¡Tu perfil ha sido actualizado con éxito!",
+        icon: "success",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#0eff06", // Cambia el color del botón
+        background: "#D2E5B7 !important", // Cambia el fondo de la alerta
+        color: "#fff !important", // Cambia el color del texto en la alerta
+      });
     }
   };
 
@@ -74,7 +84,7 @@ const EditProfileForm = () => {
   return (
     <div>
       <Navlink />
-      <div className="min-h-screen flex items-center justify-center pb-8 bg-gradient-to-b from-[#0f4c0d] to-black">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-t from-black to-[#148710]">
         <div className="bg-gray-500 bg-opacity-20 rounded-lg p-8">
           <div className="bg-black bg-opacity-75 rounded-lg p-6 w-full max-w-md">
             <h2 className="text-center text-[#0eff06] text-xl font-bold mb-4">
@@ -140,7 +150,7 @@ const EditProfileForm = () => {
                   {...register("apellido", {
                     required: "Los apellidos son obligatorios",
                   })}
-                  placeholder={profileData?.apellido || "Apellidos"}
+                  placeholder={profileData?.apellido || "Apellido"}
                   className="bg-gray-800 text-white p-2 rounded-sm w-1/2 ml-1 focus:outline-none"
                 />
               </div>
@@ -161,18 +171,18 @@ const EditProfileForm = () => {
                 />
                 <input
                   type="text"
-                  {...register("movil", {
+                  {...register("celular", {
                     required: "El móvil es obligatorio",
                   })}
-                  placeholder={profileData?.movil || "Móvil"}
+                  placeholder={profileData?.celular || "Móvil"}
                   className="bg-gray-800 text-white p-2 rounded-sm w-full ml-1 focus:outline-none"
                 />
               </div>
               {errors.nacionalidad && (
                 <p className="text-red-500">{errors.nacionalidad.message}</p>
               )}
-              {errors.movil && (
-                <p className="text-red-500">{errors.movil.message}</p>
+              {errors.celular && (
+                <p className="text-red-500">{errors.celular.message}</p>
               )}
               <div className="mb-4 flex">
                 <input
@@ -240,13 +250,6 @@ const EditProfileForm = () => {
           </div>
         </div>
       </div>
-
-      {showModal && (
-        <ModalMessage
-          message={modalMessage}
-          onClose={() => setShowModal(false)}
-        />
-      )}
       <Footer />
     </div>
   );

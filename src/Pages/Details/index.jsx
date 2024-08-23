@@ -5,8 +5,8 @@ import { useLocation, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import Notification from "../../Components/notification";
 import StarRating from "../../Components/Stars_rating";
+import swal from "sweetalert";
 
 const ProductPage = () => {
   const location = useLocation();
@@ -15,15 +15,12 @@ const ProductPage = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [responseMessage, setResponseMessage] = useState(null);
 
   useEffect(() => {
     if (value) {
-      console.log("Fetching product with id:", value);
       axios
-        .get(`http://localhost:3000/api/getproduct`, { params: { id: value } })
+        .get("http://localhost:3000/api/getproduct", { params: { id: value } })
         .then((response) => {
-          console.log("API response:", response);
           setProduct(response.data);
           setLoading(false);
         })
@@ -54,10 +51,19 @@ const ProductPage = () => {
           withCredentials: true,
         }
       );
-      setResponseMessage("Producto agregado al carrito!");
+
+      swal({
+        title: "Agregado al carrito",
+        icon: "success",
+        button: "OK",
+      });
     } catch (error) {
       console.error("Error al agregar el producto al carrito:", error);
-      setResponseMessage("Error al agregar el producto al carrito.");
+      swal({
+        title: "Error al agregar al carrito",
+        icon: "error",
+        button: "OK",
+      });
     }
   };
 
@@ -72,12 +78,44 @@ const ProductPage = () => {
           withCredentials: true,
         }
       );
-      console.log("Pregunta enviada:", response.data);
-      setResponseMessage("Pregunta enviada con éxito!");
-      reset();
+
+      // Muestra el mensaje de éxito si la pregunta fue añadida
+      if (
+        response.data &&
+        response.data.message === "Pregunta añadida con éxito"
+      ) {
+        swal({
+          title: "Pregunta enviada con éxito!",
+          icon: "success",
+          button: "OK",
+        });
+
+        // Después de enviar la pregunta, vuelve a obtener la lista de preguntas
+        const productResponse = await axios.get(
+          "http://localhost:3000/api/getproduct",
+          {
+            params: { id: value },
+          }
+        );
+
+        setProduct(productResponse.data);
+
+        reset();
+      } else {
+        console.error("Formato inesperado en la respuesta:", response.data);
+        swal({
+          title: "Error: Formato de respuesta no válido",
+          icon: "error",
+          button: "OK",
+        });
+      }
     } catch (error) {
       console.error("Error al enviar la pregunta:", error);
-      setResponseMessage("Error al enviar la pregunta.");
+      swal({
+        title: "Error al enviar la pregunta",
+        icon: "error",
+        button: "OK",
+      });
     }
   };
 
@@ -99,7 +137,7 @@ const ProductPage = () => {
       <main className="p-4">
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col lg:flex-row lg:space-x-8 bg-gray-800 p-4 rounded-lg">
-            <div className="lg:w-1/2 bg-gray-400">
+            <div className="lg:w-1/3 bg-gray-400">
               <img
                 src={product?.images || "https://via.placeholder.com/400"}
                 alt="Producto"
@@ -137,7 +175,13 @@ const ProductPage = () => {
                 ¡Envío de 3 a 5 días hábiles!* Hasta 12MSI con mercado crédito
               </p>
               <button className="border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06]">
-                Manual Instalación
+                <a
+                  href="../public/Manual_de_instalacion.pdf"
+                  download="Manual_de_instalacion.pdf"
+                  className="no-underline text-[#0eff06] hover:text-gray-800"
+                >
+                  Manual Instalación
+                </a>
               </button>
             </div>
           </div>
@@ -147,7 +191,7 @@ const ProductPage = () => {
               <summary className="px-4 py-2 bg-[#0eff06] text-gray-900 font-bold rounded-xl">
                 Descripción
               </summary>
-              <ul className="text-gray-300 text-justify m-4">
+              <ul className="text-gray-300 text-justify m-6">
                 {product?.description ||
                   "Descripción no disponible. Slider tipo jaula. Hecho de acero industrial y con pintura electrostática para mayor duración, incluso en climas costeros..."}
               </ul>
@@ -170,8 +214,25 @@ const ProductPage = () => {
                   </div>
                 ))
               ) : (
-                <div className="text-gray-300 text-justify m-4">
-                  Todavía no hay reseñas sobre este producto :(
+                <div className="text-gray-300 text-justify m-6">
+                  Todavía no hay comentarios sobre este producto{" "}
+                  <svg
+                    className="h-8 w-8 text-red-500"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    strokeWidth="2"
+                    stroke="currentColor"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" />
+                    <circle cx="12" cy="12" r="9" />
+                    <line x1="9" y1="10" x2="9.01" y2="10" />
+                    <line x1="15" y1="10" x2="15.01" y2="10" />
+                    <path d="M9.5 16a10 10 0 0 1 6 -1.5" />
+                  </svg>
                 </div>
               )}
             </details>
@@ -179,11 +240,12 @@ const ProductPage = () => {
               <summary className="px-4 py-2 bg-[#0eff06] text-gray-900 font-bold rounded-xl">
                 Información del envío
               </summary>
-              <ul className="text-gray-300 text-justify m-4">
+              <ul className="text-gray-300 text-justify m-6">
                 - OPCIONES DE ENVIO:
                 <br />
                 La tarifa dentro de la CDMX es de $210.00, la tarifa al exterior
-                de la republica $510.00 <br />
+                de la republica $510.00.
+                <br />
                 - TIEMPOS DE ENTREGA ESTIMADOS: <br />
                 Dentro de la CDMX tenemos un tiempo de entrega de 2 a 3 dias
                 habiles, al exterior de 4 a 5 dias habiles.
@@ -193,14 +255,6 @@ const ProductPage = () => {
               </ul>
             </details>
           </div>
-
-          {responseMessage && (
-            <Notification
-              message={responseMessage}
-              type={responseMessage.includes("Error") ? "error" : "success"}
-              onClose={() => setResponseMessage(null)}
-            />
-          )}
 
           <div className="flex justify-center m-8 ">
             <Link
@@ -213,14 +267,13 @@ const ProductPage = () => {
               className="border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06]"
               onClick={() => document.getElementById("my_modal_5").showModal()}
             >
-              Agregar Reseña
+              Agregar comentario
             </button>
           </div>
 
           <dialog id="my_modal_5" className="modal bg-[#000000c7]">
             <div className="modal-action">
               <Resenasforms
-                setResponseMessage={setResponseMessage}
                 id={value}
                 closeModal={() => document.getElementById("my_modal_5").close()}
               />
@@ -263,8 +316,10 @@ const ProductPage = () => {
                     <div>
                       {questions.response && (
                         <p>
-                          <span class="text-yellow-500">Respuesta: </span>
-                          <span class="text-white">{questions.response}</span>
+                          <span className="text-yellow-500">Respuesta: </span>
+                          <span className="text-white">
+                            {questions.response}
+                          </span>
                         </p>
                       )}
                     </div>
@@ -272,7 +327,24 @@ const ProductPage = () => {
                 ))
               ) : (
                 <div className="text-gray-300 text-justify m-4">
-                  Todavía no hay preguntas sobre este producto :(
+                  Todavía no hay preguntas sobre este producto{" "}
+                  <svg
+                    className="h-8 w-8 text-red-500"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    strokeWidth="2"
+                    stroke="currentColor"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" />
+                    <circle cx="12" cy="12" r="9" />
+                    <line x1="9" y1="10" x2="9.01" y2="10" />
+                    <line x1="15" y1="10" x2="15.01" y2="10" />
+                    <path d="M9.5 16a10 10 0 0 1 6 -1.5" />
+                  </svg>
                 </div>
               )}
             </details>

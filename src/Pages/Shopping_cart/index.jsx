@@ -6,10 +6,19 @@ import { Navlink } from "../../Components/Navbar_";
 import { Footer } from "../../Components/footer";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import CheckoutForm from "../../Components/Checkoutforms";
+
+const stripePromise = loadStripe(
+  "pk_test_51PoIHhRvRsZDGGXQtFoKdaPS4R5wx1JPv6LBB4sxo2VeNNgmGMVxHftnGvFbsCTQzhBxumNoAej9ysuid53PFomE00JEY4rQYf"
+);
 
 const ShoppingCart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [profileData, setProfileData] = useState(null);
+  const [showPayment, setShowPayment] = useState(false); // Nuevo estado para mostrar el formulario
+  const [paymentItems, setPaymentItems] = useState(null); // Estado para almacenar los datos de pago
 
   useEffect(() => {
     axios
@@ -67,7 +76,18 @@ const ShoppingCart = () => {
   };
 
   const handleCheckout = () => {
-    console.log(cartItems);
+    const items = {
+      orderId: Math.floor(Math.random() * 1000), // Ejemplo de generación de orderId. Puedes cambiarlo según tu lógica.
+      items: cartItems.map((item) => ({
+        product_name: item.name,
+        amount: item.price,
+        cantidad: item.quantity,
+      })),
+      total: totalFinal, // Usa el total calculado
+    };
+
+    setPaymentItems(items); // Establecer los datos para el formulario de pago
+    setShowPayment(true); // Mostrar el formulario de pago
   };
 
   const totalPriceProducts = cartItems.reduce(
@@ -92,28 +112,33 @@ const ShoppingCart = () => {
           <div className="bg-black rounded-xl p-4 sm:p-12">
             <div className="flex flex-col sm:flex-row text-white">
               <div className="cards_container w-full sm:w-3/5 flex flex-col py-6 px-3">
-                <TransitionGroup>
-                  {cartItems.map((item) => (
-                    <CSSTransition
-                      key={item.id}
-                      timeout={500}
-                      classNames="item"
-                    >
-                      <CartItem
+                {cartItems.length > 0 ? (
+                  <TransitionGroup>
+                    {cartItems.map((item) => (
+                      <CSSTransition
                         key={item.id}
-                        id={item.id}
-                        name={item.name}
-                        quantity={item.quantity}
-                        price={item.price}
-                        onDelete={() =>
-                          handleDelete(item.id, item.pedido_delete)
-                        }
-                        onQuantityChange={handleQuantityChange}
-                        image={item.image}
-                      />
-                    </CSSTransition>
-                  ))}
-                </TransitionGroup>
+                        timeout={500}
+                        classNames="item"
+                      >
+                        <CartItem
+                          id={item.id}
+                          name={item.name}
+                          quantity={item.quantity}
+                          price={item.price}
+                          onDelete={() =>
+                            handleDelete(item.id, item.pedido_delete)
+                          }
+                          onQuantityChange={handleQuantityChange}
+                          image={item.image}
+                        />
+                      </CSSTransition>
+                    ))}
+                  </TransitionGroup>
+                ) : (
+                  <p className="text-white text-center">
+                    Todavía no has añadido productos a tu carrito :(
+                  </p>
+                )}
               </div>
 
               <div className="price_container w-full sm:w-2/5 p-4">
@@ -122,7 +147,7 @@ const ShoppingCart = () => {
                     Envío
                   </h2>
                   <div className="adrees_container mb-4 text-lg sm:text-xl font-thin italic">
-                    {profileData && (
+                    {profileData && profileData.ciudad ? (
                       <>
                         <h2 className="text-white mb-2">
                           Ciudad: {profileData.ciudad}
@@ -134,42 +159,66 @@ const ShoppingCart = () => {
                           Estado: {profileData.delegacion}
                         </h2>
                         <h2 className="text-white mb-2">
-                          Codigo postal: {profileData.cp}
+                          Código postal: {profileData.cp}
                         </h2>
                         <h2 className="text-white mb-2">
-                          Referecia: {profileData.referencias}
+                          Referencia: {profileData.referencias}
                         </h2>
+                        <div className="total_container text-xl sm:text-2xl flex flex-col">
+                          <p className="text-white mb-2">
+                            Productos{" "}
+                            <span className="total_productos">
+                              ${totalPriceProducts}
+                            </span>
+                          </p>
+                          <p className="text-white mb-2">
+                            Envío{" "}
+                            <span className="total_shipping">
+                              ${shippingCost}
+                            </span>
+                          </p>
+                          <p className="text-[#0EFF06] mb-2 text-center">
+                            Total{" "}
+                            <span className="total_final">${totalFinal}</span>
+                          </p>
+                          <div className="button_container">
+                            {!showPayment ? (
+                              <button
+                                className="p-2 bg-[#0EFF06] rounded-lg w-full text-black mt-6"
+                                onClick={handleCheckout}
+                              >
+                                Continuar con la compra
+                              </button>
+                            ) : (
+                              <Elements
+                                stripe={stripePromise}
+                                options={{
+                                  mode: "payment",
+                                  amount: paymentItems.total * 100,
+                                  currency: "mxn",
+                                  appearance: { theme: "night" },
+                                }}
+                              >
+                                <CheckoutForm items={paymentItems} />
+                              </Elements>
+                            )}
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <p className="text-white">
+                          Antes de continuar, por favor completa tu perfil con
+                          tus datos de envío :)
+                        </p>
+                        <Link
+                          to="/editoruser"
+                          className="text-blue-500 mt-6 text-base sm:text-lg"
+                        >
+                          Completar perfil
+                        </Link>
                       </>
                     )}
-                    <Link
-                      to="/editoruser"
-                      className="text-blue-500 mt-4 text-base sm:text-lg"
-                    >
-                      Agregar otra dirección
-                    </Link>
-                  </div>
-                  <div className="total_container text-xl sm:text-2xl flex flex-col">
-                    <p className="text-white mb-2">
-                      Productos{" "}
-                      <span className="total_productos">
-                        ${totalPriceProducts}
-                      </span>
-                    </p>
-                    <p className="text-white mb-2">
-                      Envío{" "}
-                      <span className="total_shipping">${shippingCost}</span>
-                    </p>
-                    <p className="text-[#0EFF06] mb-2 text-center">
-                      Total <span className="total_final">${totalFinal}</span>
-                    </p>
-                    <div className="button_container">
-                      <button
-                        className="p-2 bg-[#0EFF06] rounded-lg w-full text-black mt-6"
-                        onClick={handleCheckout}
-                      >
-                        Continuar con la compra
-                      </button>
-                    </div>
                   </div>
                 </div>
               </div>
