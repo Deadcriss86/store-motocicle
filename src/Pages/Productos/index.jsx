@@ -95,7 +95,6 @@ const Productos = () => {
       );
 
       if (res.status === 200) {
-        console.log("Respuesta añadida con éxito:", res.data);
         setIsResponseModalOpen(false);
       } else {
         console.error("Error al agregar la respuesta:", res.data.message);
@@ -112,7 +111,7 @@ const Productos = () => {
         {},
         { withCredentials: true }
       );
-      console.log(response.data);
+
       navigate("/");
       window.location.reload(true);
     } catch (error) {
