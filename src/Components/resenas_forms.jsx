@@ -27,6 +27,7 @@ export const Resenasforms = ({ id, closeModal }) => {
         icon: "success",
         button: "OK",
       }).then(() => {
+        window.location.reload();
         closeModal(); // Cerrar el modal después de mostrar la alerta
       });
     } catch (error) {

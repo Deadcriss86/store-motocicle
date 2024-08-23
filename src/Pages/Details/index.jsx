@@ -18,11 +18,9 @@ const ProductPage = () => {
 
   useEffect(() => {
     if (value) {
-      console.log("Fetching product with id:", value);
       axios
         .get("http://localhost:3000/api/getproduct", { params: { id: value } })
         .then((response) => {
-          console.log("API response:", response);
           setProduct(response.data);
           setLoading(false);
         })
@@ -80,13 +78,37 @@ const ProductPage = () => {
           withCredentials: true,
         }
       );
-      console.log("Pregunta enviada:", response.data);
-      swal({
-        title: "Pregunta enviada con éxito!",
-        icon: "success",
-        button: "OK",
-      });
-      reset();
+
+      // Muestra el mensaje de éxito si la pregunta fue añadida
+      if (
+        response.data &&
+        response.data.message === "Pregunta añadida con éxito"
+      ) {
+        swal({
+          title: "Pregunta enviada con éxito!",
+          icon: "success",
+          button: "OK",
+        });
+
+        // Después de enviar la pregunta, vuelve a obtener la lista de preguntas
+        const productResponse = await axios.get(
+          "http://localhost:3000/api/getproduct",
+          {
+            params: { id: value },
+          }
+        );
+
+        setProduct(productResponse.data);
+
+        reset();
+      } else {
+        console.error("Formato inesperado en la respuesta:", response.data);
+        swal({
+          title: "Error: Formato de respuesta no válido",
+          icon: "error",
+          button: "OK",
+        });
+      }
     } catch (error) {
       console.error("Error al enviar la pregunta:", error);
       swal({
