@@ -20,7 +20,7 @@ const EditProfileForm = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [profileData, setProfileData] = useState(null);
-  const [selectedAvatar, setSelectedAvatar] = useState("avatar1.jpg");
+  const [selectedAvatar, setSelectedAvatar] = useState("avatar1.jpg"); // Default avatar
 
   useEffect(() => {
     axios
@@ -83,7 +83,11 @@ const EditProfileForm = () => {
             <div className="flex justify-center mb-4">
               <div className="w-24 h-24 bg-gray-700 rounded-full flex items-center justify-center">
                 <img
-                  src={`/assets/avatars/${selectedAvatar}`}
+                  src={
+                    profileData
+                      ? `/avatars/${selectedAvatar}`
+                      : "/avatars/default-avatar.jpg"
+                  }
                   alt="Avatar seleccionado"
                   className="w-16 h-16 rounded-full"
                 />
@@ -91,7 +95,7 @@ const EditProfileForm = () => {
             </div>
             <div className="flex justify-center mb-4">
               <img
-                src="../../../public/avatars/avatar1.jpg"
+                src={`../../../public/avatars/avatar1.jpg`}
                 alt="Avatar 1"
                 className={`w-16 h-16 rounded-full mx-2 cursor-pointer ${
                   selectedAvatar === "avatar1.jpg"
@@ -101,7 +105,7 @@ const EditProfileForm = () => {
                 onClick={() => handleAvatarSelect("avatar1.jpg")}
               />
               <img
-                src="../../../public/avatars/avatar2.jpg"
+                src={`../../../public/avatars/avatar2.jpg`}
                 alt="Avatar 2"
                 className={`w-16 h-16 rounded-full mx-2 cursor-pointer ${
                   selectedAvatar === "avatar2.jpg"
@@ -111,7 +115,7 @@ const EditProfileForm = () => {
                 onClick={() => handleAvatarSelect("avatar2.jpg")}
               />
               <img
-                src="../../../public/avatars/avatar3.jpg"
+                src={`../../../public/avatars/avatar3.jpg`}
                 alt="Avatar 3"
                 className={`w-16 h-16 rounded-full mx-2 cursor-pointer ${
                   selectedAvatar === "avatar3.jpg"
@@ -146,7 +150,6 @@ const EditProfileForm = () => {
               {errors.apellido && (
                 <p className="text-red-500">{errors.apellido.message}</p>
               )}
-
               <div className="mb-4 flex">
                 <input
                   type="text"
@@ -171,7 +174,6 @@ const EditProfileForm = () => {
               {errors.movil && (
                 <p className="text-red-500">{errors.movil.message}</p>
               )}
-
               <div className="mb-4 flex">
                 <input
                   type="text"
@@ -194,7 +196,6 @@ const EditProfileForm = () => {
               {errors.calle && (
                 <p className="text-red-500">{errors.calle.message}</p>
               )}
-
               <div className="mb-4 flex flex-row">
                 <input
                   type="text"
@@ -216,7 +217,6 @@ const EditProfileForm = () => {
               {errors.ciudad && (
                 <p className="text-red-500">{errors.ciudad.message}</p>
               )}
-
               <div className="mb-4">
                 <input
                   type="text"
@@ -230,7 +230,6 @@ const EditProfileForm = () => {
               {errors.referencias && (
                 <p className="text-red-500">{errors.referencias.message}</p>
               )}
-
               <button
                 type="submit"
                 className="w-full bg-[#0eff06] text-black p-2 rounded-sm hover:bg-green-600 focus:outline-none"
