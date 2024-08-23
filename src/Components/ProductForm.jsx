@@ -9,7 +9,7 @@ export const ProductForm = ({ product, onSubmit }) => {
   const [showModal, setShowModal] = useState(false);
   const [categories, setCategories] = useState([
     "Protector de faro",
-    "Slider superior",
+    "Slider frontal",
     "Slider trasero",
     "Porta alforja",
     "Parrilla de carga",

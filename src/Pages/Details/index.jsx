@@ -172,7 +172,7 @@ const ProductPage = () => {
                 />
               </div>
               <p className="mb-4">
-                ¡Envío de 3 a 5 días hábiles!* Hasta 12MSI con mercado crédito
+                ¡Envío de 3 a 5 días hábiles!* Hasta 12 MSI con mercado crédito
               </p>
               <button className="border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06]">
                 <a

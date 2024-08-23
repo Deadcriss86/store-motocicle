@@ -86,17 +86,17 @@ const ProductsPage = () => {
             </button>
           </div>
           <div
-            className={`menu border-2 border-[#0eff06] rounded-xl w-auto lg:w-1/5 p-3 m-4 flex flex-col ${
+            className={`menu border-2 border-[#0eff06] rounded-xl lg:h-1/5 lg:w-1/5 p-2 m-4 flex flex-col ${
               dropdownVisible ? "block" : "hidden lg:block"
             }`}
           >
-            <h2 className="text-2xl font-bold mb-4 text-[#0eff06] text-center">
+            <h2 className="text-2xl font-bold mb-2 text-[#0eff06] text-center">
               Categorías
             </h2>
             {categories.map((category, index) => (
               <details
                 key={index}
-                className="dropdown text-white w-full lg:h-auto"
+                className="dropdown text-white w-full lg:h-9"
               >
                 <summary
                   className="m-1 hover:bg-[#0eff06] hover:text-black mx-1 px-4 rounded-lg w-full text-left"
