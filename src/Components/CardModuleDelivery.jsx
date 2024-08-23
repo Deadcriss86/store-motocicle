@@ -52,7 +52,7 @@ const CardDelivery = ({
         {
           numero_guia: newDescriptionGuide,
           paqueteria: newParcelService,
-          fecha_envio: newShippingDate,
+          fecha_de_envio: newShippingDate,
         }
       );
       window.location.reload();
@@ -60,6 +60,15 @@ const CardDelivery = ({
     } catch (error) {
       console.error("Error al actualizar la orden:", error);
     }
+  };
+
+  // Formatear la fecha para mostrar solo año, mes y día
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Meses son 0-indexados
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
   };
 
   return (
@@ -83,7 +92,9 @@ const CardDelivery = ({
           Paqueteria:
           <span className="numberGuide font-bold ml-2">{parcelService}</span>
           Fecha de envio:
-          <span className="numberGuide font-bold ml-2">{shippingDate}</span>
+          <span className="numberGuide font-bold ml-2">
+            {formatDate(shippingDate)}
+          </span>
         </div>
       </div>
       <div className="w-full lg:w-auto space-x-4 mt-4 lg:mt-0">
@@ -130,7 +141,7 @@ const CardDelivery = ({
                 </label>
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  type="text"
+                  type="date"
                   name="shippingDate"
                   value={newShippingDate}
                   onChange={handleInputChange}
