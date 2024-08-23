@@ -18,6 +18,7 @@ const EditProfileForm = () => {
   const { isAuthenticated, loading } = useAuth();
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState(null);
+  const [selectedAvatar, setSelectedAvatar] = useState("avatar1.jpg"); // Default avatar
 
   useEffect(() => {
     axios
@@ -33,6 +34,7 @@ const EditProfileForm = () => {
         setValue("calle", response.data.calle);
         setValue("delegacion", response.data.delegacion);
         setValue("referencias", response.data.referencias);
+        setSelectedAvatar(response.data.avatar || "avatar1.jpg");
       })
       .catch((error) => {
         console.error("Error al obtener los datos del perfil", error);
@@ -41,10 +43,12 @@ const EditProfileForm = () => {
 
   const onSubmit = async (data) => {
     try {
-      await axios.put("http://localhost:3000/api/auth/update", data, {
-        withCredentials: true,
-      });
-      Swal.fire({
+      await axios.put(
+        "http://localhost:3000/api/auth/update",
+        { ...data, avatar: selectedAvatar },
+        { withCredentials: true }
+      );
+       Swal.fire({
         title: "Perfil actualizado",
         text: "¡Tu perfil ha sido actualizado con éxito!",
         icon: "success",
@@ -63,6 +67,10 @@ const EditProfileForm = () => {
         color: "#fff !important", // Cambia el color del texto en la alerta
       });
     }
+  };
+
+  const handleAvatarSelect = (avatar) => {
+    setSelectedAvatar(avatar);
   };
 
   if (loading) {
@@ -84,14 +92,48 @@ const EditProfileForm = () => {
             </h2>
             <div className="flex justify-center mb-4">
               <div className="w-24 h-24 bg-gray-700 rounded-full flex items-center justify-center">
-                <svg
-                  className="w-16 h-16 text-gray-400"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 12c2.28 0 4-1.72 4-4s-1.72-4-4-4-4 1.72-4 4 1.72 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                </svg>
+                <img
+                  src={
+                    profileData
+                      ? `/avatars/${selectedAvatar}`
+                      : "/avatars/default-avatar.jpg"
+                  }
+                  alt="Avatar seleccionado"
+                  className="w-16 h-16 rounded-full"
+                />
               </div>
+            </div>
+            <div className="flex justify-center mb-4">
+              <img
+                src={`../../../public/avatars/avatar1.jpg`}
+                alt="Avatar 1"
+                className={`w-16 h-16 rounded-full mx-2 cursor-pointer ${
+                  selectedAvatar === "avatar1.jpg"
+                    ? "border-4 border-green-500"
+                    : ""
+                }`}
+                onClick={() => handleAvatarSelect("avatar1.jpg")}
+              />
+              <img
+                src={`../../../public/avatars/avatar2.jpg`}
+                alt="Avatar 2"
+                className={`w-16 h-16 rounded-full mx-2 cursor-pointer ${
+                  selectedAvatar === "avatar2.jpg"
+                    ? "border-4 border-green-500"
+                    : ""
+                }`}
+                onClick={() => handleAvatarSelect("avatar2.jpg")}
+              />
+              <img
+                src={`../../../public/avatars/avatar3.jpg`}
+                alt="Avatar 3"
+                className={`w-16 h-16 rounded-full mx-2 cursor-pointer ${
+                  selectedAvatar === "avatar3.jpg"
+                    ? "border-4 border-green-500"
+                    : ""
+                }`}
+                onClick={() => handleAvatarSelect("avatar3.jpg")}
+              />
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-4 flex">
@@ -118,7 +160,6 @@ const EditProfileForm = () => {
               {errors.apellido && (
                 <p className="text-red-500">{errors.apellido.message}</p>
               )}
-
               <div className="mb-4 flex">
                 <input
                   type="text"
@@ -143,7 +184,6 @@ const EditProfileForm = () => {
               {errors.celular && (
                 <p className="text-red-500">{errors.celular.message}</p>
               )}
-
               <div className="mb-4 flex">
                 <input
                   type="text"
@@ -166,7 +206,6 @@ const EditProfileForm = () => {
               {errors.calle && (
                 <p className="text-red-500">{errors.calle.message}</p>
               )}
-
               <div className="mb-4 flex flex-row">
                 <input
                   type="text"
@@ -181,14 +220,13 @@ const EditProfileForm = () => {
                   {...register("ciudad", {
                     required: "La ciudad es obligatoria",
                   })}
-                  placeholder={profileData?.ciudad || "ciudad"}
+                  placeholder={profileData?.ciudad || "Ciudad"}
                   className="bg-gray-800 text-white p-2 rounded-sm w-full focus:outline-none mx-1"
                 />
               </div>
               {errors.ciudad && (
                 <p className="text-red-500">{errors.ciudad.message}</p>
               )}
-
               <div className="mb-4">
                 <input
                   type="text"
@@ -202,7 +240,6 @@ const EditProfileForm = () => {
               {errors.referencias && (
                 <p className="text-red-500">{errors.referencias.message}</p>
               )}
-
               <button
                 type="submit"
                 className="w-full bg-[#0eff06] text-black p-2 rounded-sm hover:bg-green-600 focus:outline-none"
