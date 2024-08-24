@@ -2,12 +2,17 @@ import { ProductForm } from "../../Components/ProductForm";
 import Admin_products from "../../Components/Admin_products";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom/dist";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom/dist";
+import Swal from "sweetalert2";
 
 const Productos = () => {
   const [responseMessage, setResponseMessage] = useState(null);
   const [products, setProducts] = useState([]);
   const [deletingProductId, setDeletingProductId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState(""); // Estado para la búsqueda
+  const [selectedQuestion, setSelectedQuestion] = useState(null);
+  const [isResponseModalOpen, setIsResponseModalOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,18 +52,55 @@ const Productos = () => {
     try {
       const response = await axios.post(
         "http://localhost:3000/api/newproduct",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        formData
       );
-      setProducts([...products, response.data]);
+      setProducts([...products, response.data.product]);
       setResponseMessage("ok");
     } catch (error) {
       console.error("Error adding product:", error);
       setResponseMessage("error");
+    }
+  };
+
+  const handleResponseSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const responseText = formData.get("response");
+
+    if (!selectedQuestion) {
+      console.error("No se ha seleccionado ninguna pregunta.");
+      return;
+    }
+
+    const { productId, _id: questionId } = selectedQuestion;
+
+    if (!productId || !questionId) {
+      console.error("ID del producto o de la pregunta no están definidos.");
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await axios.post(
+        `http://localhost:3000/api/products/${productId}/questions/${questionId}/response`,
+        { response: responseText },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        }
+      );
+
+      if (res.status === 200) {
+        setIsResponseModalOpen(false);
+      } else {
+        console.error("Error al agregar la respuesta:", res.data.message);
+      }
+    } catch (error) {
+      console.error("Error en la solicitud:", error);
     }
   };
 
@@ -69,7 +111,7 @@ const Productos = () => {
         {},
         { withCredentials: true }
       );
-      console.log(response.data);
+
       navigate("/");
       window.location.reload(true);
     } catch (error) {
@@ -80,9 +122,13 @@ const Productos = () => {
     }
   };
 
+  const filteredProducts = products.filter((product) =>
+    product.productName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div>
-      <div className="main min-h-screen min-w-screen bg-black justify-center items-center flex flex-col p-6">
+      <div className="main min-h-screen min-w-screen bg-black justify-center items-center flex flex-col p-4 sm:p-6 md:p-8">
         {responseMessage === "ok" ? (
           <div role="alert" className="alert alert-success bg-[#0EFF06] mb-4">
             <svg
@@ -103,16 +149,40 @@ const Productos = () => {
         ) : responseMessage ? (
           <div>Algo salió mal.</div>
         ) : null}
-        <div className="container bg-[#202020] space-x-4 text-2xl p-2 mb-4 rounded-lg text-white">
-          <button className="border-2 border-[#0EFF06] rounded-lg p-2">
-            Pedidos
-          </button>
+        <div className="container flex flex-col sm:flex-row justify-between py-2 w-full">
+          <h2 className="text-white font-bold text-xl sm:text-2xl md:text-3xl p-2">
+            Administrador ARS
+          </h2>
           <button
-            className="border-2 border-[#0EFF06] rounded-lg p-2"
+            className="btn hover:bg-[#0eff0601] hover:text-white flex w-auto items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-4 sm:px-5 md:px-7 py-2.5 font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
+            onClick={logout}
+          >
+            Cerrar sesión
+          </button>
+        </div>
+
+        <div className="container bg-[#202020] space-x-0 sm:space-x-4 md:space-x-10 text-1xl p-2 mb-2 rounded-lg flex flex-col sm:flex-row justify-center w-full">
+          <Link
+            to="/Order"
+            className="btn border-2 border-[#0eff06] text-[#0eff06] rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06] mb-2 sm:mb-0 sm:mr-2 md:mr-4"
+          >
+            Ir a pedidos
+          </Link>
+          <button
+            className="btn border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06] mb-2 sm:mb-0 sm:mr-2 md:mr-4"
             onClick={() => document.getElementById("my_modal_4").showModal()}
           >
             Agregar Producto
           </button>
+          <div className="container bg-[#202020] p-2 mb-2 rounded-lg w-full sm:w-1/3">
+            <input
+              type="text"
+              placeholder="Buscar productos..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full px-2 py-2 rounded-lg text-white bg-transparent border-2 border-[#0fff07] p-5 w-300px"
+            />
+          </div>
           <dialog id="my_modal_4" className="modal bg-[#000000c7]">
             <div className="modal-action">
               <ProductForm
@@ -120,21 +190,17 @@ const Productos = () => {
                 setResponseMessage={setResponseMessage}
               />
               <form method="dialog">
-                <button className="btn border-2 border-[#0EFF06] rounded-lg p-3">
+                <button className="btn border-2 border-[#0EFF06] rounded-lg p-3 text-white">
                   Cancelar
                 </button>
               </form>
             </div>
           </dialog>
-          <button
-            className="bg-red-400 text-white p-2 rounded-lg"
-            onClick={logout}
-          >
-            Logout
-          </button>
         </div>
+
+        {/* Mostrar productos filtrados */}
         <div className="container bg-[#202020] p-4 rounded-lg border-2 border-[#0EFF06]">
-          {products.map((product) => (
+          {filteredProducts.map((product) => (
             <Admin_products
               key={product._id}
               id={product._id}
@@ -142,6 +208,27 @@ const Productos = () => {
               price={product.price}
               stock={product.stock}
               description={product.description}
+              questions={
+                <ul className="flex flex-col justify-center items-end">
+                  {product.questions.map((q) => (
+                    <li key={q._id}>
+                      {q.body}
+                      <button
+                        className="btn bg-[#0EFF06] text-gray-800 p-1 rounded-lg m-2 hover:text-[#0EFF06]"
+                        onClick={() => {
+                          setSelectedQuestion({
+                            productId: product._id,
+                            _id: q._id,
+                          });
+                          setIsResponseModalOpen(true);
+                        }}
+                      >
+                        Responder
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              }
               images={product.images}
               onDelete={handleDelete}
             />
@@ -149,22 +236,39 @@ const Productos = () => {
         </div>
       </div>
 
-      {deletingProductId && (
-        <dialog id="delete_modal" className="modal bg-[#000000c7]" open>
-          <div className="modal-action">
-            <p>¿Estás seguro de que deseas eliminar este producto?</p>
-            <button
-              className="btn bg-red-500 text-white p-3 rounded-lg"
-              onClick={confirmDelete}
-            >
-              Confirmar
-            </button>
-            <button
-              className="btn border-2 border-[#0EFF06] rounded-lg p-3"
-              onClick={() => setDeletingProductId(null)}
-            >
-              Cancelar
-            </button>
+      {isResponseModalOpen && (
+        <dialog id="response_modal" className="modal bg-[#000000c7]" open>
+          <div className="modal-action flex flex-col text-white p-4 bg-[#202020] rounded-lg w-3/4 sm:w-1/2">
+            <h2 className="text-lg font-bold text-center mb-4">
+              Responder Pregunta
+            </h2>
+            <form onSubmit={handleResponseSubmit}>
+              <div className="mb-4">
+                <label className="block text-sm font-medium mb-1"></label>
+                <input
+                  placeholder="Escribe la respuesta..."
+                  name="response"
+                  type="text"
+                  className="border border-gray-800 rounded-lg p-2 w-full text-black"
+                  required
+                />
+              </div>
+              <div className="flex justify-center my-2 mx-8">
+                <button
+                  type="button"
+                  className="btn border-2 border-[#0EFF06] rounded-lg p-3 mr-2"
+                  onClick={() => setIsResponseModalOpen(false)}
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  className="btn border-2 border-[#0EFF06] rounded-lg p-3 mr-2"
+                >
+                  Enviar
+                </button>
+              </div>
+            </form>
           </div>
         </dialog>
       )}

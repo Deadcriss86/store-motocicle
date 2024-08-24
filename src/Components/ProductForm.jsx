@@ -1,8 +1,33 @@
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { ModalMessage } from "../Components/pop-up";
+import swal from "sweetalert";
 
-export const ProductForm = ({ product, onSubmit, setResponseMessage }) => {
-  const { register, handleSubmit, setValue } = useForm();
+export const ProductForm = ({ product, onSubmit }) => {
+  const { register, handleSubmit, setValue, watch } = useForm();
+  const [modalMessage, setModalMessage] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [categories, setCategories] = useState([
+    "Protector de faro",
+    "Slider frontal",
+    "Slider trasero",
+    "Porta alforja",
+    "Parrilla de carga",
+  ]);
+  const [subcategories, setSubcategories] = useState([
+    "Vento",
+    "Dinamo",
+    "Hero motos",
+    "Veloci",
+    "Italika",
+    "Yamaha",
+    "MB motor",
+    "Universal",
+  ]);
+
+  // Watch the category and subcategory fields to handle any changes
+  const category = watch("category");
+  const subcategory = watch("subcategory");
 
   useEffect(() => {
     if (product) {
@@ -28,44 +53,41 @@ export const ProductForm = ({ product, onSubmit, setResponseMessage }) => {
     }
 
     try {
-      const response = await onSubmit(
-        formData,
-        product ? product._id : undefined
-      );
-      console.log(response.data);
-      setResponseMessage("ok");
+      await onSubmit(formData, product ? product._id : undefined);
+      Swal.fire("¡Éxito!", "El producto ha sido agregado", "success");
     } catch (error) {
-      console.error("Error al procesar el producto:", error);
-      setResponseMessage("error");
+      Swal.fire(
+        "Error",
+        "No se pudo agregar el producto. Intenta de nuevo.",
+        "error"
+      );
     }
   };
 
   return (
     <div className="border-2 border-[#0EFF06] rounded-lg p-3 bg-black text-lg">
-      <h2 className="text-xl">
-        {product ? "Editar Producto" : "Nuevo Producto"}
+      <h2 className="text-center text-[#0eff06] text-xl font-bold mb-4">
+        Nuevo Producto
       </h2>
       <form
-        className="mt-2"
+        className="mt-2 px-4"
         onSubmit={handleSubmit(handleFormSubmit)}
         encType="multipart/form-data"
       >
-        {/* Los campos del formulario */}
         <div>
-          <label htmlFor="name">Nombre del producto:</label>
           <input
-            className="input input-bordered w-full max-w-xs"
+            placeholder="Nombre del producto"
+            className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none"
             type="text"
             id="name"
             {...register("name")}
           />
         </div>
         <br />
-
         <div>
-          <label htmlFor="price">Precio:</label>
           <input
-            className="input input-bordered w-full max-w-xs"
+            placeholder="Precio"
+            className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none"
             type="number"
             id="price"
             {...register("price")}
@@ -73,22 +95,19 @@ export const ProductForm = ({ product, onSubmit, setResponseMessage }) => {
           />
         </div>
         <br />
-
         <div>
-          <label htmlFor="stock">Stock:</label>
           <input
-            className="input input-bordered w-full max-w-xs"
+            placeholder="Stock"
+            className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none"
             type="number"
             id="stock"
             {...register("stock")}
           />
         </div>
         <br />
-
         <div>
-          <label htmlFor="description">Descripción del producto:</label>
           <textarea
-            className="textarea textarea-bordered ml-2"
+            className="textarea ml-1 w-full bg-gray-800 text-white p-2 focus:outline-none rounded-lg"
             placeholder="Descripción del producto"
             id="description"
             {...register("description")}
@@ -97,33 +116,42 @@ export const ProductForm = ({ product, onSubmit, setResponseMessage }) => {
           />
         </div>
         <br />
-
         <div>
-          <label htmlFor="category">Categoría:</label>
-          <input
-            className="input input-bordered w-full max-w-xs"
-            type="text"
-            id="category"
+          <select
+            className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none"
             {...register("category")}
-          />
+          >
+            <option value="" disabled>
+              Categoria
+            </option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
         </div>
         <br />
-
         <div>
-          <label htmlFor="subcategory">Subcategoría:</label>
-          <input
-            className="input input-bordered w-full max-w-xs"
-            type="text"
-            id="subcategory"
+          <select
+            className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none"
             {...register("subcategory")}
-          />
+          >
+            <option value="" disabled>
+              Subcategoria
+            </option>
+            {subcategories.map((subcat) => (
+              <option key={subcat} value={subcat}>
+                {subcat}
+              </option>
+            ))}
+          </select>
         </div>
         <br />
-
-        <div>
-          <label htmlFor="image">Fotos del producto:</label>
+        <div className="text-white">
+          <label htmlFor="image">Cargar fotos:</label>
           <input
-            className="file-input file-input-bordered w-full max-w-xs ml-2"
+            className="file-input-primary w-full max-w-xs ml-2 bg-gray-800 text-white"
             type="file"
             id="image"
             {...register("image")}
@@ -131,12 +159,12 @@ export const ProductForm = ({ product, onSubmit, setResponseMessage }) => {
           />
         </div>
         <br />
-
         <button
-          className="bg-[#0EFF06] rounded-lg p-2 text-black font-bold text-xl hover:bg-white"
+          onClose={() => setShowModal(false)}
+          className="bg-[#0EFF06] rounded-lg p-2 text-black font-bold text-xl hover:bg-white w-full"
           type="submit"
         >
-          {product ? "Guardar Cambios" : "Agregar Producto"}
+          Agregar Producto
         </button>
       </form>
     </div>

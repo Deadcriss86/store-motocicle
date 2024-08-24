@@ -18,7 +18,7 @@ export const Navlink = () => {
   const AuthenticatedLinks = () => (
     <div className="flex items-center space-x-8">
       <li className="text-[#c2ff35] hover:text-white text-lg flex gap-3 items-start text-bold">
-        Bienvenido {user.username}
+        Bienvenid@ {user.username}
       </li>
       <Link
         to="/Menu"
@@ -52,7 +52,7 @@ export const Navlink = () => {
       </Link>
       <button
         onClick={logout}
-        className="nav-button hover:bg-[#0eff0601] hover:text-white flex w-auto items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-7 py-2.5 font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
+        className=" nav-button ease-in hover:bg-[#0eff0601] hover:text-white flex w-auto items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-7 py-2.5 font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
       >
         <span>Cerrar Sesión</span>
       </button>
@@ -81,7 +81,7 @@ export const Navlink = () => {
         <svg
           stroke="currentColor"
           fill="currentColor"
-          stroke-width="0"
+          strokeWidth="0"
           viewBox="0 0 16 16"
           className="ml-2"
           height="1em"
@@ -89,7 +89,7 @@ export const Navlink = () => {
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            fill-rule="evenodd"
+            fillRule="evenodd"
             d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
           ></path>
         </svg>
@@ -158,7 +158,7 @@ export const Navlink = () => {
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 16 16"
                 className="ml-2"
                 height="1em"
@@ -166,7 +166,7 @@ export const Navlink = () => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
                 ></path>
               </svg>
@@ -182,7 +182,7 @@ export const Navlink = () => {
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 16 16"
                 className="ml-2"
                 height="1em"
@@ -190,7 +190,7 @@ export const Navlink = () => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
                 ></path>
               </svg>

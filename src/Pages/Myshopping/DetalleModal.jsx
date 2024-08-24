@@ -23,26 +23,45 @@ const DetalleModal = ({ isOpen, onClose, compra }) => {
             <FaShoppingBag size="1.5rem" className="text-[#0eff06] text-xl" />
             <h3 className="text-lg mb-2">Pedido creado</h3>
           </div>
-          <p>{compra.name}</p>
-          <p className="text-gray-400 flex flex-end">Mar 15, 14:00 hrs</p>
+          {compra.items.map((item, index) => (
+            <p key={index}>
+              {item.product_name}{" "}
+              <span className="ml-6">Cantidad: {item.cantidad}</span>
+              <p className="text-gray-400 flex flex-end"></p>
+            </p>
+          ))}
+          {new Date(compra.createdAt).toLocaleDateString()}
         </div>
-        <div className="mb-4 border-2 p-2 rounded-md border-[#0eff06] ">
+        <div className="mb-4 border-2 p-2 rounded-md border-[#0eff06]">
           <div className="flex flex-grow space-x-2">
             <RiTruckLine size="1.5rem" className="text-[#0eff06] text-xl" />
             <h3 className="text-lg mb-2">Enviado</h3>
           </div>
-          <p>DHL</p>
-          <p>Número de guía: 201769794</p>
-          <p className="text-gray-400">
-            Rastrea tu pedido desde la página de la paquetería ingresando tu
-            número de guía
-          </p>
-          <p className="text-gray-400">Mar 16, 17:00 hrs</p>
+          {compra.numero_guia ? (
+            <>
+              <p>{compra.paqueteria}</p>
+              <p>Número de guía: {compra.numero_guia}</p>
+              <p className="text-gray-400">
+                Fecha de envío:{" "}
+                {new Date(compra.fecha_de_envio).toLocaleDateString()}
+              </p>
+              <p className="text-gray-400">
+                Rastrea tu pedido desde la página de la paquetería ingresando tu
+                número de guía
+              </p>
+            </>
+          ) : (
+            <p className="text-gray-400">
+              Estamos preparando tu pedido, pronto te daremos tu número de guía
+              para que puedas rastrearlo :)
+            </p>
+          )}
         </div>
+
         <div className="mb-4 border-2 p-2 rounded-md border-[#0eff06] flex flex-grow space-x-4 ">
           <SlWallet size="1.5rem" className="text-[#0eff06] text-xl" />
           <h3 className="text-lg mb-2">Total:</h3>
-          <p>${compra.price}</p>
+          <p>${compra.total}</p>
         </div>
       </div>
     </div>

@@ -25,7 +25,6 @@ function Home() {
       <Navlink />
       <div className="bg-black min-h-screen">
         <div className="relative w-full h-[calc(100vh-56px)]">
-          
           <img
             className="w-full h-full object-cover opacity-90"
             alt="Imagen de fondo"
@@ -52,13 +51,13 @@ function Home() {
               <button>Contactanos para pedidos personalizados</button>
               <IoLogoWhatsapp
                 size="2.5rem"
-                className="text-[#0eff06] hover:text-white"
+                className=" animate-bounce text-[#0eff06] hover:text-white"
               />
             </a>
           </div>
         </div>
 
-        <div className="sticky top-0 h-auto py-10 flex flex-col items-center justify-center bg-gradient-to-b from-black to-[#0d4d0b] text-white">
+        <div className="sticky top-0 h-auto py-5 flex flex-col items-center justify-center bg-gradient-to-b from-black to-[#0d4d0b] text-white">
           <div className=" text-center text-white max-w-4xl space-y-4">
             <br />
             <p className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-[#0eff06] border-[#0eff06] p-2">
@@ -86,6 +85,7 @@ function Home() {
           <h2 className="text-[#0eff06] text-3xl font-bold flex justify-center py-10">
             Comentarios de nuestros clientes
           </h2>
+
           <Card_coment />
         </div>
       </div>
