@@ -7,14 +7,17 @@ const CartItem = ({
   price,
   onDelete,
   onQuantityChange,
+  product_stock,
   image,
 }) => {
-  const [itemQuantity, setItemQuantity] = useState(quantity);
+  const [itemQuantity, setItemQuantity] = useState(1); // Inicializamos en 1, asumiendo que siempre se empieza con al menos un elemento en el carrito
 
   const handleIncrease = () => {
-    const newQuantity = itemQuantity + 1;
-    setItemQuantity(newQuantity);
-    onQuantityChange(id, newQuantity);
+    if (itemQuantity < product_stock) {
+      const newQuantity = itemQuantity + 1;
+      setItemQuantity(newQuantity);
+      onQuantityChange(id, newQuantity);
+    }
   };
 
   const handleDecrease = () => {
@@ -26,6 +29,7 @@ const CartItem = ({
   };
 
   const getTotalPrice = () => itemQuantity * price;
+  console.log("La cantidad es:", product_stock);
 
   return (
     <div className="p-4 flex flex-col lg:flex-row lg:justify-between lg:items-center bg-[#1f1f1f] text-lg mb-3 rounded-lg max-w-4xl mx-auto space-y-4 lg:space-y-0 lg:space-x-4">
@@ -41,6 +45,11 @@ const CartItem = ({
           <h2 className="text-center lg:text-left text-sm lg:text-base font-semibold text-white">
             {name}
           </h2>
+          {itemQuantity >= product_stock && (
+            <p className="text-slate-400 font-thin text-sm">
+              Por el momento solo tenemos disponible {product_stock} en stock
+            </p>
+          )}
         </div>
       </div>
 
@@ -54,8 +63,13 @@ const CartItem = ({
           </button>
           <h2 className="mx-4 text-white">{itemQuantity}</h2>
           <button
-            className="p-2 bg-gray-700 text-white rounded"
+            className={`p-2 rounded ${
+              itemQuantity >= product_stock
+                ? "bg-gray-400 text-gray-600 cursor-not-allowed"
+                : "bg-gray-700 text-white"
+            }`}
             onClick={handleIncrease}
+            disabled={itemQuantity >= product_stock} // Deshabilitamos el botón si se alcanza el límite
           >
             +
           </button>

@@ -19,6 +19,7 @@ const ShoppingCart = () => {
   const [profileData, setProfileData] = useState(null);
   const [showPayment, setShowPayment] = useState(false); // Nuevo estado para mostrar el formulario
   const [paymentItems, setPaymentItems] = useState(null); // Estado para almacenar los datos de pago
+  const [shippingCost, setShippingCost] = useState(0);
 
   useEffect(() => {
     axios
@@ -39,15 +40,21 @@ const ShoppingCart = () => {
       const pedidos = response.data;
       const items = pedidos.flatMap((pedido) =>
         pedido.productos.map((producto) => ({
-          id: producto._id,
+          id: producto.producto,
           name: producto.product_name,
           quantity: producto.cantidad,
           price: producto.precio,
           image: producto.image,
+          product_stock: producto.product_stock,
           pedido_delete: pedido._id,
         }))
       );
       setCartItems(items);
+      if (items.length > 0) {
+        setShippingCost(300);
+      } else {
+        setShippingCost(0);
+      }
     } catch (error) {
       console.error("Error al obtener los pedidos:", error);
     }
@@ -82,6 +89,7 @@ const ShoppingCart = () => {
         product_name: item.name,
         amount: item.price,
         cantidad: item.quantity,
+        itemId: item.id,
       })),
       total: totalFinal, // Usa el total calculado
     };
@@ -95,7 +103,6 @@ const ShoppingCart = () => {
     0
   );
 
-  const shippingCost = 300;
   const totalFinal = totalPriceProducts + shippingCost;
 
   return (
@@ -125,6 +132,7 @@ const ShoppingCart = () => {
                           name={item.name}
                           quantity={item.quantity}
                           price={item.price}
+                          product_stock={item.product_stock}
                           onDelete={() =>
                             handleDelete(item.id, item.pedido_delete)
                           }
@@ -186,6 +194,7 @@ const ShoppingCart = () => {
                               <button
                                 className="p-2 bg-[#0EFF06] rounded-lg w-full text-black mt-6"
                                 onClick={handleCheckout}
+                                disabled={totalFinal <= 300}
                               >
                                 Continuar con la compra
                               </button>

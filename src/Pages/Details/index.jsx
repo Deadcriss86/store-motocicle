@@ -39,11 +39,12 @@ const ProductPage = () => {
         {
           productos: [
             {
-              producto: value,
+              producto: product._id.toString(),
               cantidad: 1,
               precio: product.price,
               product_name: product.productName,
               image: product.images,
+              product_stock: product.stock,
             },
           ],
         },
@@ -60,7 +61,7 @@ const ProductPage = () => {
     } catch (error) {
       console.error("Error al agregar el producto al carrito:", error);
       swal({
-        title: "Error al agregar al carrito",
+        title: "Inicia sesión o crea una cuenta para continuar",
         icon: "error",
         button: "OK",
       });
@@ -112,7 +113,7 @@ const ProductPage = () => {
     } catch (error) {
       console.error("Error al enviar la pregunta:", error);
       swal({
-        title: "Error al enviar la pregunta",
+        title: "Inicia sesión o crea una cuenta para continuar",
         icon: "error",
         button: "OK",
       });

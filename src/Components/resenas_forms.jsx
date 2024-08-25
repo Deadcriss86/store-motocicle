@@ -22,17 +22,19 @@ export const Resenasforms = ({ id, closeModal }) => {
         }
       );
       reset();
+      closeModal();
       swal({
         title: "Comentario Agregado",
         icon: "success",
         button: "OK",
       }).then(() => {
         window.location.reload();
-        closeModal(); // Cerrar el modal después de mostrar la alerta
       });
     } catch (error) {
+      closeModal();
+      reset();
       swal({
-        title: "Error al agregar el comentario",
+        title: "Parece que no has comprado este articulo todavía",
         icon: "error",
         button: "OK",
       });
