@@ -5,6 +5,7 @@ import { Footer } from "../../Components/footer";
 import { Navlink } from "../../Components/Navbar_";
 
 const MisCompras = () => {
+  const apiUrl = import.meta.env.VITE_APIBACK_URL;
   const [compras, setCompras] = useState(null);
   const [selectedCompra, setSelectedCompra] = useState(null);
   const [error, setError] = useState(false);
@@ -12,14 +13,10 @@ const MisCompras = () => {
   useEffect(() => {
     const fetchCompras = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:3000/api/order/find",
-          {
-            withCredentials: true,
-          }
-        );
+        const response = await axios.get(`${apiUrl}/api/order/find`, {
+          withCredentials: true,
+        });
         setCompras(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Error fetching compras:", error);
         setError(true);

@@ -4,7 +4,6 @@ import { useAuth } from "../context/AuthContext";
 import { IoCartOutline, IoMenu, IoClose } from "react-icons/io5";
 import { FaRegUser } from "react-icons/fa";
 import logo from "../../dist/assets/logo2.png";
-import axios from "axios";
 
 export const Navlink = () => {
   const { isAuthenticated, user, logout } = useAuth();

@@ -9,6 +9,7 @@ import StarRating from "../../Components/Stars_rating";
 import swal from "sweetalert";
 
 const ProductPage = () => {
+  const apiUrl = import.meta.env.VITE_APIBACK_URL;
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const value = queryParams.get("id");
@@ -19,7 +20,7 @@ const ProductPage = () => {
   useEffect(() => {
     if (value) {
       axios
-        .get("http://localhost:3000/api/getproduct", { params: { id: value } })
+        .get(`${apiUrl}/api/getproduct`, { params: { id: value } })
         .then((response) => {
           setProduct(response.data);
           setLoading(false);
@@ -35,7 +36,7 @@ const ProductPage = () => {
   const onclickcarrito = async () => {
     try {
       await axios.post(
-        "http://localhost:3000/api/newpedido",
+        `${apiUrl}/api/newpedido`,
         {
           productos: [
             {
@@ -73,7 +74,7 @@ const ProductPage = () => {
   const onSubmit = async (data) => {
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/products/${value}/questions`,
+        `${apiUrl}/api/products/${value}/questions`,
         data,
         {
           withCredentials: true,
@@ -92,12 +93,9 @@ const ProductPage = () => {
         });
 
         // Después de enviar la pregunta, vuelve a obtener la lista de preguntas
-        const productResponse = await axios.get(
-          "http://localhost:3000/api/getproduct",
-          {
-            params: { id: value },
-          }
-        );
+        const productResponse = await axios.get(`${apiUrl}/api/getproduct`, {
+          params: { id: value },
+        });
 
         setProduct(productResponse.data);
 

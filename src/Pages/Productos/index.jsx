@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import Cookies from "js-cookie";
 
 const Productos = () => {
+  const apiUrl = import.meta.env.VITE_APIBACK_URL;
   const [responseMessage, setResponseMessage] = useState(null);
   const [products, setProducts] = useState([]);
   const [deletingProductId, setDeletingProductId] = useState(null);
@@ -17,9 +18,7 @@ const Productos = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:3000/api/getproducts"
-        );
+        const response = await axios.get(`${apiUrl}/api/getproducts`);
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -35,9 +34,7 @@ const Productos = () => {
 
   const confirmDelete = async () => {
     try {
-      await axios.delete(
-        `http://localhost:3000/api/products/${deletingProductId}`
-      );
+      await axios.delete(`${apiUrl}/api/products/${deletingProductId}`);
       setProducts(
         products.filter((product) => product._id !== deletingProductId)
       );
@@ -49,10 +46,7 @@ const Productos = () => {
 
   const handleAddSubmit = async (formData) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/newproduct",
-        formData
-      );
+      const response = await axios.post(`${apiUrl}/api/newproduct`, formData);
       setProducts([...products, response.data.product]);
       setResponseMessage("ok");
     } catch (error) {
@@ -82,7 +76,7 @@ const Productos = () => {
       const token = localStorage.getItem("token");
 
       const res = await axios.post(
-        `http://localhost:3000/api/products/${productId}/questions/${questionId}/response`,
+        `${apiUrl}/api/products/${productId}/questions/${questionId}/response`,
         { response: responseText },
         {
           headers: {

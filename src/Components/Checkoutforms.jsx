@@ -13,6 +13,7 @@ export default function CheckoutForm({ items }) {
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
+  const apiUrl = import.meta.env.VITE_APIBACK_URL;
 
   useEffect(() => {
     if (!stripe) return;
@@ -20,7 +21,7 @@ export default function CheckoutForm({ items }) {
     const createPaymentIntent = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:3000/api/create-payment-intent",
+          `${apiUrl}/api/create-payment-intent`,
           { items },
           {
             withCredentials: true, // Envía cookies con la solicitud
