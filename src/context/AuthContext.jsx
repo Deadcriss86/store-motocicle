@@ -31,6 +31,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await registerRequest(user);
       if (res.status === 200) {
+        Cookies.set("token", res.data.token);
         setUser(res.data);
         setIsAuthenticated(true);
       }
@@ -45,9 +46,13 @@ export const AuthProvider = ({ children }) => {
       const res = await loginRequest(user);
       setUser(res.data);
       setIsAuthenticated(true);
+      Cookies.set("token", res.data.token);
+      if (res.data.isadmin) {
+        Cookies.set("isadmin", true);
+      }
     } catch (error) {
-      console.log(error.response.data.message);
-      setErrors([error.response.data.message]); // Actualiza el estado de errores
+      console.log(error);
+      // setErrors(error.response.data.message);
     }
   };
 
@@ -60,12 +65,25 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkLogin = async () => {
       try {
+        const token = Cookies.get("token");
+        if (!token) {
+          setIsAuthenticated(false);
+          setUser(null);
+          setLoading(false);
+          return;
+        }
+
         const res = await verifyTokenRequest();
-        if (!res.data) return setIsAuthenticated(false);
-        setIsAuthenticated(true);
-        setUser(res.data);
+        if (!res.data) {
+          setIsAuthenticated(false);
+          setUser(null);
+        } else {
+          setIsAuthenticated(true);
+          setUser(res.data);
+        }
       } catch (error) {
         setIsAuthenticated(false);
+        setUser(null);
       } finally {
         setLoading(false);
       }

@@ -2,9 +2,9 @@ import { ProductForm } from "../../Components/ProductForm";
 import Admin_products from "../../Components/Admin_products";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom/dist";
 import Swal from "sweetalert2";
+import Cookies from "js-cookie";
 
 const Productos = () => {
   const [responseMessage, setResponseMessage] = useState(null);
@@ -13,7 +13,6 @@ const Productos = () => {
   const [searchTerm, setSearchTerm] = useState(""); // Estado para la búsqueda
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [isResponseModalOpen, setIsResponseModalOpen] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -104,23 +103,11 @@ const Productos = () => {
     }
   };
 
-  const logout = async () => {
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/logout",
-        {},
-        { withCredentials: true }
-      );
-
-      navigate("/");
-      window.location.reload(true);
-    } catch (error) {
-      console.error("Error during logout:", error);
-      if (error.response) {
-        console.error("Server response:", error.response.data);
-      }
-    }
-  };
+  function logout() {
+    Cookies.remove("token");
+    Cookies.remove("isadmin");
+    window.location.href = "/";
+  }
 
   const filteredProducts = products.filter((product) =>
     product.productName.toLowerCase().includes(searchTerm.toLowerCase())
