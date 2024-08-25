@@ -4,6 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { BiSolidQuoteLeft } from "react-icons/bi";
 import { BiSolidQuoteRight } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 export const Card_coment = () => {
   const [reviews, setReviews] = useState([]);
@@ -63,13 +64,15 @@ export const Card_coment = () => {
     );
   };
 
-  const handleViewMore = () => {
-    navigate(`/detail?id=${product.id_product}`);
+  const navigate = useNavigate();
+
+  const handleViewMore = (id_product) => {
+    navigate(`/detail?id=${id_product}`);
   };
 
   return (
     <div className="flex justify-center items-center w-full h-full p-4">
-      <div className="bg-base-100 w-full max-w-4xl h-auto shadow-lg shadow-[#0eff06] p-6 rounded-lg">
+      <div className="bg-base-100 w-full max-w-4xl h-auto shadow-lg shadow-[#0eff06] p-4 rounded-lg">
         <div className="flex items-center justify-between">
           <button
             onClick={handlePrev}
