@@ -32,17 +32,17 @@ const Carousel = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1024) {
-        setItemsToShow(1);
-      } else if (window.innerWidth >= 768) {
-        setItemsToShow(1);
+      if (window.innerWidth >= 1440) {
+        setItemsToShow(3);
+      } else if (window.innerWidth >= 1024) {
+        setItemsToShow(2);
       } else {
         setItemsToShow(1);
       }
     };
 
     window.addEventListener("resize", handleResize);
-    handleResize(); // Ejecuta la función al montar el componente para establecer el número correcto de elementos
+    handleResize(3); // Ejecuta la función al montar el componente para establecer el número correcto de elementos
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -92,7 +92,7 @@ const Carousel = () => {
                   className="relative h-48 object-contain w-50 overflow-hidden bg-white border-0 border-gray-200 rounded-badge"
                 />
                 <button
-                  onClick={() => handleViewMore(item.id_product)}
+                  onClick={handleViewMore}
                   className="text-center w-60 mt-2 text-[#0eff06] font-bold"
                 >
                   {item.productName}
