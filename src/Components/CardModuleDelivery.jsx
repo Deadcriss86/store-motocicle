@@ -60,6 +60,13 @@ const CardDelivery = ({
     }
   };
 
+  const truncateText = (text, maxLength) => {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + "...";
+    }
+    return text;
+  };
+
   // Formatear la fecha para mostrar solo año, mes y día
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -70,51 +77,54 @@ const CardDelivery = ({
   };
 
   return (
-    <div className="cardContainer p-4 bg-[#1f1f1f] text-white rounded-lg shadow-lg space-y-4 max-w-lg mx-auto lg:max-w-full lg:flex lg:items-start lg:justify-between">
-      <div className="space-y-2 lg:space-y-0 lg:space-x-6 lg:flex lg:items-center">
-        <div className="noPedido text-sm md:text-base lg:text-lg font-semibold">
-          Pedido No. {deliveryDescription}
-        </div>
-        <div className="clientName text-sm md:text-base lg:text-lg">
-          Nombre: {nameClient}
-        </div>
-        <div className="clientName text-sm md:text-base lg:text-lg">
-          Producto: {productName}
-        </div>
-        <div className="mountTotal text-sm md:text-base lg:text-lg">
-          Monto total: {priceDelivery}
-        </div>
-        <div className="flex flex-row mx-1 guideNumber text-sm md:text-base lg:text-lg">
-          No. de guía:
-          <span className="numberGuide font-bold ml-2">{descriptionGuide}</span>
-          Paqueteria:
-          <span className="numberGuide font-bold ml-2">{parcelService}</span>
-          Fecha de envio:
-          <span className="numberGuide font-bold ml-2">
-            {formatDate(shippingDate)}
-          </span>
-        </div>
-      </div>
-      <div className="w-full lg:w-auto space-x-4 mt-4 lg:mt-0">
-        <button
-          className="editButton bg-transparent hover:bg-[#0FFF07] hover:text-black transition-colors duration-300 px-4 py-2 rounded-lg"
-          onClick={handleEditClick}
-        >
-          <CiEdit />
-        </button>
-      </div>
-      {/* Pop-up de edición */}
+    <div className="cardContainer p-4 bg-[#1f1f1f] text-white rounded-lg shadow-lg space-y-4 max-w-lg mx-auto lg:max-w-full lg:flex lg:items-start lg:justify-center">
+      <table className="table w-full bg-[#3F3F3F] rounded-lg shadow-lg overflow-hidden">
+        <thead className="bg-gray-700 text-gray-300 text-sm">
+          <tr>
+            <th className="p-2"></th>
+            <th className="p-2 text-left">Pedido No.</th>
+            <th className="p-2 text-left">Nombre</th>
+            <th className="p-2 text-left">Producto</th>
+            <th className="p-2 text-left">Monto Total</th>
+            <th className="p-2 text-left">No. de guía</th>
+            <th className="p-2 text-left">Paquetería</th>
+            <th className="p-2 text-left">Fecha de envío</th>
+            <th className="p-2 text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className="border-b border-gray-600 hover:bg-gray-800 transition-colors">
+            <td className="p-2"></td>
+            <td className="p-2 font-semibold">{deliveryDescription}</td>
+            <td className="p-2">{nameClient}</td>
+            <td className="p-2">{truncateText(productName, 20)}</td>
+            <td className="p-2">{priceDelivery}</td>
+            <td className="p-2">{descriptionGuide}</td>
+            <td className="p-2">{parcelService}</td>
+            <td className="p-2">{formatDate(shippingDate)}</td>
+            <td className="p-2 flex justify-center lg:justify-end space-x-2 lg:space-x-4">
+              <button
+                className="editButton bg-transparent hover:bg-[#0FFF07] text-gray-300 hover:text-black transition-colors duration-300 px-4 py-2 rounded-lg"
+                onClick={handleEditClick}
+              >
+                <CiEdit size={24} />
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
       {isEditModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-[#1f1f1f] p-6 rounded-lg shadow-lg w-11/12 max-w-md">
             <h2 className="text-xl font-semibold mb-4">Editar Pedido</h2>
             <form onSubmit={handleSaveChanges}>
               <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
+                <label className="block text-sm font-bold mb-2">
                   No. de guía:
                 </label>
                 <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="input w-full bg-[#2e2e2e] text-white border-gray-600 rounded-lg"
                   type="text"
                   name="descriptionGuide"
                   value={newDescriptionGuide}
@@ -122,11 +132,11 @@ const CardDelivery = ({
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
-                  Paqueteria:
+                <label className="block text-sm font-bold mb-2">
+                  Paquetería:
                 </label>
                 <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="input w-full bg-[#2e2e2e] text-white border-gray-600 rounded-lg"
                   type="text"
                   name="parcelService"
                   value={newParcelService}
@@ -134,11 +144,11 @@ const CardDelivery = ({
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
-                  Fecha de envio
+                <label className="block text-sm font-bold mb-2">
+                  Fecha de envío:
                 </label>
                 <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="input w-full bg-[#2e2e2e] text-white border-gray-600 rounded-lg"
                   type="date"
                   name="shippingDate"
                   value={newShippingDate}
@@ -148,14 +158,14 @@ const CardDelivery = ({
               <div className="flex justify-end">
                 <button
                   type="button"
-                  className="mr-4 bg-gray-300 text-black px-4 py-2 rounded-lg hover:bg-gray-400 transition-colors"
+                  className="btn bg-gray-600 text-white mr-4 rounded-lg hover:bg-gray-500 transition-colors"
                   onClick={closeModal}
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors"
+                  className="btn bg-[#0FFF07] text-black rounded-lg hover:bg-green-600 transition-colors"
                 >
                   Guardar Cambios
                 </button>
