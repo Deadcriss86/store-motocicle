@@ -100,6 +100,8 @@ const Productos = () => {
   function logout() {
     Cookies.remove("token");
     Cookies.remove("isadmin");
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
     window.location.href = "/";
   }
 
