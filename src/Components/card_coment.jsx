@@ -9,14 +9,12 @@ export const Card_coment = () => {
   const [reviews, setReviews] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsToShow, setItemsToShow] = useState(1);
+  const apiUrl = import.meta.env.VITE_APIBACK_URL;
 
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:3000/api/getproducts"
-        );
-        console.log("Data fetched:", response.data);
+        const response = await axios.get(`${apiUrl}/api/getproducts`);
 
         // Filtrar los productos que tienen comentarios
         const productsWithReviews = response.data.filter(

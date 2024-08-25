@@ -27,6 +27,7 @@ const CardDelivery = ({
   const closeModal = () => {
     setIsEditModalOpen(false);
   };
+  const apiUrl = import.meta.env.VITE_APIBACK_URL;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -47,14 +48,11 @@ const CardDelivery = ({
     }
 
     try {
-      const response = await axios.put(
-        `http://localhost:3000/api/orders/${orderId}`,
-        {
-          numero_guia: newDescriptionGuide,
-          paqueteria: newParcelService,
-          fecha_de_envio: newShippingDate,
-        }
-      );
+      const response = await axios.put(`${apiUrl}/api/orders/${orderId}`, {
+        numero_guia: newDescriptionGuide,
+        paqueteria: newParcelService,
+        fecha_de_envio: newShippingDate,
+      });
       window.location.reload();
       setIsEditModalOpen(false);
     } catch (error) {

@@ -6,18 +6,15 @@ import swal from "sweetalert2"; // Cambié ModalMessage por SweetAlert
 const EditProductForm = ({ product, closeModal }) => {
   const { register, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
+  const apiUrl = import.meta.env.VITE_APIBACK_URL;
 
   const handleFormSubmit = async (data) => {
     setLoading(true);
     try {
       // Enviar los datos actualizados
-      await axios.put(
-        `http://localhost:3000/api/products/${product.id}`,
-        data,
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      await axios.put(`${apiUrl}/api/products/${product.id}`, data, {
+        headers: { "Content-Type": "application/json" },
+      });
 
       // Mostrar mensaje de éxito
       swal.fire(

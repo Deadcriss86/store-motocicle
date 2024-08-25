@@ -4,6 +4,7 @@ import swal from "sweetalert";
 
 export const Resenasforms = ({ id, closeModal }) => {
   const { register, handleSubmit, reset } = useForm();
+  const apiUrl = import.meta.env.VITE_APIBACK_URL;
 
   const onSubmit = async (data) => {
     if (!data.rating) {
@@ -12,7 +13,7 @@ export const Resenasforms = ({ id, closeModal }) => {
 
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/products/${id}/reviews`,
+        `${apiUrl}/api/products/${id}/reviews`,
         data,
         {
           headers: {

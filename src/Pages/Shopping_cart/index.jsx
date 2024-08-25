@@ -15,6 +15,7 @@ const stripePromise = loadStripe(
 );
 
 const ShoppingCart = () => {
+  const apiUrl = import.meta.env.VITE_APIBACK_URL;
   const [cartItems, setCartItems] = useState([]);
   const [profileData, setProfileData] = useState(null);
   const [showPayment, setShowPayment] = useState(false); // Nuevo estado para mostrar el formulario
@@ -23,7 +24,7 @@ const ShoppingCart = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/auth/profile", { withCredentials: true })
+      .get(`${apiUrl}/api/auth/profile`, { withCredentials: true })
       .then((response) => {
         setProfileData(response.data);
       })
@@ -34,7 +35,7 @@ const ShoppingCart = () => {
 
   const initialCartItems = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/pedido", {
+      const response = await axios.get(`${apiUrl}/api/pedido`, {
         withCredentials: true,
       });
       const pedidos = response.data;
@@ -66,7 +67,7 @@ const ShoppingCart = () => {
 
   const handleDelete = async (productoId, pedidoId) => {
     try {
-      await axios.delete(`http://localhost:3000/api/pedido/${pedidoId}`, {
+      await axios.delete(`${apiUrl}/api/pedido/${pedidoId}`, {
         withCredentials: true,
       });
       setCartItems(cartItems.filter((item) => item.id !== productoId));

@@ -19,10 +19,11 @@ const EditProfileForm = () => {
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState(null);
   const [selectedAvatar, setSelectedAvatar] = useState("avatar1.jpg"); // Default avatar
+  const apiUrl = import.meta.env.VITE_APIBACK_URL;
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/auth/profile", { withCredentials: true })
+      .get(`${apiUrl}/api/auth/profile`, { withCredentials: true })
       .then((response) => {
         setProfileData(response.data);
         setValue("nombre", response.data.nombre);
@@ -44,11 +45,11 @@ const EditProfileForm = () => {
   const onSubmit = async (data) => {
     try {
       await axios.put(
-        "http://localhost:3000/api/auth/update",
+        `${apiUrl}/api/auth/update`,
         { ...data, avatar: selectedAvatar },
         { withCredentials: true }
       );
-       Swal.fire({
+      Swal.fire({
         title: "Perfil actualizado",
         text: "¡Tu perfil ha sido actualizado con éxito!",
         icon: "success",

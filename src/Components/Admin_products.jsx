@@ -15,6 +15,7 @@ const Admin_products = ({
 }) => {
   const [editingProduct, setEditingProduct] = useState(null);
   const [setDeletingProductId] = useState(null);
+  const apiUrl = import.meta.env.VITE_APIBACK_URL;
 
   const handleEdit = () => {
     setEditingProduct({
@@ -42,7 +43,7 @@ const Admin_products = ({
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`http://localhost:3000/api/products/${productId}`);
+          await axios.delete(`${apiUrl}/api/products/${productId}`);
           // Si tienes una función para actualizar la lista de productos, llámala aquí.
           if (onDelete) {
             onDelete(productId);

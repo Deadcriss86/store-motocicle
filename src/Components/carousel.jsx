@@ -14,13 +14,12 @@ const Carousel = () => {
   const [items, setItems] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsToShow, setItemsToShow] = useState(3);
+  const apiUrl = import.meta.env.VITE_APIBACK_URL;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:3000/api/getproducts"
-        );
+        const response = await axios.get(`${apiUrl}/api/getproducts`);
         setItems(response.data);
       } catch (error) {
         console.error("Error al obtener datos: ", error);

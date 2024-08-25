@@ -10,12 +10,12 @@ function OrderPages() {
   const [orders, setOrders] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const apiUrl = import.meta.env.VITE_APIBACK_URL;
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/orders");
-        console.log(response.data);
+        const response = await axios.get(`${apiUrl}/api/orders`);
         setOrders(response.data || []);
       } catch (error) {
         console.error("Error al obtener las órdenes", error);
@@ -37,16 +37,13 @@ function OrderPages() {
   const handleConfirmEdit = async () => {
     if (selectedOrder) {
       try {
-        await axios.put(
-          `http://localhost:3000/api/orders/${selectedOrder._id}`,
-          {
-            items: selectedOrder.items,
-            numero_guia: selectedOrder.numero_guia,
-            total: selectedOrder.total,
-          }
-        );
+        await axios.put(`${apiUrl}/api/orders/${selectedOrder._id}`, {
+          items: selectedOrder.items,
+          numero_guia: selectedOrder.numero_guia,
+          total: selectedOrder.total,
+        });
         setShowPopup(false);
-        const response = await axios.get("http://localhost:3000/api/orders");
+        const response = await axios.get(`${apiUrl}/api/orders`);
         setOrders(response.data || []);
       } catch (error) {
         console.error("Error al actualizar la orden", error);
