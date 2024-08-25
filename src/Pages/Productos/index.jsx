@@ -109,9 +109,12 @@ const Productos = () => {
 
   return (
     <div>
-      <div className="main min-h-screen min-w-screen bg-black justify-center items-center flex flex-col p-4 sm:p-6 md:p-8">
+      <div className="main min-h-screen min-w-screen bg-black flex flex-col justify-center items-center p-4 sm:p-6 md:p-8">
         {responseMessage === "ok" ? (
-          <div role="alert" className="alert alert-success bg-[#0EFF06] mb-4">
+          <div
+            role="alert"
+            className="alert alert-success bg-[#0EFF06] mb-4 flex items-center"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6 shrink-0 stroke-current"
@@ -130,38 +133,39 @@ const Productos = () => {
         ) : responseMessage ? (
           <div>Algo salió mal.</div>
         ) : null}
+
         <div className="container flex flex-col sm:flex-row justify-between py-2 w-full">
           <h2 className="text-white font-bold text-xl sm:text-2xl md:text-3xl p-2">
             Administrador ARS
           </h2>
           <button
-            className="btn hover:bg-[#0eff0601] hover:text-white flex w-auto items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-4 sm:px-5 md:px-7 py-2.5 font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
+            className="btn hover:bg-[#0eff0601] hover:text-white flex items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-4 sm:px-5 md:px-7 py-2.5 font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
             onClick={logout}
           >
             Cerrar sesión
           </button>
         </div>
 
-        <div className="container bg-[#202020] space-x-0 sm:space-x-4 md:space-x-10 text-1xl p-2 mb-2 rounded-lg flex flex-col sm:flex-row justify-center w-full">
+        <div className="container bg-[#202020] flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-4 md:space-x-10 text-1xl p-2 mb-2 rounded-lg w-full">
           <Link
             to="/Order"
-            className="btn border-2 border-[#0eff06] text-[#0eff06] rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06] mb-2 sm:mb-0 sm:mr-2 md:mr-4"
+            className="btn border-2 border-[#0eff06] text-[#0eff06] rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06] w-full sm:w-auto"
           >
             Ir a pedidos
           </Link>
           <button
-            className="btn border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06] mb-2 sm:mb-0 sm:mr-2 md:mr-4"
+            className="btn border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06] w-full sm:w-auto"
             onClick={() => document.getElementById("my_modal_4").showModal()}
           >
             Agregar Producto
           </button>
-          <div className="container bg-[#202020] p-2 mb-2 rounded-lg w-full sm:w-1/3">
+          <div className="container bg-[#202020] p-2 mb-2 rounded-lg w-full sm:w-auto">
             <input
               type="text"
               placeholder="Buscar productos..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-2 py-2 rounded-lg text-white bg-transparent border-2 border-[#0fff07] p-5 w-300px"
+              className="w-full px-2 py-2 rounded-lg text-white bg-transparent border-2 border-[#0fff07]"
             />
           </div>
           <dialog id="my_modal_4" className="modal bg-[#000000c7]">
@@ -179,8 +183,7 @@ const Productos = () => {
           </dialog>
         </div>
 
-        {/* Mostrar productos filtrados */}
-        <div className="container bg-[#202020] p-4 rounded-lg border-2 border-[#0EFF06]">
+        <div className="container bg-[#202020] p-4 rounded-lg border-2 border-[#0EFF06] w-full">
           {filteredProducts.map((product) => (
             <Admin_products
               key={product._id}
