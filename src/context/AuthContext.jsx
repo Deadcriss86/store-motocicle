@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { createContext, useContext, useState } from "react";
-import { loginRequest, registerRequest, verifyTokenRequest } from "../api/auth";
+import { loginRequest, registerRequest } from "../api/auth";
 import Cookies from "js-cookie";
 
 const AuthContext = createContext();
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) throw new Error("useAuth must be used within a AuthProvider");
+  if (!context) throw new Error("useAuth must be used within an AuthProvider");
   return context;
 };
 
@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // clear errors after 5 seconds
+  // Clear errors after 5 seconds
   useEffect(() => {
     if (errors.length > 0) {
       const timer = setTimeout(() => {
@@ -27,13 +27,26 @@ export const AuthProvider = ({ children }) => {
     }
   }, [errors]);
 
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const token = localStorage.getItem("token");
+
+    if (storedUser && token) {
+      setUser(storedUser);
+      setIsAuthenticated(true);
+    }
+
+    setLoading(false);
+  }, []);
+
   const signup = async (user) => {
     try {
       const res = await registerRequest(user);
       if (res.status === 200) {
-        Cookies.set("token", res.data.token);
         setUser(res.data);
         setIsAuthenticated(true);
+        localStorage.setItem("user", JSON.stringify(res.data));
+        localStorage.setItem("token", res.data.token);
       }
     } catch (error) {
       console.log(error.response.data);
@@ -47,6 +60,8 @@ export const AuthProvider = ({ children }) => {
       setUser(res.data);
       setIsAuthenticated(true);
       Cookies.set("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data));
+      localStorage.setItem("token", res.data.token);
       if (res.data.isadmin) {
         Cookies.set("isadmin", true);
       }
@@ -56,56 +71,28 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = async () => {
+  const logout = () => {
     Cookies.remove("token");
+    Cookies.remove("isadmin");
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
     setUser(null);
     setIsAuthenticated(false);
   };
-
-  useEffect(() => {
-    const checkLogin = async () => {
-      try {
-        const token = Cookies.get("token");
-        if (!token) {
-          setIsAuthenticated(false);
-          setUser(null);
-          setLoading(false);
-          return;
-        }
-
-        const res = await verifyTokenRequest();
-        if (!res.data) {
-          setIsAuthenticated(false);
-          setUser(null);
-        } else {
-          setIsAuthenticated(true);
-          setUser(res.data);
-        }
-      } catch (error) {
-        setIsAuthenticated(false);
-        setUser(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-    checkLogin();
-  }, []);
 
   return (
     <AuthContext.Provider
       value={{
         user,
-        signup,
-        signin,
-        logout,
         isAuthenticated,
         errors,
         loading,
+        signup,
+        signin,
+        logout,
       }}
     >
       {children}
     </AuthContext.Provider>
   );
 };
-
-export default AuthContext;
