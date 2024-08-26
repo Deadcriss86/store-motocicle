@@ -4,17 +4,17 @@ import axios from "axios";
 import { BiSolidQuoteLeft, BiSolidQuoteRight } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
-export const Card_coment = () => {
+export const Card_coment = ({ productId }) => {
   const [reviews, setReviews] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsToShow, setItemsToShow] = useState(1);
   const apiUrl = import.meta.env.VITE_APIBACK_URL;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchReviews = async () => {
       try {
         const response = await axios.get(`${apiUrl}/api/getproducts`);
-
         // Filtrar los productos que tienen comentarios
         const productsWithReviews = response.data.filter(
           (product) => product.reviews && product.reviews.length > 0
@@ -27,7 +27,7 @@ export const Card_coment = () => {
     };
 
     fetchReviews();
-  }, []);
+  }, [apiUrl]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -62,8 +62,6 @@ export const Card_coment = () => {
     );
   };
 
-  const navigate = useNavigate();
-
   const handleViewMore = (id_product) => {
     navigate(`/detail?id=${id_product}`);
   };
@@ -80,10 +78,10 @@ export const Card_coment = () => {
           className="bg-transparent text-[#0eff06]"
         />
       </button>
-      <div className="w-full max-w-md md:max-w-lg lg:max-w-4xl h-auto shadow-lg shadow-[#0eff06] p-4 rounded-lg bg-white">
+      <div className="w-full max-w-md md:max-w-lg lg:max-w-3xl h-auto shadow-lg shadow-[#0eff06] p-4 rounded-lg bg-white">
         <div className="flex items-center justify-between">
           <div className="flex flex-col items-center w-full space-x-4">
-            {reviews.length > 0 ? (
+            {reviews.length > 1 ? (
               reviews
                 .slice(currentIndex, currentIndex + itemsToShow)
                 .map((review, index) => (
@@ -118,10 +116,10 @@ export const Card_coment = () => {
                     </div>
                     <div className="card-actions justify-end">
                       <button
-                        onClick={() => handleViewMore(review._id)}
+                        onClick={() => handleViewMore(review.id_product)}
                         className="nav-button hover:drop-shadow-lg flex w-full items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-5 py-2 md:px-7 md:py-2.5 text-sm md:text-base font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
                       >
-                        <span>Ver Producto</span>
+                        Ver Producto
                         <svg
                           stroke="currentColor"
                           fill="currentColor"

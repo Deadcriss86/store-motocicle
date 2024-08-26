@@ -10,7 +10,6 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom/dist";
 import { Navlink } from "../../Components/Navbar_";
 import { TextRevealCard } from "../../Components/TextRevealCard";
-import { DragCards } from "../../Components/Land_pic";
 
 function Home() {
   const navigate = useNavigate();
@@ -61,7 +60,6 @@ function Home() {
             </a>
           </div>
         </div>
-
         <div className="sticky top-0 h-auto py-5 flex flex-col items-center justify-center bg-black text-white">
           <div className="text-center text-white max-w-4xl space-y-4">
             <br />
@@ -79,13 +77,13 @@ function Home() {
             <br />
             <SlBadge size="2rem" className="text-[#0eff06] inline-block" />
           </div>
+        </div>{" "}
+        <div className="sticky top-0 h-screen flex flex-col items-center justify-center bg-black">
+          <div className="text-[#0eff06] text-3xl font-bold flex justify-center py-4">
+            Alguno de nuestros productos
+          </div>
+          <Carousel />
         </div>
-
-        <div className="sticky top-0 h-screen flex flex-col items-center justify-center bg-black to-black">
-          <div className="text-white text-3xl font-bold flex justify-center py-4"></div>
-          <DragCards />
-        </div>
-
         <div className="sticky top-0 h-screen flex flex-col items-center justify-center bg-black">
           <h2 className="text-white text-3xl font-bold flex justify-center py-10">
             Comentarios de nuestros clientes

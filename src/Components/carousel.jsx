@@ -2,15 +2,8 @@ import React, { useState, useEffect } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
-const Carousel = () => {
-  const navigate = useNavigate();
-
-  const handleViewMore = (id_product) => {
-    navigate(`/detail?id=${id_product}`);
-  };
-
+const Carousel = (product) => {
   const [items, setItems] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsToShow, setItemsToShow] = useState(3);
@@ -31,9 +24,9 @@ const Carousel = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1440) {
+      if (window.innerWidth >= 1024) {
         setItemsToShow(3);
-      } else if (window.innerWidth >= 1024) {
+      } else if (window.innerWidth >= 768) {
         setItemsToShow(2);
       } else {
         setItemsToShow(1);
@@ -41,7 +34,7 @@ const Carousel = () => {
     };
 
     window.addEventListener("resize", handleResize);
-    handleResize(3); // Ejecuta la función al montar el componente para establecer el número correcto de elementos
+    handleResize(); // Ejecuta la función al montar el componente para establecer el número correcto de elementos
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -56,6 +49,11 @@ const Carousel = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex === Math.max(items.length - itemsToShow, 0) ? 0 : prevIndex + 1
     );
+  };
+
+  const navigate = useNavigate();
+  const handleViewMore = (id_product) => {
+    navigate(`/detail?id=${id_product}`);
   };
 
   return (
@@ -91,7 +89,7 @@ const Carousel = () => {
                   className="relative h-48 object-contain w-50 overflow-hidden bg-white border-0 border-gray-200 rounded-badge"
                 />
                 <button
-                  onClick={handleViewMore}
+                  onClick={() => handleViewMore(item.id_product)}
                   className="text-center w-60 mt-2 text-[#0eff06] font-bold"
                 >
                   {item.productName}

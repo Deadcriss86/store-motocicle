@@ -17,6 +17,13 @@ export const Navlink = () => {
   const AuthenticatedLinks = () => (
     <div className="flex items-center space-x-8">
       <li className="text-[#c2ff35] hover:text-white text-lg flex gap-3 items-start text-bold">
+        {user.avatar && (
+          <img
+            src={`/avatars/${user.avatar}`}
+            alt="User Avatar"
+            className="w-8 h-8 rounded-full"
+          />
+        )}
         Bienvenid@ {user.username}
       </li>
       <Link

@@ -3,6 +3,7 @@ import axios from "axios";
 import DetalleModal from "./DetalleModal";
 import { Footer } from "../../Components/footer";
 import { Navlink } from "../../Components/Navbar_";
+import { FaRegFrown } from "react-icons/fa";
 
 const MisCompras = () => {
   const apiUrl = import.meta.env.VITE_APIBACK_URL;
@@ -44,18 +45,32 @@ const MisCompras = () => {
           </h1>
           <div className="w-full">
             {error ? (
-              <p className="text-center text-xl text-white">
-                Todavía no tienes compras :(
-              </p>
+              <div className="text-center text-xl text-white flex justify-center items-center ">
+                Todavía no tienes compras
+                <br />
+                <FaRegFrown size="2rem" className="text-[#0eff06] m-4" />
+              </div>
             ) : (
               compras &&
               compras.map((compra, index) => (
                 <div
                   key={index}
-                  className="bg-gray-800 mb-4 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-center"
+                  className="bg-gray-800 mb-4 p-4 rounded-lg flex flex-col sm:flex-col justify-between items-start"
                 >
-                  <div className="flex items-center mb-4 sm:mb-0">
+                  <div className="flex items-center border-b-2 border-grey-300 w-full">
                     <div className="ml-4">
+                      {compra.items.map((item, index) => (
+                        <h2
+                          className="text-xl my-3 text-white text-ellipsis overflow-hidden whitespace-nowrap max-w-xs"
+                          key={index}
+                        >
+                          PEDIDO {index + 1}
+                        </h2>
+                      ))}
+                    </div>
+                  </div>
+                  <div className=" flex justify-center mb-4 sm:mb-0 ">
+                    <div className=" ml-4">
                       {compra.items.map((item, index) => (
                         <h2
                           className="text-xl my-3 text-white text-ellipsis overflow-hidden whitespace-nowrap max-w-xs"
@@ -64,14 +79,13 @@ const MisCompras = () => {
                           {item.product_name}{" "}
                         </h2>
                       ))}
-
-                      <p className="text-gray-400 text-sm">id: {compra._id}</p>
+                      <p className="text-gray-400 text-sm">id: {compra._id}</p>{" "}
+                      <p className="text-xl text-white px-2 mb-2 sm:mb-0">
+                        Importe total: ${compra.total}
+                      </p>
                     </div>
                   </div>
-                  <div className="flex flex-col sm:flex-row items-center">
-                    <p className="text-xl text-white px-2 mb-2 sm:mb-0">
-                      Importe total: ${compra.total}
-                    </p>
+                  <div className="flex justify-end">
                     <button
                       onClick={() => handleVerDetalle(compra)}
                       className="px-4 py-2 bg-[#0eff06] text-gray-900 rounded-lg hover:bg-green-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-green-600"
