@@ -2,6 +2,7 @@ import React from "react";
 import { RiTruckLine } from "react-icons/ri";
 import { FaShoppingBag } from "react-icons/fa";
 import { SlWallet } from "react-icons/sl";
+import { FaRegGrin } from "react-icons/fa";
 
 const DetalleModal = ({ isOpen, onClose, compra }) => {
   if (!isOpen) return null;
@@ -20,32 +21,20 @@ const DetalleModal = ({ isOpen, onClose, compra }) => {
         </div>
         <div className="mb-4 border-2 p-2 rounded-md border-[#0eff06]">
           <div className="flex flex-grow space-x-2">
-            <FaShoppingBag size="1.5rem" className="text-[#0eff06] text-xl" />
-            <h3 className="text-lg mb-2">Pedido creado</h3>
-          </div>
-          {compra.items.map((item, index) => (
-            <p key={index}>
-              {item.product_name}{" "}
-              <span className="ml-6">Cantidad: {item.cantidad}</span>
-              <p className="text-gray-400 flex flex-end"></p>
-            </p>
-          ))}
-          {new Date(compra.createdAt).toLocaleDateString()}
-        </div>
-        <div className="mb-4 border-2 p-2 rounded-md border-[#0eff06]">
-          <div className="flex flex-grow space-x-2">
             <RiTruckLine size="1.5rem" className="text-[#0eff06] text-xl" />
-            <h3 className="text-lg mb-2">Enviado</h3>
+            <h3 className="text-lg mb-2">Datos de envio</h3>
           </div>
+
           {compra.numero_guia ? (
             <>
-              <p>{compra.paqueteria}</p>
+              <p className="text-lg">{compra.paqueteria}</p>
               <p>Número de guía: {compra.numero_guia}</p>
               <p className="text-gray-400">
                 Fecha de envío:{" "}
                 {new Date(compra.fecha_de_envio).toLocaleDateString()}
-              </p>
-              <p className="text-gray-400">
+              </p>{" "}
+              <br />
+              <p className="text-gray-400 border-t-2 border-[#0eff06]">
                 Rastrea tu pedido desde la página de la paquetería ingresando tu
                 número de guía
               </p>
@@ -53,15 +42,9 @@ const DetalleModal = ({ isOpen, onClose, compra }) => {
           ) : (
             <p className="text-gray-400">
               Estamos preparando tu pedido, pronto te daremos tu número de guía
-              para que puedas rastrearlo :)
+              para que puedas rastrearlo <FaRegGrin className="text-gray-400" />
             </p>
           )}
-        </div>
-
-        <div className="mb-4 border-2 p-2 rounded-md border-[#0eff06] flex flex-grow space-x-4 ">
-          <SlWallet size="1.5rem" className="text-[#0eff06] text-xl" />
-          <h3 className="text-lg mb-2">Total:</h3>
-          <p>${compra.total}</p>
         </div>
       </div>
     </div>

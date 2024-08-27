@@ -109,6 +109,7 @@ export const Resenasforms = ({ id, closeModal }) => {
         <button
           className="w-full bg-[#0EFF06] rounded-lg p-2 text-black font-bold text-xl hover:bg-white transition duration-300"
           type="submit"
+          closeModal={() => document.getElementById("my_modal_5").close()}
         >
           Agregar comentario
         </button>
