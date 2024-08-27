@@ -4,6 +4,7 @@ import SearchBar from "../../../Components/SearchInput";
 import CardDelivery from "../../../Components/CardModuleDelivery";
 import "../OrderPages/styleOrder.css";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function OrderPages() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -45,8 +46,16 @@ function OrderPages() {
         setShowPopup(false);
         const response = await axios.get(`${apiUrl}/api/orders`);
         setOrders(response.data || []);
+
+        // Agregando SweetAlert al confirmar la edición
+        Swal.fire(
+          "Pedido actualizado",
+          "El pedido se actualizó correctamente.",
+          "success"
+        );
       } catch (error) {
         console.error("Error al actualizar la orden", error);
+        Swal.fire("Error", "Hubo un error al actualizar el pedido.", "error");
       }
     }
   };
@@ -86,8 +95,8 @@ function OrderPages() {
                 shippingDate={order.fecha_de_envio}
                 productName={order.items
                   .map((item) => item.product_name)
-                  .join(", ")} // Aquí concatenamos los nombres de los productos
-                onEdit={() => handleEditOrder(order)} // Maneja el evento de edición
+                  .join(", ")}
+                onEdit={() => handleEditOrder(order)}
               />
             ))}
       </main>
