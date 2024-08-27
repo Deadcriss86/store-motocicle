@@ -43,59 +43,50 @@ const MisCompras = () => {
           <h1 className="text-center text-3xl text-[#0eff06] mb-8">
             Mis compras
           </h1>
-          <div className="w-full">
+          <div className="overflow-x-auto">
             {error ? (
               <div className="text-center text-xl text-white flex justify-center items-center ">
                 Todavía no tienes compras
                 <br />
                 <FaRegFrown size="2rem" className="text-[#0eff06] m-4" />
               </div>
-            ) : (
-              compras &&
-              compras.map((compra, index) => (
-                <div
-                  key={index}
-                  className="bg-gray-800 mb-4 p-4 rounded-lg flex flex-col sm:flex-col justify-between items-start"
-                >
-                  <div className="flex items-center border-b-2 border-grey-300 w-full">
-                    <div className="ml-4">
-                      {compra.items.map((item, index) => (
-                        <h2
-                          className="text-xl my-3 text-white text-ellipsis overflow-hidden whitespace-nowrap max-w-xs"
-                          key={index}
-                        >
-                          PEDIDO {index + 1}
-                        </h2>
-                      ))}
-                    </div>
-                  </div>
-                  <div className=" flex justify-center mb-4 sm:mb-0 ">
-                    <div className=" ml-4">
-                      {compra.items.map((item, index) => (
-                        <h2
-                          className="text-xl my-3 text-white text-ellipsis overflow-hidden whitespace-nowrap max-w-xs"
-                          key={index}
-                        >
-                          {item.product_name}{" "}
-                        </h2>
-                      ))}
-                      <p className="text-gray-400 text-sm">id: {compra._id}</p>{" "}
-                      <p className="text-xl text-white px-2 mb-2 sm:mb-0">
+            ) : compras ? (
+              <table className="table bg-gray-800 mb-4 p-4 rounded-lg w-full">
+                <thead>
+                  <tr className=" text-lg font-bold text-[#0eff06]">
+                    <th>No. pedido</th>
+                    <th>Productos</th>
+                    <th>Importe</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody className=" border-grey-300">
+                  {compras.map((compra, index) => (
+                    <tr key={index}>
+                      <td className="text-xl my-3 text-white text-ellipsis overflow-hidden whitespace-nowrap max-w-xs">
+                        {index + 1}
+                      </td>
+                      <td className="text-sm my-3 text-white text-ellipsis overflow-hidden whitespace-nowrap flex flex-col">
+                        {compra.items.map((item, idx) => (
+                          <span key={idx}>{item.product_name}</span>
+                        ))}
+                      </td>
+                      <td className="text-sm text-white px-2 mb-2 sm:mb-0">
                         Importe total: ${compra.total}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex justify-end">
-                    <button
-                      onClick={() => handleVerDetalle(compra)}
-                      className="px-4 py-2 bg-[#0eff06] text-gray-900 rounded-lg hover:bg-green-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-green-600"
-                    >
-                      Ver detalle
-                    </button>
-                  </div>
-                </div>
-              ))
-            )}
+                      </td>
+                      <td>
+                        <button
+                          onClick={() => handleVerDetalle(compra)}
+                          className="px-4 py-2 bg-[#0eff06] text-gray-900 rounded-lg hover:bg-green-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-green-600"
+                        >
+                          Seguimiento
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : null}
           </div>
           <DetalleModal
             isOpen={!!selectedCompra}

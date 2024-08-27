@@ -57,12 +57,12 @@ export const TextRevealCard = ({ text, revealText, children, className }) => {
       onTouchMove={touchMoveHandler}
       ref={cardRef}
       className={cn(
-        "bg-[#f8f8fb] border border-black/[0.08] w-[40rem] rounded-lg p-8 relative overflow-hidden",
+        "bg-[#f8f8fb] w-1/2 rounded-lg p-8 relative overflow-hidden",
         className
       )}
     >
       {children}
-      <div className="h-40  relative flex items-center overflow-hidden">
+      <div className="h-40 relative flex items-center overflow-hidden">
         <motion.div
           style={{
             width: "100%",
@@ -78,7 +78,7 @@ export const TextRevealCard = ({ text, revealText, children, className }) => {
                 }
           }
           transition={isMouseOver ? { duration: 0 } : { duration: 0.4 }}
-          className="absolute bg-transparentz-20  will-change-transform"
+          className="absolute bg-transparentz-20 will-change-transform"
         >
           <p
             style={{
@@ -96,7 +96,7 @@ export const TextRevealCard = ({ text, revealText, children, className }) => {
             opacity: widthPercentage > 0 ? 1 : 0,
           }}
           transition={isMouseOver ? { duration: 0 } : { duration: 0.4 }}
-          className="h-40 w-[8px] bg-gradient-to-b from-transparent via-neutral-800 to-transparent absolute z-50 will-change-transform"
+          className="h-40 w-[8-px] bg-gradient-to-b from-transparent via-neutral-800 to-transparent absolute z-50 will-change-transform"
         ></motion.div>
 
         <div className=" overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,white,transparent)]">
@@ -112,7 +112,7 @@ export const TextRevealCard = ({ text, revealText, children, className }) => {
 
 export const TextRevealCardTitle = ({ children, className }) => {
   return (
-    <h2 className={twMerge("text-white text-lg mb-2", className)}>
+    <h2 className={twMerge("text-white text-xl mb-2", className)}>
       {children}
     </h2>
   );
@@ -120,7 +120,7 @@ export const TextRevealCardTitle = ({ children, className }) => {
 
 export const TextRevealCardDescription = ({ children, className }) => {
   return (
-    <p className={twMerge("text-[#aced35] text-sm", className)}>{children}</p>
+    <p className={twMerge("text-[#0eff06] text-sm", className)}>{children}</p>
   );
 };
 
@@ -129,7 +129,7 @@ const Stars = () => {
   const randomOpacity = () => Math.random();
   const random = () => Math.random();
   return (
-    <div className="absolute inset-0">
+    <div className="absolute inset-1">
       {[...Array(100)].map((_, i) => (
         <motion.span
           key={`star-${i}`}

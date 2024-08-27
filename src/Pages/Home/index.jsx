@@ -34,7 +34,7 @@ function Home() {
           <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 m-4 w-full">
             <TextRevealCard
               text="Venta de accesorios para tu motocicleta"
-              className=" text-8xl font-bold py-10 text-green bg-clip-text w-1/1 text-center"
+              className="font-bold py-20 text-green bg-clip-text w-1/1 text-center"
             />
 
             <div className="text-base sm:text-lg flex items-center space-x-2 text-white">
