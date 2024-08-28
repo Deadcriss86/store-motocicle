@@ -61,6 +61,8 @@ const EditProfileForm = () => {
         icon: "success",
         confirmButtonText: "OK",
         confirmButtonColor: "#0eff06",
+        background: "#201F1F", // Cambia el fondo de la alerta
+        color: "#0eff06",
       });
       reset();
     } catch (error) {
@@ -69,9 +71,9 @@ const EditProfileForm = () => {
         text: "Hubo un problema al actualizar tu perfil.",
         icon: "error",
         confirmButtonText: "OK",
-        confirmButtonColor: "#0eff06", // Cambia el color del botón
-        background: "#D2E5B7 !important", // Cambia el fondo de la alerta
-        color: "#fff !important", // Cambia el color del texto en la alerta
+        confirmButtonColor: "#E4080A",
+        background: "#201F1F", // Cambia el fondo de la alerta
+        color: "#0eff06",
       });
     }
   };

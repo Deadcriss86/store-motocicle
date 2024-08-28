@@ -48,14 +48,26 @@ function OrderPages() {
         setOrders(response.data || []);
 
         // Agregando SweetAlert al confirmar la edición
-        Swal.fire(
-          "Pedido actualizado",
-          "El pedido se actualizó correctamente.",
-          "success"
-        );
+        Swal.fire({
+          title: "Pedido actualizado",
+          text: "El pedido se actualizó correctamente.",
+          icon: "success",
+          confirmButtonText: "OK",
+          confirmButtonColor: "#0eff06",
+          background: "#201F1F",
+          color: "#0eff06",
+        });
       } catch (error) {
         console.error("Error al actualizar la orden", error);
-        Swal.fire("Error", "Hubo un error al actualizar el pedido.", "error");
+        Swal.fire({
+          title: "Error",
+          text: "Hubo un error al actualizar el pedido.",
+          icon: "error",
+          confirmButtonText: "OK",
+          confirmButtonColor: "##201F1F",
+          background: "#201F1F",
+          color: "#0eff06",
+        });
       }
     }
   };
@@ -66,8 +78,14 @@ function OrderPages() {
 
   return (
     <div className="orderPages">
-      <nav className="navbar">
-        <p className="textNav">Pedidos</p>
+      <nav className="navbar text-center ">
+        <p className="textNav font-bold text-4x1">Pedidos</p>{" "}
+        <Link
+          to="/Productos"
+          className="buttonProduct border-2 border-[#0eff06] text-[#0eff06] rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06]"
+        >
+          Ir a productos
+        </Link>
         <SearchBar onSearch={handleSearch} />
       </nav>
       <main className="mainContent">
@@ -100,14 +118,7 @@ function OrderPages() {
               />
             ))}
       </main>
-      <footer className="footer">
-        <Link
-          to="/Productos"
-          className="buttonProduct border-2 border-[#0eff06] text-[#0eff06] rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06]"
-        >
-          Ir a productos
-        </Link>
-      </footer>
+      <footer className="footer"></footer>
 
       {showPopup && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
