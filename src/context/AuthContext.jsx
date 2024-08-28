@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { createContext, useContext, useState } from "react";
-import { loginRequest, registerRequest } from "../api/auth";
+import { loginRequest, registerRequest, fetchProfile } from "../api/auth";
 import Cookies from "js-cookie";
 
 const AuthContext = createContext();
@@ -32,6 +32,7 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("token");
 
     if (storedUser && token) {
+      getprofile();
       setUser(storedUser);
       setIsAuthenticated(true);
     }
@@ -65,6 +66,7 @@ export const AuthProvider = ({ children }) => {
       if (res.data.isadmin) {
         Cookies.set("isadmin", true);
       }
+      await getprofile();
     } catch (error) {
       console.log(error);
       setErrors(error.response.data.message);
@@ -80,6 +82,15 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
   };
 
+  const getprofile = async (user) => {
+    try {
+      const res = await fetchProfile();
+      setUser(res.data);
+    } catch (error) {
+      console.log(error);
+      setErrors(error.response.data.message);
+    }
+  };
   return (
     <AuthContext.Provider
       value={{
@@ -90,6 +101,7 @@ export const AuthProvider = ({ children }) => {
         signup,
         signin,
         logout,
+        getprofile,
       }}
     >
       {children}

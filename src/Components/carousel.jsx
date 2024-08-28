@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+
+const apiUrl = import.meta.env.VITE_APIBACK_URL;
 
 const Carousel = () => {
   const [items, setItems] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [itemsToShow, setItemsToShow] = useState(3);
-  const apiUrl = import.meta.env.VITE_APIBACK_URL;
+  const itemsPerPage = useRef({ desktop: 3, tablet: 2, mobile: 1 });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,94 +22,60 @@ const Carousel = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024) {
-        setItemsToShow(3);
-      } else if (window.innerWidth >= 768) {
-        setItemsToShow(2);
-      } else {
-        setItemsToShow(1);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize(); // Ejecuta la función al montar el componente para establecer el número correcto de elementos
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   const handlePrev = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? Math.max(items.length - itemsToShow, 0) : prevIndex - 1
+    setCurrentIndex((prev) =>
+      prev > 0 ? prev - 1 : items.length - getItemsToShow()
     );
   };
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === Math.max(items.length - itemsToShow, 0) ? 0 : prevIndex + 1
+    setCurrentIndex((prev) =>
+      prev < items.length - getItemsToShow() ? prev + 1 : 0
     );
   };
 
-  const navigate = useNavigate();
-  const handleViewMore = (id_product) => {
-    navigate(`/detail?id=${id_product}`);
+  const getItemsToShow = () => {
+    if (window.innerWidth >= 1024) return itemsPerPage.current.desktop;
+    if (window.innerWidth >= 768) return itemsPerPage.current.tablet;
+    return itemsPerPage.current.mobile;
   };
 
+  const visibleItems = items.slice(
+    currentIndex,
+    currentIndex + getItemsToShow()
+  );
+
   return (
-    <div className="relative w-full max-w-4xl mx-auto my-10 bg-transparent rounded-xl p-4 shadow-lg shadow-[#0eff06]">
-      <div className="flex items-center justify-between">
-        <button
-          onClick={handlePrev}
-          aria-label="Previous"
-          className="p-2 bg-transparent text-[#0eff06]
-     rounded-full hover:bg-gray-400 mx-10"
-        >
-          <FaChevronLeft
-            size="1.5rem"
-            className="bg-transparent text-[#0eff06]"
-          />
-        </button>
-        <div className="flex-1 flex justify-center items-center overflow-hidden">
+    <div className="relative flex justify-end items-center">
+      <button
+        onClick={handlePrev}
+        className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10"
+      >
+        <FaChevronLeft size={24} />
+      </button>
+      <div className="flex overflow-hidden w-full">
+        {visibleItems.map((item, index) => (
           <div
-            className="flex transition-transform duration-500"
-            style={{
-              transform: `translateX(-${(currentIndex * 100) / itemsToShow}%)`,
-            }}
+            className="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-2"
+            key={index}
           >
-            {items.map((item, index) => (
-              <div
-                key={index}
-                className="flex-shrink-0 flex flex-col items-center p-2 box-border"
-                style={{ width: `${100 / itemsToShow}%` }}
-              >
-                <img
-                  src={item.images}
-                  alt={item.productName}
-                  className="relative h-48 object-contain w-50 overflow-hidden bg-white border-0 border-gray-200 rounded-badge"
-                />
-                <button
-                  onClick={() => handleViewMore(item.id_product)}
-                  className="text-center w-60 mt-2 text-[#0eff06] font-bold"
-                >
-                  {item.productName}
-                </button>
-              </div>
-            ))}
+            <div className="bg-white rounded-xl shadow-md">
+              <img
+                className="w-full h-48 object-cover rounded-xl"
+                src={item.images}
+                alt={`Image ${index}`}
+              />
+            </div>
+            <h2 className="text-white text-center">{item.productName}</h2>
           </div>
-        </div>
-        <button
-          onClick={handleNext}
-          aria-label="Next"
-          className="p-2 bg-transparent text-[#0eff06]
-     rounded-full hover:bg-gray-400 mx-10"
-        >
-          <FaChevronRight
-            size="1.5rem"
-            className="bg-transparent text-[#0eff06]"
-          />
-        </button>
+        ))}
       </div>
+      <button
+        onClick={handleNext}
+        className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10"
+      >
+        <FaChevronRight size={24} />
+      </button>
     </div>
   );
 };
