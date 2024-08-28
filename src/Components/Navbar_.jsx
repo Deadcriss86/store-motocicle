@@ -6,7 +6,7 @@ import { FaRegUser } from "react-icons/fa";
 import logo from "../../dist/assets/logo2.png";
 
 export const Navlink = () => {
-  const { isAuthenticated, user, logout } = useAuth();
+  const { isAuthenticated, user, logout, getprofile } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
