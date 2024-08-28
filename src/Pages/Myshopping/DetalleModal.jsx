@@ -1,4 +1,3 @@
-import React from "react";
 import { RiTruckLine } from "react-icons/ri";
 import { FaShoppingBag } from "react-icons/fa";
 import { SlWallet } from "react-icons/sl";
