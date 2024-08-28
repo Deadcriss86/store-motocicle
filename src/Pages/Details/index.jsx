@@ -57,14 +57,16 @@ const ProductPage = () => {
       swal({
         title: "Agregado al carrito",
         icon: "success",
-        button: "OK",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#0eff06",
       });
     } catch (error) {
       console.error("Error al agregar el producto al carrito:", error);
       swal({
         title: "Inicia sesión o crea una cuenta para continuar",
         icon: "error",
-        button: "OK",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#0eff06",
       });
     }
   };
@@ -89,7 +91,8 @@ const ProductPage = () => {
         swal({
           title: "Pregunta enviada con éxito!",
           icon: "success",
-          button: "OK",
+          confirmButtonText: "OK",
+          confirmButtonColor: "#0eff06",
         });
 
         // Después de enviar la pregunta, vuelve a obtener la lista de preguntas

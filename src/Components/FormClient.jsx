@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { TbBackground } from "react-icons/tb";
+import Swal from "sweetalert2";
 
 const FormService = () => {
   const [formData, setFormData] = useState({
@@ -20,6 +22,15 @@ const FormService = () => {
     e.preventDefault();
     // Aquí puedes manejar el envío del formulario
     console.log("Datos del formulario:", formData);
+
+    // Mostrar alerta de éxito usando SweetAlert
+    Swal.fire({
+      title: "Información enviada",
+      text: "Tu mensaje fue enviado con éxito.",
+      icon: "success",
+      background: "#2d2d2d",
+      color: "transparent",
+    });
   };
 
   return (
@@ -29,7 +40,7 @@ const FormService = () => {
           onSubmit={handleSubmit}
           className="text-center max-w-md mx-auto p-4 bg-transparent rounded-md"
         >
-          <p className="text-[#0eff06] text-xl">Contactanos</p>
+          <p className="text-[#0eff06] text-xl">Contáctanos</p>
           <div className="mb-4">
             <label htmlFor="input1" className="block text-white font-bold mb-2">
               {/* Input 1 */}
@@ -72,7 +83,7 @@ const FormService = () => {
               value={formData.input3}
               onChange={handleChange}
               className="bg-gray-800 text-white p-2 rounded-l w-full mr-1 focus:outline-none"
-              placeholder="Telefono"
+              placeholder="Teléfono"
             />
           </div>
           <div className="mb-4">
@@ -91,14 +102,14 @@ const FormService = () => {
             >
               <option value="">Seleccione una opción</option>
               <option value="opcion1">Problemas con mi pago</option>
-              <option value="opcion2">No me llego mi pedido</option>
+              <option value="opcion2">No me llegó mi pedido</option>
               <option value="opcion3">Problemas con mi instalación</option>
               <option value="opcion4">Problemas con el envío</option>
             </select>
           </div>
           <button
             type="submit"
-            className="bg-[#0eff06] text-black py-2 px-4 rounded-full h-10 w-40  hover:bg-[#41CC03] transition-colors duration-300"
+            className="bg-[#0eff06] text-black py-2 px-4 rounded-full h-10 w-40 hover:bg-[#41CC03] transition-colors duration-300"
           >
             Enviar
           </button>

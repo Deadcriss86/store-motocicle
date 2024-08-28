@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CiEdit } from "react-icons/ci";
 import axios from "axios";
+import Swal from "sweetalert2";
 import "../Pages/Home/OrderPages/styleOrder.css";
 
 const CardDelivery = ({
@@ -48,15 +49,32 @@ const CardDelivery = ({
     }
 
     try {
-      const response = await axios.put(`${apiUrl}/api/orders/${orderId}`, {
+      await axios.put(`${apiUrl}/api/orders/${orderId}`, {
         numero_guia: newDescriptionGuide,
         paqueteria: newParcelService,
         fecha_de_envio: newShippingDate,
       });
-      window.location.reload();
-      setIsEditModalOpen(false);
+
+      Swal.fire({
+        title: "Información actualizada",
+        text: "El pedido se actualizó correctamente.",
+        icon: "success",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#0FFF07",
+      });
+
+      window.location.reload(); // Recargar la página para reflejar los cambios
+      setIsEditModalOpen(false); // Cerrar el modal
     } catch (error) {
       console.error("Error al actualizar la orden:", error);
+
+      Swal.fire({
+        title: "Error",
+        text: "Hubo un error al actualizar el pedido.",
+        icon: "error",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#FF0000",
+      });
     }
   };
 
@@ -67,17 +85,16 @@ const CardDelivery = ({
     return text;
   };
 
-  // Formatear la fecha para mostrar solo año, mes y día
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // Meses son 0-indexados
+    const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
 
   return (
-    <div className="cardContainer p-4 bg-[#1f1f1f] text-white rounded-lg shadow-lg space-y-4 max-w-lg mx-auto lg:max-w-full lg:flex lg:items-start lg:justify-center">
+    <div className=" p-4 text-white rounded-lg shadow-lg space-y-4 max-w-lg mx-auto lg:max-w-full lg:flex lg:items-start lg:justify-center">
       <table className="table w-full bg-[#3F3F3F] rounded-lg shadow-lg overflow-hidden">
         <thead className="bg-gray-700 text-gray-300 text-sm">
           <tr>
@@ -98,7 +115,7 @@ const CardDelivery = ({
             <td className="p-2 font-semibold">{deliveryDescription}</td>
             <td className="p-2">{nameClient}</td>
             <td className="p-2">{truncateText(productName, 20)}</td>
-            <td className="p-2">{priceDelivery}</td>
+            <td className="p-2">${priceDelivery}</td>
             <td className="p-2">{descriptionGuide}</td>
             <td className="p-2">{parcelService}</td>
             <td className="p-2">{formatDate(shippingDate)}</td>
