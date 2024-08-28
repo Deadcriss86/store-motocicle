@@ -1,4 +1,3 @@
-import React from "react";
 import { RiTruckLine } from "react-icons/ri";
 import { FaShoppingBag } from "react-icons/fa";
 import { SlWallet } from "react-icons/sl";
@@ -35,7 +34,7 @@ const DetalleModal = ({ isOpen, onClose, compra }) => {
         <div className="mb-4 border-2 p-2 rounded-md border-[#0eff06]">
           <div className="flex flex-grow space-x-2">
             <RiTruckLine size="1.5rem" className="text-[#0eff06] text-xl" />
-            <h3 className="text-lg mb-2">Enviado</h3>
+            <h3 className="text-lg mb-2">Envio</h3>
           </div>
           {compra.numero_guia ? (
             <>
