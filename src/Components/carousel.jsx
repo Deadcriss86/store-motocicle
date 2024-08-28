@@ -66,6 +66,7 @@ const Carousel = () => {
                 alt={`Image ${index}`}
               />
             </div>
+            <h2 className="text-white text-center">{item.productName}</h2>
           </div>
         ))}
       </div>
