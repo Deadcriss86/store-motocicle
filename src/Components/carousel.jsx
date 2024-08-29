@@ -7,7 +7,7 @@ const apiUrl = import.meta.env.VITE_APIBACK_URL;
 const Carousel = () => {
   const [items, setItems] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const itemsPerPage = useRef({ desktop: 3, tablet: 2, mobile: 1 });
+  const [itemsToShow, setItemsToShow] = useState(1); // Default for mobile
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,59 +22,80 @@ const Carousel = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const updateItemsToShow = () => {
+      const width = window.innerWidth;
+      if (width >= 1024) {
+        setItemsToShow(3); // Desktop
+      } else if (width >= 768) {
+        setItemsToShow(2); // Tablet
+      } else {
+        setItemsToShow(1); // Mobile
+      }
+    };
+
+    updateItemsToShow();
+    window.addEventListener("resize", updateItemsToShow);
+
+    return () => window.removeEventListener("resize", updateItemsToShow);
+  }, []);
+
   const handlePrev = () => {
     setCurrentIndex((prev) =>
-      prev > 0 ? prev - 1 : items.length - getItemsToShow()
+      prev > 0 ? prev - 1 : items.length - itemsToShow
     );
   };
 
   const handleNext = () => {
     setCurrentIndex((prev) =>
-      prev < items.length - getItemsToShow() ? prev + 1 : 0
+      prev < items.length - itemsToShow ? prev + 1 : 0
     );
   };
 
-  const getItemsToShow = () => {
-    if (window.innerWidth >= 1024) return itemsPerPage.current.desktop;
-    if (window.innerWidth >= 768) return itemsPerPage.current.tablet;
-    return itemsPerPage.current.mobile;
-  };
-
-  const visibleItems = items.slice(
-    currentIndex,
-    currentIndex + getItemsToShow()
-  );
+  const visibleItems = items.slice(currentIndex, currentIndex + itemsToShow);
 
   return (
-    <div className="relative flex justify-end items-center">
+    <div className="relative flex justify-center items-center w-10/20 h-auto shadow-lg shadow-[#0eff06] p-4 rounded-lg bg-transparent">
       <button
         onClick={handlePrev}
-        className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10"
+        aria-label="Previous"
+        className="p-2 bg-transparent text-[#0eff06] rounded-full hover:bg-gray-400"
       >
-        <FaChevronLeft size={24} />
+        <FaChevronLeft size="1.5rem" className="text-[#0eff06]" />
       </button>
-      <div className="flex overflow-hidden w-full">
+      <div className="w-full flex justify-center items-center space-x-4 space-y-4 overflow-hidden">
         {visibleItems.map((item, index) => (
           <div
-            className="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-2"
+            className={`flex-auto-0 ${
+              itemsToShow === 1
+                ? "w-full"
+                : itemsToShow === 2
+                ? "w-1/2"
+                : "w-1/3"
+            } px-2`}
             key={index}
           >
-            <div className="bg-white rounded-xl shadow-md">
+            <div className="bg-white rounded-xl shadow-md h-60">
               <img
-                className="w-full h-48 object-cover rounded-xl"
+                className="w-full h-48 rounded-xl object-contain"
                 src={item.images}
                 alt={`Image ${index}`}
               />
             </div>
-            <h2 className="text-white text-center">{item.productName}</h2>
+            <div className="flex justify-center p-4">
+              <button className="text-[#0eff06] text-center font-bold">
+                {item.productName}
+              </button>
+            </div>
           </div>
         ))}
       </div>
       <button
         onClick={handleNext}
-        className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10"
+        aria-label="Next"
+        className="p-2 bg-transparent text-[#0eff06] rounded-full hover:bg-gray-400"
       >
-        <FaChevronRight size={24} />
+        <FaChevronRight size="1.5rem" className="text-[#0eff06]" />
       </button>
     </div>
   );
