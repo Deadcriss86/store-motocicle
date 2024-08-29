@@ -9,6 +9,7 @@ import StarRating from "../../Components/Stars_rating";
 import swal from "sweetalert";
 
 const ProductPage = () => {
+  const apiUrl = import.meta.env.VITE_APIBACK_URL;
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const value = queryParams.get("id");
@@ -18,11 +19,9 @@ const ProductPage = () => {
 
   useEffect(() => {
     if (value) {
-      console.log("Fetching product with id:", value);
       axios
-        .get("http://localhost:3000/api/getproduct", { params: { id: value } })
+        .get(`${apiUrl}/api/getproduct`, { params: { id: value } })
         .then((response) => {
-          console.log("API response:", response);
           setProduct(response.data);
           setLoading(false);
         })
@@ -37,15 +36,16 @@ const ProductPage = () => {
   const onclickcarrito = async () => {
     try {
       await axios.post(
-        "http://localhost:3000/api/newpedido",
+        `${apiUrl}/api/newpedido`,
         {
           productos: [
             {
-              producto: value,
+              producto: product._id.toString(),
               cantidad: 1,
               precio: product.price,
               product_name: product.productName,
               image: product.images,
+              product_stock: product.stock,
             },
           ],
         },
@@ -57,14 +57,16 @@ const ProductPage = () => {
       swal({
         title: "Agregado al carrito",
         icon: "success",
-        button: "OK",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#0eff06",
       });
     } catch (error) {
       console.error("Error al agregar el producto al carrito:", error);
       swal({
-        title: "Error al agregar al carrito",
+        title: "Inicia sesión o crea una cuenta para continuar",
         icon: "error",
-        button: "OK",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#0eff06",
       });
     }
   };
@@ -74,23 +76,45 @@ const ProductPage = () => {
   const onSubmit = async (data) => {
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/products/${value}/questions`,
+        `${apiUrl}/api/products/${value}/questions`,
         data,
         {
           withCredentials: true,
         }
       );
-      console.log("Pregunta enviada:", response.data);
-      swal({
-        title: "Pregunta enviada con éxito!",
-        icon: "success",
-        button: "OK",
-      });
-      reset();
+
+      // Muestra el mensaje de éxito si la pregunta fue añadida
+      if (
+        response.data &&
+        response.data.message === "Pregunta añadida con éxito"
+      ) {
+        swal({
+          title: "Pregunta enviada con éxito!",
+          icon: "success",
+          confirmButtonText: "OK",
+          confirmButtonColor: "#0eff06",
+        });
+
+        // Después de enviar la pregunta, vuelve a obtener la lista de preguntas
+        const productResponse = await axios.get(`${apiUrl}/api/getproduct`, {
+          params: { id: value },
+        });
+
+        setProduct(productResponse.data);
+
+        reset();
+      } else {
+        console.error("Formato inesperado en la respuesta:", response.data);
+        swal({
+          title: "Error: Formato de respuesta no válido",
+          icon: "error",
+          button: "OK",
+        });
+      }
     } catch (error) {
       console.error("Error al enviar la pregunta:", error);
       swal({
-        title: "Error al enviar la pregunta",
+        title: "Inicia sesión o crea una cuenta para continuar",
         icon: "error",
         button: "OK",
       });
@@ -115,7 +139,7 @@ const ProductPage = () => {
       <main className="p-4">
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col lg:flex-row lg:space-x-8 bg-gray-800 p-4 rounded-lg">
-            <div className="lg:w-1/2 bg-gray-400">
+            <div className="lg:w-1/3 bg-gray-400">
               <img
                 src={product?.images || "https://via.placeholder.com/400"}
                 alt="Producto"
@@ -150,10 +174,16 @@ const ProductPage = () => {
                 />
               </div>
               <p className="mb-4">
-                ¡Envío de 3 a 5 días hábiles!* Hasta 12MSI con mercado crédito
+                ¡Envío de 3 a 5 días hábiles!* Hasta 12 MSI con mercado crédito
               </p>
               <button className="border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06]">
-                Manual Instalación
+                <a
+                  href="../public/Manual_de_instalacion.pdf"
+                  download="Manual_de_instalacion.pdf"
+                  className="no-underline text-[#0eff06] hover:text-gray-800"
+                >
+                  Manual Instalación
+                </a>
               </button>
             </div>
           </div>

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { IoCartOutline, IoMenu, IoClose } from "react-icons/io5";
 import { FaRegUser } from "react-icons/fa";
@@ -7,17 +7,40 @@ import logo from "../../dist/assets/logo2.png";
 import axios from "axios";
 
 export const Navlink = () => {
-  const { isAuthenticated, user, logout } = useAuth();
+  const { isAuthenticated, user, logout, getprofile } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_APIBACK_URL;
+  const [itemCount, setItemCount] = useState(0);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  const isitems = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/api/pedido`, {
+        withCredentials: true,
+      });
+      setItemCount(response.data.length);
+    } catch (error) {
+      console.error("Error al obtener los pedidos:", error);
+    }
+  };
+
+  useEffect(() => {
+    isitems();
+  }, []);
+
   const AuthenticatedLinks = () => (
-    <div className="flex items-center space-x-8">
+    <div className="flex flex-col lg:flex-row lg:items-center lg:space-x-8">
       <li className="text-[#c2ff35] hover:text-white text-lg flex gap-3 items-start text-bold">
+        {user.avatar && (
+          <img
+            src={`/avatars/${user.avatar}`}
+            alt="User Avatar"
+            className="w-9 h-9 rounded-full"
+          />
+        )}
         Bienvenid@ {user.username}
       </li>
       <Link
@@ -48,11 +71,20 @@ export const Navlink = () => {
         to="/carrito"
         className="text-gray-100 hover:text-[#0eff06] dark:text-white link link-hover"
       >
-        <IoCartOutline size={24} />
+        <div className="indicator">
+          {itemCount > 0 && (
+            <span className="indicator-item badge badge-secondary">
+              {itemCount}
+            </span>
+          )}
+          <div className="p-2">
+            <IoCartOutline size={24} />
+          </div>
+        </div>
       </Link>
       <button
         onClick={logout}
-        className=" nav-button ease-in hover:bg-[#0eff0601] hover:text-white flex w-auto items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-7 py-2.5 font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
+        className="nav-button ease-in hover:bg-[#0eff0601] hover:text-white flex w-auto items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-7 py-2.5 font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
       >
         <span>Cerrar Sesión</span>
       </button>
@@ -60,7 +92,7 @@ export const Navlink = () => {
   );
 
   const GuestLinks = () => (
-    <div className="flex items-center space-x-8">
+    <div className="flex flex-col lg:flex-row lg:items-center lg:space-x-8">
       <Link
         to="/Menu"
         className="text-gray-100 hover:text-[#0eff06] dark:text-white link link-hover"
@@ -99,11 +131,20 @@ export const Navlink = () => {
 
   const MobileMenu = () => (
     <div
-      className={`w-1/2 md:hidden rounded-xl ${
-        isOpen ? "block" : "hidden"
-      } absolute top-16 left-0 bg-[#272927e7] py-4`}
+      className={`fixed top-0 right-0 h-auto bg-[#272927cb] py-4 transform ${
+        isOpen ? "translate-x-0" : "translate-x-full"
+      } transition-transform duration-300 ease-in-out z-40`}
+      style={{ width: "75vw" }}
     >
-      <ul className="flex flex-col items-center space-y-4">
+      <div className="flex justify-end pr-4">
+        <button
+          onClick={toggleMenu}
+          className="text-[#0eff06] p-2 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0eff06]"
+        >
+          <IoClose size={24} />
+        </button>
+      </div>
+      <ul className="flex flex-col items-center space-y-4 mt-16">
         <li>
           <Link
             to="/Menu"
@@ -155,21 +196,6 @@ export const Navlink = () => {
               className="nav-button hover:bg-[#0eff0601] hover:text-white flex w-auto items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-7 py-2.5 font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
             >
               <span>Cerrar Sesión</span>
-              <svg
-                stroke="currentColor"
-                fill="currentColor"
-                strokeWidth="0"
-                viewBox="0 0 16 16"
-                className="ml-2"
-                height="1em"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
-                ></path>
-              </svg>
             </button>
           </li>
         ) : (
@@ -207,18 +233,18 @@ export const Navlink = () => {
         <Link to="/" className="flex items-center space-x-3">
           <img src={logo} className="h-16" alt="logo" />
         </Link>
-        <div className="flex md:hidden">
+        <div className="flex lg:hidden">
           <button
             onClick={toggleMenu}
-            className="text-gray-100 p-2 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800"
+            className="text-[#0eff06] p-2 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0eff06]"
           >
             {isOpen ? <IoClose size={24} /> : <IoMenu size={24} />}
           </button>
         </div>
-        <div className="hidden md:flex justify-end flex-1 px-10">
+        <div className="hidden lg:flex justify-end flex-1 px-10">
           {isAuthenticated ? <AuthenticatedLinks /> : <GuestLinks />}
         </div>
-        <MobileMenu />
+        {isOpen && <MobileMenu />}
       </div>
     </nav>
   );

@@ -2,7 +2,7 @@ import { BrowserRouter, useRoutes } from "react-router-dom";
 import Home from "../Home";
 import NotFound from "../NotFound";
 import Login from "../LoginUser";
-import Signup from "../Register"; // Corregido de Singup a Signup
+import Signup from "../Register";
 import ProductPage from "../Details";
 import "./App.css";
 import Shopping_cart from "../Shopping_cart";
@@ -11,7 +11,7 @@ import CostumerSer from "../Home/CostumerServicePage/CostumerSer";
 import Editor_user from "../UserEditor";
 import Productos from "../Productos";
 import { AuthProvider } from "../../context/AuthContext";
-import { ProtectedRoute } from "../../routes";
+import { ProtectedRoute, AdminRoute } from "../../routes";
 import Shopping from "../Myshopping";
 import MenuProducto from "../Menu_productos";
 import { Pasarela } from "../Pasarela";
@@ -22,20 +22,25 @@ const AppRoutes = () => {
     { path: "*", element: <NotFound /> },
     { path: "/pasarela", element: <Pasarela /> },
     { path: "/login", element: <Login /> },
-    { path: "/signup", element: <Signup /> }, // Corregido de /Singup a /signup
-    { path: "/detail", element: <ProductPage /> }, // Corregido de /Detail a /detail
-    { path: "/productos", element: <Productos /> }, // Corregido de /Productos a /productos
+    { path: "/signup", element: <Signup /> },
+    { path: "/detail", element: <ProductPage /> },
     {
       element: <ProtectedRoute />,
       children: [
-        { path: "/editoruser", element: <Editor_user /> }, // Corregido de /Editoruser a /editoruser
+        { path: "/editoruser", element: <Editor_user /> },
         { path: "/serviceAtention", element: <CostumerSer /> },
-        { path: "/Shopping", element: <Shopping /> },
+        { path: "/shopping", element: <Shopping /> }, // Corregido a minúsculas
+      ],
+    },
+    {
+      element: <AdminRoute />,
+      children: [
+        { path: "/order", element: <OrderPages /> }, // Ruta para la página de órdenes
+        { path: "/productos", element: <Productos /> }, // Ruta para el Dashboard de Admin
       ],
     },
     { path: "/carrito", element: <Shopping_cart /> },
-    { path: "/Order", element: <OrderPages /> },
-    { path: "/Menu", element: <MenuProducto /> },
+    { path: "/menu", element: <MenuProducto /> }, // Corregido a minúsculas
   ]);
   return routes;
 };

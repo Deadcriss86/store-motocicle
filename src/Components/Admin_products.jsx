@@ -15,6 +15,9 @@ const Admin_products = ({
 }) => {
   const [editingProduct, setEditingProduct] = useState(null);
   const [deletingProductId, setDeletingProductId] = useState(null);
+  const [products, setProducts] = useState([]);
+  const apiUrl = import.meta.env.VITE_APIBACK_URL;
+
 
   const handleEdit = () => {
     setEditingProduct({
@@ -27,7 +30,7 @@ const Admin_products = ({
     });
   };
 
-  const handleDelete = (productId) => {
+  const handleDelete = async (productId) => {
     setDeletingProductId(productId);
 
     Swal.fire({
@@ -42,12 +45,19 @@ const Admin_products = ({
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`http://localhost:3000/api/products/${productId}`);
-          // Si tienes una función para actualizar la lista de productos, llámala aquí.
-          if (onDelete) {
-            onDelete(productId);
-          }
-          Swal.fire("Eliminado", "El producto ha sido eliminado.", "success");
+          await axios.delete(`${apiUrl}/api/products/${productId}`);
+          setProducts((prevProducts) =>
+            prevProducts.filter((product) => product.id !== productId)
+          );
+
+          Swal.fire(
+            "Eliminado",
+            "El producto ha sido eliminado.",
+            "success"
+          ).then(() => {
+            // Recargar la página después de confirmar la eliminación
+            window.location.reload();
+          });
         } catch (error) {
           console.error("Error al eliminar el producto:", error);
           Swal.fire(
@@ -68,54 +78,55 @@ const Admin_products = ({
   };
 
   return (
-    <div className="p-4 flex flex-col lg:flex-row lg:justify-between mb-3 rounded-lg bg-[#3F3F3F] text-white text-base lg:text-lg">
-      <div className="avatar mb-4 lg:mb-0 flex justify-center lg:justify-start">
-        <div className="w-32 h-32 rounded-lg overflow-hidden">
-          <img
-            src={images}
-            alt="Product"
-            className="w-full h-full object-cover"
-          />
-        </div>
-      </div>
-      <div className="card_info flex flex-col lg:flex-row justify-between w-full">
-        <div className="info flex flex-col justify-center mb-4 lg:mb-0 lg:ml-6">
-          <h2 className="text-center lg:text-left text-[#0EFF06]">
-            {truncateText(name, 20)}
-          </h2>
-          <h2 className="font-thin text-center lg:text-left">Id: {id}</h2>
-        </div>
-        <div className="price_container flex flex-col justify-center items-center mb-4 lg:mb-0 lg:ml-6">
-          <p>Precio:</p>
-          <h2 className="price">${price}</h2>
-        </div>
-        <div className="stock_container flex flex-col justify-center items-center mb-4 lg:mb-0 lg:ml-6">
-          <p>Stock:</p>
-          <h2 className="stock">{stock}</h2>
-        </div>
-        <div className="description_container flex flex-col justify-center items-center mb-4 lg:mb-0 lg:ml-6">
-          <p>Preguntas:</p>
-          <div className="container text-black text-justify font-bold bg-gray-300 rounded-lg p-2 max-w-xs lg:max-w-full">
-            <h2 className="description font-thin">
+    <div className="p-4 flex flex-col lg:flex-row lg:justify-between mb-3 rounded-lg">
+      <table className="table w-full border-collapse bg-[#3F3F3F] shadow-md rounded-lg overflow-hidden">
+        <thead className="bg-gray-100 text-gray-600 uppercase text-sm text-center">
+          <tr>
+            <th className="p-4 text-left">Producto</th>
+            <th className="p-4 text-center">Stock</th>
+            <th className="p-4 text-center">Preguntas</th>
+            <th className="p-4 text-center">Edición</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className="border-b hover:bg-gray-50">
+            <td className="p-4">
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-3">
+                <div className="avatar">
+                  <div className="mask mask-squircle h-12 w-12">
+                    <img src={images} alt="Avatar Tailwind CSS Component" />
+                  </div>
+                </div>
+                <div>
+                  <div className="font-bold">{truncateText(name, 20)}</div>
+                  <div className="text-gray-500">Precio: ${price}</div>
+                  <div className="text-sm text-gray-400">ID: {id}</div>
+                </div>
+              </div>
+            </td>
+            <td className="p-4 text-center font-bold">{stock}</td>
+            <td className="p-4 flex justify-center text-center">
               {truncateText(questions, 100)}
-            </h2>
-          </div>
-        </div>
-        <div className="crud_container flex justify-center items-center lg:ml-6 space-x-3">
-          <button
-            className="btn text-white hover:bg-[#0EFF06] hover:text-black px-4 py-2 rounded-lg"
-            onClick={handleEdit}
-          >
-            Editar
-          </button>
-          <button
-            className="btn text-white hover:bg-[#0EFF06] hover:text-black px-4 py-2 rounded-lg"
-            onClick={() => handleDelete(id)}
-          >
-            Eliminar
-          </button>
-        </div>
-      </div>
+            </td>
+            <td className="p-4 text-center">
+              <div className="flex justify-center items-center space-x-3">
+                <button
+                  className="btn bg-green-500 text-white hover:bg-green-600 px-4 py-2 rounded-lg"
+                  onClick={handleEdit}
+                >
+                  Editar
+                </button>
+                <button
+                  className="btn bg-red-500 text-white hover:bg-red-600 px-4 py-2 rounded-lg"
+                  onClick={() => handleDelete(id)}
+                >
+                  Eliminar
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
       {editingProduct && (
         <dialog
@@ -128,7 +139,7 @@ const Admin_products = ({
               closeModal={() => setEditingProduct(null)}
             />
             <button
-              className="btn border-2 border-[#0EFF06] rounded-lg p-3 mt-4"
+              className="btn border-2 border-[#0EFF06] rounded-lg p-3 mt-4 text-white"
               onClick={() => setEditingProduct(null)}
             >
               Cancelar

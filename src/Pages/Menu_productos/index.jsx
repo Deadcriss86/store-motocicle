@@ -12,10 +12,11 @@ const ProductsPage = () => {
   const [loading, setLoading] = useState(true);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [openCategories, setOpenCategories] = useState({});
+  const apiUrl = import.meta.env.VITE_APIBACK_URL;
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/getproducts")
+      .get(`${apiUrl}/api/getproducts`)
       .then((response) => {
         const productsData = response.data;
         setProductsData(productsData);
@@ -35,8 +36,6 @@ const ProductsPage = () => {
           subcategories: Array.from(categoryMap[category]),
         }));
         setCategories(categories);
-
-        console.log("Response data:", productsData);
       })
       .catch((error) => {
         console.error("There was an error fetching the data!", error);
@@ -88,41 +87,38 @@ const ProductsPage = () => {
             </button>
           </div>
           <div
-            className={`menu border-2 border-[#0eff06] rounded-xl w-auto lg:w-1/5 p-3 m-4 flex flex-col ${
+            className={`menu border-2 border-[#0eff06] rounded-xl lg:h-1/5 lg:w-1/5 p-2 m-4 flex flex-col ${
               dropdownVisible ? "block" : "hidden lg:block"
             }`}
           >
-            <h2 className="text-2xl font-bold mb-4 text-[#0eff06] text-center">
+            <h2 className="text-2xl font-bold mb-2 text-[#0eff06] text-center">
               Categorías
             </h2>
             {categories.map((category, index) => (
               <details
                 key={index}
-                className="dropdown text-white w-full lg:h-auto"
+                className="dropdown text-white w-full lg:h-9"
               >
                 <summary
-                  className="m-1 hover:bg-[#0eff06] hover:text-black mx-1 px-4 rounded-lg w-full text-left"
+                  className="m-1 hover:bg-[#0eff06] hover:text-black mx-1 p-2 rounded-lg w-full text-left"
                   onClick={() => toggleCategory(category.name)}
                 >
                   {category.name}
                 </summary>
                 <ul
-                  className={`bg-base-100 rounded-box z-[1] w-52 p-2 shadow transition-max-height duration-300 ease-in-out overflow-hidden ${
+                  className={`bg-base-100 rounded-box z-[1] p-2 shadow transition-max-height duration-300 ease-in-out overflow-hidden w-full ${
                     openCategories[category.name] ? "max-h-screen" : "max-h-0"
                   }`}
                 >
                   {category.subcategories.map((subcategory, subIndex) => (
                     <li
                       key={subIndex}
-                      className="cursor-pointer rounded hover:bg-[#c1ff06] hover:text-black"
+                      className="cursor-pointer rounded hover:bg-[#c1ff06] hover:text-black p-2"
+                      onClick={() =>
+                        handleSubcategoryClick(category.name, subcategory)
+                      }
                     >
-                      <li
-                        onClick={() =>
-                          handleSubcategoryClick(category.name, subcategory)
-                        }
-                      >
-                        {subcategory}
-                      </li>
+                      {subcategory}
                     </li>
                   ))}
                 </ul>

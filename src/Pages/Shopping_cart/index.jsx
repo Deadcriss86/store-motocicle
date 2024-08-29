@@ -15,14 +15,16 @@ const stripePromise = loadStripe(
 );
 
 const ShoppingCart = () => {
+  const apiUrl = import.meta.env.VITE_APIBACK_URL;
   const [cartItems, setCartItems] = useState([]);
   const [profileData, setProfileData] = useState(null);
   const [showPayment, setShowPayment] = useState(false); // Nuevo estado para mostrar el formulario
   const [paymentItems, setPaymentItems] = useState(null); // Estado para almacenar los datos de pago
+  const [shippingCost, setShippingCost] = useState(0);
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/auth/profile", { withCredentials: true })
+      .get(`${apiUrl}/api/auth/profile`, { withCredentials: true })
       .then((response) => {
         setProfileData(response.data);
       })
@@ -33,21 +35,27 @@ const ShoppingCart = () => {
 
   const initialCartItems = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/pedido", {
+      const response = await axios.get(`${apiUrl}/api/pedido`, {
         withCredentials: true,
       });
       const pedidos = response.data;
       const items = pedidos.flatMap((pedido) =>
         pedido.productos.map((producto) => ({
-          id: producto._id,
+          id: producto.producto,
           name: producto.product_name,
           quantity: producto.cantidad,
           price: producto.precio,
           image: producto.image,
+          product_stock: producto.product_stock,
           pedido_delete: pedido._id,
         }))
       );
       setCartItems(items);
+      if (items.length > 0) {
+        setShippingCost(300);
+      } else {
+        setShippingCost(0);
+      }
     } catch (error) {
       console.error("Error al obtener los pedidos:", error);
     }
@@ -59,7 +67,7 @@ const ShoppingCart = () => {
 
   const handleDelete = async (productoId, pedidoId) => {
     try {
-      await axios.delete(`http://localhost:3000/api/pedido/${pedidoId}`, {
+      await axios.delete(`${apiUrl}/api/pedido/${pedidoId}`, {
         withCredentials: true,
       });
       setCartItems(cartItems.filter((item) => item.id !== productoId));
@@ -82,6 +90,7 @@ const ShoppingCart = () => {
         product_name: item.name,
         amount: item.price,
         cantidad: item.quantity,
+        itemId: item.id,
       })),
       total: totalFinal, // Usa el total calculado
     };
@@ -95,12 +104,12 @@ const ShoppingCart = () => {
     0
   );
 
-  const shippingCost = 300;
   const totalFinal = totalPriceProducts + shippingCost;
 
   return (
     <div className="main flex flex-col bg-black min-h-screen">
       <Navlink />
+      <br />
       <br />
       <br />
       <br />
@@ -125,6 +134,7 @@ const ShoppingCart = () => {
                           name={item.name}
                           quantity={item.quantity}
                           price={item.price}
+                          product_stock={item.product_stock}
                           onDelete={() =>
                             handleDelete(item.id, item.pedido_delete)
                           }
@@ -186,6 +196,7 @@ const ShoppingCart = () => {
                               <button
                                 className="p-2 bg-[#0EFF06] rounded-lg w-full text-black mt-6"
                                 onClick={handleCheckout}
+                                disabled={totalFinal <= 300}
                               >
                                 Continuar con la compra
                               </button>

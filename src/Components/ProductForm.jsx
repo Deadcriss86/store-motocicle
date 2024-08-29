@@ -1,15 +1,12 @@
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { ModalMessage } from "../Components/pop-up";
-import swal from "sweetalert";
+import Swal from "sweetalert2"; // Importa correctamente desde sweetalert2
 
 export const ProductForm = ({ product, onSubmit }) => {
   const { register, handleSubmit, setValue, watch } = useForm();
-  const [modalMessage, setModalMessage] = useState("");
-  const [showModal, setShowModal] = useState(false);
   const [categories, setCategories] = useState([
     "Protector de faro",
-    "Slider superior",
+    "Slider frontal",
     "Slider trasero",
     "Porta alforja",
     "Parrilla de carga",
@@ -25,7 +22,6 @@ export const ProductForm = ({ product, onSubmit }) => {
     "Universal",
   ]);
 
-  // Watch the category and subcategory fields to handle any changes
   const category = watch("category");
   const subcategory = watch("subcategory");
 
@@ -54,7 +50,14 @@ export const ProductForm = ({ product, onSubmit }) => {
 
     try {
       await onSubmit(formData, product ? product._id : undefined);
-      Swal.fire("¡Éxito!", "El producto ha sido agregado", "success");
+      Swal.fire(
+        "¡Agregado!",
+        "El producto ha sido agregado con exito",
+        "success"
+      );
+      setTimeout(() => {
+        window.location.reload();
+      }, 5000);
     } catch (error) {
       Swal.fire(
         "Error",
@@ -160,9 +163,9 @@ export const ProductForm = ({ product, onSubmit }) => {
         </div>
         <br />
         <button
-          onClose={() => setShowModal(false)}
           className="bg-[#0EFF06] rounded-lg p-2 text-black font-bold text-xl hover:bg-white w-full"
           type="submit"
+          closeModal={() => document.getElementById("my_modal_5").close()}
         >
           Agregar Producto
         </button>
