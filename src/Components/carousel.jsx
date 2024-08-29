@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const apiUrl = import.meta.env.VITE_APIBACK_URL;
 
@@ -63,32 +64,28 @@ const Carousel = () => {
       >
         <FaChevronLeft size="1.5rem" className="text-[#0eff06]" />
       </button>
-      <div className="w-full flex justify-center items-center space-x-4 space-y-4 overflow-hidden">
-        {visibleItems.map((item, index) => (
-          <div
-            className={`flex-auto-0 ${
-              itemsToShow === 1
-                ? "w-full"
-                : itemsToShow === 2
-                ? "w-1/2"
-                : "w-1/3"
-            } px-2`}
-            key={index}
-          >
-            <div className="bg-white rounded-xl shadow-md h-60">
-              <img
-                className="w-full h-48 rounded-xl object-contain"
-                src={item.images}
-                alt={`Image ${index}`}
-              />
+      <div className="flex overflow-hidden w-full">
+        {visibleItems.map((item, index) => {
+          const id = item._id.toString();
+
+          return (
+            <div
+              className="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-2"
+              key={index}
+            >
+              <div className="bg-white rounded-xl shadow-md">
+                <Link to={`/detail?id=${id}`}>
+                  <img
+                    className="w-full h-48 object-cover rounded-xl"
+                    src={item.images}
+                    alt={`Image ${index}`}
+                  />
+                </Link>
+              </div>
+              <h2 className="text-white text-center">{item.productName}</h2>
             </div>
-            <div className="flex justify-center p-4">
-              <button className="text-[#0eff06] text-center font-bold">
-                {item.productName}
-              </button>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
       <button
         onClick={handleNext}

@@ -1,17 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { IoCartOutline, IoMenu, IoClose } from "react-icons/io5";
 import { FaRegUser } from "react-icons/fa";
 import logo from "../../dist/assets/logo2.png";
+import axios from "axios";
 
 export const Navlink = () => {
   const { isAuthenticated, user, logout, getprofile } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const apiUrl = import.meta.env.VITE_APIBACK_URL;
+  const [itemCount, setItemCount] = useState(0);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  const isitems = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/api/pedido`, {
+        withCredentials: true,
+      });
+      setItemCount(response.data.length);
+    } catch (error) {
+      console.error("Error al obtener los pedidos:", error);
+    }
+  };
+
+  useEffect(() => {
+    isitems();
+  }, []);
 
   const AuthenticatedLinks = () => (
     <div className="flex flex-col lg:flex-row lg:items-center lg:space-x-8">
@@ -53,7 +71,16 @@ export const Navlink = () => {
         to="/carrito"
         className="text-gray-100 hover:text-[#0eff06] dark:text-white link link-hover"
       >
-        <IoCartOutline size={24} />
+        <div className="indicator">
+          {itemCount > 0 && (
+            <span className="indicator-item badge badge-secondary">
+              {itemCount}
+            </span>
+          )}
+          <div className="p-2">
+            <IoCartOutline size={24} />
+          </div>
+        </div>
       </Link>
       <button
         onClick={logout}
