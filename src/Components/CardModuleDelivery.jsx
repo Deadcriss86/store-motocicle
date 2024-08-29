@@ -2,7 +2,6 @@ import { useState } from "react";
 import { CiEdit } from "react-icons/ci";
 import axios from "axios";
 import Swal from "sweetalert2";
-import "../Pages/Home/OrderPages/styleOrder.css";
 
 const CardDelivery = ({
   orderId,
@@ -62,12 +61,8 @@ const CardDelivery = ({
         confirmButtonText: "OK",
         confirmButtonColor: "#0FFF07",
       });
-
-      window.location.reload(); // Recargar la página para reflejar los cambios
-      setIsEditModalOpen(false); // Cerrar el modal
     } catch (error) {
       console.error("Error al actualizar la orden:", error);
-
       Swal.fire({
         title: "Error",
         text: "Hubo un error al actualizar el pedido.",
@@ -94,15 +89,15 @@ const CardDelivery = ({
   };
 
   return (
-    <div className=" p-4 text-white rounded-lg shadow-lg space-y-4 max-w-lg mx-auto lg:max-w-full lg:flex lg:items-start lg:justify-center">
+    <div className="p-4 text-white rounded-lg shadow-lg space-y-4 mx-auto max-w-lg lg:max-w-full lg:flex lg:items-start lg:justify-center">
       <table className="table w-full bg-[#3F3F3F] rounded-lg shadow-lg overflow-hidden">
         <thead className="bg-gray-700 text-gray-300 text-sm">
           <tr>
             <th className="p-2"></th>
             <th className="p-2 text-left">Pedido No.</th>
             <th className="p-2 text-left">Nombre</th>
-            <th className="p-2 text-left">Producto</th>
-            <th className="p-2 text-left">Monto Total</th>
+            <th className="p-2 text-left hidden md:table-cell">Producto</th>
+            <th className="p-2 text-left hidden lg:table-cell">Monto Total</th>
             <th className="p-2 text-left">No. de guía</th>
             <th className="p-2 text-left">Paquetería</th>
             <th className="p-2 text-left">Fecha de envío</th>
@@ -114,8 +109,10 @@ const CardDelivery = ({
             <td className="p-2"></td>
             <td className="p-2 font-semibold">{deliveryDescription}</td>
             <td className="p-2">{nameClient}</td>
-            <td className="p-2">{truncateText(productName, 20)}</td>
-            <td className="p-2">${priceDelivery}</td>
+            <td className="p-2 hidden md:table-cell">
+              {truncateText(productName, 20)}
+            </td>
+            <td className="p-2 hidden lg:table-cell">${priceDelivery}</td>
             <td className="p-2">{descriptionGuide}</td>
             <td className="p-2">{parcelService}</td>
             <td className="p-2">{formatDate(shippingDate)}</td>

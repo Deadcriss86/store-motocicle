@@ -20,7 +20,7 @@ export const Navlink = () => {
           <img
             src={`/avatars/${user.avatar}`}
             alt="User Avatar"
-            className="w-8 h-8 rounded-full"
+            className="w-9 h-9 rounded-full"
           />
         )}
         Bienvenid@ {user.username}

@@ -130,7 +130,7 @@ const Admin_products = ({
               closeModal={() => setEditingProduct(null)}
             />
             <button
-              className="btn border-2 border-[#0EFF06] rounded-lg p-3 mt-4"
+              className="btn border-2 border-[#0EFF06] rounded-lg p-3 mt-4 text-white"
               onClick={() => setEditingProduct(null)}
             >
               Cancelar

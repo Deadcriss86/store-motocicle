@@ -100,7 +100,7 @@ const EditProductForm = ({ product, closeModal }) => {
 
         <br />
         <button
-          className="bg-[#0EFF06] rounded-lg p-2 text-black font-bold text-xl hover:bg-white w-full"
+          className="bg-[#0EFF06] rounded-lg p-2 text-white font-bold text-xl hover:bg-white w-full"
           type="submit"
           disabled={loading}
         >
