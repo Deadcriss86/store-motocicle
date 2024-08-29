@@ -55,6 +55,9 @@ export const ProductForm = ({ product, onSubmit }) => {
         "El producto ha sido agregado con exito",
         "success"
       );
+      setTimeout(() => {
+        window.location.reload();
+      }, 5000);
     } catch (error) {
       Swal.fire(
         "Error",
@@ -162,6 +165,7 @@ export const ProductForm = ({ product, onSubmit }) => {
         <button
           className="bg-[#0EFF06] rounded-lg p-2 text-black font-bold text-xl hover:bg-white w-full"
           type="submit"
+          closeModal={() => document.getElementById("my_modal_5").close()}
         >
           Agregar Producto
         </button>

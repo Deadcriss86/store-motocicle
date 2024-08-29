@@ -14,7 +14,8 @@ const Admin_products = ({
   questions,
 }) => {
   const [editingProduct, setEditingProduct] = useState(null);
-  const [setDeletingProductId] = useState(null);
+  const [deletingProductId, setDeletingProductId] = useState(null); // Corrección aquí
+  const [products, setProducts] = useState([]);
   const apiUrl = import.meta.env.VITE_APIBACK_URL;
 
   const handleEdit = () => {
@@ -28,7 +29,7 @@ const Admin_products = ({
     });
   };
 
-  const handleDelete = (productId) => {
+  const handleDelete = async (productId) => {
     setDeletingProductId(productId);
 
     Swal.fire({
@@ -44,11 +45,18 @@ const Admin_products = ({
       if (result.isConfirmed) {
         try {
           await axios.delete(`${apiUrl}/api/products/${productId}`);
-          // Si tienes una función para actualizar la lista de productos, llámala aquí.
-          if (onDelete) {
-            onDelete(productId);
-          }
-          Swal.fire("Eliminado", "El producto ha sido eliminado.", "success");
+          setProducts((prevProducts) =>
+            prevProducts.filter((product) => product.id !== productId)
+          );
+
+          Swal.fire(
+            "Eliminado",
+            "El producto ha sido eliminado.",
+            "success"
+          ).then(() => {
+            // Recargar la página después de confirmar la eliminación
+            window.location.reload();
+          });
         } catch (error) {
           console.error("Error al eliminar el producto:", error);
           Swal.fire(
@@ -130,7 +138,7 @@ const Admin_products = ({
               closeModal={() => setEditingProduct(null)}
             />
             <button
-              className="btn border-2 border-[#0EFF06] rounded-lg p-3 mt-4"
+              className="btn border-2 border-[#0EFF06] rounded-lg p-3 mt-4 text-white"
               onClick={() => setEditingProduct(null)}
             >
               Cancelar

@@ -8,7 +8,7 @@ const apiUrl = import.meta.env.VITE_APIBACK_URL;
 const Carousel = () => {
   const [items, setItems] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const itemsPerPage = useRef({ desktop: 3, tablet: 2, mobile: 1 });
+  const [itemsToShow, setItemsToShow] = useState(1); // Default for mobile
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,36 +23,46 @@ const Carousel = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const updateItemsToShow = () => {
+      const width = window.innerWidth;
+      if (width >= 1024) {
+        setItemsToShow(3); // Desktop
+      } else if (width >= 768) {
+        setItemsToShow(2); // Tablet
+      } else {
+        setItemsToShow(1); // Mobile
+      }
+    };
+
+    updateItemsToShow();
+    window.addEventListener("resize", updateItemsToShow);
+
+    return () => window.removeEventListener("resize", updateItemsToShow);
+  }, []);
+
   const handlePrev = () => {
     setCurrentIndex((prev) =>
-      prev > 0 ? prev - 1 : items.length - getItemsToShow()
+      prev > 0 ? prev - 1 : items.length - itemsToShow
     );
   };
 
   const handleNext = () => {
     setCurrentIndex((prev) =>
-      prev < items.length - getItemsToShow() ? prev + 1 : 0
+      prev < items.length - itemsToShow ? prev + 1 : 0
     );
   };
 
-  const getItemsToShow = () => {
-    if (window.innerWidth >= 1024) return itemsPerPage.current.desktop;
-    if (window.innerWidth >= 768) return itemsPerPage.current.tablet;
-    return itemsPerPage.current.mobile;
-  };
-
-  const visibleItems = items.slice(
-    currentIndex,
-    currentIndex + getItemsToShow()
-  );
+  const visibleItems = items.slice(currentIndex, currentIndex + itemsToShow);
 
   return (
-    <div className="relative flex justify-end items-center">
+    <div className="relative flex justify-center items-center w-10/20 h-auto shadow-lg shadow-[#0eff06] p-4 rounded-lg bg-transparent">
       <button
         onClick={handlePrev}
-        className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10"
+        aria-label="Previous"
+        className="p-2 bg-transparent text-[#0eff06] rounded-full hover:bg-gray-400"
       >
-        <FaChevronLeft size={24} />
+        <FaChevronLeft size="1.5rem" className="text-[#0eff06]" />
       </button>
       <div className="flex overflow-hidden w-full">
         {visibleItems.map((item, index) => {
@@ -79,9 +89,10 @@ const Carousel = () => {
       </div>
       <button
         onClick={handleNext}
-        className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10"
+        aria-label="Next"
+        className="p-2 bg-transparent text-[#0eff06] rounded-full hover:bg-gray-400"
       >
-        <FaChevronRight size={24} />
+        <FaChevronRight size="1.5rem" className="text-[#0eff06]" />
       </button>
     </div>
   );

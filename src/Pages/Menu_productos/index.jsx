@@ -100,20 +100,20 @@ const ProductsPage = () => {
                 className="dropdown text-white w-full lg:h-9"
               >
                 <summary
-                  className="m-1 hover:bg-[#0eff06] hover:text-black mx-1 px-4 rounded-lg w-full text-left"
+                  className="m-1 hover:bg-[#0eff06] hover:text-black mx-1 p-2 rounded-lg w-full text-left"
                   onClick={() => toggleCategory(category.name)}
                 >
                   {category.name}
                 </summary>
                 <ul
-                  className={`bg-base-100 rounded-box z-[1] w-52 p-2 shadow transition-max-height duration-300 ease-in-out overflow-hidden ${
+                  className={`bg-base-100 rounded-box z-[1] p-2 shadow transition-max-height duration-300 ease-in-out overflow-hidden w-full ${
                     openCategories[category.name] ? "max-h-screen" : "max-h-0"
                   }`}
                 >
                   {category.subcategories.map((subcategory, subIndex) => (
                     <li
                       key={subIndex}
-                      className="cursor-pointer rounded hover:bg-[#c1ff06] hover:text-black"
+                      className="cursor-pointer rounded hover:bg-[#c1ff06] hover:text-black p-2"
                       onClick={() =>
                         handleSubcategoryClick(category.name, subcategory)
                       }

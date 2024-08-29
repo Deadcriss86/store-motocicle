@@ -65,6 +65,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("token", res.data.token);
       if (res.data.isadmin) {
         Cookies.set("isadmin", true);
+        localStorage.setItem("isAdmin", true);
       }
       await getprofile();
     } catch (error) {
