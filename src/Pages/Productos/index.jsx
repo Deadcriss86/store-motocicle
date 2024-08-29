@@ -32,18 +32,6 @@ const Productos = () => {
     setDeletingProductId(productId);
   };
 
-  const confirmDelete = async () => {
-    try {
-      await axios.delete(`${apiUrl}/api/products/${deletingProductId}`);
-      setProducts(
-        products.filter((product) => product._id !== deletingProductId)
-      );
-      setDeletingProductId(null);
-    } catch (error) {
-      console.error("Error deleting product:", error);
-    }
-  };
-
   const handleAddSubmit = async (formData) => {
     try {
       const response = await axios.post(`${apiUrl}/api/newproduct`, formData);
