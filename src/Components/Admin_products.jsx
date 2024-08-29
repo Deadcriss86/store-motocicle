@@ -14,9 +14,10 @@ const Admin_products = ({
   questions,
 }) => {
   const [editingProduct, setEditingProduct] = useState(null);
-  const [deletingProductId, setDeletingProductId] = useState(null); // Corrección aquí
+  const [deletingProductId, setDeletingProductId] = useState(null);
   const [products, setProducts] = useState([]);
   const apiUrl = import.meta.env.VITE_APIBACK_URL;
+
 
   const handleEdit = () => {
     setEditingProduct({
