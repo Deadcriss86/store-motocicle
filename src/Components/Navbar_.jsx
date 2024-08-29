@@ -104,10 +104,10 @@ export const Navlink = () => {
 
   const MobileMenu = () => (
     <div
-      className={`fixed top-0 right-0 h-full bg-[#272927e7] py-4 transform ${
+      className={`fixed top-0 right-0 h-auto bg-[#272927cb] py-4 transform ${
         isOpen ? "translate-x-0" : "translate-x-full"
       } transition-transform duration-300 ease-in-out z-40`}
-      style={{ width: '75vw' }}
+      style={{ width: "75vw" }}
     >
       <div className="flex justify-end pr-4">
         <button
