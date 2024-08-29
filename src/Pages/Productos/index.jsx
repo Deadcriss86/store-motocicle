@@ -90,6 +90,7 @@ const Productos = () => {
     Cookies.remove("isadmin");
     localStorage.removeItem("user");
     localStorage.removeItem("token");
+    localStorage.removeItem("isAdmin");
     window.location.href = "/";
   }
 
