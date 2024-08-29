@@ -4,6 +4,7 @@ import swal from "sweetalert";
 
 export const Resenasforms = ({ id, closeModal }) => {
   const { register, handleSubmit, reset } = useForm();
+  const apiUrl = import.meta.env.VITE_APIBACK_URL;
 
   const onSubmit = async (data) => {
     if (!data.rating) {
@@ -12,7 +13,7 @@ export const Resenasforms = ({ id, closeModal }) => {
 
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/products/${id}/reviews`,
+        `${apiUrl}/api/products/${id}/reviews`,
         data,
         {
           headers: {
@@ -22,17 +23,19 @@ export const Resenasforms = ({ id, closeModal }) => {
         }
       );
       reset();
+      closeModal();
       swal({
         title: "Comentario Agregado",
         icon: "success",
         button: "OK",
       }).then(() => {
         window.location.reload();
-        closeModal(); // Cerrar el modal después de mostrar la alerta
       });
     } catch (error) {
+      closeModal();
+      reset();
       swal({
-        title: "Error al agregar el comentario",
+        title: "Parece que no has comprado este articulo todavía",
         icon: "error",
         button: "OK",
       });
@@ -106,6 +109,7 @@ export const Resenasforms = ({ id, closeModal }) => {
         <button
           className="w-full bg-[#0EFF06] rounded-lg p-2 text-black font-bold text-xl hover:bg-white transition duration-300"
           type="submit"
+          closeModal={() => document.getElementById("my_modal_5").close()}
         >
           Agregar comentario
         </button>

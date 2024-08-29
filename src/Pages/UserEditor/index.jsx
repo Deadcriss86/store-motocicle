@@ -19,22 +19,29 @@ const EditProfileForm = () => {
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState(null);
   const [selectedAvatar, setSelectedAvatar] = useState("avatar1.jpg"); // Default avatar
+  const apiUrl = import.meta.env.VITE_APIBACK_URL;
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/auth/profile", { withCredentials: true })
+      .get(`${apiUrl}/api/auth/profile`, { withCredentials: true })
       .then((response) => {
-        setProfileData(response.data);
-        setValue("nombre", response.data.nombre);
-        setValue("apellido", response.data.apellido);
-        setValue("nacionalidad", response.data.nacionalidad);
-        setValue("celular", response.data.celular);
-        setValue("cp", response.data.cp);
-        setValue("ciudad", response.data.ciudad);
-        setValue("calle", response.data.calle);
-        setValue("delegacion", response.data.delegacion);
-        setValue("referencias", response.data.referencias);
-        setSelectedAvatar(response.data.avatar || "avatar1.jpg");
+        const data = response.data;
+
+        // Helper function to capitalize the first letter of a string
+        const capitalizeFirstLetter = (string) =>
+          string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+
+        setProfileData(data);
+        setValue("nombre", capitalizeFirstLetter(data.nombre));
+        setValue("apellido", capitalizeFirstLetter(data.apellido));
+        setValue("nacionalidad", capitalizeFirstLetter(data.nacionalidad));
+        setValue("celular", data.celular); // Assuming phone numbers are not capitalized
+        setValue("cp", data.cp); // Assuming postal codes are not capitalized
+        setValue("ciudad", capitalizeFirstLetter(data.ciudad));
+        setValue("calle", capitalizeFirstLetter(data.calle));
+        setValue("delegacion", capitalizeFirstLetter(data.delegacion));
+        setValue("referencias", capitalizeFirstLetter(data.referencias));
+        setSelectedAvatar(data.avatar || "avatar1.jpg");
       })
       .catch((error) => {
         console.error("Error al obtener los datos del perfil", error);
@@ -44,27 +51,29 @@ const EditProfileForm = () => {
   const onSubmit = async (data) => {
     try {
       await axios.put(
-        "http://localhost:3000/api/auth/update",
+        `${apiUrl}/api/auth/update`,
         { ...data, avatar: selectedAvatar },
         { withCredentials: true }
       );
-       Swal.fire({
-        title: "Perfil actualizado",
-        text: "¡Tu perfil ha sido actualizado con éxito!",
-        icon: "success",
-        confirmButtonText: "OK",
-        confirmButtonColor: "#0eff06",
-      });
-      reset();
-    } catch (error) {
       Swal.fire({
         title: "Perfil actualizado",
         text: "¡Tu perfil ha sido actualizado con éxito!",
         icon: "success",
         confirmButtonText: "OK",
-        confirmButtonColor: "#0eff06", // Cambia el color del botón
-        background: "#D2E5B7 !important", // Cambia el fondo de la alerta
-        color: "#fff !important", // Cambia el color del texto en la alerta
+        confirmButtonColor: "#0eff06",
+        background: "#201F1F", // Cambia el fondo de la alerta
+        color: "#0eff06",
+      });
+      reset();
+    } catch (error) {
+      Swal.fire({
+        title: "Error",
+        text: "Hubo un problema al actualizar tu perfil.",
+        icon: "error",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#E4080A",
+        background: "#201F1F", // Cambia el fondo de la alerta
+        color: "#0eff06",
       });
     }
   };
@@ -84,14 +93,14 @@ const EditProfileForm = () => {
   return (
     <div>
       <Navlink />
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-t from-black to-[#148710]">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-t from-black to-[#148710] p-10">
         <div className="bg-gray-500 bg-opacity-20 rounded-lg p-8">
           <div className="bg-black bg-opacity-75 rounded-lg p-6 w-full max-w-md">
             <h2 className="text-center text-[#0eff06] text-xl font-bold mb-4">
               Editar perfil
             </h2>
             <div className="flex justify-center mb-4">
-              <div className="w-24 h-24 bg-gray-700 rounded-full flex items-center justify-center">
+              <div className="w-32 h-32 bg-gray-700 rounded-full flex items-center justify-center">
                 <img
                   src={
                     profileData
@@ -99,7 +108,7 @@ const EditProfileForm = () => {
                       : "/avatars/default-avatar.jpg"
                   }
                   alt="Avatar seleccionado"
-                  className="w-16 h-16 rounded-full"
+                  className="w-full h-full rounded-full"
                 />
               </div>
             </div>

@@ -6,7 +6,7 @@ import { FaRegUser } from "react-icons/fa";
 import logo from "../../dist/assets/logo2.png";
 
 export const Navlink = () => {
-  const { isAuthenticated, user, logout } = useAuth();
+  const { isAuthenticated, user, logout, getprofile } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -16,6 +16,13 @@ export const Navlink = () => {
   const AuthenticatedLinks = () => (
     <div className="flex flex-col lg:flex-row lg:items-center lg:space-x-8">
       <li className="text-[#c2ff35] hover:text-white text-lg flex gap-3 items-start text-bold">
+        {user.avatar && (
+          <img
+            src={`/avatars/${user.avatar}`}
+            alt="User Avatar"
+            className="w-8 h-8 rounded-full"
+          />
+        )}
         Bienvenid@ {user.username}
       </li>
       <Link

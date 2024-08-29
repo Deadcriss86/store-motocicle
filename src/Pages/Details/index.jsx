@@ -9,6 +9,7 @@ import StarRating from "../../Components/Stars_rating";
 import swal from "sweetalert";
 
 const ProductPage = () => {
+  const apiUrl = import.meta.env.VITE_APIBACK_URL;
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const value = queryParams.get("id");
@@ -19,7 +20,7 @@ const ProductPage = () => {
   useEffect(() => {
     if (value) {
       axios
-        .get("http://localhost:3000/api/getproduct", { params: { id: value } })
+        .get(`${apiUrl}/api/getproduct`, { params: { id: value } })
         .then((response) => {
           setProduct(response.data);
           setLoading(false);
@@ -35,15 +36,16 @@ const ProductPage = () => {
   const onclickcarrito = async () => {
     try {
       await axios.post(
-        "http://localhost:3000/api/newpedido",
+        `${apiUrl}/api/newpedido`,
         {
           productos: [
             {
-              producto: value,
+              producto: product._id.toString(),
               cantidad: 1,
               precio: product.price,
               product_name: product.productName,
               image: product.images,
+              product_stock: product.stock,
             },
           ],
         },
@@ -55,14 +57,16 @@ const ProductPage = () => {
       swal({
         title: "Agregado al carrito",
         icon: "success",
-        button: "OK",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#0eff06",
       });
     } catch (error) {
       console.error("Error al agregar el producto al carrito:", error);
       swal({
-        title: "Error al agregar al carrito",
+        title: "Inicia sesión o crea una cuenta para continuar",
         icon: "error",
-        button: "OK",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#0eff06",
       });
     }
   };
@@ -72,7 +76,7 @@ const ProductPage = () => {
   const onSubmit = async (data) => {
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/products/${value}/questions`,
+        `${apiUrl}/api/products/${value}/questions`,
         data,
         {
           withCredentials: true,
@@ -87,16 +91,14 @@ const ProductPage = () => {
         swal({
           title: "Pregunta enviada con éxito!",
           icon: "success",
-          button: "OK",
+          confirmButtonText: "OK",
+          confirmButtonColor: "#0eff06",
         });
 
         // Después de enviar la pregunta, vuelve a obtener la lista de preguntas
-        const productResponse = await axios.get(
-          "http://localhost:3000/api/getproduct",
-          {
-            params: { id: value },
-          }
-        );
+        const productResponse = await axios.get(`${apiUrl}/api/getproduct`, {
+          params: { id: value },
+        });
 
         setProduct(productResponse.data);
 
@@ -112,7 +114,7 @@ const ProductPage = () => {
     } catch (error) {
       console.error("Error al enviar la pregunta:", error);
       swal({
-        title: "Error al enviar la pregunta",
+        title: "Inicia sesión o crea una cuenta para continuar",
         icon: "error",
         button: "OK",
       });

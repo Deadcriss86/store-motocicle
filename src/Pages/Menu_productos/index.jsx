@@ -12,10 +12,11 @@ const ProductsPage = () => {
   const [loading, setLoading] = useState(true);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [openCategories, setOpenCategories] = useState({});
+  const apiUrl = import.meta.env.VITE_APIBACK_URL;
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/getproducts")
+      .get(`${apiUrl}/api/getproducts`)
       .then((response) => {
         const productsData = response.data;
         setProductsData(productsData);

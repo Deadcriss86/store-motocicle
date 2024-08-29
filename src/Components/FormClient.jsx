@@ -1,6 +1,5 @@
 import { useState, useRef } from "react";
 import emailjs from "@emailjs/browser"
-// import axios from "axios";
 
 const FormService = () => {
   const [formData, setFormData] = useState({

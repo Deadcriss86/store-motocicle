@@ -4,18 +4,19 @@ import SearchBar from "../../../Components/SearchInput";
 import CardDelivery from "../../../Components/CardModuleDelivery";
 import "../OrderPages/styleOrder.css";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function OrderPages() {
   const [searchQuery, setSearchQuery] = useState("");
   const [orders, setOrders] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const apiUrl = import.meta.env.VITE_APIBACK_URL;
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/orders");
-        console.log(response.data);
+        const response = await axios.get(`${apiUrl}/api/orders`);
         setOrders(response.data || []);
       } catch (error) {
         console.error("Error al obtener las órdenes", error);
@@ -37,19 +38,36 @@ function OrderPages() {
   const handleConfirmEdit = async () => {
     if (selectedOrder) {
       try {
-        await axios.put(
-          `http://localhost:3000/api/orders/${selectedOrder._id}`,
-          {
-            items: selectedOrder.items,
-            numero_guia: selectedOrder.numero_guia,
-            total: selectedOrder.total,
-          }
-        );
+        await axios.put(`${apiUrl}/api/orders/${selectedOrder._id}`, {
+          items: selectedOrder.items,
+          numero_guia: selectedOrder.numero_guia,
+          total: selectedOrder.total,
+        });
         setShowPopup(false);
-        const response = await axios.get("http://localhost:3000/api/orders");
+        const response = await axios.get(`${apiUrl}/api/orders`);
         setOrders(response.data || []);
+
+        // Agregando SweetAlert al confirmar la edición
+        Swal.fire({
+          title: "Pedido actualizado",
+          text: "El pedido se actualizó correctamente.",
+          icon: "success",
+          confirmButtonText: "OK",
+          confirmButtonColor: "#0eff06",
+          background: "#201F1F",
+          color: "#0eff06",
+        });
       } catch (error) {
         console.error("Error al actualizar la orden", error);
+        Swal.fire({
+          title: "Error",
+          text: "Hubo un error al actualizar el pedido.",
+          icon: "error",
+          confirmButtonText: "OK",
+          confirmButtonColor: "##201F1F",
+          background: "#201F1F",
+          color: "#0eff06",
+        });
       }
     }
   };
@@ -60,8 +78,14 @@ function OrderPages() {
 
   return (
     <div className="orderPages">
-      <nav className="navbar">
-        <p className="textNav">Pedidos</p>
+      <nav className="navbar text-center ">
+        <p className="textNav font-bold text-4x1">Pedidos</p>{" "}
+        <Link
+          to="/Productos"
+          className="buttonProduct border-2 border-[#0eff06] text-[#0eff06] rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06]"
+        >
+          Ir a productos
+        </Link>
         <SearchBar onSearch={handleSearch} />
       </nav>
       <main className="mainContent">
@@ -89,19 +113,12 @@ function OrderPages() {
                 shippingDate={order.fecha_de_envio}
                 productName={order.items
                   .map((item) => item.product_name)
-                  .join(", ")} // Aquí concatenamos los nombres de los productos
-                onEdit={() => handleEditOrder(order)} // Maneja el evento de edición
+                  .join(", ")}
+                onEdit={() => handleEditOrder(order)}
               />
             ))}
       </main>
-      <footer className="footer">
-        <Link
-          to="/Productos"
-          className="buttonProduct border-2 border-[#0eff06] text-[#0eff06] rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06]"
-        >
-          Ir a productos
-        </Link>
-      </footer>
+      <footer className="footer"></footer>
 
       {showPopup && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
