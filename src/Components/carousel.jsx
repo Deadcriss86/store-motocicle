@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const apiUrl = import.meta.env.VITE_APIBACK_URL;
 
@@ -54,21 +55,27 @@ const Carousel = () => {
         <FaChevronLeft size={24} />
       </button>
       <div className="flex overflow-hidden w-full">
-        {visibleItems.map((item, index) => (
-          <div
-            className="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-2"
-            key={index}
-          >
-            <div className="bg-white rounded-xl shadow-md">
-              <img
-                className="w-full h-48 object-cover rounded-xl"
-                src={item.images}
-                alt={`Image ${index}`}
-              />
+        {visibleItems.map((item, index) => {
+          const id = item._id.toString();
+
+          return (
+            <div
+              className="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-2"
+              key={index}
+            >
+              <div className="bg-white rounded-xl shadow-md">
+                <Link to={`/detail?id=${id}`}>
+                  <img
+                    className="w-full h-48 object-cover rounded-xl"
+                    src={item.images}
+                    alt={`Image ${index}`}
+                  />
+                </Link>
+              </div>
+              <h2 className="text-white text-center">{item.productName}</h2>
             </div>
-            <h2 className="text-white text-center">{item.productName}</h2>
-          </div>
-        ))}
+          );
+        })}
       </div>
       <button
         onClick={handleNext}
