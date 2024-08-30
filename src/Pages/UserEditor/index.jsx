@@ -18,7 +18,9 @@ const EditProfileForm = () => {
   const { isAuthenticated, loading } = useAuth();
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState(null);
-  const [selectedAvatar, setSelectedAvatar] = useState("avatar1.jpg"); // Default avatar
+  const [selectedAvatar, setSelectedAvatar] = useState(
+    "https://avatarmotoapi.s3.us-east-2.amazonaws.com/avatar1.jpg"
+  ); // Avatar predeterminado
   const apiUrl = import.meta.env.VITE_APIBACK_URL;
 
   useEffect(() => {
@@ -27,7 +29,6 @@ const EditProfileForm = () => {
       .then((response) => {
         const data = response.data;
 
-        // Helper function to capitalize the first letter of a string
         const capitalizeFirstLetter = (string) =>
           string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 
@@ -35,13 +36,13 @@ const EditProfileForm = () => {
         setValue("nombre", capitalizeFirstLetter(data.nombre));
         setValue("apellido", capitalizeFirstLetter(data.apellido));
         setValue("nacionalidad", capitalizeFirstLetter(data.nacionalidad));
-        setValue("celular", data.celular); // Assuming phone numbers are not capitalized
-        setValue("cp", data.cp); // Assuming postal codes are not capitalized
+        setValue("celular", data.celular);
+        setValue("cp", data.cp);
         setValue("ciudad", capitalizeFirstLetter(data.ciudad));
         setValue("calle", capitalizeFirstLetter(data.calle));
         setValue("delegacion", capitalizeFirstLetter(data.delegacion));
         setValue("referencias", capitalizeFirstLetter(data.referencias));
-        setSelectedAvatar(data.avatar || "avatar1.jpg");
+        setSelectedAvatar(data.avatar || selectedAvatar);
       })
       .catch((error) => {
         console.error("Error al obtener los datos del perfil", error);
@@ -61,7 +62,7 @@ const EditProfileForm = () => {
         icon: "success",
         confirmButtonText: "OK",
         confirmButtonColor: "#0eff06",
-        background: "#201F1F", // Cambia el fondo de la alerta
+        background: "#201F1F",
         color: "#0eff06",
       });
       reset();
@@ -72,7 +73,7 @@ const EditProfileForm = () => {
         icon: "error",
         confirmButtonText: "OK",
         confirmButtonColor: "#E4080A",
-        background: "#201F1F", // Cambia el fondo de la alerta
+        background: "#201F1F",
         color: "#0eff06",
       });
     }
@@ -102,11 +103,7 @@ const EditProfileForm = () => {
             <div className="flex justify-center mb-4">
               <div className="w-32 h-32 bg-gray-700 rounded-full flex items-center justify-center">
                 <img
-                  src={
-                    profileData
-                      ? `/avatars/${selectedAvatar}`
-                      : "/avatars/default-avatar.jpg"
-                  }
+                  src={selectedAvatar}
                   alt="Avatar seleccionado"
                   className="w-full h-full rounded-full"
                 />
@@ -114,34 +111,49 @@ const EditProfileForm = () => {
             </div>
             <div className="flex justify-center mb-4">
               <img
-                src={`../../../public/avatars/avatar1.jpg`}
+                src="https://avatarmotoapi.s3.us-east-2.amazonaws.com/avatar1.jpg"
                 alt="Avatar 1"
                 className={`w-16 h-16 rounded-full mx-2 cursor-pointer ${
-                  selectedAvatar === "avatar1.jpg"
+                  selectedAvatar ===
+                  "https://avatarmotoapi.s3.us-east-2.amazonaws.com/avatar1.jpg"
                     ? "border-4 border-green-500"
                     : ""
                 }`}
-                onClick={() => handleAvatarSelect("avatar1.jpg")}
+                onClick={() =>
+                  handleAvatarSelect(
+                    "https://avatarmotoapi.s3.us-east-2.amazonaws.com/avatar1.jpg"
+                  )
+                }
               />
               <img
-                src={`../../../public/avatars/avatar2.jpg`}
+                src="https://avatarmotoapi.s3.us-east-2.amazonaws.com/avatar2.jpg"
                 alt="Avatar 2"
                 className={`w-16 h-16 rounded-full mx-2 cursor-pointer ${
-                  selectedAvatar === "avatar2.jpg"
+                  selectedAvatar ===
+                  "https://avatarmotoapi.s3.us-east-2.amazonaws.com/avatar2.jpg"
                     ? "border-4 border-green-500"
                     : ""
                 }`}
-                onClick={() => handleAvatarSelect("avatar2.jpg")}
+                onClick={() =>
+                  handleAvatarSelect(
+                    "https://avatarmotoapi.s3.us-east-2.amazonaws.com/avatar2.jpg"
+                  )
+                }
               />
               <img
-                src={`../../../public/avatars/avatar3.jpg`}
+                src="https://avatarmotoapi.s3.us-east-2.amazonaws.com/avatar3.jpg"
                 alt="Avatar 3"
                 className={`w-16 h-16 rounded-full mx-2 cursor-pointer ${
-                  selectedAvatar === "avatar3.jpg"
+                  selectedAvatar ===
+                  "https://avatarmotoapi.s3.us-east-2.amazonaws.com/avatar3.jpg"
                     ? "border-4 border-green-500"
                     : ""
                 }`}
-                onClick={() => handleAvatarSelect("avatar3.jpg")}
+                onClick={() =>
+                  handleAvatarSelect(
+                    "https://avatarmotoapi.s3.us-east-2.amazonaws.com/avatar3.jpg"
+                  )
+                }
               />
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -233,27 +245,24 @@ const EditProfileForm = () => {
                   className="bg-gray-800 text-white p-2 rounded-sm w-full focus:outline-none mx-1"
                 />
               </div>
+              {errors.delegacion && (
+                <p className="text-red-500">{errors.delegacion.message}</p>
+              )}
               {errors.ciudad && (
                 <p className="text-red-500">{errors.ciudad.message}</p>
               )}
               <div className="mb-4">
-                <input
-                  type="text"
-                  {...register("referencias", {
-                    required: "Las referencias son obligatorias",
-                  })}
+                <textarea
+                  {...register("referencias")}
                   placeholder={profileData?.referencias || "Referencias"}
                   className="bg-gray-800 text-white p-2 rounded-sm w-full focus:outline-none"
                 />
               </div>
-              {errors.referencias && (
-                <p className="text-red-500">{errors.referencias.message}</p>
-              )}
               <button
                 type="submit"
-                className="w-full bg-[#0eff06] text-black p-2 rounded-sm hover:bg-green-600 focus:outline-none"
+                className="w-full bg-gradient-to-r from-[#148710] to-black hover:from-black hover:to-[#148710] text-white py-2 px-4 rounded-sm focus:outline-none"
               >
-                Guardar
+                Actualizar perfil
               </button>
             </form>
           </div>

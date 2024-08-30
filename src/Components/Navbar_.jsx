@@ -7,7 +7,7 @@ import logo from "../../dist/assets/logo2.png";
 import axios from "axios";
 
 export const Navlink = () => {
-  const { isAuthenticated, user, logout, getprofile } = useAuth();
+  const { isAuthenticated, user, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const apiUrl = import.meta.env.VITE_APIBACK_URL;
   const [itemCount, setItemCount] = useState(0);
@@ -36,7 +36,7 @@ export const Navlink = () => {
       <li className="text-[#c2ff35] hover:text-white text-lg flex gap-3 items-start text-bold">
         {user.avatar && (
           <img
-            src={`/avatars/${user.avatar}`}
+            src={user.avatar}
             alt="User Avatar"
             className="w-9 h-9 rounded-full"
           />
