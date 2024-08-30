@@ -24,7 +24,11 @@ const ShoppingCart = () => {
 
   useEffect(() => {
     axios
-      .get(`${apiUrl}/api/auth/profile`, { withCredentials: true })
+      .get(`${apiUrl}/api/auth/profile`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then((response) => {
         setProfileData(response.data);
       })
@@ -36,7 +40,9 @@ const ShoppingCart = () => {
   const initialCartItems = async () => {
     try {
       const response = await axios.get(`${apiUrl}/api/pedido`, {
-        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
       const pedidos = response.data;
       const items = pedidos.flatMap((pedido) =>
@@ -68,7 +74,9 @@ const ShoppingCart = () => {
   const handleDelete = async (productoId, pedidoId) => {
     try {
       await axios.delete(`${apiUrl}/api/pedido/${pedidoId}`, {
-        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
       setCartItems(cartItems.filter((item) => item.id !== productoId));
     } catch (error) {

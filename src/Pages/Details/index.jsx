@@ -50,7 +50,9 @@ const ProductPage = () => {
           ],
         },
         {
-          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
       );
 
@@ -79,7 +81,9 @@ const ProductPage = () => {
         `${apiUrl}/api/products/${value}/questions`,
         data,
         {
-          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
       );
 
@@ -178,8 +182,7 @@ const ProductPage = () => {
               </p>
               <button className="border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06]">
                 <a
-                  href="../public/Manual_de_instalacion.pdf"
-                  download="Manual_de_instalacion.pdf"
+                  href="https://avatarmotoapi.s3.us-east-2.amazonaws.com/Manual_de_instalacion.pdf"
                   className="no-underline text-[#0eff06] hover:text-gray-800"
                 >
                   Manual Instalación

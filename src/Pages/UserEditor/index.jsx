@@ -25,7 +25,11 @@ const EditProfileForm = () => {
 
   useEffect(() => {
     axios
-      .get(`${apiUrl}/api/auth/profile`, { withCredentials: true })
+      .get(`${apiUrl}/api/auth/profile`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then((response) => {
         const data = response.data;
 
@@ -54,7 +58,11 @@ const EditProfileForm = () => {
       await axios.put(
         `${apiUrl}/api/auth/update`,
         { ...data, avatar: selectedAvatar },
-        { withCredentials: true }
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       Swal.fire({
         title: "Perfil actualizado",
