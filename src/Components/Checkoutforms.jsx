@@ -24,9 +24,9 @@ export default function CheckoutForm({ items }) {
           `${apiUrl}/api/create-payment-intent`,
           { items },
           {
-            withCredentials: true, // Envía cookies con la solicitud
             headers: {
-              "Content-Type": "application/json", // Configura el tipo de contenido
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
         );
