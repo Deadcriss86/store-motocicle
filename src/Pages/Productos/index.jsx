@@ -71,7 +71,6 @@ const Productos = () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          withCredentials: true,
         }
       );
 

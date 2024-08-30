@@ -30,7 +30,9 @@ const MisCompras = () => {
     const fetchCompras = async () => {
       try {
         const response = await axios.get(`${apiUrl}/api/order/find`, {
-          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         });
         const comprasData = response.data.order;
         setCompras(comprasData);
