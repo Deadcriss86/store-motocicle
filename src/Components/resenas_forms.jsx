@@ -17,9 +17,9 @@ export const Resenasforms = ({ id, closeModal }) => {
         data,
         {
           headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
           },
-          withCredentials: true,
         }
       );
       reset();

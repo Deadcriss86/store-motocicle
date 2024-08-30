@@ -50,7 +50,9 @@ const ProductPage = () => {
           ],
         },
         {
-          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
       );
 
@@ -79,7 +81,9 @@ const ProductPage = () => {
         `${apiUrl}/api/products/${value}/questions`,
         data,
         {
-          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
       );
 
