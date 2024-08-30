@@ -8,7 +8,7 @@ const DetalleModal = ({ isOpen, onClose, compra }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center border-bg-[#0eff06]">
-      <div className="bg-gray-800 text-white p-6 rounded-lg w-full max-w-md">
+      <div className="bg-black text-white p-6 rounded-lg w-full max-w-md">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl text-[#0eff06]">Detalles de envío</h2>
           <button
@@ -20,14 +20,14 @@ const DetalleModal = ({ isOpen, onClose, compra }) => {
         </div>
         <div className="mb-4 border-2 p-2 rounded-md border-[#0eff06]">
           <div className="flex flex-grow space-x-2">
-            <RiTruckLine size="1.5rem" className="text-[#0eff06] text-xl" />
+            <RiTruckLine size="2rem" className="text-[#0eff06] text-xl" />
             <h3 className="text-lg mb-2">Datos de envio</h3>
           </div>
 
           {compra.numero_guia ? (
             <>
               <p className="text-lg">{compra.paqueteria}</p>
-              <p>Número de guía: {compra.numero_guia}</p>
+              <p className="">Número de guía: {compra.numero_guia}</p>
               <p className="text-gray-400">
                 Fecha de envío:{" "}
                 {new Date(compra.fecha_de_envio).toLocaleDateString()}

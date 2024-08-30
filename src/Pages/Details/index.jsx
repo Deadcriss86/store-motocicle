@@ -139,11 +139,11 @@ const ProductPage = () => {
       <main className="p-4">
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col lg:flex-row lg:space-x-8 bg-gray-800 p-4 rounded-lg">
-            <div className="lg:w-1/3 bg-gray-400">
+            <div className="rounded-lg lg:w-1/3 bg-white">
               <img
                 src={product?.images || "https://via.placeholder.com/400"}
                 alt="Producto"
-                className="w-full rounded-lg"
+                className=""
               />
             </div>
             <div className="lg:w-1/2">
@@ -242,15 +242,17 @@ const ProductPage = () => {
               <summary className="px-4 py-2 bg-[#0eff06] text-gray-900 font-bold rounded-xl">
                 Información del envío
               </summary>
-              <ul className="text-gray-300 text-justify m-6">
+              <ul className="text-gray-300 text-justify m-4">
                 - OPCIONES DE ENVIO:
                 <br />
                 La tarifa dentro de la CDMX es de $210.00, la tarifa al exterior
                 de la republica $510.00.
                 <br />
-                - TIEMPOS DE ENTREGA ESTIMADOS: <br />
-                Dentro de la CDMX tenemos un tiempo de entrega de 2 a 3 dias
-                habiles, al exterior de 4 a 5 dias habiles.
+                <br />
+                <p>- TIEMPOS DE ENTREGA ESTIMADOS:</p> Dentro de la CDMX tenemos
+                un tiempo de entrega de 2 a 3 dias habiles, al exterior de 4 a 5
+                dias habiles.
+                <br />
                 <br /> - SEGUIMIENTO DE ENVIOS: <br />
                 Se podran consultar en MIS COMPRAS dentro de la pagina web con
                 el numero de guia.

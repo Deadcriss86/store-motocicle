@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import CartItem from "../../Components/Cart_item";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import "./styles_cart.css";
 import { Navlink } from "../../Components/Navbar_";
 import { Footer } from "../../Components/footer";
 import { Link } from "react-router-dom";
@@ -9,6 +8,7 @@ import axios from "axios";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "../../Components/Checkoutforms";
+import { BiCool } from "react-icons/bi";
 
 const stripePromise = loadStripe(
   "pk_test_51PoIHhRvRsZDGGXQtFoKdaPS4R5wx1JPv6LBB4sxo2VeNNgmGMVxHftnGvFbsCTQzhBxumNoAej9ysuid53PFomE00JEY4rQYf"
@@ -107,14 +107,12 @@ const ShoppingCart = () => {
   const totalFinal = totalPriceProducts + shippingCost;
 
   return (
-    <div className="main flex flex-col bg-black min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gradient-to-t from-black to-[#0f680c]">
       <Navlink />
       <br />
-      <br />
-      <br />
-      <br />
-      <div className="flex-grow bg-gradient-to-t from-black via-[#0faf09] p-4 sm:p-12 flex flex-col items-center">
-        <h1 className="text-center text-3xl text-[#0eff06] mb-8">
+
+      <div className="flex-grow sm:p-12 flex flex-col items-center">
+        <h1 className="text-center text-[#0eff06] text-3xl font-bold mb-4">
           Carrito de compras
         </h1>
         <div className="bg-[#00000060] rounded-xl p-4 sm:p-12 w-full sm:w-11/12">
@@ -145,8 +143,25 @@ const ShoppingCart = () => {
                     ))}
                   </TransitionGroup>
                 ) : (
-                  <p className="text-white text-center">
-                    Todavía no has añadido productos a tu carrito :(
+                  <p className="text-white text-center flex justify-center p-2">
+                    Todavía no has añadido productos a tu carrito{" "}
+                    <svg
+                      className="h-8 w-8 text-red-500 ml-4"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      strokeWidth="2"
+                      stroke="currentColor"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path stroke="none" d="M0 0h24v24H0z" />
+                      <circle cx="12" cy="12" r="9" />
+                      <line x1="9" y1="10" x2="9.01" y2="10" />
+                      <line x1="15" y1="10" x2="15.01" y2="10" />
+                      <path d="M9.5 16a10 10 0 0 1 6 -1.5" />
+                    </svg>
                   </p>
                 )}
               </div>
@@ -220,7 +235,8 @@ const ShoppingCart = () => {
                       <>
                         <p className="text-white">
                           Antes de continuar, por favor completa tu perfil con
-                          tus datos de envío :)
+                          tus datos de envío{" "}
+                          <BiCool className="text-[#0EFF06]" />
                         </p>
                         <Link
                           to="/editoruser"
