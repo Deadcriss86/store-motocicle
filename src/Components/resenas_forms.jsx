@@ -34,6 +34,10 @@ export const Resenasforms = ({ id, closeModal }) => {
     } catch (error) {
       closeModal();
       reset();
+      console.log(
+        "Error del servidor:",
+        error.response?.data?.message || "Ocurrió un error inesperado"
+      );
       swal({
         title: "Parece que no has comprado este articulo todavía",
         icon: "error",
