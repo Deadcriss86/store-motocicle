@@ -1,4 +1,3 @@
-import React from "react";
 import imgfondo from "../../../dist/assets/img_fondo.png";
 import logo from "../../../dist/assets/logo2.png";
 
