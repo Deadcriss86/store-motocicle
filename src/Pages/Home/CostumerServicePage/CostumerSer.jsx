@@ -6,7 +6,7 @@ import imgFondo from "../../../../dist/assets/fondo_service.png";
 function CostumerSer() {
   return (
     <>
-      <div className="min-h-screen flex flex-col bg-black bg-[radial-gradient(circle,_rgba(14,255,6,1)_1%,_transparent_40%,_black_100%)] bg-cover bg-center bg-no-repeat">
+      <div className="min-h-screen flex flex-col bg-black bg-gradient-to-t from-black to-[#0f630c]">
         <Navlink />
         <br />
         <div className="flex flex-1 flex-col md:flex-row p-4 md:p-8 lg:p-16 xl:p-24 gap-4">

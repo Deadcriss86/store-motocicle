@@ -34,7 +34,7 @@ const CartItem = ({
   return (
     <div className="p-4 flex flex-col lg:flex-row lg:justify-between lg:items-center bg-[#1f1f1f] text-lg mb-3 rounded-lg max-w-4xl mx-auto space-y-4 lg:space-y-0 lg:space-x-4">
       <div className="flex flex-col lg:flex-row items-center w-full lg:w-auto space-y-4 lg:space-y-0 lg:space-x-4">
-        <div className="w-full lg:w-24 h-24 flex justify-center items-center">
+        <div className="w-full lg:w-24 h-24 flex justify-center items-center bg-white p-2 rounded-lg">
           <img
             src={image}
             alt="Product"
