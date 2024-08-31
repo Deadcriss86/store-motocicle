@@ -70,8 +70,6 @@ const EditProfileForm = () => {
         icon: "success",
         confirmButtonText: "OK",
         confirmButtonColor: "#0eff06",
-        background: "#201F1F",
-        color: "#0eff06",
       });
       reset();
     } catch (error) {
@@ -81,8 +79,6 @@ const EditProfileForm = () => {
         icon: "error",
         confirmButtonText: "OK",
         confirmButtonColor: "#E4080A",
-        background: "#201F1F",
-        color: "#0eff06",
       });
     }
   };

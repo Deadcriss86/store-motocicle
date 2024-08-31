@@ -86,7 +86,7 @@ const MisCompras = () => {
           Mis compras
         </h1>
         <div className="bg-gray-900 bg-opacity-50 rounded-lg p-8 w-full max-w-6xl mx-4 sm:mx-8 lg:mx-auto my-6">
-          <div className="w-full flex justify-center">
+          <div className="w-full flex flex-col">
             {error ? (
               <p className="text-white text-center flex justify-center p-2">
                 Todavía no tienes compras{" "}
