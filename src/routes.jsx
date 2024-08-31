@@ -12,9 +12,6 @@ export const ProtectedRoute = () => {
 export const AdminRoute = () => {
   const { user, loading } = useAuth();
 
-  console.log("User:", user);
-  console.log("Is Admin:", user?.isAdmin);
-
   if (loading) return <h1>Loading...</h1>; // Mientras se carga la autenticación
   if (!user) return <Navigate to="/login" replace />; // Si no hay usuario, redirige a /login
   if (!localStorage.getItem("isAdmin"))
