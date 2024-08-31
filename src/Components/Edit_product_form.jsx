@@ -11,6 +11,9 @@ const EditProductForm = ({ product, closeModal }) => {
   const handleFormSubmit = async (data) => {
     setLoading(true);
     try {
+      // Log de los datos que se van a enviar
+      console.log("Datos enviados:", data);
+
       // Enviar los datos actualizados
       await axios.put(`${apiUrl}/api/products/${product.id}`, data, {
         headers: { "Content-Type": "application/json" },
@@ -25,7 +28,7 @@ const EditProductForm = ({ product, closeModal }) => {
 
       // Recargar la página después de un breve retraso
       setTimeout(() => {
-        window.location.reload();
+        // window.location.reload();
       }, 2000);
     } catch (error) {
       console.error("Error updating product:", error);
@@ -56,9 +59,9 @@ const EditProductForm = ({ product, closeModal }) => {
           <input
             className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none"
             type="text"
-            id="name"
-            {...register("name", { required: true })}
-            defaultValue={product.name} // Usar defaultValue
+            id="productName"
+            {...register("productName", { required: true })}
+            defaultValue={product.productName} // Usar defaultValue
           />
         </div>
         <br />
