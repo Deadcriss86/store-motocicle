@@ -178,7 +178,7 @@ const Productos = () => {
             <Admin_products
               key={product._id}
               id={product._id}
-              name={product.productName}
+              productName={product.productName}
               price={product.price}
               stock={product.stock}
               description={product.description}

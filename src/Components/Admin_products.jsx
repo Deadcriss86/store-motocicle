@@ -5,7 +5,7 @@ import axios from "axios";
 
 const Admin_products = ({
   id,
-  name,
+  productName,
   price,
   stock,
   description,
@@ -18,11 +18,10 @@ const Admin_products = ({
   const [products, setProducts] = useState([]);
   const apiUrl = import.meta.env.VITE_APIBACK_URL;
 
-
   const handleEdit = () => {
     setEditingProduct({
       id,
-      name,
+      productName,
       price,
       stock,
       description,
@@ -98,7 +97,9 @@ const Admin_products = ({
                   </div>
                 </div>
                 <div>
-                  <div className="font-bold">{truncateText(name, 20)}</div>
+                  <div className="font-bold">
+                    {truncateText(productName, 20)}
+                  </div>
                   <div className="text-gray-500">Precio: ${price}</div>
                   <div className="text-sm text-gray-400">ID: {id}</div>
                 </div>
