@@ -96,13 +96,20 @@ const EditProfileForm = () => {
   }
 
   return (
-    <div>
+    <div className="bg-gradient-to-t from-black to-[#148710]">
       <Navlink />
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-t from-black to-[#148710] p-10">
-        <div className="bg-gray-500 bg-opacity-20 rounded-lg p-8">
+      <br />
+      <br />
+      <br />
+      <br />{" "}
+      <h1 className="text-4xl font-bold text-center text-[#0eff06] py-2">
+        Editar perfil
+      </h1>
+      <div className="min-h-screen flex items-center justify-center p-4">
+        <div className="bg-gray-900 bg-opacity-50 rounded-lg p-6">
           <div className="bg-black bg-opacity-75 rounded-lg p-6 w-full max-w-md">
-            <h2 className="text-center text-[#0eff06] text-xl font-bold mb-4">
-              Editar perfil
+            <h2 className="text-center text-[#0eff06] text-xl mb-4">
+              Selecciona tu avatar
             </h2>
             <div className="flex justify-center mb-4">
               <div className="w-32 h-32 bg-gray-700 rounded-full flex items-center justify-center">

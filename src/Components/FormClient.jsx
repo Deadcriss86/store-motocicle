@@ -107,7 +107,7 @@ const FormService = () => {
   };
 
   return (
-    <div className="bg-gray-500 bg-opacity-20 rounded-lg p-8">
+    <div className="bg-gray-900 bg-opacity-50 rounded-lg p-8">
       <div className="bg-black bg-opacity-75 rounded-lg p-6 w-full max-w-md">
         <form
           ref={refForm}

@@ -119,7 +119,7 @@ export default function CheckoutForm({ items }) {
   };
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
+    <form id="payment-form" onSubmit={handleSubmit} className="">
       {clientSecret && (
         <>
           <PaymentElement
@@ -128,7 +128,7 @@ export default function CheckoutForm({ items }) {
           />
           <button
             disabled={isLoading || !stripe || !elements}
-            className="mt-3 text-black bg-[#0EFF06] rounded-lg font-medium p-2"
+            className="bg-[#0eff06] text-black w-full font-bold py-2 rounded-xl mb-4 hover:text-white hover:bg-gradient-to-r from-orange-300 to-[#0eff06] mt-6"
             id="submit"
           >
             <span id="button-text">

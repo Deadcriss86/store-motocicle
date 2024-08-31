@@ -142,7 +142,7 @@ const ProductPage = () => {
       <br />
       <main className="p-4">
         <div className="max-w-5xl mx-auto">
-          <div className="flex flex-col lg:flex-row lg:space-x-8 bg-gray-800 p-4 rounded-lg">
+          <div className="flex flex-col lg:flex-row lg:space-x-8 bg-gray-800 bg-opacity-50 p-4 rounded-lg">
             <div className="rounded-lg lg:w-1/3 bg-white">
               <img
                 src={product?.images || "https://via.placeholder.com/400"}
@@ -167,7 +167,7 @@ const ProductPage = () => {
               </p>
               <button
                 onClick={onclickcarrito}
-                className="bg-[#0eff06] text-black font-bold py-2 px-4 rounded-full mb-4 hover:text-white hover:bg-gradient-to-r from-orange-300 to-[#0eff06]"
+                className="bg-[#0eff06] text-black font-bold px-4 py-2 rounded-xl mb-4 hover:text-white hover:bg-gradient-to-r from-orange-300 to-[#0eff06]"
               >
                 Agregar al carrito
               </button>
@@ -183,7 +183,7 @@ const ProductPage = () => {
               <button className="border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06]">
                 <a
                   href="https://avatarmotoapi.s3.us-east-2.amazonaws.com/Manual_de_instalacion.pdf"
-                  className="no-underline text-[#0eff06] hover:text-gray-800"
+                  className=" text-[#0eff06] hover:text-gray-800"
                 >
                   Manual Instalación
                 </a>
@@ -191,7 +191,7 @@ const ProductPage = () => {
             </div>
           </div>
 
-          <div className="bg-gray-800 p-4 mt-8 rounded-lg">
+          <div className="bg-gray-800 bg-opacity-50 p-4 mt-8 rounded-lg">
             <details className="tabs mb-4">
               <summary className="px-4 py-2 bg-[#0eff06] text-gray-900 font-bold rounded-xl">
                 Descripción
@@ -266,7 +266,7 @@ const ProductPage = () => {
           <div className="flex justify-center m-8 ">
             <Link
               to="/Menu"
-              className="border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06] mx-8"
+              className="border-2 text-center border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06] mx-8"
             >
               Regresar al menu
             </Link>{" "}
@@ -292,7 +292,7 @@ const ProductPage = () => {
             </div>
           </dialog>
 
-          <div className="bg-gray-800 p-4 mt-8 rounded-lg">
+          <div className="bg-gray-800 bg-opacity-50 p-4 mt-8 rounded-lg">
             <h2 className="text-xl mb-4">Hacer una pregunta</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="flex space-x-2">
               <input

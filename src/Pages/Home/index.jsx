@@ -79,13 +79,13 @@ function Home() {
           </div>
         </div>{" "}
         <div className="sticky top-0 h-screen flex flex-col items-center justify-center bg-black">
-          <div className="text-[#0eff06] text-3xl font-bold flex justify-center py-4">
+          <div className="text-[#0eff06] text-3xl font-bold flex justify-center py-4 text-center">
             Alguno de nuestros productos
           </div>
           <Carousel />
         </div>
         <div className="sticky top-0 h-screen flex flex-col items-center justify-center bg-black">
-          <h2 className="text-white text-3xl font-bold flex justify-center py-10">
+          <h2 className="text-white text-3xl font-bold flex justify-center py-8 text-center">
             Comentarios de nuestros clientes
           </h2>
           <Card_coment />

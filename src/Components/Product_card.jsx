@@ -33,7 +33,7 @@ export const ProductCard = (product) => {
         {/* Botón Ver más */}
         <button
           onClick={handleViewMore}
-          className="w-full bg-gray-900 hover:bg-[#0eff06] text-white hover:text-black py-2 rounded-lg"
+          className="bg-[#0eff06] text-black font-bold px-4 py-2 rounded-xl w-full mb-4 hover:text-white hover:bg-gradient-to-r from-orange-300 to-[#0eff06]"
         >
           Ver más
         </button>
