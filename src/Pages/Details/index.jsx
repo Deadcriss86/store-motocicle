@@ -68,7 +68,7 @@ const ProductPage = () => {
         title: "Inicia sesión o crea una cuenta para continuar",
         icon: "error",
         confirmButtonText: "OK",
-        confirmButtonColor: "#0eff06",
+        confirmButtonColor: "#E4080A",
       });
     }
   };
