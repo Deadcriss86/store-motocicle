@@ -100,8 +100,8 @@ const CardDelivery = ({
 
   return (
     <div className="p-4 text-white rounded-lg shadow-lg space-y-4 mx-auto max-w-lg lg:max-w-full lg:flex lg:items-start lg:justify-center">
-      <table className="table w-full bg-[#3F3F3F] rounded-lg shadow-lg overflow-hidden">
-        <thead className="bg-gray-700 text-gray-300 text-sm">
+      <table className="table w-full bg-[#01010138] rounded-lg shadow-lg overflow-hidden">
+        <thead className="bg-gray-900 opacity-75 text-white text-sm">
           <tr>
             <th className="p-2"></th>
             <th className="p-2 text-left">Pedido No.</th>
@@ -110,7 +110,9 @@ const CardDelivery = ({
             <th className="p-2 text-left hidden lg:table-cell">Monto Total</th>
             <th className="p-2 text-left hidden lg:table-cell">No. de guía</th>
             <th className="p-2 text-left hidden lg:table-cell">Paquetería</th>
-            <th className="p-2 text-left hidden lg:table-cell">Fecha de envío</th>
+            <th className="p-2 text-left hidden lg:table-cell">
+              Fecha de envío
+            </th>
             <th className="p-2 text-center">Acciones</th>
           </tr>
         </thead>
@@ -125,7 +127,9 @@ const CardDelivery = ({
             <td className="p-2 hidden lg:table-cell">${priceDelivery}</td>
             <td className="p-2 hidden lg:table-cell">{descriptionGuide}</td>
             <td className="p-2 hidden lg:table-cell">{parcelService}</td>
-            <td className="p-2 hidden lg:table-cell">{formatDate(shippingDate)}</td>
+            <td className="p-2 hidden lg:table-cell">
+              {formatDate(shippingDate)}
+            </td>
             <td className="p-2 flex justify-center lg:justify-end space-x-2 lg:space-x-4">
               <button
                 className="editButton bg-transparent hover:bg-[#0FFF07] text-gray-300 hover:text-black transition-colors duration-300 px-4 py-2 rounded-lg"
@@ -148,12 +152,24 @@ const CardDelivery = ({
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-[#1f1f1f] p-6 rounded-lg shadow-lg w-11/12 max-w-md">
             <h2 className="text-xl font-semibold mb-4">Detalles del Pedido</h2>
-            <p><strong>Nombre:</strong> {nameClient}</p>
-            <p><strong>Producto:</strong> {truncateText(productName, 20)}</p>
-            <p><strong>Monto Total:</strong> ${priceDelivery}</p>
-            <p><strong>No. de guía:</strong> {descriptionGuide}</p>
-            <p><strong>Paquetería:</strong> {parcelService}</p>
-            <p><strong>Fecha de envío:</strong> {formatDate(shippingDate)}</p>
+            <p>
+              <strong>Nombre:</strong> {nameClient}
+            </p>
+            <p>
+              <strong>Producto:</strong> {truncateText(productName, 20)}
+            </p>
+            <p>
+              <strong>Monto Total:</strong> ${priceDelivery}
+            </p>
+            <p>
+              <strong>No. de guía:</strong> {descriptionGuide}
+            </p>
+            <p>
+              <strong>Paquetería:</strong> {parcelService}
+            </p>
+            <p>
+              <strong>Fecha de envío:</strong> {formatDate(shippingDate)}
+            </p>
             <div className="flex justify-end mt-4">
               <button
                 type="button"
