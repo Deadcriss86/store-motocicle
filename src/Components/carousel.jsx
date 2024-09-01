@@ -82,7 +82,9 @@ const Carousel = () => {
                   />
                 </Link>
               </div>
-              <h2 className="text-white text-center">{item.productName}</h2>
+              <h2 className="text-[#0eff06] text-center py-4">
+                {item.productName}
+              </h2>
             </div>
           );
         })}

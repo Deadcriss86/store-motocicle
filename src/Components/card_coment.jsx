@@ -117,7 +117,7 @@ export const Card_coment = ({ productId }) => {
                     <div className="card-actions justify-end">
                       <button
                         onClick={() => handleViewMore(review._id)}
-                        className="nav-button hover:drop-shadow-lg flex w-full items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-5 py-2 md:px-7 md:py-2.5 text-sm md:text-base font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
+                        className=" hover:drop-shadow-lg flex w-full items-center justify-center rounded-full border border-[#0eff06e9] bg-[#0eff06] bg-gradient-to-tr from-[#0eff06] to-[#78c048]/70 px-5 py-2 md:px-7 md:py-2.5 text-sm md:text-base font-bold text-slate-800 ring-lime-600 ring-offset-2 ring-offset-slate-700 drop-shadow-[0px_1px_2px_rgb(0,0,0,0.3)] active:ring-1"
                       >
                         Ver Producto
                         <svg

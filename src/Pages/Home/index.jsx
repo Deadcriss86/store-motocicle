@@ -67,7 +67,7 @@ function Home() {
               Quiénes somos
             </h2>
             <div className="border-b-2 border-[#0eff06] p-2 text-lg sm:text-xl md:text-2xl">
-              <p>
+              <p className="">
                 Somos una empresa dedicada a la fabricación de accesorios y
                 defensas para cualquier tipo de motocicleta. Nuestro principal
                 objetivo es que nuestros clientes se sientan satisfechos con la
@@ -79,13 +79,13 @@ function Home() {
           </div>
         </div>{" "}
         <div className="sticky top-0 h-screen flex flex-col items-center justify-center bg-black">
-          <div className="text-[#0eff06] text-3xl font-bold flex justify-center py-4">
+          <div className="text-[#0eff06] text-3xl font-bold flex justify-center py-4 text-center">
             Alguno de nuestros productos
           </div>
           <Carousel />
         </div>
         <div className="sticky top-0 h-screen flex flex-col items-center justify-center bg-black">
-          <h2 className="text-white text-3xl font-bold flex justify-center py-10">
+          <h2 className="text-white text-3xl font-bold flex justify-center py-8 text-center">
             Comentarios de nuestros clientes
           </h2>
           <Card_coment />

@@ -76,32 +76,58 @@ const MisCompras = () => {
 
   return (
     <div>
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-t from-black to-[#148710]">
+      <div className="min-h-screen flex flex-col bg-gradient-to-t from-black to-[#148710]">
         <Navlink />
-        <div className="bg-gray-900 bg-opacity-50 rounded-lg p-8 w-full max-w-6xl mx-4 sm:mx-8 lg:mx-auto my-10">
-          <h1 className="text-start text-3xl text-white mb-8">Mis compras</h1>
-          <div className="w-full">
+        <br />
+        <br />
+        <br />
+        <br />{" "}
+        <h1 className="text-4xl font-bold text-center text-[#0eff06] py-2 mb-2">
+          Mis compras
+        </h1>
+        <div className="bg-gray-900 bg-opacity-50 rounded-lg p-8 w-full max-w-6xl mx-4 sm:mx-8 lg:mx-auto my-6">
+          <div className="w-full flex flex-col">
             {error ? (
-              <p className="text-center text-xl text-white">
-                Todavía no tienes compras :(
+              <p className="text-white text-center flex justify-center p-2">
+                Todavía no tienes compras{" "}
+                <svg
+                  className="h-8 w-8 text-red-500 ml-4"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2"
+                  stroke="currentColor"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" />
+                  <circle cx="12" cy="12" r="9" />
+                  <line x1="9" y1="10" x2="9.01" y2="10" />
+                  <line x1="15" y1="10" x2="15.01" y2="10" />
+                  <path d="M9.5 16a10 10 0 0 1 6 -1.5" />
+                </svg>
               </p>
             ) : (
               compras &&
               compras.map((compra, index) => (
                 <div
                   key={index}
-                  className="bg-gray-800 mb-4 p-4 rounded-lg flex flex-col"
+                  className="bg-gray-900 bg-opacity-50 mb-4 p-4 rounded-lg flex flex-col"
                 >
                   <div className="flex w-full justify-between items-center text-white mb-6">
                     <div className="flex justify-between items-center">
                       <div className="flex justify-between items-center">
-                        <IoBagHandleOutline size={35} />
+                        <IoBagHandleOutline
+                          size={35}
+                          className="text-[#0eff06]"
+                        />
                         <p className="ml-2">#{compra.orderId}</p>
                       </div>
                       <p className="ml-8">{formatDate(compra.createdAt)}</p>
                     </div>
                     <div className="flex items-center justify-between">
-                      <IoLocationSharp size={35} />
+                      <IoLocationSharp size={35} className="text-[#0eff06]" />
                       <p className="ml-3">
                         {userdata
                           ? `${userdata.estado}, ${userdata.municipio}`
@@ -112,12 +138,13 @@ const MisCompras = () => {
                   {compra.items.map((item, itemIndex) => (
                     <div
                       key={itemIndex}
-                      className="bg-[#2C3A4E] w-full flex rounded-lg mb-3 text-white"
+                      className="bg-[#1f1f1f] w-full flex rounded-lg mb-3 text-white"
                     >
-                      <div className="w-28 rounded-lg bg-[#A4A7AA]">
+                      <div className="w-28 rounded-lg bg-gray-100">
                         <img
                           src={imageUrls[item.itemId]}
                           alt={item.product_name}
+                          className="object-contain w-28 h-50"
                         />
                       </div>
                       <div className="flex flex-col justify-center ml-3">
@@ -125,17 +152,27 @@ const MisCompras = () => {
                           {item.product_name}
                         </p>
                         <p className="font-semibold text-lg">
-                          ${item.amount}{" "}
+                          $
+                          {item.amount?.toLocaleString(undefined, {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}{" "}
                           <span className="font-light">x{item.cantidad}</span>
                         </p>
                       </div>
                     </div>
                   ))}
                   <div className="text-white flex justify-between items-center">
-                    <p className="text-lg font-bold">Total: ${compra.total}</p>
+                    <p className="text-lg font-bold text-[#0eff06]">
+                      Total: $
+                      {compra.total?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </p>
                     <button
                       onClick={() => handleVerDetalle(compra)}
-                      className="px-4 py-2 bg-[#0eff06] text-gray-900 rounded-lg hover:bg-green-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-green-600"
+                      className="bg-[#0eff06] text-black font-bold px-4 py-2 rounded-xl mb-4 hover:text-white hover:bg-gradient-to-r from-[#06ff6e] to-[#0eff06]"
                     >
                       Ver detalle
                     </button>

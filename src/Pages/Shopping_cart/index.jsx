@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import CartItem from "../../Components/Cart_item";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import "./styles_cart.css";
 import { Navlink } from "../../Components/Navbar_";
 import { Footer } from "../../Components/footer";
 import { Link } from "react-router-dom";
@@ -9,6 +8,7 @@ import axios from "axios";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "../../Components/Checkoutforms";
+import { BiCool } from "react-icons/bi";
 
 const stripePromise = loadStripe(
   "pk_test_51PoIHhRvRsZDGGXQtFoKdaPS4R5wx1JPv6LBB4sxo2VeNNgmGMVxHftnGvFbsCTQzhBxumNoAej9ysuid53PFomE00JEY4rQYf"
@@ -115,14 +115,12 @@ const ShoppingCart = () => {
   const totalFinal = totalPriceProducts + shippingCost;
 
   return (
-    <div className="main flex flex-col bg-black min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gradient-to-t from-black to-[#0f680c]">
       <Navlink />
       <br />
       <br />
-      <br />
-      <br />
-      <div className="flex-grow bg-gradient-to-t from-black via-[#0faf09] p-4 sm:p-12 flex flex-col items-center">
-        <h1 className="text-center text-3xl text-[#0eff06] mb-8">
+      <div className="flex-grow sm:p-12 flex flex-col items-center">
+        <h1 className="text-center text-[#0eff06] text-3xl font-bold mb-4">
           Carrito de compras
         </h1>
         <div className="bg-[#00000060] rounded-xl p-4 sm:p-12 w-full sm:w-11/12">
@@ -153,56 +151,100 @@ const ShoppingCart = () => {
                     ))}
                   </TransitionGroup>
                 ) : (
-                  <p className="text-white text-center">
-                    Todavía no has añadido productos a tu carrito :(
+                  <p className="text-white text-center flex justify-center p-2">
+                    Todavía no has añadido productos a tu carrito{" "}
+                    <svg
+                      className="h-8 w-8 text-red-500 ml-4"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      strokeWidth="2"
+                      stroke="currentColor"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path stroke="none" d="M0 0h24v24H0z" />
+                      <circle cx="12" cy="12" r="9" />
+                      <line x1="9" y1="10" x2="9.01" y2="10" />
+                      <line x1="15" y1="10" x2="15.01" y2="10" />
+                      <path d="M9.5 16a10 10 0 0 1 6 -1.5" />
+                    </svg>
                   </p>
                 )}
               </div>
 
               <div className="price_container w-full sm:w-2/5 p-4">
-                <div className="price border-4 rounded-lg p-4 mt-2 border-[#0EFF06]">
-                  <h2 className="text-white mb-4 text-2xl sm:text-3xl">
+                <div className="price border-2 rounded-lg p-4 mt-2 border-[#0EFF06]">
+                  <h2 className="text-[#0EFF06] mb-4 text-2xl sm:text-3xl">
                     Envío
                   </h2>
-                  <div className="adrees_container mb-4 text-lg sm:text-xl font-thin italic">
+                  <div className="adrees_container mb-4 text-lg sm:text-xl font-thin">
                     {profileData && profileData.ciudad ? (
                       <>
                         <h2 className="text-white mb-2">
-                          Ciudad: {profileData.ciudad}
+                          Ciudad:{" "}
+                          <span className="text-white">
+                            {profileData.ciudad}
+                          </span>
                         </h2>
                         <h2 className="text-white mb-2">
-                          Calle: {profileData.calle}
+                          Calle:{" "}
+                          <span className="text-white">
+                            {profileData.calle}
+                          </span>
                         </h2>
                         <h2 className="text-white mb-2">
-                          Estado: {profileData.delegacion}
+                          Estado:{" "}
+                          <span className="text-white">
+                            {profileData.delegacion}
+                          </span>
                         </h2>
                         <h2 className="text-white mb-2">
-                          Código postal: {profileData.cp}
+                          Código postal:
+                          <span className="text-white"> {profileData.cp}</span>
                         </h2>
                         <h2 className="text-white mb-2">
-                          Referencia: {profileData.referencias}
+                          Referencia:{" "}
+                          <span className="text-white">
+                            {profileData.referencias}
+                          </span>
                         </h2>
                         <div className="total_container text-xl sm:text-2xl flex flex-col">
                           <p className="text-white mb-2">
                             Productos{" "}
-                            <span className="total_productos">
-                              ${totalPriceProducts}
+                            <span className="total_productos text-white">
+                              $
+                              {totalPriceProducts.toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              })}
                             </span>
                           </p>
                           <p className="text-white mb-2">
                             Envío{" "}
-                            <span className="total_shipping">
-                              ${shippingCost}
+                            <span className="total_shipping text-white">
+                              $
+                              {shippingCost.toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              })}
                             </span>
                           </p>
-                          <p className="text-[#0EFF06] mb-2 text-center">
-                            Total{" "}
-                            <span className="total_final">${totalFinal}</span>
+                          <p className="text-white mb-2 text-center p-4">
+                            Total pedido{" "}
+                            <span className="text-[#0EFF06] font-bold">
+                              $
+                              {totalFinal.toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              })}
+                            </span>
                           </p>
                           <div className="button_container">
                             {!showPayment ? (
                               <button
-                                className="p-2 bg-[#0EFF06] rounded-lg w-full text-black mt-6"
+                                className="bg-[#0eff06] w-full text-black font-bold px-4 py-2 rounded-xl mb-4 hover:text-white hover:bg-gradient-to-r from-[#06ff6e] to-[#0eff06]"
                                 onClick={handleCheckout}
                                 disabled={totalFinal <= 300}
                               >
@@ -228,7 +270,8 @@ const ShoppingCart = () => {
                       <>
                         <p className="text-white">
                           Antes de continuar, por favor completa tu perfil con
-                          tus datos de envío :)
+                          tus datos de envío{" "}
+                          <BiCool className="text-[#0EFF06]" />
                         </p>
                         <Link
                           to="/editoruser"

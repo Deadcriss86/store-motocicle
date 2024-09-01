@@ -8,5 +8,10 @@ export default defineConfig({
     outDir: 'dist', 
     rollupOptions: {
     }
-  }
+  },
+  resolve: {
+    alias: {
+      '@assets': '../../../dist/assets',
+    },
+  },
 })

@@ -173,7 +173,7 @@ const Productos = () => {
           </dialog>
         </div>
 
-        <div className="container bg-[#202020] p-4 rounded-lg border-2 border-[#0EFF06] w-full">
+        <div className="container bg-[#202020] p-4 rounded-lg border-2 border-[#0EFF06] w-full ">
           {filteredProducts.map((product) => (
             <Admin_products
               key={product._id}

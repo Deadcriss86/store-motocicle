@@ -80,9 +80,23 @@ const Login = () => {
           <div className="flex items-center justify-center mt-4">
             <button
               type="submit"
-              className="bg-transparent hover:bg-[#0FFF07] hover:text-black transition-colors duration-300 border-2 border-white text-white font-bold py-2 px-4 rounded-full w-full"
+              className="group inline-flex min-w-0 items-center gap-2 rounded-lg bg-[#0eff06] px-6 py-3 text-sm font-semibold text-black transition-all hover:shadow-lg hover:shadow-[#0eff06]-500/60 active:scale-95 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             >
               Iniciar sesión
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-4 w-0 transition-all group-hover:w-4"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                />
+              </svg>
             </button>
           </div>
         </form>

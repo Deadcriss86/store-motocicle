@@ -47,7 +47,7 @@ export const Resenasforms = ({ id, closeModal }) => {
   };
 
   return (
-    <div className="border-2 border-[#0EFF06] rounded-lg p-3 bg-gray-800 text-lg max-w-lg mx-auto">
+    <div className=" rounded-lg p-3 bg-black opacity-75 text-lg max-w-lg mx-auto">
       <h2 className="text-xl text-center md:text-2xl">Nueva Reseña</h2>
       <form className="mt-2" onSubmit={handleSubmit(onSubmit)}>
         <div>
@@ -111,7 +111,7 @@ export const Resenasforms = ({ id, closeModal }) => {
         <br />
 
         <button
-          className="w-full bg-[#0EFF06] rounded-lg p-2 text-black font-bold text-xl hover:bg-white transition duration-300"
+          className="bg-[#0eff06] w-full text-black font-bold px-4 py-2 rounded-xl mb-4 hover:text-white hover:bg-gradient-to-r from-[#06ff6e] to-[#0eff06]"
           type="submit"
           closeModal={() => document.getElementById("my_modal_5").close()}
         >
