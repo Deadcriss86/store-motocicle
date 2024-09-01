@@ -118,7 +118,7 @@ const ShoppingCart = () => {
     <div className="flex flex-col min-h-screen bg-gradient-to-t from-black to-[#0f680c]">
       <Navlink />
       <br />
-
+      <br />
       <div className="flex-grow sm:p-12 flex flex-col items-center">
         <h1 className="text-center text-[#0eff06] text-3xl font-bold mb-4">
           Carrito de compras
@@ -175,49 +175,76 @@ const ShoppingCart = () => {
               </div>
 
               <div className="price_container w-full sm:w-2/5 p-4">
-                <div className="price border-4 rounded-lg p-4 mt-2 border-[#0EFF06]">
-                  <h2 className="text-white mb-4 text-2xl sm:text-3xl">
+                <div className="price border-2 rounded-lg p-4 mt-2 border-[#0EFF06]">
+                  <h2 className="text-[#0EFF06] mb-4 text-2xl sm:text-3xl">
                     Envío
                   </h2>
-                  <div className="adrees_container mb-4 text-lg sm:text-xl font-thin italic">
+                  <div className="adrees_container mb-4 text-lg sm:text-xl font-thin">
                     {profileData && profileData.ciudad ? (
                       <>
                         <h2 className="text-white mb-2">
-                          Ciudad: {profileData.ciudad}
+                          Ciudad:{" "}
+                          <span className="text-white">
+                            {profileData.ciudad}
+                          </span>
                         </h2>
                         <h2 className="text-white mb-2">
-                          Calle: {profileData.calle}
+                          Calle:{" "}
+                          <span className="text-white">
+                            {profileData.calle}
+                          </span>
                         </h2>
                         <h2 className="text-white mb-2">
-                          Estado: {profileData.delegacion}
+                          Estado:{" "}
+                          <span className="text-white">
+                            {profileData.delegacion}
+                          </span>
                         </h2>
                         <h2 className="text-white mb-2">
-                          Código postal: {profileData.cp}
+                          Código postal:
+                          <span className="text-white"> {profileData.cp}</span>
                         </h2>
                         <h2 className="text-white mb-2">
-                          Referencia: {profileData.referencias}
+                          Referencia:{" "}
+                          <span className="text-white">
+                            {profileData.referencias}
+                          </span>
                         </h2>
                         <div className="total_container text-xl sm:text-2xl flex flex-col">
                           <p className="text-white mb-2">
                             Productos{" "}
-                            <span className="total_productos">
-                              ${totalPriceProducts}
+                            <span className="total_productos text-white">
+                              $
+                              {totalPriceProducts.toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              })}
                             </span>
                           </p>
                           <p className="text-white mb-2">
                             Envío{" "}
-                            <span className="total_shipping">
-                              ${shippingCost}
+                            <span className="total_shipping text-white">
+                              $
+                              {shippingCost.toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              })}
                             </span>
                           </p>
-                          <p className="text-[#0EFF06] mb-2 text-center">
-                            Total{" "}
-                            <span className="total_final">${totalFinal}</span>
+                          <p className="text-white mb-2 text-center p-4">
+                            Total pedido{" "}
+                            <span className="text-[#0EFF06] font-bold">
+                              $
+                              {totalFinal.toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              })}
+                            </span>
                           </p>
                           <div className="button_container">
                             {!showPayment ? (
                               <button
-                                className="p-2 bg-[#0EFF06] rounded-lg w-full text-black mt-6"
+                                className="bg-[#0eff06] w-full text-black font-bold px-4 py-2 rounded-xl mb-4 hover:text-white hover:bg-gradient-to-r from-[#06ff6e] to-[#0eff06]"
                                 onClick={handleCheckout}
                                 disabled={totalFinal <= 300}
                               >

@@ -82,7 +82,7 @@ const MisCompras = () => {
         <br />
         <br />
         <br />{" "}
-        <h1 className="text-3xl font-bold text-center text-[#0eff06]">
+        <h1 className="text-4xl font-bold text-center text-[#0eff06] py-2 mb-2">
           Mis compras
         </h1>
         <div className="bg-gray-900 bg-opacity-50 rounded-lg p-8 w-full max-w-6xl mx-4 sm:mx-8 lg:mx-auto my-6">
@@ -151,8 +151,12 @@ const MisCompras = () => {
                         <p className="font-semibold text-lg">
                           {item.product_name}
                         </p>
-                        <p className="font-semibold text-lg ">
-                          ${item.amount}{" "}
+                        <p className="font-semibold text-lg">
+                          $
+                          {item.amount?.toLocaleString(undefined, {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}{" "}
                           <span className="font-light">x{item.cantidad}</span>
                         </p>
                       </div>
@@ -160,11 +164,15 @@ const MisCompras = () => {
                   ))}
                   <div className="text-white flex justify-between items-center">
                     <p className="text-lg font-bold text-[#0eff06]">
-                      Total: ${compra.total}
+                      Total: $
+                      {compra.total?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
                     </p>
                     <button
                       onClick={() => handleVerDetalle(compra)}
-                      className="px-4 py-2 bg-[#0eff06] text-gray-900 rounded-lg hover:bg-green-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-green-600"
+                      className="bg-[#0eff06] text-black font-bold px-4 py-2 rounded-xl mb-4 hover:text-white hover:bg-gradient-to-r from-[#06ff6e] to-[#0eff06]"
                     >
                       Ver detalle
                     </button>
