@@ -118,7 +118,7 @@ const ShoppingCart = () => {
     <div className="flex flex-col min-h-screen bg-gradient-to-t from-black to-[#0f680c]">
       <Navlink />
       <br />
-
+      <br />
       <div className="flex-grow sm:p-12 flex flex-col items-center">
         <h1 className="text-center text-[#0eff06] text-3xl font-bold mb-4">
           Carrito de compras
@@ -244,7 +244,7 @@ const ShoppingCart = () => {
                           <div className="button_container">
                             {!showPayment ? (
                               <button
-                                className="bg-[#0eff06] text-black w-full font-bold py-2 rounded-xl mb-4 hover:text-white hover:bg-gradient-to-r from-orange-300 to-[#0eff06]"
+                                className="bg-[#0eff06] w-full text-black font-bold px-4 py-2 rounded-xl mb-4 hover:text-white hover:bg-gradient-to-r from-[#06ff6e] to-[#0eff06]"
                                 onClick={handleCheckout}
                                 disabled={totalFinal <= 300}
                               >

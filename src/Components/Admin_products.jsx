@@ -118,7 +118,7 @@ const Admin_products = ({
                   Editar
                 </button>
                 <button
-                  className="btn bg-red-500 text-white hover:bg-red-600 px-4 py-2 rounded-lg"
+                  className="btn bg-red-500 text-black hover:bg-red-600 px-4 py-2 rounded-lg"
                   onClick={() => handleDelete(id)}
                 >
                   Eliminar

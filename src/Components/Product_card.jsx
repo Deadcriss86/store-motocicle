@@ -8,7 +8,7 @@ export const ProductCard = (product) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 w-sm h-96 mx-5 mb-6 border-gray-300">
+    <div className="bg-white rounded-lg shadow-md p-4 w-sm h-96 mx-5 mb-6 sm:py-2 border-gray-300">
       {/* Imagen del producto */}
       <div className="relative">
         <img
@@ -20,7 +20,12 @@ export const ProductCard = (product) => {
       </div>
       {/* Información del producto */}
       <div className="p-4">
-        <h2 className="text-lg font-bold">{`Precio: $${product.price} MXN`}</h2>
+        <h2 className="text-lg font-bold">
+          {`Precio: $${product.price?.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })} MXN`}
+        </h2>
         <p className="text-gray-600 truncate">
           {product.productName || "Nombre del producto"}
         </p>
@@ -29,13 +34,12 @@ export const ProductCard = (product) => {
             ? `(${product.stock} Disponibles)`
             : "(Stock no disponible)"}
         </p>
-
         {/* Botón Ver más */}
         <button
           onClick={handleViewMore}
-          className="bg-[#0eff06] text-black font-bold px-4 py-2 rounded-xl w-full mb-4 hover:text-white hover:bg-gradient-to-r from-orange-300 to-[#0eff06]"
+          className="bg-[#0eff06] w-full text-black font-bold px-4 py-2 rounded-xl mb-4 md:my-2 hover:text-white hover:bg-gradient-to-r from-[#06ff6e] to-[#0eff06]"
         >
-          Ver más
+          <span>Ver mas</span>
         </button>
       </div>
     </div>

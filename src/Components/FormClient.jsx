@@ -115,7 +115,7 @@ const FormService = () => {
           onSubmit={handleSubmit}
           className="text-center max-w-md mx-auto p-4 bg-transparent rounded-md"
         >
-          <p className="text-[#0eff06] text-xl">Contactanos</p>
+          <p className="text-center text-[#0eff06] text-xl mb-4">Contáctanos</p>
           <fieldset className="mb-4">
             <label htmlFor="input1" className="block text-white font-bold mb-2">
               <br />
@@ -126,7 +126,7 @@ const FormService = () => {
               name="input1"
               value={formData.input1}
               onChange={handleChange}
-              className="bg-gray-800 text-white p-2 rounded-l w-full mr-1 focus:outline-none"
+              className="bg-gray-800 text-white p-2 rounded-lg w-full mr-1 focus:outline-none"
               placeholder="Nombre"
             />
             {errors.input1 && (
@@ -143,7 +143,7 @@ const FormService = () => {
               name="input2"
               value={formData.input2}
               onChange={handleChange}
-              className="bg-gray-800 text-white p-2 rounded-l w-full mr-1 focus:outline-none"
+              className="bg-gray-800 text-white p-2 rounded-lg w-full mr-1 focus:outline-none"
               placeholder="E-mail"
             />
             {errors.input2 && (
@@ -160,7 +160,7 @@ const FormService = () => {
               name="input3"
               value={formData.input3}
               onChange={handleChange}
-              className="bg-gray-800 text-white p-2 rounded-l w-full mr-1 focus:outline-none"
+              className="bg-gray-800 text-white p-2 rounded-lg w-full mr-1 focus:outline-none"
               placeholder="Telefono"
             />
             {errors.input3 && (
@@ -179,7 +179,7 @@ const FormService = () => {
               name="select"
               value={formData.select}
               onChange={handleChange}
-              className="bg-gray-800 text-white p-2 rounded-l w-full mr-1 focus:outline-none"
+              className="bg-gray-800 text-white p-2 rounded-lg w-full mr-1 focus:outline-none"
             >
               <option value="">Seleccione una opción</option>
               <option value="Problemas con mi pago">
@@ -201,7 +201,7 @@ const FormService = () => {
           </fieldset>
           <button
             type="submit"
-            className="bg-[#0eff06] text-black py-2 px-4 rounded-full h-10 w-40  hover:bg-[#41CC03] transition-colors duration-300"
+            className="bg-[#0eff06] w-full text-black font-bold px-4 py-2 rounded-xl mb-4 hover:text-white hover:bg-gradient-to-r from-[#06ff6e] to-[#0eff06]"
           >
             Enviar
           </button>

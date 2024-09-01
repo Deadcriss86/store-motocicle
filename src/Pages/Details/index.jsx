@@ -156,7 +156,12 @@ const ProductPage = () => {
               </h1>
               <p className="text-white">Precio</p>
               <p className="text-2xl text-[#0eff06] mb-4 border-b-2 border-[#0eff06]">
-                ${product?.price?.toFixed(2)} MXN
+                $
+                {product?.price?.toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}{" "}
+                MXN
               </p>
               <p className="text-red-500 mb-4">
                 (
@@ -167,7 +172,7 @@ const ProductPage = () => {
               </p>
               <button
                 onClick={onclickcarrito}
-                className="bg-[#0eff06] text-black font-bold px-4 py-2 rounded-xl mb-4 hover:text-white hover:bg-gradient-to-r from-orange-300 to-[#0eff06]"
+                className="bg-[#0eff06] text-black font-bold px-4 py-2 rounded-xl mb-4 hover:text-white hover:bg-gradient-to-r from-[#06ff6e] to-[#0eff06]"
               >
                 Agregar al carrito
               </button>
@@ -180,7 +185,7 @@ const ProductPage = () => {
               <p className="mb-4">
                 ¡Envío de 3 a 5 días hábiles!* Hasta 12 MSI con mercado crédito
               </p>
-              <button className="border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06]">
+              <button className="border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-[#06ff6e] to-[#0eff06]">
                 <a
                   href="https://avatarmotoapi.s3.us-east-2.amazonaws.com/Manual_de_instalacion.pdf"
                   className=" text-[#0eff06] hover:text-gray-800"
@@ -266,12 +271,12 @@ const ProductPage = () => {
           <div className="flex justify-center m-8 ">
             <Link
               to="/Menu"
-              className="border-2 text-center border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06] mx-8"
+              className="border-2 text-center border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-[#06ff6e] to-[#0eff06] mx-8"
             >
               Regresar al menu
             </Link>{" "}
             <button
-              className="border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06]"
+              className="border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-[#06ff6e] to-[#0eff06]"
               onClick={() => document.getElementById("my_modal_5").showModal()}
             >
               Agregar comentario
@@ -303,7 +308,7 @@ const ProductPage = () => {
               />
               <button
                 type="submit"
-                className="border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-orange-300 to-[#0eff06]"
+                className="border-2 border-[#0eff06] text-[#0eff06] px-4 py-2 rounded-xl font-bold hover:text-gray-800 hover:bg-gradient-to-r from-[#06ff6e] to-[#0eff06]"
               >
                 Enviar Pregunta
               </button>

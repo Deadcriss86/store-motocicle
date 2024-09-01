@@ -73,11 +73,11 @@ const ProductsPage = () => {
   return (
     <>
       <Navlink />
-      <div className="bg-gradient-to-b from-[#0f4c0d] to-black min-h-screen py-20">
+      <div className="bg-gradient-to-b from-[#0f4c0d] to-black min-h-screen py-20 px-8">
         <div className="text-[#0eff06] text-4xl font-bold mb-4 flex justify-center py-4">
           Productos
         </div>
-        <div className="flex flex-auto flex-col lg:flex-row">
+        <div className="flex flex-auto flex-col lg:flex-row rounded-lg bg-gray-900 bg-opacity-50 p-6">
           <div className="lg:hidden mb-4 px-4">
             <button
               onClick={toggleDropdown}
@@ -125,7 +125,7 @@ const ProductsPage = () => {
               </details>
             ))}
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-stretch w-full px-4 md:px-10 lg:px-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 content-stretch w-full md:px-10 lg:px-10">
             {filteredProducts.map((product) => (
               <ProductCard
                 key={product._id}

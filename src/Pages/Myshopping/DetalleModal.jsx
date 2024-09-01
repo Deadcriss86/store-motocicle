@@ -41,7 +41,8 @@ const DetalleModal = ({ isOpen, onClose, compra }) => {
           ) : (
             <p className="text-gray-400">
               Estamos preparando tu pedido, pronto te daremos tu número de guía
-              para que puedas rastrearlo <FaRegGrin className="text-gray-400" />
+              para que puedas rastrearlo{" "}
+              <FaRegGrin size="1.5rem" className="text-[#0eff06] m-2" />
             </p>
           )}
         </div>
