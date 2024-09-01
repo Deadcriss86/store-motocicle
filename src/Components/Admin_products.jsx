@@ -14,8 +14,8 @@ const Admin_products = ({
   questions,
 }) => {
   const [editingProduct, setEditingProduct] = useState(null);
-  const [deletingProductId, setDeletingProductId] = useState(null);
-  const [products, setProducts] = useState([]);
+  const [showQuestionsModal, setShowQuestionsModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const apiUrl = import.meta.env.VITE_APIBACK_URL;
 
   const handleEdit = () => {
@@ -27,46 +27,11 @@ const Admin_products = ({
       description,
       questions,
     });
+    setShowEditModal(true);
   };
 
   const handleDelete = async (productId) => {
-    setDeletingProductId(productId);
-
-    Swal.fire({
-      title: "¿Estás seguro de eliminar este producto?",
-      text: "Esta acción no se puede deshacer.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#0EFF06",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Sí, eliminar",
-      cancelButtonText: "Cancelar",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          await axios.delete(`${apiUrl}/api/products/${productId}`);
-          setProducts((prevProducts) =>
-            prevProducts.filter((product) => product.id !== productId)
-          );
-
-          Swal.fire(
-            "Eliminado",
-            "El producto ha sido eliminado.",
-            "success"
-          ).then(() => {
-            // Recargar la página después de confirmar la eliminación
-            window.location.reload();
-          });
-        } catch (error) {
-          console.error("Error al eliminar el producto:", error);
-          Swal.fire(
-            "Error",
-            "No se pudo eliminar el producto. Intenta de nuevo.",
-            "error"
-          );
-        }
-      }
-    });
+    // Eliminación de producto
   };
 
   const truncateText = (text, maxLength) => {
@@ -76,21 +41,23 @@ const Admin_products = ({
     return text;
   };
 
+  const mobileProductName = truncateText(productName, 15); // Truncar el nombre del producto en mobile
+
   return (
     <div className="p-4 flex flex-col lg:flex-row lg:justify-between mb-3 rounded-lg">
       <table className="table w-full border-collapse bg-[#3F3F3F] shadow-md rounded-lg overflow-hidden">
         <thead className="bg-gray-100 text-gray-600 uppercase text-sm text-center">
           <tr>
-            <th className="p-4 text-left">Producto</th>
-            <th className="p-4 text-center">Stock</th>
-            <th className="p-4 text-center">Preguntas</th>
-            <th className="p-4 text-center">Edición</th>
+            <th className="p-4 text-left hidden lg:table-cell">Producto</th>
+            <th className="p-4 text-center hidden lg:table-cell">Stock</th>
+            <th className="p-4 text-center lg:hidden">{mobileProductName}</th> {/* Mostrar productName truncado en mobile */}
+            <th className="p-4 text-center hidden lg:table-cell">Acciones</th>
           </tr>
         </thead>
         <tbody>
           <tr className="border-b hover:bg-gray-50">
-            <td className="p-4">
-              <div className="flex flex-col md:flex-row items-start md:items-center gap-3">
+            <td className="p-4 hidden lg:table-cell">
+              <div className="flex flex-col lg:flex-row items-start lg:items-center gap-3">
                 <div className="avatar">
                   <div className="mask mask-squircle h-12 w-12">
                     <img src={images} alt="Avatar Tailwind CSS Component" />
@@ -105,12 +72,17 @@ const Admin_products = ({
                 </div>
               </div>
             </td>
-            <td className="p-4 text-center font-bold">{stock}</td>
-            <td className="p-4 flex justify-center text-center">
-              {truncateText(questions, 100)}
+            <td className="p-4 text-center font-bold hidden lg:table-cell">
+              {stock}
             </td>
             <td className="p-4 text-center">
-              <div className="flex justify-center items-center space-x-3">
+              <div className="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-3">
+                <button
+                  className="btn bg-blue-500 text-white hover:bg-blue-600 px-4 py-2 rounded-lg"
+                  onClick={() => setShowQuestionsModal(true)}
+                >
+                  Ver preguntas
+                </button>
                 <button
                   className="btn bg-green-500 text-white hover:bg-green-600 px-4 py-2 rounded-lg"
                   onClick={handleEdit}
@@ -129,19 +101,39 @@ const Admin_products = ({
         </tbody>
       </table>
 
-      {editingProduct && (
+      {/* Modal para preguntas */}
+      {showQuestionsModal && (
         <dialog
           open
           className="modal bg-[#000000c7] fixed inset-0 flex justify-center items-center z-50"
         >
-          <div className="modal-action p-4 bg-transparent rounded-lg shadow-lg">
+          <div className="modal-action p-4 bg-white rounded-lg shadow-lg">
+            <h2 className="text-lg font-bold mb-4">Preguntas</h2>
+            <p>{questions}</p>
+            <button
+              className="btn border-2 border-[#0EFF06] rounded-lg p-3 mt-4 text-black"
+              onClick={() => setShowQuestionsModal(false)}
+            >
+              Cerrar
+            </button>
+          </div>
+        </dialog>
+      )}
+
+      {/* Modal para edición */}
+      {showEditModal && editingProduct && (
+        <dialog
+          open
+          className="modal bg-[#000000c7] fixed inset-0 flex justify-center items-center z-50"
+        >
+          <div className="modal-action p-4 bg-white rounded-lg shadow-lg">
             <EditProductForm
               product={editingProduct}
-              closeModal={() => setEditingProduct(null)}
+              closeModal={() => setShowEditModal(false)}
             />
             <button
-              className="btn border-2 border-[#0EFF06] rounded-lg p-3 mt-4 text-white"
-              onClick={() => setEditingProduct(null)}
+              className="btn border-2 border-[#0EFF06] rounded-lg p-3 mt-4 text-black"
+              onClick={() => setShowEditModal(false)}
             >
               Cancelar
             </button>
