@@ -13,6 +13,8 @@ const Admin_products = ({
   onDelete,
   questions,
 }) => {
+  const [deletingProductId, setDeletingProductId] = useState(null);
+  const [products, setProducts] = useState([]);
   const [editingProduct, setEditingProduct] = useState(null);
   const [showQuestionsModal, setShowQuestionsModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -31,7 +33,43 @@ const Admin_products = ({
   };
 
   const handleDelete = async (productId) => {
-    // Eliminación de producto
+    setDeletingProductId(productId);
+
+    Swal.fire({
+      title: "¿Estás seguro de eliminar este producto?",
+      text: "Esta acción no se puede deshacer.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0EFF06",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axios.delete(`${apiUrl}/api/products/${productId}`);
+          setProducts((prevProducts) =>
+            prevProducts.filter((product) => product.id !== productId)
+          );
+
+          Swal.fire(
+            "Eliminado",
+            "El producto ha sido eliminado.",
+            "success"
+          ).then(() => {
+            // Recargar la página después de confirmar la eliminación
+            window.location.reload();
+          });
+        } catch (error) {
+          console.error("Error al eliminar el producto:", error);
+          Swal.fire(
+            "Error",
+            "No se pudo eliminar el producto. Intenta de nuevo.",
+            "error"
+          );
+        }
+      }
+    });
   };
 
   const truncateText = (text, maxLength) => {
