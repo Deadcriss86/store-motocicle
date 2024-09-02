@@ -6,7 +6,7 @@ export const ModalMessage = ({ message, onClose }) => {
       <div className="bg-[#f0ff19] bg-opacity-80 p-4 rounded-lg">
         <p className="text-black text-center">{message}</p>
         <button
-          className="mt-4 bg-gray-900 text-black p-2 rounded hover:bg-green-600 focus:outline-none"
+          className="mt-4 bg-gray-900 text-white p-2 rounded hover:bg-green-600 focus:outline-none"
           onClick={onClose}
         >
           Cerrar
