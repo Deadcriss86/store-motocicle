@@ -45,7 +45,7 @@ const EditProductForm = ({ product, closeModal }) => {
   };
 
   return (
-    <div className="border-2 border-[#0EFF06] rounded-lg p-3 bg-black text-lg ">
+    <div className=" rounded-lg p-3 bg-black text-lg ">
       <h2 className="text-center text-[#0eff06] text-xl font-bold mb-4">
         Editar Producto
       </h2>
@@ -100,10 +100,9 @@ const EditProductForm = ({ product, closeModal }) => {
           />
         </div>
         <br />
-
         <br />
         <button
-          className="bg-[#0EFF06] rounded-lg p-2 text-white font-bold text-xl hover:bg-white w-full"
+          className="bg-[#0eff06] text-black font-bold px-4 py-2 w-full rounded-xl mb-4 hover:text-white hover:bg-gradient-to-r from-[#06ff6e] to-[#0eff06]"
           type="submit"
           disabled={loading}
         >

@@ -2,8 +2,8 @@ import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2"; // Importa correctamente desde sweetalert2
 
-export const ProductForm = ({ product, onSubmit }) => {
-  const { register, handleSubmit, setValue, watch } = useForm();
+export const ProductForm = ({ product, onSubmit, closeModal }) => {
+  const { register, handleSubmit, setValue, watch, reset } = useForm();
   const [categories, setCategories] = useState([
     "Protector de faro",
     "Slider frontal",
@@ -50,6 +50,8 @@ export const ProductForm = ({ product, onSubmit }) => {
 
     try {
       await onSubmit(formData, product ? product._id : undefined);
+      reset();
+      closeModal();
       Swal.fire(
         "¡Agregado!",
         "El producto ha sido agregado con exito",
@@ -59,6 +61,7 @@ export const ProductForm = ({ product, onSubmit }) => {
         window.location.reload();
       }, 5000);
     } catch (error) {
+      closeModal();
       Swal.fire(
         "Error",
         "No se pudo agregar el producto. Intenta de nuevo.",
@@ -165,7 +168,6 @@ export const ProductForm = ({ product, onSubmit }) => {
         <button
           className="bg-[#0EFF06] rounded-lg p-2 text-black font-bold text-xl hover:bg-white w-full"
           type="submit"
-          closeModal={() => document.getElementById("my_modal_5").close()}
         >
           Agregar Producto
         </button>

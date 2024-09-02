@@ -163,6 +163,7 @@ const Productos = () => {
               <ProductForm
                 onSubmit={handleAddSubmit}
                 setResponseMessage={setResponseMessage}
+                closeModal={() => document.getElementById("my_modal_4").close()}
               />
               <form method="dialog">
                 <button className="btn border-2 border-[#0EFF06] rounded-lg p-3 text-white">
