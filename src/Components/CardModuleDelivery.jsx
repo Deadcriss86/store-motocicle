@@ -100,8 +100,8 @@ const CardDelivery = ({
 
   return (
     <div className="p-4 text-white rounded-lg shadow-lg space-y-4 mx-auto max-w-lg lg:max-w-full lg:flex lg:items-start lg:justify-center">
-      <table className="table w-full bg-[#01010138] rounded-lg shadow-lg overflow-hidden">
-        <thead className="bg-gray-900 opacity-75 text-white text-sm">
+      <table className="table w-full bg-black opacity-75 rounded-lg shadow-lg overflow-hidden">
+        <thead className="bg-white opacity-75 text-black text-sm">
           <tr>
             <th className="p-2"></th>
             <th className="p-2 text-left">Pedido No.</th>
@@ -117,7 +117,7 @@ const CardDelivery = ({
           </tr>
         </thead>
         <tbody>
-          <tr className="border-b border-gray-600 hover:bg-gray-800 transition-colors">
+          <tr className="border-b border-white transition-colors">
             <td className="p-2"></td>
             <td className="p-2 font-semibold">{deliveryDescription}</td>
             <td className="p-2 hidden lg:table-cell">{nameClient}</td>
@@ -184,9 +184,11 @@ const CardDelivery = ({
       )}
 
       {isEditModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-[#1f1f1f] p-6 rounded-lg shadow-lg w-11/12 max-w-md">
-            <h2 className="text-xl font-semibold mb-4">Editar Pedido</h2>
+        <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
+          <div className="bg-black p-6 rounded-lg shadow-lg w-11/12 max-w-md">
+            <h2 className="text-xl font-semibold mb-4 text-[#0eff06]">
+              Editar Pedido
+            </h2>
             <form onSubmit={handleSaveChanges}>
               <div className="mb-4">
                 <label className="block text-sm font-bold mb-2">
@@ -224,17 +226,17 @@ const CardDelivery = ({
                   onChange={handleInputChange}
                 />
               </div>
-              <div className="flex justify-end">
+              <div className="flex justify-between ">
                 <button
                   type="button"
-                  className="btn bg-gray-600 text-white mr-4 rounded-lg hover:bg-gray-500 transition-colors"
+                  className="bg-[#0eff06] w-auto text-black font-bold px-4 py-2 rounded-xl mb-4 hover:text-white hover:bg-gradient-to-r from-[#ff8b06] to-[#ff4006]"
                   onClick={closeModal}
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="btn bg-[#0FFF07] text-black rounded-lg hover:bg-green-600 transition-colors"
+                  className="bg-[#0eff06] w-auto text-black font-bold px-4 py-2 rounded-xl mb-4 hover:text-white hover:bg-gradient-to-r from-[#06ff6e] to-[#0eff06]"
                 >
                   Guardar Cambios
                 </button>
