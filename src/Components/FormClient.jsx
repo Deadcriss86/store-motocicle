@@ -56,7 +56,7 @@ const FormService = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(refForm.current);
+
     const serviceId = "service_e46mezl";
     const templateId = "template_p61qp9f";
     const publicKey = "OZ3hx585btyjsk5Bq";
@@ -70,7 +70,6 @@ const FormService = () => {
           refForm.current,
           publicKey
         );
-        console.log("mensaje enviado", formData);
 
         // SweetAlert success message
         swal({
