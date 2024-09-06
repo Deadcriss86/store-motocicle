@@ -91,7 +91,11 @@ const CardDelivery = ({
   };
 
   const formatDate = (dateString) => {
+    if (!dateString) return ""; // Si la fecha es null o undefined, devuelve vacío
+
     const date = new Date(dateString);
+    if (isNaN(date.getTime())) return ""; // Si la fecha es inválida, devuelve vacío
+
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
@@ -119,7 +123,9 @@ const CardDelivery = ({
         <tbody>
           <tr className="border-b border-white transition-colors">
             <td className="p-2"></td>
-            <td className="p-2 font-semibold">{deliveryDescription}</td>
+            <td className="p-2 font-semibold text-start">
+              {deliveryDescription}
+            </td>
             <td className="p-2 hidden lg:table-cell">{nameClient}</td>
             <td className="p-2 hidden lg:table-cell">
               {truncateText(productName, 20)}

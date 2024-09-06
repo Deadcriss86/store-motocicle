@@ -1,38 +1,61 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import swal from "sweetalert";
+import axios from "axios";
 
 const FormService = () => {
+  const apiUrl = import.meta.env.VITE_APIBACK_URL;
+  const [user, setUser] = useState(null);
   const [formData, setFormData] = useState({
-    input1: "",
-    input2: "",
-    input3: "",
+    nombre: "",
+    email: "",
+    telefono: "",
     select: "",
   });
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    axios
+      .get(`${apiUrl}/api/auth/profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const userProfile = response.data;
+        setUser(userProfile);
+        const fullname = userProfile.nombre + " " + userProfile.apellido;
+        setFormData({
+          nombre: fullname || "",
+          email: userProfile.email || "",
+          telefono: userProfile.celular || "",
+          select: "",
+        });
+      })
+      .catch((error) => {
+        console.error("Error al obtener el perfil:", error);
+      });
+  }, [apiUrl]);
+
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
-  // const [apiError, setApiError] = useState (null);
 
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.input1) {
-      newErrors.input1 = "El nombre es obligatorio.";
-    } else if (!/^[a-zA-Z\s]+$/.test(formData.input1)) {
-      newErrors.input1 = "El nombre solo puede contener letras.";
+    if (!formData.nombre) {
+      newErrors.nombre = "El nombre es obligatorio.";
     }
 
-    if (!formData.input2) {
-      newErrors.input2 = "El correo electrónico es obligatorio.";
-    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.input2)) {
-      newErrors.input2 = "Debe ser un correo electrónico válido.";
+    if (!formData.email) {
+      newErrors.email = "El correo electrónico es obligatorio.";
+    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
+      newErrors.email = "Debe ser un correo electrónico válido.";
     }
 
-    if (!formData.input3) {
-      newErrors.input3 = "El teléfono es obligatorio.";
-    } else if (!/^\d+$/.test(formData.input3)) {
-      newErrors.input3 = "El teléfono solo puede contener números.";
+    if (!formData.telefono) {
+      newErrors.telefono = "El teléfono es obligatorio.";
     }
 
     if (!formData.select) {
@@ -56,22 +79,15 @@ const FormService = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const serviceId = "service_e46mezl";
-    const templateId = "template_p61qp9f";
-    const publicKey = "OZ3hx585btyjsk5Bq";
-
     if (validateForm()) {
       try {
-        // Send the email
         await emailjs.sendForm(
-          serviceId,
-          templateId,
+          "service_e46mezl",
+          "template_p61qp9f",
           refForm.current,
-          publicKey
+          "OZ3hx585btyjsk5Bq"
         );
 
-        // SweetAlert success message
         swal({
           title: "Enviado!",
           text: "Su mensaje fue enviado con éxito.",
@@ -79,12 +95,11 @@ const FormService = () => {
           button: "Ok",
         });
 
-        // Reset form and state after success
         setFormSubmitted(true);
         setFormData({
-          input1: "",
-          input2: "",
-          input3: "",
+          nombre: "",
+          email: "",
+          telefono: "",
           select: "",
         });
 
@@ -92,9 +107,6 @@ const FormService = () => {
           setFormSubmitted(false);
         }, 5000);
       } catch (error) {
-        console.error("Error al enviar el mensaje:", error);
-
-        // SweetAlert error message
         swal({
           title: "Error",
           text: "Hubo un error al enviar el mensaje.",
@@ -110,75 +122,59 @@ const FormService = () => {
       <div className="bg-black bg-opacity-75 rounded-lg p-6 w-full max-w-md">
         <form
           ref={refForm}
-          action=" "
           onSubmit={handleSubmit}
           className="text-center max-w-md mx-auto p-4 bg-transparent rounded-md"
         >
           <p className="text-center text-[#0eff06] text-xl mb-4">Contáctanos</p>
           <fieldset className="mb-4">
-            <label htmlFor="input1" className="block text-white font-bold mb-2">
-              <br />
-            </label>
             <input
               type="text"
-              id="input1"
-              name="input1"
-              value={formData.input1}
+              id="nombre"
+              name="nombre"
+              value={formData.nombre}
               onChange={handleChange}
-              className="bg-gray-800 text-white p-2 rounded-lg w-full mr-1 focus:outline-none"
+              className="bg-gray-800 text-white p-2 rounded-lg w-full"
               placeholder="Nombre"
             />
-            {errors.input1 && (
-              <p className="text-red-500 text-sm mt-1">{errors.input1}</p>
+            {errors.nombre && (
+              <p className="text-red-500 text-sm mt-1">{errors.nombre}</p>
             )}
           </fieldset>
           <fieldset className="mb-4">
-            <label htmlFor="input2" className="block text-white font-bold mb-2">
-              <br />
-            </label>
             <input
               type="text"
-              id="input2"
-              name="input2"
-              value={formData.input2}
+              id="email"
+              name="email"
+              value={formData.email}
               onChange={handleChange}
-              className="bg-gray-800 text-white p-2 rounded-lg w-full mr-1 focus:outline-none"
+              className="bg-gray-800 text-white p-2 rounded-lg w-full"
               placeholder="E-mail"
             />
-            {errors.input2 && (
-              <p className="text-red-500 text-sm mt-1">{errors.input2}</p>
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
             )}
           </fieldset>
           <fieldset className="mb-4">
-            <label htmlFor="input3" className="block text-white font-bold mb-2">
-              <br />
-            </label>
             <input
               type="text"
-              id="input3"
-              name="input3"
-              value={formData.input3}
+              id="telefono"
+              name="telefono"
+              value={formData.telefono}
               onChange={handleChange}
-              className="bg-gray-800 text-white p-2 rounded-lg w-full mr-1 focus:outline-none"
-              placeholder="Telefono"
+              className="bg-gray-800 text-white p-2 rounded-lg w-full"
+              placeholder="Teléfono"
             />
-            {errors.input3 && (
-              <p className="text-red-500 text-sm mt-1">{errors.input3}</p>
+            {errors.telefono && (
+              <p className="text-red-500 text-sm mt-1">{errors.telefono}</p>
             )}
           </fieldset>
           <fieldset className="mb-4">
-            <label
-              htmlFor="select"
-              className="block text-center text-white font-bold mb-2"
-            >
-              <br />
-            </label>
             <select
               id="select"
               name="select"
               value={formData.select}
               onChange={handleChange}
-              className="bg-gray-800 text-white p-2 rounded-lg w-full mr-1 focus:outline-none"
+              className="bg-gray-800 text-white p-2 rounded-lg w-full"
             >
               <option value="">Seleccione una opción</option>
               <option value="Problemas con mi pago">
@@ -200,17 +196,11 @@ const FormService = () => {
           </fieldset>
           <button
             type="submit"
-            className="bg-[#0eff06] w-full text-black font-bold px-4 py-2 rounded-xl mb-4 hover:text-white hover:bg-gradient-to-r from-[#06ff6e] to-[#0eff06]"
+            className="bg-[#0eff06] w-full text-black font-bold px-4 py-2 rounded-xl mb-4"
           >
             Enviar
           </button>
         </form>
-
-        {/* {apiError && (
-            <p className="text-red-500 text-center mt-4">
-              {apiError}
-          </p>
-        )} */}
       </div>
     </div>
   );
