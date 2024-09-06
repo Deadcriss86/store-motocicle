@@ -105,7 +105,7 @@ function OrderPages() {
                 <CardDelivery
                   key={order._id}
                   orderId={order._id}
-                  deliveryDescription={`Order ID: ${order.orderId}`}
+                  deliveryDescription={` ${order.orderId}`}
                   nameClient={order.username_author}
                   priceDelivery={order.total}
                   descriptionGuide={order.numero_guia}
