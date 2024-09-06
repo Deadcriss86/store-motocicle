@@ -33,10 +33,14 @@ function Home() {
           />
           <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 m-4">
             <TextRevealCard
-              text="Venta de accesorios para tu motocicleta"
-              className="font-bold py-20 text-green bg-clip-text w-1/1 text-center"
+              text="Personaliza y protege tu moto"
+              className="font-bold py-8 text-green bg-clip-text w-1/1 text-center"
             />
-            <div className="text-base sm:text-lg flex items-center space-x-2 text-white">
+            <h2 className="text-xl sm:text-4x1 md:text-2x1 font-bold text-white opacity-60 text-center">
+              Sliders personalizados y accesorios para todas las marcas <br />
+              ¡Transforma tu moto hoy mismo!
+            </h2>
+            <div className="text-base sm:text-lg flex items-center space-x-2 text-white py-8">
               <span>Conoce nuestros productos</span>
               <Link to="/Menu">
                 <IoArrowForwardCircle
@@ -60,19 +64,30 @@ function Home() {
           </div>
         </div>
         <div className="bg-black text-white py-5 flex flex-col items-center justify-center">
-          <div className="text-center text-white max-w-4xl space-y-4">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-[#0eff06] border-[#0eff06] p-2">
+          <div className="text-center text-white max-w-4xl space-y-4 py-5">
+            <h2 className="text-4xl sm:text-3xl md:text-6xl font-bold mb-4 text-[#0eff06] border-[#0eff06] p-2 py-10">
               Quiénes somos
             </h2>
-            <div className="border-b-2 border-[#0eff06] p-2 text-lg sm:text-xl md:text-2xl">
-              <p>
-                Somos una empresa dedicada a la fabricación de accesorios y
-                defensas para cualquier tipo de motocicleta. Nuestro principal
-                objetivo es que nuestros clientes se sientan satisfechos con la
-                estética personalizada de su moto.
+            <div className="border-b-2 border-[#0eff06] p-2 text-lg sm:text-xl md:text-2xl py-10">
+              <p className="text-sm sm:text-3x1 md:text-xl">
+                Somos ARS Racing, tu taller de personalizacion para
+                motocicletas. Nos dedicamos a crear piezas de alta calidad,
+                diseñadas para proteger y personalizar tu moto.
+              </p>
+              <h2 className="text-4xl sm:text-3xl md:text-6xl font-bold mb-4 text-[#0eff06] border-[#0eff06] py-10">
+                Nuestra misión
+              </h2>
+              <p className="text-sm sm:text-3x1 md:text-xl">
+                Nuestra pasion es proporcionar a los motociclistas de toda la
+                República Mexicana accesorios de alta calidad, diseñados para
+                mejorar tu experiencia de conducción, garantizando la seguridad
+                y el estilo en cada viaje. Nos esforzamos por ofrecer productos
+                personalizados que se ajusten a las necesidades únicas de cada
+                cliente, brindando un servicio excepcional, confiable y
+                accesible para todos los apasionados por las motocicletas.
               </p>
             </div>
-            <SlBadge size="2rem" className="text-[#0eff06] inline-block" />
+            <SlBadge size="60px" className="text-[#0eff06] inline-block" />
           </div>
         </div>
         <div className="bg-black flex flex-col items-center justify-center h-screen">
