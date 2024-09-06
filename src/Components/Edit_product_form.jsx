@@ -12,7 +12,6 @@ const EditProductForm = ({ product, closeModal }) => {
     setLoading(true);
     try {
       // Log de los datos que se van a enviar
-      console.log("Datos enviados:", data);
 
       // Enviar los datos actualizados
       await axios.put(`${apiUrl}/api/products/${product.id}`, data, {

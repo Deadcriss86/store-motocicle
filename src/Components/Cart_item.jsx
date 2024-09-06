@@ -29,7 +29,6 @@ const CartItem = ({
   };
 
   const getTotalPrice = () => itemQuantity * price;
-  console.log("La cantidad es:", product_stock);
 
   return (
     <div className="p-4 flex flex-col lg:flex-row lg:justify-between lg:items-center bg-[#1f1f1f] text-lg mb-3 rounded-lg max-w-4xl mx-auto space-y-4 lg:space-y-0 lg:space-x-4">
