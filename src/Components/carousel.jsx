@@ -60,9 +60,9 @@ const Carousel = () => {
       <button
         onClick={handlePrev}
         aria-label="Previous"
-        className="p-4 bg-transparent text-[#0eff06] rounded-full hover:bg-gray-400"
+        className="p-2 bg-transparent text-[#0eff06] rounded-full hover:bg-gray-400"
       >
-        <FaChevronLeft size="1.5rem" className="text-[#0eff06]" />
+        <FaChevronLeft size="1.5rem " className="text-[#0eff06]" />
       </button>
       <div className="relative flex justify-center items-center w-full max-w-md md:max-w-lg lg:max-w-3xl sm:max-w-2xl h-auto shadow-lg shadow-[#0eff06] rounded-lg bg-transparent">
         {visibleItems.map((item, index) => {
@@ -88,7 +88,7 @@ const Carousel = () => {
       <button
         onClick={handleNext}
         aria-label="Next"
-        className="p-4 bg-transparent text-[#0eff06] rounded-full hover:bg-gray-400"
+        className="p-2 bg-transparent text-[#0eff06] rounded-full hover:bg-gray-400"
       >
         <FaChevronRight size="1.5rem" className="text-[#0eff06]" />
       </button>

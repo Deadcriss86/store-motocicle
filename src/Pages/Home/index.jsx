@@ -36,7 +36,7 @@ function Home() {
               text="Personaliza y protege tu moto"
               className="font-bold py-8 text-green bg-clip-text w-1/1 text-center"
             />
-            <h2 className="text-xl sm:text-4x1 md:text-2x1 font-bold text-white opacity-60 text-center">
+            <h2 className="text-xl sm:text-4xl md:text-2xl font-bold text-white opacity-60 text-center">
               Sliders personalizados y accesorios para todas las marcas <br />
               ¡Transforma tu moto hoy mismo!
             </h2>
@@ -55,22 +55,24 @@ function Home() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <button>Contáctanos para pedidos personalizados</button>
+              <button className="animate-bounce font-bold text-[#0eff06] hover:text-whote">
+                Contáctanos para pedidos personalizados
+              </button>
               <IoLogoWhatsapp
                 size="2.5rem"
-                className="animate-bounce text-[#0eff06] hover:text-white"
+                className="text-[#0eff06] hover:text-white animate-bounce"
               />
             </a>
           </div>
         </div>
         <div className="bg-black text-white py-5 flex flex-col items-center justify-center">
-          <div className="text-center text-white max-w-4xl space-y-4 py-5">
+          <div className="text-center text-white max-w-4xl space-y-4 py-5 mb-8">
             <h2 className="text-4xl sm:text-3xl md:text-6xl font-bold mb-4 text-[#0eff06] border-[#0eff06] p-2 py-10">
               Quiénes somos
             </h2>
             <div className="border-b-2 border-[#0eff06] p-2 text-lg sm:text-xl md:text-2xl py-10">
               <p className="text-sm sm:text-3x1 md:text-xl">
-                Somos ARS Racing, tu taller de personalizacion para
+                Somos ARS Racing, tu taller de personalización para
                 motocicletas. Nos dedicamos a crear piezas de alta calidad,
                 diseñadas para proteger y personalizar tu moto.
               </p>
@@ -78,7 +80,7 @@ function Home() {
                 Nuestra misión
               </h2>
               <p className="text-sm sm:text-3x1 md:text-xl">
-                Nuestra pasion es proporcionar a los motociclistas de toda la
+                Nuestra pasión es proporcionar a los motociclistas de toda la
                 República Mexicana accesorios de alta calidad, diseñados para
                 mejorar tu experiencia de conducción, garantizando la seguridad
                 y el estilo en cada viaje. Nos esforzamos por ofrecer productos
@@ -87,16 +89,34 @@ function Home() {
                 accesible para todos los apasionados por las motocicletas.
               </p>
             </div>
-            <SlBadge size="60px" className="text-[#0eff06] inline-block" />
+            <SlBadge size="40px" className="text-[#0eff06] inline-block " />
           </div>
         </div>
         <div className="bg-black flex flex-col items-center justify-center h-screen">
-          <div className="text-[#0eff06] text-3xl font-bold py-4 text-center">
-            Alguno de nuestros productos
+          <div className="text-[#0eff06] text-2xl font-bold py-2 text-center">
+            ¡Transforma tu motocicleta hoy con alguno de estos productos!
+            <br />
+            <br />
+            Contamos con:
+          </div>
+          <div className="text-white text-justify w-10/12 mb-4 text-sm md:text-1xl lg:text-xl lg:w-1/2 md:w-1/2">
+            <br />{" "}
+            <strong className="text-green-300">
+              - Parrillas deportivas y de carga{" "}
+            </strong>
+            pide la que mejor se ajuste a tus necesidades
+            <br />{" "}
+            <strong className="text-green-300">
+              - Sliders delanteros y traseros
+            </strong>{" "}
+            que te ayudaran a proteger tu moto de caidas
+            <br /> <strong className="text-green-300">- Cubre faros</strong> que
+            le pueden dar a tu moto un estilo unico y de paso proteccion
+            antirobo <br /> <strong className="text-green-300">Y mas...</strong>
           </div>
           <Carousel />
         </div>
-        <div className="bg-black flex flex-col items-center justify-center h-screen">
+        <div className="bg-black flex flex-col items-center justify-center h-screen mt-8">
           <h2 className="text-white text-3xl font-bold py-8 text-center">
             Comentarios de nuestros clientes
           </h2>

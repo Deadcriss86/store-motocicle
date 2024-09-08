@@ -167,7 +167,9 @@ const SignUp = () => {
       {showTermsModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full max-h-[80vh] overflow-y-auto">
-            <h3 className="text-lg font-bold mb-4">Términos y Condiciones</h3>
+            <h3 className="text-lg font-bold mb-4">
+              Términos y condiciones de uso del Sitio
+            </h3>
             <p className="text-gray-700 mb-4 text-justify">
               <strong> 1. Generalidades</strong> <br />
               Bienvenido a ARS Racing, una tienda en línea dedicada a la venta
