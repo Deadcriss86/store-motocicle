@@ -3,10 +3,7 @@ import { CiMail } from "react-icons/ci";
 import { FiPhone } from "react-icons/fi";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ImCreditCard } from "react-icons/im";
 import { Container } from "postcss";
-import { RiSecurePaymentLine } from "react-icons/ri";
-import { BsTruck } from "react-icons/bs";
 
 export const Footer = () => {
   const navigate = useNavigate();
@@ -15,36 +12,47 @@ export const Footer = () => {
 
   return (
     <footer>
-      <div className="relative flex flex-row justify-between text-white pl-10px pr-10px">
-        <card className="flex flex-col border-2 border-[#0eff06] rounded-lg w-80 h-40 text-justify">
-          <h3 className="border-b-2 border-[#0eff06]">
-            ** Pagos a credito o debito
+      <div className="relative flex flex-col lg:flex-row justify-around items-center text-black px-4 md:px-10">
+        {/* Tarjeta de pagos */}
+        <div className="border-2 border-[#0eff06] rounded-lg w-full max-w-xs md:max-w-sm lg:w-80 h-48 bg-white text-justify card-compact mb-4 lg:mb-0">
+          <h3 className="border-b-2 border-[#0eff06] text-center font-bold p-2">
+            Pagos a crédito o débito
           </h3>
-          <p>
-            Con Mercado Pago, tienes pagos con tarjetas de debito y meses sin
-            intereses con tarjeta de credito. ¡Y siempre es seguro!
+          <p className="flex flex-row justify-items-center mt-2 mr-4">
+            <img
+              className="w-20 h-10 mt-6 mr-2"
+              src="src/Assets/cardcredit.png"
+            />
+            Con Mercado Pago, tienes pagos con tarjetas de débito y meses sin
+            intereses con tarjeta de crédito. ¡Y siempre es seguro!
           </p>
-          <ImCreditCard size="40px" className="text-[#0eff06] " />
-        </card>
-        <card className="border-2 border-[#0eff06] rounded-lg w-80 h-40 text-center">
-          <h3 className="border-b-2 border-[#0eff06]">** Compras protegidas</h3>
-          <p>
-            Con Mercado Pago, tienes pagos con tarjetas de debito y meses sin
-            intereses con tarjeta de credito. ¡Y siempre es seguro!
-          </p>
-          <RiSecurePaymentLine size="40px" className="" />
-        </card>
-        <card className="border-2 border-[#0eff06] rounded-lg w-80 h-40 text-justify justify-center">
-          <h3 className="border-b-2 border-[#0eff06] text-center">
-            ** Envios seguros
+        </div>
+
+        {/* Tarjeta de compras protegidas */}
+        <div className="border-2 border-[#0eff06] rounded-lg w-full max-w-xs md:max-w-sm lg:w-80 h-48 bg-white text-justify card-compact mb-4 lg:mb-0">
+          <h3 className="border-b-2 border-[#0eff06] text-center font-bold p-2">
+            Compras protegidas
           </h3>
-          <p>
-            Con Mercado Pago, tienes pagos con tarjetas de debito y meses sin
-            intereses con tarjeta de credito. ¡Y siempre es seguro!
+          <p className="flex flex-row justify-items-center mt-2 mr-4">
+            <img className="w-20 h-16 mt-4 mr-2" src="src/Assets/locked.webp" />
+            Con Mercado Pago, tienes pagos con tarjetas de débito y meses sin
+            intereses con tarjeta de crédito. ¡Y siempre es seguro!
           </p>
-          <BsTruck size="40px" className="text-[#0eff06] " />
-        </card>
+        </div>
+
+        {/* Tarjeta de envíos seguros */}
+        <div className="border-2 border-[#0eff06] rounded-lg w-full max-w-xs md:max-w-sm lg:w-80 h-48 bg-white text-justify card-compact">
+          <h3 className="border-b-2 border-[#0eff06] text-center font-bold p-2">
+            Envíos seguros
+          </h3>
+          <p className="flex flex-row justify-items-center mt-2 mr-4">
+            <img className="w-20 h-20 mt-2 mr-2" src="src/Assets/truck1.jpg" />
+            Con Mercado Pago, tienes pagos con tarjetas de débito y meses sin
+            intereses con tarjeta de crédito. ¡Y siempre es seguro!
+          </p>
+        </div>
       </div>
+
       <div className="w-full bg-black text-sm text-white flex flex-col md:flex-row justify-between items-start p-6">
         <div className="w-full flex flex-col md:flex-row justify-between md:gap-20 p-3 border-t-2 border-[#0eff06]">
           <div className="flex items-center border-b-2 md:border-b-0 md:border-r-2 border-[#0eff06] p-3 md:p-9 h-full">
