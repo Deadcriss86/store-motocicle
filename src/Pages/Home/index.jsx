@@ -116,8 +116,8 @@ function Home() {
           </div>
           <Carousel />
         </div>
-        <div className="bg-black flex flex-col items-center justify-center h-screen mt-8">
-          <h2 className="text-white text-3xl font-bold py-8 text-center">
+        <div className="bg-black flex flex-col items-center justify-center h-screen mt-10">
+          <h2 className="text-white text-3xl font-bold text-center mt-5">
             Comentarios de nuestros clientes
           </h2>
           <Card_coment />

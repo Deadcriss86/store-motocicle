@@ -67,7 +67,7 @@ export const Card_coment = ({ productId }) => {
   };
 
   return (
-    <div className="flex justify-center items-center w-full h-full p-4">
+    <div className="flex justify-center items-center w-full h-full">
       <button
         onClick={handlePrev}
         aria-label="Previous"
