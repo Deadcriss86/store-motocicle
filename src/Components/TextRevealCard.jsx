@@ -100,7 +100,7 @@ export const TextRevealCard = ({ text, revealText, children, className }) => {
         ></motion.div>
 
         <div className=" overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,white,transparent)] ">
-          <p className="text-base-loose text-[3rem] py-8 font-bold bg-clip-text text-transparent bg-[#0eff06] tracking-[.1em]">
+          <p className="text-base-loose text-[2rem] sm:text-[2rem] md:text-[4rem] w-1/1 py-10 font-bold bg-clip-text text-transparent bg-[#0eff06] tracking-[.1em]">
             {text}
           </p>
           <MemoizedStars />
@@ -129,8 +129,8 @@ const Stars = () => {
   const randomOpacity = () => Math.random();
   const random = () => Math.random();
   return (
-    <div className="absolute inset-1">
-      {[...Array(100)].map((_, i) => (
+    <div className="absolute inset-20">
+      {[...Array(150)].map((_, i) => (
         <motion.span
           key={`star-${i}`}
           animate={{
