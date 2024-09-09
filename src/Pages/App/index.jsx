@@ -26,6 +26,7 @@ const AppRoutes = () => {
     { path: "/login", element: <Login /> },
     { path: "/signup", element: <Signup /> },
     { path: "/detail", element: <ProductPage /> },
+
     {
       element: <ProtectedRoute />,
       children: [
