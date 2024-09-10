@@ -105,7 +105,7 @@ function OrderPages() {
                 <CardDelivery
                   key={order._id}
                   orderId={order._id}
-                  deliveryDescription={`Order ID: ${order.orderId}`}
+                  deliveryDescription={` ${order.orderId}`}
                   nameClient={order.username_author}
                   priceDelivery={order.total}
                   descriptionGuide={order.numero_guia}
@@ -122,7 +122,7 @@ function OrderPages() {
 
       {/* Popup */}
       {showPopup && (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 px-4 sm:px-6 lg:px-8">
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 px-4 sm:px-6 lg:px-8">
           <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
             <p className="text-lg font-semibold text-center">
               ¿Deseas confirmar la edición de esta orden?

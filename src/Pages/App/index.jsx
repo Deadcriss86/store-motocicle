@@ -15,15 +15,18 @@ import { ProtectedRoute, AdminRoute } from "../../routes";
 import Shopping from "../Myshopping";
 import MenuProducto from "../Menu_productos";
 import { Pasarela } from "../Pasarela";
+import Unauthorized from "../Unauthorized";
 
 const AppRoutes = () => {
   const routes = useRoutes([
     { path: "/", element: <Home /> },
     { path: "*", element: <NotFound /> },
+    { path: "/unauthorized", element: <Unauthorized /> },
     { path: "/pasarela", element: <Pasarela /> },
     { path: "/login", element: <Login /> },
     { path: "/signup", element: <Signup /> },
     { path: "/detail", element: <ProductPage /> },
+
     {
       element: <ProtectedRoute />,
       children: [

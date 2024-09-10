@@ -18,16 +18,21 @@ const EditProfileForm = () => {
   const { isAuthenticated, loading } = useAuth();
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState(null);
-  const [selectedAvatar, setSelectedAvatar] = useState("avatar1.jpg"); // Default avatar
+  const [selectedAvatar, setSelectedAvatar] = useState(
+    "https://avatarmotoapi.s3.us-east-2.amazonaws.com/avatar1.jpg"
+  ); // Avatar predeterminado
   const apiUrl = import.meta.env.VITE_APIBACK_URL;
 
   useEffect(() => {
     axios
-      .get(`${apiUrl}/api/auth/profile`, { withCredentials: true })
+      .get(`${apiUrl}/api/auth/profile`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then((response) => {
         const data = response.data;
 
-        // Helper function to capitalize the first letter of a string
         const capitalizeFirstLetter = (string) =>
           string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 
@@ -35,13 +40,13 @@ const EditProfileForm = () => {
         setValue("nombre", capitalizeFirstLetter(data.nombre));
         setValue("apellido", capitalizeFirstLetter(data.apellido));
         setValue("nacionalidad", capitalizeFirstLetter(data.nacionalidad));
-        setValue("celular", data.celular); // Assuming phone numbers are not capitalized
-        setValue("cp", data.cp); // Assuming postal codes are not capitalized
+        setValue("celular", data.celular);
+        setValue("cp", data.cp);
         setValue("ciudad", capitalizeFirstLetter(data.ciudad));
         setValue("calle", capitalizeFirstLetter(data.calle));
         setValue("delegacion", capitalizeFirstLetter(data.delegacion));
         setValue("referencias", capitalizeFirstLetter(data.referencias));
-        setSelectedAvatar(data.avatar || "avatar1.jpg");
+        setSelectedAvatar(data.avatar || selectedAvatar);
       })
       .catch((error) => {
         console.error("Error al obtener los datos del perfil", error);
@@ -53,7 +58,11 @@ const EditProfileForm = () => {
       await axios.put(
         `${apiUrl}/api/auth/update`,
         { ...data, avatar: selectedAvatar },
-        { withCredentials: true }
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       Swal.fire({
         title: "Perfil actualizado",
@@ -61,8 +70,6 @@ const EditProfileForm = () => {
         icon: "success",
         confirmButtonText: "OK",
         confirmButtonColor: "#0eff06",
-        background: "#201F1F", // Cambia el fondo de la alerta
-        color: "#0eff06",
       });
       reset();
     } catch (error) {
@@ -72,8 +79,6 @@ const EditProfileForm = () => {
         icon: "error",
         confirmButtonText: "OK",
         confirmButtonColor: "#E4080A",
-        background: "#201F1F", // Cambia el fondo de la alerta
-        color: "#0eff06",
       });
     }
   };
@@ -91,22 +96,25 @@ const EditProfileForm = () => {
   }
 
   return (
-    <div>
+    <div className="bg-gradient-to-t from-black to-[#148710]">
       <Navlink />
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-t from-black to-[#148710] p-10">
-        <div className="bg-gray-500 bg-opacity-20 rounded-lg p-8">
+      <br />
+      <br />
+      <br />
+      <br />{" "}
+      <h1 className="text-4xl font-bold text-center text-[#0eff06] py-2">
+        Editar perfil
+      </h1>
+      <div className="min-h-screen flex items-center justify-center p-4">
+        <div className="bg-gray-900 bg-opacity-50 rounded-lg p-10">
           <div className="bg-black bg-opacity-75 rounded-lg p-6 w-full max-w-md">
-            <h2 className="text-center text-[#0eff06] text-xl font-bold mb-4">
-              Editar perfil
+            <h2 className="text-center text-[#0eff06] text-xl mb-4">
+              Selecciona tu avatar
             </h2>
             <div className="flex justify-center mb-4">
               <div className="w-32 h-32 bg-gray-700 rounded-full flex items-center justify-center">
                 <img
-                  src={
-                    profileData
-                      ? `/avatars/${selectedAvatar}`
-                      : "/avatars/default-avatar.jpg"
-                  }
+                  src={selectedAvatar}
                   alt="Avatar seleccionado"
                   className="w-full h-full rounded-full"
                 />
@@ -114,34 +122,49 @@ const EditProfileForm = () => {
             </div>
             <div className="flex justify-center mb-4">
               <img
-                src={`../../../public/avatars/avatar1.jpg`}
+                src="https://avatarmotoapi.s3.us-east-2.amazonaws.com/avatar1.jpg"
                 alt="Avatar 1"
                 className={`w-16 h-16 rounded-full mx-2 cursor-pointer ${
-                  selectedAvatar === "avatar1.jpg"
+                  selectedAvatar ===
+                  "https://avatarmotoapi.s3.us-east-2.amazonaws.com/avatar1.jpg"
                     ? "border-4 border-green-500"
                     : ""
                 }`}
-                onClick={() => handleAvatarSelect("avatar1.jpg")}
+                onClick={() =>
+                  handleAvatarSelect(
+                    "https://avatarmotoapi.s3.us-east-2.amazonaws.com/avatar1.jpg"
+                  )
+                }
               />
               <img
-                src={`../../../public/avatars/avatar2.jpg`}
+                src="https://avatarmotoapi.s3.us-east-2.amazonaws.com/avatar2.jpg"
                 alt="Avatar 2"
                 className={`w-16 h-16 rounded-full mx-2 cursor-pointer ${
-                  selectedAvatar === "avatar2.jpg"
+                  selectedAvatar ===
+                  "https://avatarmotoapi.s3.us-east-2.amazonaws.com/avatar2.jpg"
                     ? "border-4 border-green-500"
                     : ""
                 }`}
-                onClick={() => handleAvatarSelect("avatar2.jpg")}
+                onClick={() =>
+                  handleAvatarSelect(
+                    "https://avatarmotoapi.s3.us-east-2.amazonaws.com/avatar2.jpg"
+                  )
+                }
               />
               <img
-                src={`../../../public/avatars/avatar3.jpg`}
+                src="https://avatarmotoapi.s3.us-east-2.amazonaws.com/avatar3.jpg"
                 alt="Avatar 3"
                 className={`w-16 h-16 rounded-full mx-2 cursor-pointer ${
-                  selectedAvatar === "avatar3.jpg"
+                  selectedAvatar ===
+                  "https://avatarmotoapi.s3.us-east-2.amazonaws.com/avatar3.jpg"
                     ? "border-4 border-green-500"
                     : ""
                 }`}
-                onClick={() => handleAvatarSelect("avatar3.jpg")}
+                onClick={() =>
+                  handleAvatarSelect(
+                    "https://avatarmotoapi.s3.us-east-2.amazonaws.com/avatar3.jpg"
+                  )
+                }
               />
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -152,7 +175,7 @@ const EditProfileForm = () => {
                     required: "El nombre es obligatorio",
                   })}
                   placeholder={profileData?.nombre || "Nombre"}
-                  className="bg-gray-800 text-white p-2 rounded-sm w-1/2 mr-1 focus:outline-none"
+                  className="bg-gray-800 text-white p-2 rounded-lg w-1/2 mr-1 focus:outline-none"
                 />
                 <input
                   type="text"
@@ -160,7 +183,7 @@ const EditProfileForm = () => {
                     required: "Los apellidos son obligatorios",
                   })}
                   placeholder={profileData?.apellido || "Apellido"}
-                  className="bg-gray-800 text-white p-2 rounded-sm w-1/2 ml-1 focus:outline-none"
+                  className="bg-gray-800 text-white p-2 rounded-lg w-1/2 ml-1 focus:outline-none"
                 />
               </div>
               {errors.nombre && (
@@ -170,21 +193,29 @@ const EditProfileForm = () => {
                 <p className="text-red-500">{errors.apellido.message}</p>
               )}
               <div className="mb-4 flex">
-                <input
-                  type="text"
+                <select
+                  id="nacionalidad"
                   {...register("nacionalidad", {
-                    required: "La nacionalidad es obligatoria",
+                    required: "La selección de un país es obligatoria",
                   })}
-                  placeholder={profileData?.nacionalidad || "Nacionalidad"}
-                  className="bg-gray-800 text-white p-2 rounded-sm w-1/2 focus:outline-none"
-                />
+                  defaultValue={profileData?.nacionalidad || ""}
+                  className="bg-gray-800 text-white p-2 rounded-lg w-1/2 focus:outline-none"
+                >
+                  <option value="">Selecciona tu país</option>
+                  <option value="+52">México (+52)</option>
+                  <option value="+1">Estados Unidos (+1)</option>
+                  {/* Agrega más opciones según sea necesario */}
+                </select>
+                {errors.nacionalidad && (
+                  <p className="text-red-500">{errors.nacionalidad.message}</p>
+                )}
                 <input
                   type="text"
                   {...register("celular", {
                     required: "El móvil es obligatorio",
                   })}
                   placeholder={profileData?.celular || "Móvil"}
-                  className="bg-gray-800 text-white p-2 rounded-sm w-full ml-1 focus:outline-none"
+                  className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none"
                 />
               </div>
               {errors.nacionalidad && (
@@ -200,7 +231,7 @@ const EditProfileForm = () => {
                     required: "El código postal es obligatorio",
                   })}
                   placeholder={profileData?.cp || "CP"}
-                  className="bg-gray-800 text-white p-2 rounded-sm w-1/3 mr-1 focus:outline-none"
+                  className="bg-gray-800 text-white p-2 rounded-lg w-1/3 mr-1 focus:outline-none"
                 />
                 <input
                   type="text"
@@ -208,7 +239,7 @@ const EditProfileForm = () => {
                     required: "La calle es obligatoria",
                   })}
                   placeholder={profileData?.calle || "Calle"}
-                  className="bg-gray-800 text-white p-2 rounded-sm w-2/3 ml-1 focus:outline-none"
+                  className="bg-gray-800 text-white p-2 rounded-lg w-2/3 ml-1 focus:outline-none"
                 />
               </div>
               {errors.cp && <p className="text-red-500">{errors.cp.message}</p>}
@@ -222,7 +253,7 @@ const EditProfileForm = () => {
                     required: "La delegación es obligatoria",
                   })}
                   placeholder={profileData?.delegacion || "Delegación"}
-                  className="bg-gray-800 text-white p-2 rounded-sm w-full focus:outline-none mx-1"
+                  className="bg-gray-800 text-white p-2 rounded-lg w-full focus:outline-none mx-1"
                 />
                 <input
                   type="text"
@@ -230,28 +261,25 @@ const EditProfileForm = () => {
                     required: "La ciudad es obligatoria",
                   })}
                   placeholder={profileData?.ciudad || "Ciudad"}
-                  className="bg-gray-800 text-white p-2 rounded-sm w-full focus:outline-none mx-1"
+                  className="bg-gray-800 text-white p-2 rounded-lg w-full focus:outline-none mx-1"
                 />
               </div>
+              {errors.delegacion && (
+                <p className="text-red-500">{errors.delegacion.message}</p>
+              )}
               {errors.ciudad && (
                 <p className="text-red-500">{errors.ciudad.message}</p>
               )}
               <div className="mb-4">
-                <input
-                  type="text"
-                  {...register("referencias", {
-                    required: "Las referencias son obligatorias",
-                  })}
+                <textarea
+                  {...register("referencias")}
                   placeholder={profileData?.referencias || "Referencias"}
-                  className="bg-gray-800 text-white p-2 rounded-sm w-full focus:outline-none"
+                  className="bg-gray-800 text-white p-2 rounded-lg w-full focus:outline-none"
                 />
               </div>
-              {errors.referencias && (
-                <p className="text-red-500">{errors.referencias.message}</p>
-              )}
               <button
                 type="submit"
-                className="w-full bg-[#0eff06] text-black p-2 rounded-sm hover:bg-green-600 focus:outline-none"
+                className="bg-[#0eff06] w-full text-black font-bold px-4 py-2 rounded-xl mb-4 hover:text-white hover:bg-gradient-to-r from-[#06ff6e] to-[#0eff06]"
               >
                 Guardar
               </button>

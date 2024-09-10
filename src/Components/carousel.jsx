@@ -56,33 +56,31 @@ const Carousel = () => {
   const visibleItems = items.slice(currentIndex, currentIndex + itemsToShow);
 
   return (
-    <div className="relative flex justify-center items-center w-10/20 h-auto shadow-lg shadow-[#0eff06] p-4 rounded-lg bg-transparent">
+    <div className="flex justify-center items-center w-full h-full">
       <button
         onClick={handlePrev}
         aria-label="Previous"
         className="p-2 bg-transparent text-[#0eff06] rounded-full hover:bg-gray-400"
       >
-        <FaChevronLeft size="1.5rem" className="text-[#0eff06]" />
+        <FaChevronLeft size="1.5rem " className="text-[#0eff06]" />
       </button>
-      <div className="flex overflow-hidden w-full">
+      <div className="relative flex justify-center items-center w-full max-w-md md:max-w-lg lg:max-w-3xl sm:max-w-2xl h-auto shadow-lg shadow-[#0eff06] rounded-lg bg-transparent">
         {visibleItems.map((item, index) => {
           const id = item._id.toString();
-
           return (
-            <div
-              className="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-2"
-              key={index}
-            >
-              <div className="bg-white rounded-xl shadow-md">
+            <div className="p-2 " key={index}>
+              <div className="bg-white rounded-xl w-60 h-60 ">
                 <Link to={`/detail?id=${id}`}>
                   <img
-                    className="w-full h-48 object-cover rounded-xl"
+                    className="w-full h-60 object-contain p-2"
                     src={item.images}
                     alt={`Image ${index}`}
                   />
                 </Link>
-              </div>
-              <h2 className="text-white text-center">{item.productName}</h2>
+              </div>{" "}
+              <h2 className=" text-white text-center py-8">
+                {item.productName}
+              </h2>
             </div>
           );
         })}

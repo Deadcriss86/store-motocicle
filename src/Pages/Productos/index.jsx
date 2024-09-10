@@ -71,7 +71,6 @@ const Productos = () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          withCredentials: true,
         }
       );
 
@@ -164,6 +163,7 @@ const Productos = () => {
               <ProductForm
                 onSubmit={handleAddSubmit}
                 setResponseMessage={setResponseMessage}
+                closeModal={() => document.getElementById("my_modal_4").close()}
               />
               <form method="dialog">
                 <button className="btn border-2 border-[#0EFF06] rounded-lg p-3 text-white">
@@ -174,12 +174,12 @@ const Productos = () => {
           </dialog>
         </div>
 
-        <div className="container bg-[#202020] p-4 rounded-lg border-2 border-[#0EFF06] w-full">
+        <div className="container bg-[#202020] p-4 rounded-lg border-2 border-[#0EFF06] w-full ">
           {filteredProducts.map((product) => (
             <Admin_products
               key={product._id}
               id={product._id}
-              name={product.productName}
+              productName={product.productName}
               price={product.price}
               stock={product.stock}
               description={product.description}
@@ -212,7 +212,7 @@ const Productos = () => {
       </div>
 
       {isResponseModalOpen && (
-        <dialog id="response_modal" className="modal bg-[#000000c7]" open>
+        <dialog id="response_modal" className="modal bg-[#d78585c7]" open>
           <div className="modal-action flex flex-col text-white p-4 bg-[#202020] rounded-lg w-3/4 sm:w-1/2">
             <h2 className="text-lg font-bold text-center mb-4">
               Responder Pregunta
