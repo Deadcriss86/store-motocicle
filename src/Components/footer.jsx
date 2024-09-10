@@ -21,7 +21,7 @@ export const Footer = () => {
           <p className="flex flex-row justify-items-center mt-2 mr-4">
             <img
               className="w-20 h-10 mt-6 mr-2"
-              src="src/Assets/cardcredit.png"
+              src="https://avatarmotoapi.s3.us-east-2.amazonaws.com/Assets/cardcredit.png"
             />
             Con Mercado Pago, tienes pagos con tarjetas de débito y meses sin
             intereses con tarjeta de crédito. ¡Y siempre es seguro!
@@ -34,7 +34,10 @@ export const Footer = () => {
             Compras protegidas
           </h3>
           <p className="flex flex-row justify-items-center mt-2 mr-4">
-            <img className="w-20 h-16 mt-4 mr-2" src="src/Assets/locked.webp" />
+            <img
+              className="w-20 h-16 mt-4 mr-2"
+              src="https://avatarmotoapi.s3.us-east-2.amazonaws.com/Assets/locked.webp"
+            />
             Te acompañaremos hasta que recibas lo que compraste. Y si no es lo
             que esperabas, te devolvemos el dinero.
           </p>
@@ -45,7 +48,10 @@ export const Footer = () => {
             Envíos seguros
           </h3>
           <p className="flex flex-row justify-items-center mt-2 mr-4">
-            <img className="w-20 h-20 mt-2 mr-2" src="src/Assets/truck1.jpg" />
+            <img
+              className="w-20 h-20 mt-2 mr-2"
+              src="https://avatarmotoapi.s3.us-east-2.amazonaws.com/Assets/truck1.jpg"
+            />
             Elige Mercado Envíos y sigue tu compra hasta que llegue a tus manos.
             Tienes envíos gratis en productos seleccionados.
           </p>
@@ -125,8 +131,8 @@ export const Footer = () => {
               </svg>
             </a>
             <img
-              className="w-auto h-20"
-              src="src/Assets/powered-by-stripe.png"
+              className="w-auto h-20 xs:1/3 "
+              src="https://avatarmotoapi.s3.us-east-2.amazonaws.com/Assets/powered-by-stripe.png"
             />
           </div>
           {showTermsModal && (

@@ -212,7 +212,7 @@ const Productos = () => {
       </div>
 
       {isResponseModalOpen && (
-        <dialog id="response_modal" className="modal bg-[#000000c7]" open>
+        <dialog id="response_modal" className="modal bg-[#d78585c7]" open>
           <div className="modal-action flex flex-col text-white p-4 bg-[#202020] rounded-lg w-3/4 sm:w-1/2">
             <h2 className="text-lg font-bold text-center mb-4">
               Responder Pregunta

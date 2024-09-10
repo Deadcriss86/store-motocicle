@@ -14,6 +14,7 @@ export const ProductForm = ({ product, onSubmit, closeModal }) => {
   const [subcategories, setSubcategories] = useState([
     "Vento",
     "Dinamo",
+
     "Hero motos",
     "Veloci",
     "Italika",
