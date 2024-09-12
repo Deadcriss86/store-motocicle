@@ -68,9 +68,9 @@ function Home() {
         <div className="bg-black text-white py-5 flex flex-col items-center justify-center">
           <div className="text-center text-white max-w-4xl space-y-4 py-5 mb-8">
             <div className="border-b-2 border-[#0eff06] p-2 text-lg sm:text-xl md:text-2xl py-10">
-            <h2 className="text-4xl sm:text-3xl md:text-6xl font-bold mb-1 text-[#0eff06] border-[#0eff06] p-2 py-10">
-              Quiénes somos
-            </h2>
+              <h2 className="text-4xl sm:text-3xl md:text-6xl font-bold mb-1 text-[#0eff06] border-[#0eff06] p-2 py-10">
+                Quiénes somos
+              </h2>
               <p className="text-sm sm:text-3xl md:text-xl">
                 Somos ARS Racing, tu taller de personalización para
                 motocicletas. Nos dedicamos a crear piezas de alta calidad,
@@ -92,7 +92,7 @@ function Home() {
             <SlBadge size="60px" className="text-[#0eff06] inline-block " />
           </div>
         </div>
-        <div className="bg-black flex flex-col items-center justify-center h-screen">
+        <div className="bg-black flex flex-col items-center justify-center my-4">
           <div className="text-[#0eff06] text-2xl font-bold py-2 text-center">
             ¡Transforma tu motocicleta hoy con alguno de estos productos!
             <br />
@@ -112,12 +112,13 @@ function Home() {
             que te ayudarán a proteger tu moto de caídas
             <br /> <strong className="text-[#0eff06]">- Cubre faros</strong> que
             le pueden dar a tu moto un estilo único y de paso protección
-            antirrobo <br /> <strong className="text-[#0eff06]">Y más...</strong>
+            antirrobo <br />{" "}
+            <strong className="text-[#0eff06]">Y más...</strong>
           </div>
           <Carousel />
         </div>
-        <div className="bg-black flex flex-col items-center justify-center h-screen mt-10">
-          <h2 className="text-white text-3xl font-bold text-center mt-5">
+        <div className="bg-black flex flex-col items-center justify-center">
+          <h2 className="text-white text-3xl font-bold text-center my-4">
             Comentarios de nuestros clientes
           </h2>
           <Card_coment />

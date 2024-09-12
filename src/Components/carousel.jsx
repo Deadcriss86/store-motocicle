@@ -56,7 +56,7 @@ const Carousel = () => {
   const visibleItems = items.slice(currentIndex, currentIndex + itemsToShow);
 
   return (
-    <div className="flex justify-center items-center w-full h-full">
+    <div className="flex justify-center items-center w-full my-6">
       <button
         onClick={handlePrev}
         aria-label="Previous"
@@ -68,11 +68,14 @@ const Carousel = () => {
         {visibleItems.map((item, index) => {
           const id = item._id.toString();
           return (
-            <div className="p-2 " key={index}>
-              <div className="bg-white rounded-xl w-60 h-60 ">
+            <div
+              className="flex justify-center items-center flex-col mt-2"
+              key={index}
+            >
+              <div className="bg-white rounded-xl w-60 h-60 flex justify-center items-center ">
                 <Link to={`/detail?id=${id}`}>
                   <img
-                    className="w-full h-60 object-contain p-2"
+                    className="w-full h-60 px-2 object-cover"
                     src={item.images}
                     alt={`Image ${index}`}
                   />

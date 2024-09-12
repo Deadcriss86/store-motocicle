@@ -67,7 +67,7 @@ export const Card_coment = ({ productId }) => {
   };
 
   return (
-    <div className="flex justify-center items-center w-full h-full">
+    <div className="flex justify-center items-center w-full my-4">
       <button
         onClick={handlePrev}
         aria-label="Anterior"
@@ -140,7 +140,7 @@ export const Card_coment = ({ productId }) => {
                   </div>
                 ))
             ) : (
-              <p className="text-black">No hay comentarios disponibles.</p> 
+              <p className="text-black">No hay comentarios disponibles.</p>
             )}
           </div>
         </div>
