@@ -68,20 +68,17 @@ const Carousel = () => {
         {visibleItems.map((item, index) => {
           const id = item._id.toString();
           return (
-            <div
-              className="flex justify-center items-center flex-col mt-2"
-              key={index}
-            >
-              <div className="bg-white rounded-xl w-60 h-60 flex justify-center items-center ">
+            <div className="p-2" key={index}>
+              <div className="bg-white rounded-xl w-60 h-60 overflow-hidden">
                 <Link to={`/detail?id=${id}`}>
                   <img
-                    className="w-full h-60 px-2 object-cover"
+                    className="w-full h-full object-cover p-2"
                     src={item.images}
                     alt={`Image ${index}`}
                   />
                 </Link>
-              </div>{" "}
-              <h2 className=" text-white text-center py-8">
+              </div>
+              <h2 className="text-white text-center py-8">
                 {item.productName}
               </h2>
             </div>
