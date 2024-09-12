@@ -64,21 +64,24 @@ const Carousel = () => {
       >
         <FaChevronLeft size="1.5rem " className="text-[#0eff06]" />
       </button>
-      <div className="relative flex justify-center items-center w-full max-w-md md:max-w-lg lg:max-w-3xl sm:max-w-2xl h-auto shadow-lg shadow-[#0eff06] rounded-lg bg-transparent">
+      <div className="relative flex justify-center items-center w-full max-w-md md:max-w-lg lg:max-w-3xl sm:max-w-2xl h-auto shadow-lg shadow-[#0eff06] rounded-lg bg-transparent p-4">
         {visibleItems.map((item, index) => {
           const id = item._id.toString();
           return (
-            <div className="p-2" key={index}>
+            <div
+              className="p-2 flex flex-col justify-center items-center"
+              key={index}
+            >
               <div className="bg-white rounded-xl w-60 h-60 overflow-hidden">
                 <Link to={`/detail?id=${id}`}>
                   <img
                     className="w-full h-full object-cover p-2"
                     src={item.images}
                     alt={`Image ${index}`}
-                  />
-                </Link>
-              </div>
-              <h2 className="text-white text-center py-8">
+                  />{" "}
+                </Link>{" "}
+              </div>{" "}
+              <h2 className="text-white text-center py-8 h-20">
                 {item.productName}
               </h2>
             </div>
