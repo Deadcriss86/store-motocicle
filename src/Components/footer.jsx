@@ -12,7 +12,7 @@ export const Footer = () => {
 
   return (
     <footer>
-      <div className="relative flex flex-col lg:flex-row justify-around items-center text-black px-4 md:px-10 bg-black my-4">
+      <div className="relative flex flex-col lg:flex-row justify-around items-center text-black px-4 md:px-10 bg-black my-4 lg:mx-40 2xl:mx-96 *:">
         {/* Tarjeta de pagos */}
         <div className="border-2 border-[#0eff06] rounded-lg w-full max-w-xs md:max-w-sm lg:w-80 h-48 bg-white text-justify card-compact mb-4 lg:mb-0">
           <h3 className="border-b-2 border-[#0eff06] text-center font-bold p-2">
@@ -65,7 +65,7 @@ export const Footer = () => {
               ARS
             </h1>
           </div>
-          <div className="flex flex-col gap-2 p-3 md:p-0">
+          <div className="flex flex-col gap-2 p-3 md:p-0 lg: ">
             <h6 className="footer-title text-base">CONTACTO</h6>
             <div className="flex flex-col gap-1">
               <a className="link link-hover flex items-start gap-2">
