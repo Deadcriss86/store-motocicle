@@ -22,7 +22,7 @@ export const Card_coment = ({ productId }) => {
 
         setReviews(productsWithReviews);
       } catch (error) {
-        console.error("Error fetching reviews:", error);
+        console.error("Error al obtener los comentarios:", error);
       }
     };
 
@@ -67,10 +67,10 @@ export const Card_coment = ({ productId }) => {
   };
 
   return (
-    <div className="flex justify-center items-center w-full h-full">
+    <div className="flex justify-center items-center w-full my-4">
       <button
         onClick={handlePrev}
-        aria-label="Previous"
+        aria-label="Anterior"
         className="p-2 bg-transparent text-[#0eff06] rounded-full hover:bg-gray-400"
       >
         <FaChevronLeft
@@ -140,14 +140,14 @@ export const Card_coment = ({ productId }) => {
                   </div>
                 ))
             ) : (
-              <p className="text-black">No reviews available.</p>
+              <p className="text-black">No hay comentarios disponibles.</p>
             )}
           </div>
         </div>
       </div>
       <button
         onClick={handleNext}
-        aria-label="Next"
+        aria-label="Siguiente"
         className="p-2 bg-transparent text-[#0eff06] rounded-full hover:bg-gray-400"
       >
         <FaChevronRight

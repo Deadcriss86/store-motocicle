@@ -112,10 +112,10 @@ const CardDelivery = ({
             <th className="p-2 text-left hidden lg:table-cell">Nombre</th>
             <th className="p-2 text-left hidden lg:table-cell">Producto</th>
             <th className="p-2 text-left hidden lg:table-cell">Monto Total</th>
-            <th className="p-2 text-left hidden lg:table-cell">No. de guía</th>
+            <th className="p-2 text-left hidden lg:table-cell">No. de Guía</th>
             <th className="p-2 text-left hidden lg:table-cell">Paquetería</th>
             <th className="p-2 text-left hidden lg:table-cell">
-              Fecha de envío
+              Fecha de Envío
             </th>
             <th className="p-2 text-center">Acciones</th>
           </tr>
@@ -147,7 +147,7 @@ const CardDelivery = ({
                 className="detailsButton bg-transparent hover:bg-[#0FFF07] text-gray-300 hover:text-black transition-colors duration-300 px-4 py-2 rounded-lg lg:hidden"
                 onClick={openDetailsModal}
               >
-                Ver más
+                Ver Más
               </button>
             </td>
           </tr>
@@ -168,13 +168,13 @@ const CardDelivery = ({
               <strong>Monto Total:</strong> ${priceDelivery}
             </p>
             <p>
-              <strong>No. de guía:</strong> {descriptionGuide}
+              <strong>No. de Guía:</strong> {descriptionGuide}
             </p>
             <p>
               <strong>Paquetería:</strong> {parcelService}
             </p>
             <p>
-              <strong>Fecha de envío:</strong> {formatDate(shippingDate)}
+              <strong>Fecha de Envío:</strong> {formatDate(shippingDate)}
             </p>
             <div className="flex justify-end mt-4">
               <button
@@ -198,7 +198,7 @@ const CardDelivery = ({
             <form onSubmit={handleSaveChanges}>
               <div className="mb-4">
                 <label className="block text-sm font-bold mb-2">
-                  No. de guía:
+                  No. de Guía:
                 </label>
                 <input
                   className="input w-full bg-[#2e2e2e] text-white border-gray-600 rounded-lg"
@@ -222,7 +222,7 @@ const CardDelivery = ({
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-bold mb-2">
-                  Fecha de envío:
+                  Fecha de Envío:
                 </label>
                 <input
                   className="input w-full bg-[#2e2e2e] text-white border-gray-600 rounded-lg"
@@ -232,7 +232,7 @@ const CardDelivery = ({
                   onChange={handleInputChange}
                 />
               </div>
-              <div className="flex justify-between ">
+              <div className="flex justify-between">
                 <button
                   type="button"
                   className="bg-[#0eff06] w-auto text-black font-bold px-4 py-2 rounded-xl mb-4 hover:text-white hover:bg-gradient-to-r from-[#ff8b06] to-[#ff4006]"
