@@ -253,13 +253,12 @@ const ProductPage = () => {
               <ul className="text-gray-300 text-justify m-4">
                 - OPCIONES DE ENVIO:
                 <br />
-                La tarifa dentro de la CDMX es de $210.00, la tarifa al exterior
+                La tarifa dentro de la CDMX es de $210.00, la tarifa al interior
                 de la republica $510.00.
                 <br />
                 <br />
                 <p>- TIEMPOS DE ENTREGA ESTIMADOS:</p> Dentro de la CDMX tenemos
-                un tiempo de entrega de 2 a 3 dias habiles, al exterior de 4 a 5
-                dias habiles.
+                un tiempo de entrega de 2 a 3 dias habiles.
                 <br />
                 <br /> - SEGUIMIENTO DE ENVIOS: <br />
                 Se podran consultar en MIS COMPRAS dentro de la pagina web con
