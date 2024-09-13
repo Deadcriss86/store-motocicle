@@ -67,8 +67,19 @@ const ProductPage = () => {
       swal({
         title: "Inicia sesión o crea una cuenta para continuar",
         icon: "error",
-        confirmButtonText: "OK",
-        confirmButtonColor: "#E4080A",
+        buttons: {
+          confirm: {
+            text: "Crear cuenta",
+            value: true,
+            visible: true,
+            className: "",
+            closeModal: true,
+          },
+        },
+      }).then((willRedirect) => {
+        if (willRedirect) {
+          window.location.href = "/signup";
+        }
       });
     }
   };
@@ -253,12 +264,13 @@ const ProductPage = () => {
               <ul className="text-gray-300 text-justify m-4">
                 - OPCIONES DE ENVIO:
                 <br />
-                La tarifa dentro de la CDMX es de $210.00, la tarifa al interior
+                La tarifa dentro de la CDMX es de $210.00, la tarifa al exterior
                 de la republica $510.00.
                 <br />
                 <br />
                 <p>- TIEMPOS DE ENTREGA ESTIMADOS:</p> Dentro de la CDMX tenemos
-                un tiempo de entrega de 2 a 3 dias habiles.
+                un tiempo de entrega de 2 a 3 dias habiles, al exterior de 4 a 5
+                dias habiles.
                 <br />
                 <br /> - SEGUIMIENTO DE ENVIOS: <br />
                 Se podran consultar en MIS COMPRAS dentro de la pagina web con
