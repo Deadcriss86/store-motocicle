@@ -36,7 +36,7 @@ const CartItem = ({
         <div className="w-full lg:w-24 h-24 flex justify-center items-center bg-white p-2 rounded-lg">
           <img
             src={image}
-            alt="Product"
+            alt="Producto"
             className="w-full h-full rounded object-cover"
           />
         </div>
@@ -46,7 +46,7 @@ const CartItem = ({
           </h2>
           {itemQuantity >= product_stock && (
             <p className="text-slate-400 font-thin text-sm">
-              Por el momento solo tenemos disponible {product_stock} en stock
+              Por el momento, solo tenemos disponible {product_stock} en stock
             </p>
           )}
         </div>
@@ -55,17 +55,17 @@ const CartItem = ({
       <div className="flex flex-col lg:flex-row items-center justify-between w-full lg:w-auto lg:space-x-4">
         <div className="flex items-center justify-center lg:justify-start w-full lg:w-auto">
           <button
-            className=" w-8 h-8 bg-gray-700 text-white rounded-full text-center"
+            className="w-8 h-8 bg-gray-700 text-white rounded-full text-center"
             onClick={handleDecrease}
           >
             -
           </button>
           <h2 className="mx-4 text-white">{itemQuantity}</h2>
           <button
-            className={` rounded ${
+            className={`rounded ${
               itemQuantity >= product_stock
-                ? "bg-gray-400 text-gray-600 cursor-not-allowed "
-                : " w-8 h-8 bg-gray-700 text-white rounded-full  "
+                ? "bg-gray-400 text-gray-600 cursor-not-allowed"
+                : "w-8 h-8 bg-gray-700 text-white rounded-full"
             }`}
             onClick={handleIncrease}
             disabled={itemQuantity >= product_stock} // Deshabilitamos el botón si se alcanza el límite

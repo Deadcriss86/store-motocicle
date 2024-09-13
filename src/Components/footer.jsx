@@ -12,7 +12,7 @@ export const Footer = () => {
 
   return (
     <footer>
-      <div className="relative flex flex-col lg:flex-row justify-around items-center text-black px-4 md:px-10 bg-black">
+      <div className="relative flex flex-col lg:flex-row justify-around items-center text-black px-4 md:px-10 bg-black my-4 lg:mx-40 2xl:mx-96 *:">
         {/* Tarjeta de pagos */}
         <div className="border-2 border-[#0eff06] rounded-lg w-full max-w-xs md:max-w-sm lg:w-80 h-48 bg-white text-justify card-compact mb-4 lg:mb-0">
           <h3 className="border-b-2 border-[#0eff06] text-center font-bold p-2">
@@ -65,7 +65,7 @@ export const Footer = () => {
               ARS
             </h1>
           </div>
-          <div className="flex flex-col gap-2 p-3 md:p-0">
+          <div className="flex flex-col gap-2 p-3 md:p-0 lg: ">
             <h6 className="footer-title text-base">CONTACTO</h6>
             <div className="flex flex-col gap-1">
               <a className="link link-hover flex items-start gap-2">
@@ -80,12 +80,12 @@ export const Footer = () => {
                 <CiMail size="1.5rem" className="text-[#0eff06] mt-1" />
                 CORREO
                 <br />
-                contacto@gmail.com
+                motoarsbussines@gmail.com
               </a>
               <a className="link link-hover flex items-start gap-2">
                 <FiPhone size="1.5rem" className="text-[#0eff06] mt-1" /> Móvil
                 <br />
-                +52 4575965487
+                +52 5564646565
               </a>{" "}
             </div>{" "}
             <button
@@ -221,8 +221,9 @@ export const Footer = () => {
                   <br /> <strong>9. Contacto</strong>
                   <br /> Si tiene alguna pregunta sobre estos Términos y
                   Condiciones, puede contactarnos a través de:
-                  <br /> Correo electrónico: <strong>correo@empresa.com</strong>
-                  <br /> Teléfono: <strong> 5610544410</strong>
+                  <br /> Correo electrónico:{" "}
+                  <strong>motoarsbussines@gmail.com</strong>
+                  <br /> Teléfono: <strong> 5564646565</strong>
                 </p>
                 <button
                   className="bg-[#0eff06] w-full text-black font-bold px-4 py-2 rounded-xl mb-4 hover:text-white hover:bg-gradient-to-r from-[#06ff6e] to-[#0eff06]"

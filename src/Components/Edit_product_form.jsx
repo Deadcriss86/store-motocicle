@@ -25,17 +25,17 @@ const EditProductForm = ({ product, closeModal }) => {
         "success"
       );
 
-      // Recargar la página después de un breve retraso
+      // Cerrar el modal después de un breve retraso
       setTimeout(() => {
-        // window.location.reload();
+        closeModal();
       }, 2000);
     } catch (error) {
-      console.error("Error updating product:", error);
+      console.error("Error al actualizar el producto:", error);
 
       // Mostrar mensaje de error
       swal.fire(
         "Error",
-        "No se pudo actualizar el producto. Intenta de nuevo.",
+        "No se pudo actualizar el producto. Por favor, intenta de nuevo.",
         "error"
       );
     } finally {
@@ -44,7 +44,7 @@ const EditProductForm = ({ product, closeModal }) => {
   };
 
   return (
-    <div className=" rounded-lg p-3 bg-black text-lg ">
+    <div className="rounded-lg p-3 bg-black text-lg">
       <h2 className="text-center text-[#0eff06] text-xl font-bold mb-4">
         Editar Producto
       </h2>
@@ -54,7 +54,7 @@ const EditProductForm = ({ product, closeModal }) => {
         encType="multipart/form-data"
       >
         <div>
-          <label htmlFor="name">Nombre del producto:</label>
+          <label htmlFor="productName">Nombre del producto:</label>
           <input
             className="bg-gray-800 text-white p-2 rounded-lg w-full ml-1 focus:outline-none"
             type="text"

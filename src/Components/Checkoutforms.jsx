@@ -36,7 +36,7 @@ export default function CheckoutForm({ items }) {
         if (data.clientSecret) {
           setClientSecret(data.clientSecret);
         } else {
-          throw new Error("Failed to retrieve clientSecret from the server.");
+          throw new Error("No se pudo obtener el clientSecret del servidor.");
         }
       } catch (error) {
         setMessage("Error al crear el PaymentIntent: " + error.message);
@@ -60,16 +60,16 @@ export default function CheckoutForm({ items }) {
       .then(({ paymentIntent }) => {
         switch (paymentIntent.status) {
           case "succeeded":
-            setMessage("Payment succeeded!");
+            setMessage("¡Pago exitoso!");
             break;
           case "processing":
-            setMessage("Your payment is processing.");
+            setMessage("Tu pago está siendo procesado.");
             break;
           case "requires_payment_method":
-            setMessage("Your payment was not successful, please try again.");
+            setMessage("Tu pago no fue exitoso, por favor intenta de nuevo.");
             break;
           default:
-            setMessage("Something went wrong.");
+            setMessage("Algo salió mal.");
             break;
         }
       });
@@ -79,7 +79,7 @@ export default function CheckoutForm({ items }) {
     e.preventDefault();
 
     if (!stripe || !elements || !clientSecret) {
-      setMessage("Stripe, elements, or clientSecret is missing.");
+      setMessage("Faltan Stripe, elements o clientSecret.");
       return;
     }
 
@@ -107,7 +107,7 @@ export default function CheckoutForm({ items }) {
       if (error.type === "card_error" || error.type === "validation_error") {
         setMessage(error.message);
       } else {
-        setMessage("An unexpected error occurred.");
+        setMessage("Ocurrió un error inesperado.");
       }
     }
 

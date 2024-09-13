@@ -36,7 +36,7 @@ const Admin_products = ({
     setDeletingProductId(productId);
 
     Swal.fire({
-      title: "¿Estás seguro de eliminar este producto?",
+      title: "¿Estás seguro de que deseas eliminar este producto?",
       text: "Esta acción no se puede deshacer.",
       icon: "warning",
       showCancelButton: true,
@@ -101,7 +101,7 @@ const Admin_products = ({
               <div className="flex flex-col lg:flex-row items-start lg:items-center gap-3">
                 <div className="avatar">
                   <div className="mask mask-squircle h-12 w-12 bg-white">
-                    <img src={images} alt="Avatar Tailwind CSS Component" />
+                    <img src={images} alt="Imagen del producto" />
                   </div>
                 </div>
                 <div>
