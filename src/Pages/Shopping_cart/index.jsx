@@ -9,6 +9,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "../../Components/Checkoutforms";
 import { BiCool } from "react-icons/bi";
+import CardsEnvio from "../../Components/cards";
 
 const stripePromise = loadStripe(
   "pk_test_51PoIHhRvRsZDGGXQtFoKdaPS4R5wx1JPv6LBB4sxo2VeNNgmGMVxHftnGvFbsCTQzhBxumNoAej9ysuid53PFomE00JEY4rQYf"
@@ -288,6 +289,7 @@ const ShoppingCart = () => {
           </div>
         </div>
       </div>
+      <CardsEnvio />
       <Footer />
     </div>
   );

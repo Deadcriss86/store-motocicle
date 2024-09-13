@@ -10,6 +10,7 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom/dist";
 import { Navlink } from "../../Components/Navbar_";
 import { TextRevealCard } from "../../Components/TextRevealCard";
+import CardsEnvio from "../../Components/cards";
 
 function Home() {
   const navigate = useNavigate();
@@ -123,6 +124,7 @@ function Home() {
           </h2>
           <Card_coment />
         </div>
+        <CardsEnvio />
         <Footer />
       </div>
     </>
